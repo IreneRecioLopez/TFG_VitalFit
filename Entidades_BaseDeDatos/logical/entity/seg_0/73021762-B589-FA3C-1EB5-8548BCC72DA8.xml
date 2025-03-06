@@ -1,0 +1,201 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="73021762-B589-FA3C-1EB5-8548BCC72DA8" name="Paciente">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 12:17:54 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="dni" id="91E6E2AE-0B79-37BB-7519-F1858036AF16">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 12:59:36 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombre" id="6DB17D7B-B087-08B8-C95B-FFE95CFA68E5">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:00:10 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="primerApellido" id="1FD4E1B5-138F-F92F-10F4-4818A0D157C4">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:00:33 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="segundoApellido" id="428BAB42-6B00-E1D1-3463-E2A9B76ED337">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:29:15 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="fechaNacimiento" id="FD30A578-26DE-902D-63F9-3C792654FA06">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:01:02 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="telefono" id="8CBEA519-A95C-0148-B404-BB73B6F4D630">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:02:19 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="numSeguridadSocial" id="857BFD82-C7A3-A5E6-AF78-B6294DFEF997">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:05:17 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="pesoActual" id="2E4B228F-5D02-1555-67E2-A986AD417F6C">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:08:41 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT020</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="altura" id="137AF60C-A0EE-1E79-361D-A5CB06F7AB41">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:11:01 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT020</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="imc" id="3B466D24-36CD-0555-7820-3B91512FAAA0">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:12:46 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT020</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="contrasena" id="F5EF2486-1C37-A469-EE59-65324E639685">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:30:03 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dni1" id="71A71933-23E8-76D8-8592-E76CEE9F8B0B">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 11:39:14 UTC</createdTime>
+<generatorID>06E6CB94-726C-4C90-30DF-0049C2067DC6</generatorID>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<referedAttribute>79AB32FB-90CF-3844-A1AB-046164FCF72B</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dni2" id="F060BA34-E391-A208-AB2D-C852A076A409">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 11:46:42 UTC</createdTime>
+<generatorID>821C8B8B-5404-7EA3-4874-FE0367B35ACF</generatorID>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<referedAttribute>18A7CC57-8034-B065-47E4-FBE7690B6CF4</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="6852CE7E-CB83-685C-211E-4839634B5DF8" name="Paciente PK">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 13:00:04 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>91E6E2AE-0B79-37BB-7519-F1858036AF16</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

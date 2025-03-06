@@ -1,0 +1,35 @@
+package com.tfg.vitalfit.service.entity;
+
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Data
+public class Nutricionista {
+    @Id
+    private String dni;
+    @Column(nullable = false)
+    private String nombre;
+    @Column(nullable = false)
+    private String apellido1;
+    private String apellido2;
+    @Column(nullable = false)
+    private String contrasena;
+    @Column(nullable = false, length = 9)
+    private String telefono;
+
+    @ManyToOne
+    @JoinColumns({
+            @JoinColumn(name = "nombre_hospital", referencedColumnName = "nombre"),
+            @JoinColumn(name = "provincia_hospital", referencedColumnName = "provincia")
+    })
+    private Hospital hospital;
+
+    @OneToMany(mappedBy = "nutricionista")
+    private List<Paciente> pacientes;
+
+    @OneToMany(mappedBy = "nutricionista")
+    private List<Consejo> consejos;
+}

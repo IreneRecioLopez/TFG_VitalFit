@@ -1,0 +1,22 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Paciente_Dieta" directorySegmentName="seg_0" id="B8DB2FC0-16DC-C31C-2DDF-5EDE35D6F6BE">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 14:53:48 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<sourcePk>6852CE7E-CB83-685C-211E-4839634B5DF8</sourcePk>
+<targetPk>B77FF659-0716-18A5-B657-AC183E77CCDF</targetPk>
+<identifying>true</identifying>
+<nameOnSource>SIGUE</nameOnSource>
+<nameOnTarget>PERTENECE A</nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>73021762-B589-FA3C-1EB5-8548BCC72DA8</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>5C4D3552-3EC4-9B81-D910-FCAD0052F715</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

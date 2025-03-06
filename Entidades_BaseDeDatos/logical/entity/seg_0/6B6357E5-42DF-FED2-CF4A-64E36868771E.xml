@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6B6357E5-42DF-FED2-CF4A-64E36868771E" name="Operaciones">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:39:13 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idOperacion" id="398E10E7-0AA7-68D4-29EA-7E8D5215C2DD">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:39:33 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="fecha" id="F9F62D06-B16E-AA00-E634-FCD95DF3FA02">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:39:56 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="nombreOperacion" id="D542C0FD-7D9C-F20D-5AFD-2F55DF9D147A">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:40:18 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dni" id="293C0A7F-443C-AC89-2FF3-E86648077528">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 12:12:56 UTC</createdTime>
+<generatorID>CEA15666-5D37-2DB9-5583-603D2FDEB076</generatorID>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<referedAttribute>91E6E2AE-0B79-37BB-7519-F1858036AF16</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="8C1736B4-1F0D-9C0F-A616-A0B2C21EAAFA" name="Operaciones PK">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:39:54 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>398E10E7-0AA7-68D4-29EA-7E8D5215C2DD</attributeRef>
+<attributeRef>293C0A7F-443C-AC89-2FF3-E86648077528</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

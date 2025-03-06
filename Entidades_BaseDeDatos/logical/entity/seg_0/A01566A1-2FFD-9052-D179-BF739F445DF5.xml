@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A01566A1-2FFD-9052-D179-BF739F445DF5" name="Consejos">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-25 12:19:15 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idConsejo" id="0F826EC7-046B-A64E-95EF-E2892A8D4FAF">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:21:41 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="mensaje" id="FF57B239-AF4A-D64B-3241-A7BFA65D3402">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:22:43 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>40 CHAR</dataTypeSize>
+<ownDataTypeParameters>40 CHAR,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dni" id="7166D696-6790-F171-4E2E-4DFF592E308F">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 11:27:22 UTC</createdTime>
+<generatorID>BD855B4A-0B45-160D-5729-41B90BD81530</generatorID>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<referedAttribute>91E6E2AE-0B79-37BB-7519-F1858036AF16</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dni1" id="EA4CAB76-7A62-61A9-9C14-0AF3DBFD77D6">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 11:28:42 UTC</createdTime>
+<generatorID>64F91D7F-5DAF-19AB-968B-243702C3F799</generatorID>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<referedAttribute>18A7CC57-8034-B065-47E4-FBE7690B6CF4</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="E66BCCBB-0B5F-405C-7852-D16F8FC46BB1" name="Consejos PK">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-02-26 08:22:37 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>0F826EC7-046B-A64E-95EF-E2892A8D4FAF</attributeRef>
+<attributeRef>7166D696-6790-F171-4E2E-4DFF592E308F</attributeRef>
+<attributeRef>EA4CAB76-7A62-61A9-9C14-0AF3DBFD77D6</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
