@@ -66,15 +66,33 @@ public class MainActivity extends AppCompatActivity {
         chkNutricionista = findViewById(R.id.chkNutricionista);
 
         btnIniciarSesion.setOnClickListener(v -> {
-            String email = edtDNI.getText().toString();
+            String dni = edtDNI.getText().toString();
             String password = edtPassword.getText().toString();
 
             if (chkPaciente.isChecked()) {
-                pViewModel.login(email, password).observe(this, response -> manejarRespuestaPaciente(response));
+                pViewModel.login(dni, password).observe(this, response -> {
+                    if(response.getRpta() == 1){
+                        Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
+                        Paciente p = response.getBody();
+                        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+                        SharedPreferences.Editor editor = preferences.edit();
+                        final Gson g = new GsonBuilder()
+                                .registerTypeAdapter(Date.class, new DateSerializer())
+                                .registerTypeAdapter(Time.class, new TimeSerializer())
+                                .create();
+                        editor.putString("PacienteJson", g.toJson(p, new TypeToken<Paciente>(){
+                        }.getType()));
+                        edtDNI.setText("");
+                        edtPassword.setText("");
+                        startActivity(new Intent(this, InicioActivity.class));
+                    } else{
+                        Toast.makeText(this, "Ocurrio un error " + response.getRpta(), Toast.LENGTH_SHORT).show();
+                    }
+                });
             } else if (chkMedico.isChecked()) {
-                mViewModel.login(email, password).observe(this, response -> manejarRespuestaMedico(response));
+                mViewModel.login(dni, password).observe(this, response -> manejarRespuestaMedico(response));
             } else if (chkNutricionista.isChecked()) {
-                nViewModel.login(email, password).observe(this, response -> manejarRespuestaNutricionista(response));
+                nViewModel.login(dni, password).observe(this, response -> manejarRespuestaNutricionista(response));
             }
         });
     }

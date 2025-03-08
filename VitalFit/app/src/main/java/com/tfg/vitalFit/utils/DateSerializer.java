@@ -11,7 +11,7 @@ import com.google.gson.JsonSerializer;
 import java.lang.reflect.Type;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.sql.Date;
 import java.util.TimeZone;
 
 public class DateSerializer implements JsonDeserializer<Date>, JsonSerializer<Date> {
