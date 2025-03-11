@@ -17,10 +17,5 @@
             android:icon="@drawable/ic_mensaje"
             android:title="@string/menu_consejos" />
 
-        <item
-            android:id="@+id/paginaInicial"
-            android:icon="@android:drawable/ic_lock_power_off"
-            android:title="Cerrar Sesión" />
-
     </group>
 </menu>

@@ -1,4 +1,4 @@
-package com.tfg.vitalfit.activity.ui.slideshow;
+package com.tfg.vitalfit.activity.ui.datosPersonales;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,22 +10,20 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.tfg.vitalfit.databinding.FragmentSlideshowBinding;
+import com.tfg.vitalfit.databinding.FragmentDatospersonalesBinding;
 
-public class SlideshowFragment extends Fragment {
+public class DatosPersonalesFragment extends Fragment {
 
-    private FragmentSlideshowBinding binding;
+    private FragmentDatospersonalesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        SlideshowViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
+        DatosPersonalesViewModel datosPersonalesViewModel =
+                new ViewModelProvider(this).get(DatosPersonalesViewModel.class);
 
-        binding = FragmentSlideshowBinding.inflate(inflater, container, false);
+        binding = FragmentDatospersonalesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textSlideshow;
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

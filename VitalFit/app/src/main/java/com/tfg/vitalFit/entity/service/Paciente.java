@@ -16,6 +16,7 @@ public class Paciente {
     private Double pesoActual;
     private Double altura;
     private Double imc;
+    private String provincia;
     private Medico medico;
     private Nutricionista nutricionista;
     private Hospital hospital;
@@ -23,6 +24,5 @@ public class Paciente {
     private List<Alergias> alergias;
     private List<Consejo> consejos;
     private List<Dieta> dietas;
-
-
+    
 }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/ll_custom_toast_bad"
+    android:orientation="horizontal"
+    android:background="@drawable/background_red"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:gravity="center|center_horizontal"
+    android:padding="10dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_error"/>
+    <TextView
+        android:id="@+id/txtMensajeToastBad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:paddingStart="10dp"
+        android:text="Ha habido un error al Iniciar Sesión"
+        android:textColor="@color/black"/>
+
+</LinearLayout>

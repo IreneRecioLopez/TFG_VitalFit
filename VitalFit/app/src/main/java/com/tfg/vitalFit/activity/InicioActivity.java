@@ -1,12 +1,16 @@
 package com.tfg.vitalfit.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -43,7 +47,7 @@ public class InicioActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_pagina_principal, R.id.nav_datos_personales, R.id.nav_consejos)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_inicio);
@@ -56,6 +60,29 @@ public class InicioActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.inicio, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        /*switch (item.getItemId()){
+            case R.id.cerrarSesion:
+                this.logout();
+                break;
+        }*/
+        if(item.getItemId() == R.id.cerrarSesion){
+            this.logout();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //Método para cerrar sesión
+    private void logout() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("PacienteJson");
+        editor.apply();
+        this.finish();
+        this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
     }
 
     @Override

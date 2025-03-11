@@ -29,4 +29,16 @@ public class PacienteService {
 
         }
     }
+
+    //método para guardar los datos del paciente
+    public GenericResponse guardarPaciente(Paciente p){
+        Optional<Paciente> optP = this.repository.findByDNI(p.getDni());
+        String idf = optP.isPresent()? optP.get().getDni() : "";
+        if(idf.equals("")){
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente Registrado Correctamente", this.repository.save(p));
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Datos del usuario actualizados", this.repository.save(p));
+        }
+    }
+
 }

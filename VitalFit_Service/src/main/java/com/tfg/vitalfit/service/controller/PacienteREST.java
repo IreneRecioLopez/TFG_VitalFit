@@ -3,9 +3,7 @@ package com.tfg.vitalfit.service.controller;
 import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.service.PacienteService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,5 +21,15 @@ public class PacienteREST {
         String dni = request.getParameter("dni");
         String password = request.getParameter("password");
         return this.service.login(dni, password);
+    }
+
+    @PostMapping
+    public GenericResponse save(@RequestBody Paciente p){
+        return this.service.guardarPaciente(p);
+    }
+
+    @PutMapping("/{dni}")
+    public GenericResponse update(@PathVariable String dni, @RequestBody Paciente p){
+        return this.service.guardarPaciente(p);
     }
 }
