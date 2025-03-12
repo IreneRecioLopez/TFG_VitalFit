@@ -21,4 +21,8 @@ public class NutricionistaViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Nutricionista>> login(String dni, String password){
         return this.repository.login(dni, password);
     }
+
+    public LiveData<GenericResponse<Nutricionista>> save(Nutricionista n){
+        return this.repository.save(n);
+    }
 }

@@ -22,4 +22,8 @@ public class PacienteViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Paciente>> login(String dni, String password){
         return this.repository.login(dni, password);
     }
+
+    public LiveData<GenericResponse<Paciente>> save(Paciente p){
+        return this.repository.save(p);
+    }
 }

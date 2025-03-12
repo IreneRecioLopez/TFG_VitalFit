@@ -27,4 +27,15 @@ public class NutricionistaService {
             return new GenericResponse<Nutricionista>(TIPO_AUTH, RPTA_WARNING, "Lo sentimos, ese usuario no existe", new Nutricionista());
         }
     }
+
+    //método para guardar los datos del nutricionista
+    public GenericResponse guardarNutricionista(Nutricionista n){
+        Optional<Nutricionista> optN = this.repository.findByDNI(n.getDni());
+        String idf = optN.isPresent()? optN.get().getDni() : "";
+        if(!idf.equals("")){
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: Ya exite un paciente con el mismo número de DNI.", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente registrado correctamente", this.repository.save(n));
+        }
+    }
 }

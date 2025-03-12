@@ -123,8 +123,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         txtNuevoUsuario.setOnClickListener(v -> {
-            Intent i = new Intent(this, RegistrarUsuarioActivity.class);
-            startActivity(i);
+            startActivity(new Intent(this, SeleccionTipoUsuarioActivity.class));
             overridePendingTransition(R.anim.left_in, R.anim.left_out);
         });
         edtDNI.addTextChangedListener(new TextWatcher() {

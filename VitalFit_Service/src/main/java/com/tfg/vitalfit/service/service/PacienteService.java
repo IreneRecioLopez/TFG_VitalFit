@@ -34,10 +34,10 @@ public class PacienteService {
     public GenericResponse guardarPaciente(Paciente p){
         Optional<Paciente> optP = this.repository.findByDNI(p.getDni());
         String idf = optP.isPresent()? optP.get().getDni() : "";
-        if(idf.equals("")){
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente Registrado Correctamente", this.repository.save(p));
+        if(!idf.equals("")){
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: Ya exite un paciente con el mismo número de DNI.", null);
         }else{
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Datos del usuario actualizados", this.repository.save(p));
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente registrado correctamente", this.repository.save(p));
         }
     }
 

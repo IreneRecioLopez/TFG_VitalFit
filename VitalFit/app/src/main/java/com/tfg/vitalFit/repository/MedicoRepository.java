@@ -44,4 +44,22 @@ public class MedicoRepository {
         });
         return mld;
     }
+
+    public LiveData<GenericResponse<Medico>> save(Medico m){
+        final MutableLiveData<GenericResponse<Medico>> mld = new MutableLiveData<>();
+        this.api.guardarMedico(m).enqueue(new Callback<GenericResponse<Medico>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Medico>> call, Response<GenericResponse<Medico>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<Medico>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error " + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
 }

@@ -9,4 +9,7 @@ import java.util.Optional;
 public interface MedicoRepository extends CrudRepository<Medico, Integer> {
     @Query("SELECT m FROM Medico m WHERE m.dni=:dni AND m.contrasena=:password")
     Optional<Medico> login(String dni, String password);
+
+    @Query("SELECT m from Medico m WHERE m.dni=:dni")
+    Optional<Medico> findByDNI(String dni);
 }

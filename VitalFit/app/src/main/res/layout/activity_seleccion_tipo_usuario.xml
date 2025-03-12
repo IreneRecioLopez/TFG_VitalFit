@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.SeleccionTipoUsuarioActivity">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/linearParte1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="center|center_horizontal"
+            android:text="@string/label_eleccion_usuario"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearParte2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearParte1"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="end">
+
+        <CheckBox
+            android:id="@+id/chkPacienteUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Paciente" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearParte3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearParte2"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="end">
+
+        <CheckBox
+            android:id="@+id/chkMedicoUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuario" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearParte4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearParte3"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="end">
+
+        <CheckBox
+            android:id="@+id/chkNutricionistaUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nutricionista" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearParte5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearParte4"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:gravity="end">
+
+        <Button
+            android:id="@+id/btnContinuarRegistro"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Continuar"
+            android:drawableEnd="@drawable/ic_arrow_forward"/>
+    </LinearLayout>
+
+
+
+</LinearLayout>

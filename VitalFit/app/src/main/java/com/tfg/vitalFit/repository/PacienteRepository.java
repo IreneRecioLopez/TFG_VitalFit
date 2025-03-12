@@ -47,4 +47,22 @@ public class PacienteRepository {
         return mld;
     }
 
+    public LiveData<GenericResponse<Paciente>> save(Paciente p){
+        final MutableLiveData<GenericResponse<Paciente>> mld = new MutableLiveData<>();
+        this.api.guardarPaciente(p).enqueue(new Callback<GenericResponse<Paciente>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Paciente>> call, Response<GenericResponse<Paciente>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<Paciente>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error " + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
+
 }
