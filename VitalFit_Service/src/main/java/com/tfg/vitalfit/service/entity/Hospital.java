@@ -2,17 +2,20 @@ package com.tfg.vitalfit.service.entity;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
 public class Hospital {
-    @EmbeddedId
-    private HospitalID idHospital;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idHospital;
+    @Column(nullable = false)
+    private String nombre;
+    @Column(nullable = false)
+    private String provincia;
     @Column(nullable = false)
     private String localidad;
     @Column(nullable = false)

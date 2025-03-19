@@ -8,24 +8,31 @@
     tools:context=".activity.SeleccionTipoUsuarioActivity">
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:id="@+id/linearParte1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <TextView
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/barEleccionUsuario"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:gravity="center|center_horizontal"
-            android:text="@string/label_eleccion_usuario"/>
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarEleccionUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/light_green"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="¿Qué tipo de usuario eres?"
+                app:titleTextColor="@color/white" />
+        </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/linearParte2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_below="@+id/linearParte1"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
@@ -36,45 +43,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Paciente" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearParte3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearParte2"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="end">
 
         <CheckBox
             android:id="@+id/chkMedicoUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Usuario" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/linearParte4"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/linearParte3"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="end">
+            android:text="Médico" />
 
         <CheckBox
             android:id="@+id/chkNutricionistaUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nutricionista" />
+
     </LinearLayout>
 
+
+
     <LinearLayout
-        android:id="@+id/linearParte5"
+        android:id="@+id/linearParte3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/linearParte4"
+        android:layout_below="@+id/linearParte2"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:gravity="end">

@@ -21,10 +21,7 @@ public class Nutricionista {
     private String telefono;
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "nombre_hospital", referencedColumnName = "nombre"),
-            @JoinColumn(name = "provincia_hospital", referencedColumnName = "provincia")
-    })
+    @JoinColumn(name = "idHospital")
     private Hospital hospital;
 
     @OneToMany(mappedBy = "nutricionista")

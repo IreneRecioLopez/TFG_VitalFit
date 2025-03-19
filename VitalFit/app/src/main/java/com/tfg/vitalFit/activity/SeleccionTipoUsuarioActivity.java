@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -11,7 +12,9 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tfg.vitalfit.R;
@@ -26,6 +29,7 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
     private PacienteViewModel pViewModel;
     private NutricionistaViewModel nViewModel;
     private MedicoViewModel mViewModel;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,14 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
         chkMedico = findViewById(R.id.chkMedicoUsuario);
         chkNutricionista = findViewById(R.id.chkNutricionistaUsuario);
 
+        toolbar = findViewById(R.id.toolbarEleccionUsuario);
+        setSupportActionBar(toolbar);
+
+        // Habilitar el botón de regreso en el Toolbar
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
         btnContinuar.setOnClickListener(v -> {
             if(validarSeleccionUsuario()){
                 if(chkPaciente.isChecked()){
@@ -55,7 +67,7 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
                 }else if(chkMedico.isChecked()) {
                     startActivity(new Intent(this, RegistroMedicoActivity.class));
                 }else if(chkNutricionista.isChecked()){
-                    startActivity(new Intent(this, InicioActivity.class));
+                    startActivity(new Intent(this, RegistroNutricionistaActivity.class));
                 }
             }else{
                 toastInvalido("Por favor, complete todos los campos.");
@@ -90,5 +102,15 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(view);
         toast.show();
+    }
+
+    // Capturar el clic en el botón de regreso
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
+            onBackPressed(); // Regresa a la pantalla anterior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

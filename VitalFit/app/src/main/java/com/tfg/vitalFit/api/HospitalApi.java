@@ -1,0 +1,19 @@
+package com.tfg.vitalfit.api;
+
+import com.tfg.vitalfit.entity.GenericResponse;
+import com.tfg.vitalfit.entity.service.Hospital;
+
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Path;
+
+public interface HospitalApi {
+    //RUTA DEL CONTROLADOR NUTRICIONISTA
+    String base = "api/hospital";
+
+    @GET(base + "/provincia/{provincia}")
+    Call<List<Hospital>> obtenerHospitalesPorProvincia(@Path("provincia") String provincia);
+
+}

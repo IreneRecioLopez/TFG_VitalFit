@@ -24,10 +24,7 @@ public class Medico {
     private List<Paciente> pacientes;
 
     @ManyToOne
-    @JoinColumns({
-            @JoinColumn(name = "nombre_hospital", referencedColumnName = "nombre"),
-            @JoinColumn(name = "provincia_hospital", referencedColumnName = "provincia")
-    })
+    @JoinColumn(name = "idHospital")
     private Hospital hospital;
 
 }

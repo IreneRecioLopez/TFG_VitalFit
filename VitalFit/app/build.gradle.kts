@@ -33,6 +33,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -60,6 +61,9 @@ dependencies {
     // Stetho
     implementation("com.facebook.stetho:stetho:1.5.1")
     implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
+
+    //Libreria Spinner
+    //implementation("com.github.ganfra:material-spinner:2.0.0")
 
 
     
