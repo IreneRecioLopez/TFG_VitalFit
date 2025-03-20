@@ -19,7 +19,6 @@ public interface MedicoApi {
     @POST(base + "/login")
     Call<GenericResponse<Medico>> login(@Field("dni") String dni, @Field("password") String password);
 
-    @FormUrlEncoded
     @POST(base)
     Call<GenericResponse<Medico>> guardarMedico(@Body Medico m);
 }

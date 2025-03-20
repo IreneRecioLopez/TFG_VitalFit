@@ -29,7 +29,7 @@ public class MedicoService {
         }
     }
 
-    //método para guardar los datos del paciente
+    //método para guardar los datos del medico
     public GenericResponse guardarMedico(Medico m){
         Optional<Medico> optM = this.repository.findByDNI(m.getDni());
         String idf = optM.isPresent()? optM.get().getDni() : "";

@@ -49,4 +49,21 @@ public class HospitalRepository {
         return mld;
     }
 
+    public LiveData<Hospital> hospitalByNameAndProvince(String nombre, String provincia) {
+        final MutableLiveData<Hospital> mld = new MutableLiveData<>();
+        this.api.obtenerHospitalPorNombreYProvincia(nombre, provincia).enqueue(new Callback<Hospital>() {
+            @Override
+            public void onResponse(Call<Hospital> call, Response<Hospital> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Hospital> call, Throwable t) {
+                mld.setValue(new Hospital());
+                System.out.println("Se ha producido un error al obtener los hospital de una provincia y nombre dado: " + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
 }

@@ -16,4 +16,6 @@ public interface HospitalApi {
     @GET(base + "/provincia/{provincia}")
     Call<List<Hospital>> obtenerHospitalesPorProvincia(@Path("provincia") String provincia);
 
+    @GET(base + "/{nombre}/{provincia}")
+    Call<Hospital> obtenerHospitalPorNombreYProvincia(@Path("nombre") String nombre, @Path("provincia") String provincia);
 }

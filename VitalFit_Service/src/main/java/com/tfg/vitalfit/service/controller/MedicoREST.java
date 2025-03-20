@@ -4,6 +4,7 @@ import com.tfg.vitalfit.service.entity.Medico;
 import com.tfg.vitalfit.service.service.MedicoService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,5 +24,10 @@ public class MedicoREST {
         String dni = request.getParameter("dni");
         String password = request.getParameter("password");
         return this.service.login(dni, password);
+    }
+
+    @PostMapping
+    public GenericResponse save(@RequestBody Medico m){
+        return this.service.guardarMedico(m);
     }
 }

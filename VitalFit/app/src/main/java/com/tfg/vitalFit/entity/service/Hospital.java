@@ -17,6 +17,12 @@ public class Hospital {
     private List<Medico> medicos;
     private List<Nutricionista> nutricionistas;
 
+    public Hospital(){}
+
+    public Hospital(Long id){
+        this.idHospital = id;
+    }
+    public Long getIdHospital(){return idHospital;}
     public String getNombre(){
         return nombre;
     }
