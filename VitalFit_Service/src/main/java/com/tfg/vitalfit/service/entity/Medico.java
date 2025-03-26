@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ public class Medico {
 
     @ManyToOne
     @JoinColumn(name = "idHospital")
+    @JsonIgnore
     private Hospital hospital;
 
 }

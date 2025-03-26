@@ -52,7 +52,7 @@ public class RegistroMedicoActivity extends AppCompatActivity {
                             txtInputPassword, txtInputPasswordVal, txtInputProvincia, txtInputHospital;
 
     private String hospital, provincia;
-    private Hospital hospitalAsignado;
+    private Hospital hospitalAsignado = new Hospital();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -129,7 +129,7 @@ public class RegistroMedicoActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private Hospital obtenerHospitalPorNombreYProvincia(String nombre, String provincia){
+    private void obtenerHospitalPorNombreYProvincia(String nombre, String provincia){
 
         hViewModel.hospitalPorNombreYProvincia(nombre, provincia).observe(this, new Observer<Hospital>() {
             @Override
@@ -138,21 +138,51 @@ public class RegistroMedicoActivity extends AppCompatActivity {
                     hospitalAsignado = getHospitalAsignado(hospital);
                     Log.e("Hospital obtenido", hospital.getNombre());
                     Log.e("Hospital asignado", hospitalAsignado.getNombre());
+
+                    continuarConHospital();
                 }
             }
         });
-        return hospitalAsignado;
     }
 
     private Hospital getHospitalAsignado(Hospital hospital){
         return hospital;
     }
 
+    // Método para continuar el flujo cuando el hospital ya se asignó
+    private void continuarConHospital() {
+        if (hospitalAsignado != null) {
+            Log.e("Proceso", "Hospital confirmado: " + hospitalAsignado.getNombre());
+        } else {
+            toastInvalido("Error inesperado: hospitalAsignado es null.");
+        }
+    }
+
+    public void guardarMedico(Medico m){
+        this.mViewModel.save(m).observe(this, mResponse -> {
+            if (mResponse.getRpta() == 1) {
+                this.mViewModel.asociarMedicoHospital(m.getDni(), hospitalAsignado).observe(this, response -> {
+                    Log.e("Respuesta", "Rpta: " + response.getRpta());
+                    if (response.getRpta() == 1) {
+                        toastCorrecto("Su información ha sido guardada con éxito.");
+                        startActivity(new Intent(this, MainActivity.class));
+                    } else {
+                        toastInvalido("No se ha podido asociar bien al hospital");
+                    }
+                });
+            } else {
+                toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
+            }
+        });
+    }
+
+
     private void obtenerHospitalesPorProvincia(String provincia) {
         hViewModel.hospitalPorProvincia(provincia).observe(this, new Observer<List<Hospital>>(){
             @Override
             public void onChanged(List<Hospital> hospitales){
                 if(hospitales != null){
+                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
                     listaNombresHospitales(hospitales);
                 }
             }
@@ -180,20 +210,15 @@ public class RegistroMedicoActivity extends AppCompatActivity {
                 m.setDNI(edtDNI.getText().toString());
                 m.setTelefono(edtTlf.getText().toString());
                 m.setContrasena(edtPassword.getText().toString());
-                Long id = obtenerHospitalPorNombreYProvincia(hospital, provincia).getIdHospital();
+                //Hospital hospitalAsignado = obtenerHospitalPorNombreYProvincia(hospital, provincia);
+                obtenerHospitalPorNombreYProvincia(hospital, provincia);
+                Long idHospital = hospitalAsignado.getIdHospital();
 
-                m.setHospital(new Hospital(id));
-                m.setPacientes(new ArrayList<Paciente>());
-                this.mViewModel.save(m).observe(this, mResponse -> {
-                    if(mResponse.getRpta() == 1){
-                        toastCorrecto("Su información ha sido guardada con éxito.");
-                        startActivity(new Intent(this, MainActivity.class));
-                    }else{
-                        toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
-                    }
-                });
+                guardarMedico(m);
+
             }catch (Exception e){
                 toastInvalido("Se ha producido un error " + e.getMessage());
+                Log.e("ERROR EXCEPTION", e.getMessage() + " " + e.getStackTrace(), e);
             }
         }else{
             toastInvalido("Por favor, complete todos los campos del formulario.");

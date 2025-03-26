@@ -1,14 +1,13 @@
 package com.tfg.vitalfit.service.controller;
 
+import com.tfg.vitalfit.service.entity.Hospital;
 import com.tfg.vitalfit.service.entity.Medico;
 import com.tfg.vitalfit.service.service.MedicoService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/medico")
@@ -26,8 +25,20 @@ public class MedicoREST {
         return this.service.login(dni, password);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public GenericResponse save(@RequestBody Medico m){
         return this.service.guardarMedico(m);
     }
+
+    /*@PutMapping("/{dniMedico}/hospital")
+    public void asociarMedicoHospital(@PathVariable String dni, @RequestBody Hospital hospital){
+        this.service.asociarMedicoHospital(dni, hospital.getIdHospital());
+    }*/
+
+    @PutMapping("/{dni}/hospital")
+    public GenericResponse asociarMedicoHospital(@PathVariable String dni, @RequestBody Hospital hospital){
+        return this.service.asociarMedicoHospital(dni, hospital);
+    }
+
+
 }

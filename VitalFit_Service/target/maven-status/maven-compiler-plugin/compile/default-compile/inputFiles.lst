@@ -21,10 +21,11 @@ C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vita
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\repository\PacienteRepository.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\controller\DietaREST.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\controller\MedicoREST.java
+C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\repository\HospitalRepository.java
+C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\service\HospitalService.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\entity\Operaciones.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\config\WebConfig.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\App.java
-C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\entity\HospitalID.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\utils\Global.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\controller\HospitalREST.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\controller\PesosREST.java

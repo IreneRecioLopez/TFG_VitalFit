@@ -30,4 +30,6 @@ public class Hospital {
     public String getProvincia(){
         return provincia;
     }
+
+    public void setIdHospital(Long id){ this.idHospital = id;}
 }
