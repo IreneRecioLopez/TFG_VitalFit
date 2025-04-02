@@ -286,7 +286,7 @@ public class MainActivity extends AppCompatActivity {
                     .registerTypeAdapter(Date.class, new DateSerializer())
                     .registerTypeAdapter(Time.class, new TimeSerializer())
                     .create();
-            editor.putString("NutricionistaJson", g.toJson(n, new TypeToken<Paciente>(){
+            editor.putString("NutricionistaJson", g.toJson(n, new TypeToken<Nutricionista>(){
             }.getType()));
             edtDNI.setText("");
             edtPassword.setText("");

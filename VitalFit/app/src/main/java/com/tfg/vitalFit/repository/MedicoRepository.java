@@ -85,51 +85,5 @@ public class MedicoRepository {
         });
         return mld;
     }
-/*
-    public LiveData<GenericResponse<Medico>> asociarMedicoHospital(String dniMedico, Hospital hospital){
-        MutableLiveData<GenericResponse<Medico>> mld = new MutableLiveData<>();
 
-        // Realizamos la llamada a la API (el backend retorna un int que indica el número de registros afectados)
-        api.asociarMedicoHospital(dniMedico, hospital).enqueue(new Callback<Integer>() { // Cambiar el tipo a Integer
-            @Override
-            public void onResponse(Call<Integer> call, Response<Integer> response) {
-                if (response.isSuccessful() && response.body() != null) {
-                    int result = response.body(); // Aquí obtenemos el número de registros afectados (int)
-
-                    GenericResponse<Medico> genericResponse = new GenericResponse<>();
-
-                    if (result > 0) {
-                        // Si la actualización fue exitosa (al menos un registro fue afectado)
-                        genericResponse.setRpta(1); // Código de éxito
-                        genericResponse.setBody(null); // No necesitamos devolver un Medico (porque solo fue una actualización)
-                        Log.d("Success", "Médico asociado al hospital correctamente.");
-                    } else {
-                        // Si no se actualizó ningún registro
-                        genericResponse.setRpta(0); // Código de error
-                        genericResponse.setBody(null); // De nuevo, no necesitamos un Medico
-                        Log.d("Error", "No se pudo asociar el médico al hospital.");
-                    }
-
-                    mld.setValue(genericResponse); // Establecemos la respuesta final
-                } else {
-                    // Si la respuesta no es exitosa o está vacía
-                    GenericResponse<Medico> errorResponse = new GenericResponse<>();
-                    errorResponse.setRpta(0); // Error del servidor
-                    errorResponse.setBody(null);
-                    mld.setValue(errorResponse);
-                    Log.d("Error", "Error de conexión o servidor: " + response.message());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Integer> call, Throwable t) {
-                mld.setValue(new GenericResponse<>());
-                System.out.println("Se ha producido un error " + t.getMessage());
-                t.printStackTrace();
-            }
-        });
-
-        return mld;
-    }
-*/
 }

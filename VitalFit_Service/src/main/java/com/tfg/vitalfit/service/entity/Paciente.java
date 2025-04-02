@@ -1,5 +1,7 @@
 package com.tfg.vitalfit.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -24,6 +26,7 @@ public class Paciente {
     private String numSeguridadSocial;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fechaNacimiento;
     @Column(nullable = false)
     private Double pesoActual;
@@ -33,20 +36,24 @@ public class Paciente {
     private Double imc;
     @Column(nullable = false)
     private String provincia;
-
     @Column(nullable = false)
     private String direccion;
+    private int vegetariana;
+    private int vegana;
 
     @ManyToOne
     @JoinColumn (name = "dni_medico")
+    @JsonIgnore
     private Medico medico;
 
     @ManyToOne
     @JoinColumn(name = "dni_nutricionista")
+    @JsonIgnore
     private Nutricionista nutricionista;
 
     @ManyToOne
     @JoinColumn(name = "idHospital")
+    @JsonIgnore
     private Hospital hospital;
 
     @OneToMany(mappedBy = "paciente")

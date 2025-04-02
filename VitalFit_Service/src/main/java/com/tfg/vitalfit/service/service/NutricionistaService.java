@@ -1,5 +1,7 @@
 package com.tfg.vitalfit.service.service;
 
+import com.tfg.vitalfit.service.entity.Hospital;
+import com.tfg.vitalfit.service.entity.Medico;
 import com.tfg.vitalfit.service.entity.Nutricionista;
 import com.tfg.vitalfit.service.repository.NutricionistaRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -36,6 +38,20 @@ public class NutricionistaService {
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: Ya exite un paciente con el mismo número de DNI.", null);
         }else{
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente registrado correctamente", this.repository.save(n));
+        }
+    }
+
+    //método para asocial al nutricionista un hospital
+    public GenericResponse asociarNutricionistaHospital(String dni, Hospital hospital) {
+        Optional<Nutricionista> optN = this.repository.findByDNI(dni);
+        Nutricionista n = optN.get();
+        String idf = optN.isPresent()? optN.get().getDni() : "";
+        if(!idf.equals("")){
+            this.repository.asociarNutricionistaHospital(dni, hospital);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Medico asociado correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el médico con ese dni", null);
+
         }
     }
 }

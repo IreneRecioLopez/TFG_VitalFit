@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.service.controller;
 
+import com.tfg.vitalfit.service.entity.Hospital;
 import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.service.PacienteService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -23,7 +24,7 @@ public class PacienteREST {
         return this.service.login(dni, password);
     }
 
-    @PostMapping
+    @PostMapping("/save")
     public GenericResponse save(@RequestBody Paciente p){
         return this.service.guardarPaciente(p);
     }
@@ -31,5 +32,10 @@ public class PacienteREST {
     @PutMapping("/{dni}")
     public GenericResponse update(@PathVariable String dni, @RequestBody Paciente p){
         return this.service.guardarPaciente(p);
+    }
+
+    @PutMapping("/{dni}/hospital")
+    public GenericResponse asociarPacienteHospital(@PathVariable String dni, @RequestBody Hospital hospital){
+        return this.service.asociarPacienteHospital(dni, hospital);
     }
 }

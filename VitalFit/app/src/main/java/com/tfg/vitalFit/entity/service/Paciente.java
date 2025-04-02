@@ -12,12 +12,15 @@ public class Paciente {
     private String contrasena;
     private String telefono;
     private String numSeguridadSocial;
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
     private Double pesoActual;
     private Double altura;
     private Double imc;
     private String provincia;
+    private String cp;
     private String direccion;
+    private Integer vegetariana;
+    private Integer vegana;
     private Medico medico;
     private Nutricionista nutricionista;
     private Hospital hospital;
@@ -27,18 +30,16 @@ public class Paciente {
     private List<Dieta> dietas;
 
     //METODOS GETTERS Y SETTERS
-    public String getDni() {
+    public String getDNI() {
         return dni;
     }
-
-    public void setDni(String dni) {
+    public void setDNI(String dni) {
         this.dni = dni;
     }
 
     public String getNombre() {
         return nombre;
     }
-
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -46,7 +47,6 @@ public class Paciente {
     public String getApellido1() {
         return apellido1;
     }
-
     public void setApellido1(String apellido1) {
         this.apellido1 = apellido1;
     }
@@ -54,7 +54,6 @@ public class Paciente {
     public String getApellido2() {
         return apellido2;
     }
-
     public void setApellido2(String apellido2) {
         this.apellido2 = apellido2;
     }
@@ -62,7 +61,6 @@ public class Paciente {
     public String getContrasena() {
         return contrasena;
     }
-
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
     }
@@ -70,7 +68,6 @@ public class Paciente {
     public String getTelefono() {
         return telefono;
     }
-
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
@@ -78,23 +75,20 @@ public class Paciente {
     public String getNumSeguridadSocial() {
         return numSeguridadSocial;
     }
-
     public void setNumSeguridadSocial(String numSeguridadSocial) {
         this.numSeguridadSocial = numSeguridadSocial;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
-
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
     public Double getPesoActual() {
         return pesoActual;
     }
-
     public void setPesoActual(Double pesoActual) {
         this.pesoActual = pesoActual;
     }
@@ -102,7 +96,6 @@ public class Paciente {
     public Double getAltura() {
         return altura;
     }
-
     public void setAltura(Double altura) {
         this.altura = altura;
     }
@@ -110,7 +103,6 @@ public class Paciente {
     public Double getImc() {
         return imc;
     }
-
     public void setImc(Double imc) {
         this.imc = imc;
     }
@@ -118,23 +110,29 @@ public class Paciente {
     public String getProvincia() {
         return provincia;
     }
-
     public void setProvincia(String provincia) {
         this.provincia = provincia;
     }
 
+    public String getCP(){ return cp; }
+    public void setCP(String cp){ this.cp = cp;}
+
     public String getDireccion() {
         return direccion;
     }
-
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
 
+    public Integer getVegetariana(){ return vegetariana; }
+    public void setVegetariana(Integer vegetaria) { this.vegetariana = vegetariana; }
+
+    public Integer getVegana(){ return vegana; }
+    public void setVegana(Integer vegana) { this.vegana = vegana; }
+
     public Medico getMedico() {
         return medico;
     }
-
     public void setMedico(Medico medico) {
         this.medico = medico;
     }
@@ -142,7 +140,6 @@ public class Paciente {
     public Nutricionista getNutricionista() {
         return nutricionista;
     }
-
     public void setNutricionista(Nutricionista nutricionista) {
         this.nutricionista = nutricionista;
     }
@@ -150,7 +147,6 @@ public class Paciente {
     public Hospital getHospital() {
         return hospital;
     }
-
     public void setHospital(Hospital hospital) {
         this.hospital = hospital;
     }
@@ -158,7 +154,6 @@ public class Paciente {
     public List<Pesos> getPesos() {
         return pesos;
     }
-
     public void setPesos(List<Pesos> pesos) {
         this.pesos = pesos;
     }
@@ -166,7 +161,6 @@ public class Paciente {
     public List<Alergias> getAlergias() {
         return alergias;
     }
-
     public void setAlergias(List<Alergias> alergias) {
         this.alergias = alergias;
     }
@@ -174,7 +168,6 @@ public class Paciente {
     public List<Consejo> getConsejos() {
         return consejos;
     }
-
     public void setConsejos(List<Consejo> consejos) {
         this.consejos = consejos;
     }
@@ -182,7 +175,6 @@ public class Paciente {
     public List<Dieta> getDietas() {
         return dietas;
     }
-
     public void setDietas(List<Dieta> dietas) {
         this.dietas = dietas;
     }

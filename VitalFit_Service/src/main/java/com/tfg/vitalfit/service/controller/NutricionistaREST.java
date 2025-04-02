@@ -1,11 +1,11 @@
 package com.tfg.vitalfit.service.controller;
 
+import com.tfg.vitalfit.service.entity.Hospital;
+import com.tfg.vitalfit.service.entity.Medico;
 import com.tfg.vitalfit.service.entity.Nutricionista;
 import com.tfg.vitalfit.service.service.NutricionistaService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,5 +23,16 @@ public class NutricionistaREST {
         String dni = request.getParameter("dni");
         String password = request.getParameter("password");
         return this.service.login(dni, password);
+    }
+
+    @PostMapping("/save")
+    public GenericResponse save(@RequestBody Nutricionista n){
+        return this.service.guardarNutricionista(n);
+    }
+
+
+    @PutMapping("/{dni}/hospital")
+    public GenericResponse asociarNutricionistaHospital(@PathVariable String dni, @RequestBody Hospital hospital){
+        return this.service.asociarNutricionistaHospital(dni, hospital);
     }
 }

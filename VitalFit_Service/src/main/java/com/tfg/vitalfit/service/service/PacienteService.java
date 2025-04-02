@@ -1,5 +1,7 @@
 package com.tfg.vitalfit.service.service;
 
+import com.tfg.vitalfit.service.entity.Hospital;
+import com.tfg.vitalfit.service.entity.Medico;
 import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.repository.PacienteRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -41,4 +43,16 @@ public class PacienteService {
         }
     }
 
+    public GenericResponse asociarPacienteHospital(String dni, Hospital hospital) {
+        Optional<Paciente> optP = this.repository.findByDNI(dni);
+        Paciente p = optP.get();
+        String idf = optP.isPresent()? optP.get().getDni() : "";
+        if(!idf.equals("")){
+            this.repository.asociarPacienteHospital(dni, hospital);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Medico asociado correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el médico con ese dni", null);
+
+        }
+    }
 }

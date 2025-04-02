@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.NutricionistaApi;
 import com.tfg.vitalfit.entity.GenericResponse;
+import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Nutricionista;
 
 import retrofit2.Call;
@@ -56,7 +57,27 @@ public class NutricionistaRepository {
             @Override
             public void onFailure(Call<GenericResponse<Nutricionista>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
-                System.out.println("Se ha producido un error " + t.getMessage());
+                System.out.println("Se ha producido un error al guardar los datos" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
+
+    public LiveData<GenericResponse<Void>> asociarNutricionistaHospital(String dniNutricionista, Hospital hospital){
+        MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
+        api.asociarNutricionistaHospital(dniNutricionista, hospital).enqueue(new Callback<GenericResponse<Void>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
+                if(response.isSuccessful()){
+                    mld.setValue(new GenericResponse("Result", 1, "Nutricionista asociado al hospital correctamente", null));
+                }
+
+            }
+            @Override
+            public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al asociar" + t.getMessage());
                 t.printStackTrace();
             }
         });

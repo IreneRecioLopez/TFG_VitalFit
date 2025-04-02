@@ -7,6 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.tfg.vitalfit.entity.GenericResponse;
+import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.repository.PacienteRepository;
 
@@ -25,5 +26,9 @@ public class PacienteViewModel extends AndroidViewModel {
 
     public LiveData<GenericResponse<Paciente>> save(Paciente p){
         return this.repository.save(p);
+    }
+
+    public LiveData<GenericResponse<Void>> asociarPacienteHospital(String dni, Hospital hospitalAsignado) {
+        return this.repository.asociarPacienteHospital(dni, hospitalAsignado);
     }
 }

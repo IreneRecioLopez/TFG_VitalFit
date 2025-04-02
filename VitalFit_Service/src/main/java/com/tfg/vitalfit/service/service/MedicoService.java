@@ -16,11 +16,9 @@ import static com.tfg.vitalfit.service.utils.Global.*;
 @Transactional
 public class MedicoService {
     private final MedicoRepository repository;
-    private final HospitalRepository hRepository;
 
-    public MedicoService(MedicoRepository repository, HospitalRepository hRepository) {
+    public MedicoService(MedicoRepository repository) {
         this.repository = repository;
-        this.hRepository = hRepository;
     }
 
     //método para iniciar sesión
@@ -44,27 +42,7 @@ public class MedicoService {
         }
     }
 
-    //Método para asociar el médico al hospital
-    /*public void asociarMedicoHospital(String dni, Long idHospital) {
-        Optional<Medico> m = repository.findByDNI(dni);
-        Hospital h = hRepository.findById(idHospital);
-        Medico medico = m.get();
-        medico.setHospital(h);
-        repository.save(medico);
-    }*/
-
-    /*public GenericResponse asociarMedicoHospital(String dni, Hospital hospital) {
-        Optional<Medico> optM = this.repository.findByDNI(dni);
-        String idf = optM.isPresent()? optM.get().getDni() : "";
-        if(!idf.equals("")){
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: Ya exite un médico con el mismo número de DNI.", null);
-        }else{
-            Medico m = optM.get();
-            m.setHospital(hospital);
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Medico asociado correctamente", this.repository.);
-        }
-    }*/
-
+    //método para asocial al médico un hospital
     public GenericResponse asociarMedicoHospital(String dni, Hospital hospital) {
         Optional<Medico> optM = this.repository.findByDNI(dni);
         Medico m = optM.get();

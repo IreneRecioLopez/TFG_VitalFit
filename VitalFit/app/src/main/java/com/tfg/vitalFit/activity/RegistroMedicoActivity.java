@@ -63,14 +63,6 @@ public class RegistroMedicoActivity extends AppCompatActivity {
         //this.spinners();
     }
 
-    /*private void spinners(){
-        //Lista de provincias
-        String[] provincias = getResources().getStringArray(R.array.provincias);
-        ArrayAdapter arrayProvincias = new ArrayAdapter(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, provincias);
-        dropdownProvincia.setAdapter(arrayProvincias);
-
-    }*/
-
     private void initViewModel(){
         final ViewModelProvider vmp = new ViewModelProvider(this);
         mViewModel = vmp.get(MedicoViewModel.class);
@@ -210,7 +202,6 @@ public class RegistroMedicoActivity extends AppCompatActivity {
                 m.setDNI(edtDNI.getText().toString());
                 m.setTelefono(edtTlf.getText().toString());
                 m.setContrasena(edtPassword.getText().toString());
-                //Hospital hospitalAsignado = obtenerHospitalPorNombreYProvincia(hospital, provincia);
                 obtenerHospitalPorNombreYProvincia(hospital, provincia);
                 Long idHospital = hospitalAsignado.getIdHospital();
 

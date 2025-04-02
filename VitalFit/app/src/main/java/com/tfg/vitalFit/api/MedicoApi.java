@@ -3,7 +3,7 @@ package com.tfg.vitalfit.api;
 import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Medico;
-import com.tfg.vitalfit.entity.service.Paciente;
+
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -12,7 +12,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
+
 
 public interface MedicoApi {
     //RUTA DEL CONTROLADOR MEDICO
