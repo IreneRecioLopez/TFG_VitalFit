@@ -155,9 +155,10 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                 this.pViewModel.asociarPacienteHospital(p.getDNI(), hospitalAsignado).observe(this, response -> {
                     Log.e("Respuesta", "Rpta: " + response.getRpta());
                     if (response.getRpta() == 1) {
+                        String dni = pResponse.getBody().getDNI();
                         Pesos peso = new Pesos();
                         peso.setPeso(p.getPesoActual());
-                        peso.setPaciente(p);
+                        peso.setPaciente(new Paciente(dni));
                         peso.setFecha(obtenerFechaActual());
                         this.pesosViewModel.save(peso).observe(this, pesoResponse -> {
                             if(pesoResponse.getRpta() == 1){

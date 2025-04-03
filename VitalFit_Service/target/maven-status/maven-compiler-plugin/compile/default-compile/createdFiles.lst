@@ -1,6 +1,7 @@
 com\tfg\vitalfit\service\App.class
 com\tfg\vitalfit\service\entity\Alergias.class
 com\tfg\vitalfit\service\entity\Medico.class
+com\tfg\vitalfit\service\service\PesosService.class
 com\tfg\vitalfit\service\controller\ConsejoREST.class
 com\tfg\vitalfit\service\entity\Consejo.class
 com\tfg\vitalfit\service\config\WebConfig.class
@@ -17,6 +18,7 @@ com\tfg\vitalfit\service\entity\Nutricionista.class
 com\tfg\vitalfit\service\service\PacienteService.class
 com\tfg\vitalfit\service\service\NutricionistaService.class
 com\tfg\vitalfit\service\entity\Pesos.class
+com\tfg\vitalfit\service\repository\PesosRepository.class
 com\tfg\vitalfit\service\utils\Global.class
 com\tfg\vitalfit\service\controller\OperacionesREST.class
 com\tfg\vitalfit\service\controller\HospitalREST.class

@@ -1,16 +1,12 @@
 package com.tfg.vitalfit.service.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.*;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "dni")
 @Entity
 @Data
 public class Paciente {
@@ -56,10 +52,12 @@ public class Paciente {
 
     @ManyToOne
     @JoinColumn(name = "idHospital")
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonBackReference
     private Hospital hospital;
 
     @OneToMany(mappedBy = "paciente")
+    @JsonManagedReference
     private List<Pesos> pesos;
 
     @OneToMany(mappedBy = "paciente")

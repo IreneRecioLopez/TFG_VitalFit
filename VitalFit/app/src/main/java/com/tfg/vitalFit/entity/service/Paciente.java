@@ -29,6 +29,9 @@ public class Paciente {
     private List<Consejo> consejos;
     private List<Dieta> dietas;
 
+    public Paciente(){ }
+    public Paciente(String dni){ this.dni = dni;}
+
     //METODOS GETTERS Y SETTERS
     public String getDNI() {
         return dni;
