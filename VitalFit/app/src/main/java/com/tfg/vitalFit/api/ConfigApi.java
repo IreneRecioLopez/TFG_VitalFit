@@ -26,6 +26,7 @@ public class ConfigApi {
     private static MedicoApi medicoApi;
     private static NutricionistaApi nutricionistaApi;
     private static HospitalApi hospitalApi;
+    private static PesosApi pesosApi;
 
     static {
         initClient();
@@ -92,6 +93,13 @@ public class ConfigApi {
             hospitalApi = retrofit.create(HospitalApi.class);
         }
         return hospitalApi;
+    }
+
+    public static PesosApi getPesosApi(){
+        if(pesosApi == null){
+            pesosApi = retrofit.create(PesosApi.class);
+        }
+        return pesosApi;
     }
 
 }

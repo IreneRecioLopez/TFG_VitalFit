@@ -31,4 +31,5 @@ public class PacienteViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Void>> asociarPacienteHospital(String dni, Hospital hospitalAsignado) {
         return this.repository.asociarPacienteHospital(dni, hospitalAsignado);
     }
+
 }

@@ -49,7 +49,7 @@ public class PacienteService {
         String idf = optP.isPresent()? optP.get().getDni() : "";
         if(!idf.equals("")){
             this.repository.asociarPacienteHospital(dni, hospital);
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Medico asociado correctamente", null);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente asociado correctamente", null);
         }else{
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el médico con ese dni", null);
 

@@ -74,7 +74,7 @@ public class PacienteRepository {
             public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
                 if(response.isSuccessful()){
                     Log.e("Repositorio", "Respuesta API: " + response.body().getRpta());
-                    mld.setValue(new GenericResponse("Result", 1, "Nutricionista asociado al hospital correctamente", null));
+                    mld.setValue(new GenericResponse("Result", 1, "Paciente asociado al hospital correctamente", null));
                 }
 
             }

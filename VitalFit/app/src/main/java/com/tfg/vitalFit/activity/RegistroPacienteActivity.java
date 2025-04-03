@@ -30,8 +30,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
+import com.tfg.vitalfit.entity.service.Pesos;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
+import com.tfg.vitalfit.viewModel.PesosViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -45,6 +47,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
     private PacienteViewModel pViewModel;
     private HospitalViewModel hViewModel;
+    private PesosViewModel pesosViewModel;
     private Toolbar toolbar;
     private EditText edtName, edtApellido1, edtApellido2, edtDNI, edtNSS, edtTlf, edtDireccion,
                         edtPeso, edtAltura, edtPassword, edtPasswordVal, edtFechaNacimiento, edtCP;
@@ -70,6 +73,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         final ViewModelProvider vmp = new ViewModelProvider(this);
         pViewModel = vmp.get(PacienteViewModel.class);
         hViewModel = vmp.get(HospitalViewModel.class);
+        pesosViewModel = vmp.get(PesosViewModel.class);
     }
 
     private void init(){
@@ -151,8 +155,18 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                 this.pViewModel.asociarPacienteHospital(p.getDNI(), hospitalAsignado).observe(this, response -> {
                     Log.e("Respuesta", "Rpta: " + response.getRpta());
                     if (response.getRpta() == 1) {
-                        toastCorrecto("Su información ha sido guardada con éxito.");
-                        startActivity(new Intent(this, MainActivity.class));
+                        Pesos peso = new Pesos();
+                        peso.setPeso(p.getPesoActual());
+                        peso.setPaciente(p);
+                        peso.setFecha(obtenerFechaActual());
+                        this.pesosViewModel.save(peso).observe(this, pesoResponse -> {
+                            if(pesoResponse.getRpta() == 1){
+                                toastCorrecto("Su información ha sido guardada con éxito.");
+                                startActivity(new Intent(this, MainActivity.class));
+                            }else{
+                                toastInvalido("No se ha podido guardar bien el peso");
+                            }
+                        });
                     } else {
                         toastInvalido("No se ha podido asociar bien al hospital");
                     }
@@ -160,6 +174,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             } else {
                 toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
             }
+
         });
     }
 
@@ -318,19 +333,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         return hospital;
     }
 
-   /*private java.sql.Date fechaNacimiento(String fechaNacimiento){
-        SimpleDateFormat formato = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
-        java.sql.Date sqlDate = null;
-        try {
-            Date utilDate = formato.parse(fechaNacimiento); // java.util.Date
-            sqlDate = new java.sql.Date(utilDate.getTime()); // Conversión a java.sql.Date
-
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return sqlDate;
-    }*/
-
     private String convertirFecha(String fecha) {
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -341,6 +343,11 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             Log.e("ErrorFecha", "Formato incorrecto: " + fecha);
             return null;
         }
+    }
+
+    private String obtenerFechaActual() {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        return sdf.format(new Date());
     }
 
     private void mostrarCalendario(){

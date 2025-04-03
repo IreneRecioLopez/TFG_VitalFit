@@ -1,5 +1,7 @@
 package com.tfg.vitalfit.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ public class Pesos {
     private Long idPeso;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fecha;
     @Column(nullable = false)
     private Double peso;
