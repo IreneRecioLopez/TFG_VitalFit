@@ -30,4 +30,8 @@ public class MedicoViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Void>> asociarMedicoHospital(String dniMedico, Hospital hospital){
         return this.repository.asociarMedicoHospital(dniMedico, hospital);
     }
+
+    public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String password) {
+        return this.repository.actualizarPassword(dni, password);
+    }
 }

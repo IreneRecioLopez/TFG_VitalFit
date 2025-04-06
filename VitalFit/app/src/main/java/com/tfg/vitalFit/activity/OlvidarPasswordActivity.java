@@ -64,23 +64,21 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
         chkMedico = findViewById(R.id.chkMedico);
         chkNutricionista = findViewById(R.id.chkNutricionista);
 
-        isPaciente = false;
-        isNutricionista = false;
-        isMedico = false;
+        listeners();
 
         btnOlvidarPassword.setOnClickListener(v -> {
             try{
-                if(validar() && validarSeleccionUsuario()){
+                if(validar()){
                    String dni = edtDNI.getText().toString();
                    String password = edtPassword.getText().toString();
                    String passwordVal = edtPasswordVal.getText().toString();
 
                    if(isPaciente){
-                       pViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuestaPaciente(response));
+                       pViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuesta(response));
                    }else if(isMedico){
-                       //mViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuestaMedico(response));
+                       mViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuesta(response));
                    }else if(isNutricionista){
-                       //nViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuestaNutricionista(response));
+                       nViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuesta(response));
                    }
 
                 }else{
@@ -91,10 +89,9 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
                 toastInvalido("Se ha producido un error al intentar cambiar la contraseña " + e.getMessage());
             }
         });
-        listeners();
     }
 
-    private void manejarRespuestaPaciente(GenericResponse<Void> response) {
+    private void manejarRespuesta(GenericResponse<Void> response) {
         if(response.getRpta() == 1){
             toastCorrecto(response.getMessage());
             startActivity(new Intent(this, MainActivity.class));
@@ -133,33 +130,6 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
             val = false;
         }
         return val;
-    }
-
-    private boolean validarSeleccionUsuario() {
-        int cnt = 0;
-
-        if (chkPaciente.isChecked()){
-            isPaciente = true;
-            cnt++;
-        }
-        if (chkMedico.isChecked()) {
-            isMedico = true;
-            cnt++;
-        }
-        if (chkNutricionista.isChecked()){
-            isNutricionista = true;
-            cnt++;
-        }
-
-        if (cnt == 0) {
-            toastInvalido("Debes seleccionar un tipo de usuario.");
-            return false;
-        } else if (cnt > 1) {
-            toastInvalido( "Solo puedes seleccionar un tipo de usuario.");
-            return false;
-        }
-
-        return true;
     }
 
     public void toastCorrecto(String msg){
@@ -231,6 +201,32 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
 
             }
         });
-
+        chkPaciente.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isPaciente = true;
+                isNutricionista = true;
+                isMedico = false;
+                chkNutricionista.setChecked(false);
+                chkMedico.setChecked(false);
+            }
+        });
+        chkMedico.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isMedico = true;
+                isNutricionista = false;
+                isPaciente = false;
+                chkNutricionista.setChecked(false);
+                chkPaciente.setChecked(false);
+            }
+        });
+        chkNutricionista.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isNutricionista = true;
+                isPaciente = false;
+                isMedico = false;
+                chkPaciente.setChecked(false);
+                chkMedico.setChecked(false);
+            }
+        });
     }
 }

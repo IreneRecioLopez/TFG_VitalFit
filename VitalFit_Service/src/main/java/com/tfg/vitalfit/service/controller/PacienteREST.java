@@ -44,4 +44,5 @@ public class PacienteREST {
     public GenericResponse actualizarPassword(@PathVariable String dni, @RequestBody String password){
         return this.service.actualizarPassword(dni, password);
     }
+
 }

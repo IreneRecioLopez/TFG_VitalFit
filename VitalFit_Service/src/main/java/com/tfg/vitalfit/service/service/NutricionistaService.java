@@ -1,7 +1,6 @@
 package com.tfg.vitalfit.service.service;
 
 import com.tfg.vitalfit.service.entity.Hospital;
-import com.tfg.vitalfit.service.entity.Medico;
 import com.tfg.vitalfit.service.entity.Nutricionista;
 import com.tfg.vitalfit.service.repository.NutricionistaRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -51,6 +50,19 @@ public class NutricionistaService {
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Medico asociado correctamente", null);
         }else{
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el médico con ese dni", null);
+
+        }
+    }
+
+    public GenericResponse actualizarPassword(String dni, String password){
+        Optional<Nutricionista> optN = this.repository.findByDNI(dni);
+        if(optN.isPresent()){
+            Nutricionista nBD = optN.get();
+            nBD.setContrasena(password);
+            this.repository.save(nBD);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Contraseña actualizada correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el nutricionista con ese dni", null);
 
         }
     }

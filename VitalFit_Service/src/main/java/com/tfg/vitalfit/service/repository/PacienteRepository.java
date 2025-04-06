@@ -17,9 +17,6 @@ public interface PacienteRepository extends CrudRepository<Paciente, Integer> {
     @Query("SELECT p from Paciente p WHERE p.dni=:dni")
     Optional<Paciente> findByDNI(String dni);
 
-    @Query(value = "SELECT EXISTS(SELECT c.dni FROM Cliente c WHERE c.dni=:dni)", nativeQuery = true)
-    int existsDNI(String dni);
-
     // Método para asociar un paciente a un hospital
     @Modifying
     @Transactional

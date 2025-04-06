@@ -1,5 +1,7 @@
 package com.tfg.vitalfit.repository;
 
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
@@ -9,6 +11,8 @@ import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Nutricionista;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -78,6 +82,28 @@ public class NutricionistaRepository {
             public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
                 System.out.println("Se ha producido un error al asociar" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
+
+    public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String nuevaPassword) {
+        MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
+        RequestBody password = RequestBody.create(nuevaPassword, MediaType.parse("text/plain"));
+        api.actualizarPassword(dni, password).enqueue(new Callback<GenericResponse<Void>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
+                if(response.isSuccessful()){
+                    Log.e("Repositorio", "Respuesta API: " + response.body().getRpta());
+                    mld.setValue(new GenericResponse("Result", 1, "Actualizada la contraseña del nutricionista", null));
+                }
+
+            }
+            @Override
+            public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al actualizar la contraseña" + t.getMessage());
                 t.printStackTrace();
             }
         });

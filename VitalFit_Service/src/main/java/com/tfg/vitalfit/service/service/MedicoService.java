@@ -56,5 +56,18 @@ public class MedicoService {
         }
     }
 
+    public GenericResponse actualizarPassword(String dni, String password){
+        Optional<Medico> optM = this.repository.findByDNI(dni);
+        if(optM.isPresent()){
+            Medico mBD = optM.get();
+            mBD.setContrasena(password);
+            this.repository.save(mBD);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Contraseña actualizada correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el medico con ese dni", null);
+
+        }
+    }
+
 
 }

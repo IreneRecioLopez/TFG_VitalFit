@@ -11,6 +11,8 @@ import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Medico;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,4 +88,24 @@ public class MedicoRepository {
         return mld;
     }
 
+    public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String nuevaPassword) {
+        MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
+        RequestBody password = RequestBody.create(nuevaPassword, MediaType.parse("text/plain"));
+        api.actualizarPassword(dni, password).enqueue(new Callback<GenericResponse<Void>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
+                if(response.isSuccessful()){
+                    mld.setValue(new GenericResponse("Result", 1, "Actualizada la contraseña del medico", null));
+                }
+
+            }
+            @Override
+            public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al actualizar la contraseña" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
 }

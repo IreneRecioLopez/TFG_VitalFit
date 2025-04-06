@@ -62,9 +62,6 @@ public class PacienteService {
             Paciente pBD = optP.get();
             pBD.setContrasena(password);
             this.repository.save(pBD);
-            //p.setContrasena(password);
-            //this.repository.updatePaciente(p);
-            //this.repository.actualizarPasswordPaciente(dni, password);
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Contraseña actualizada correctamente", null);
         }else{
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);

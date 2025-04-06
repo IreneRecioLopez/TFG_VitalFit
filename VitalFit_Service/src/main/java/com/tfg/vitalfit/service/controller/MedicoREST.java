@@ -30,11 +30,13 @@ public class MedicoREST {
         return this.service.guardarMedico(m);
     }
 
-
     @PutMapping("/{dni}/hospital")
     public GenericResponse asociarMedicoHospital(@PathVariable String dni, @RequestBody Hospital hospital){
         return this.service.asociarMedicoHospital(dni, hospital);
     }
 
-
+    @PutMapping("/{dni}/password")
+    public GenericResponse actualizarPassword(@PathVariable String dni, @RequestBody String password){
+        return this.service.actualizarPassword(dni, password);
+    }
 }

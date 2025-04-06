@@ -30,9 +30,13 @@ public class NutricionistaREST {
         return this.service.guardarNutricionista(n);
     }
 
-
     @PutMapping("/{dni}/hospital")
     public GenericResponse asociarNutricionistaHospital(@PathVariable String dni, @RequestBody Hospital hospital){
         return this.service.asociarNutricionistaHospital(dni, hospital);
+    }
+
+    @PutMapping("/{dni}/password")
+    public GenericResponse actualizarPassword(@PathVariable String dni, @RequestBody String password){
+        return this.service.actualizarPassword(dni, password);
     }
 }
