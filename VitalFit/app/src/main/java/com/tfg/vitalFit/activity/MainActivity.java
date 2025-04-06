@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private MedicoViewModel mViewModel;
     private TextInputLayout txtInputUsuario, txtInputPassword;
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
-    private TextView txtNuevoUsuario;
+    private TextView txtNuevoUsuario, txtForgetPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity {
         txtInputUsuario = findViewById(R.id.txtInputUsuario);
         txtInputPassword = findViewById(R.id.txtInputPassword);
         txtNuevoUsuario = findViewById(R.id.txtNuevoUsuario);
+        txtForgetPassword = findViewById(R.id.txtForgetPassword);
         btnIniciarSesion = findViewById(R.id.btnIniciarSesion);
         chkPaciente = findViewById(R.id.chkPaciente);
         chkMedico = findViewById(R.id.chkMedico);
@@ -124,6 +125,10 @@ public class MainActivity extends AppCompatActivity {
         });
         txtNuevoUsuario.setOnClickListener(v -> {
             startActivity(new Intent(this, SeleccionTipoUsuarioActivity.class));
+            overridePendingTransition(R.anim.left_in, R.anim.left_out);
+        });
+        txtForgetPassword.setOnClickListener(v -> {
+            startActivity(new Intent(this, OlvidarPasswordActivity.class));
             overridePendingTransition(R.anim.left_in, R.anim.left_out);
         });
         edtDNI.addTextChangedListener(new TextWatcher() {
@@ -246,6 +251,7 @@ public class MainActivity extends AppCompatActivity {
             }.getType()));
             edtDNI.setText("");
             edtPassword.setText("");
+            chkPaciente.setSelected(false);
             startActivity(new Intent(this, InicioActivity.class));
         } else{
             //Toast.makeText(this, "Ocurrio un error " + response.getMessage(), Toast.LENGTH_SHORT).show();

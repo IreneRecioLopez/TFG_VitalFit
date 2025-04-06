@@ -32,4 +32,8 @@ public class PacienteViewModel extends AndroidViewModel {
         return this.repository.asociarPacienteHospital(dni, hospitalAsignado);
     }
 
+    public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String password) {
+        return this.repository.actualizarPassword(dni, password);
+    }
+
 }

@@ -51,7 +51,23 @@ public class PacienteService {
             this.repository.asociarPacienteHospital(dni, hospital);
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente asociado correctamente", null);
         }else{
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el médico con ese dni", null);
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
+
+        }
+    }
+
+    public GenericResponse actualizarPassword(String dni, String password){
+        Optional<Paciente> optP = this.repository.findByDNI(dni);
+        if(optP.isPresent()){
+            Paciente pBD = optP.get();
+            pBD.setContrasena(password);
+            this.repository.save(pBD);
+            //p.setContrasena(password);
+            //this.repository.updatePaciente(p);
+            //this.repository.actualizarPasswordPaciente(dni, password);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Contraseña actualizada correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
 
         }
     }

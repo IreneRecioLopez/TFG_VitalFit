@@ -23,6 +23,13 @@ public interface PacienteRepository extends CrudRepository<Paciente, Integer> {
     // Método para asociar un paciente a un hospital
     @Modifying
     @Transactional
-    @Query("UPDATE Paciente p SET p.hospital = :hospital WHERE p.dni = :dniPaciente")
+    @Query("UPDATE Paciente p SET p.hospital=:hospital WHERE p.dni=:dniPaciente")
     void asociarPacienteHospital(@Param("dniPaciente") String deniPaciente, @Param("hospital") Hospital hospital);
+
+    //Método para actualizar la contraseña de un paciente
+    @Modifying
+    @Transactional
+    @Query("UPDATE Paciente p SET p.contrasena=:password WHERE p.dni=:dniPaciente")
+    void actualizarPasswordPaciente(@Param("dniPaciente") String dniPaciente, @Param("password") String password);
+
 }
