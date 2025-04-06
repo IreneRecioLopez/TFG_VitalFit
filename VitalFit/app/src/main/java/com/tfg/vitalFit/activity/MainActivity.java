@@ -48,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout txtInputUsuario, txtInputPassword;
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
     private TextView txtNuevoUsuario, txtForgetPassword;
+    private Boolean isPaciente, isNutricionista, isMedico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,18 +104,21 @@ public class MainActivity extends AppCompatActivity {
         chkMedico = findViewById(R.id.chkMedico);
         chkNutricionista = findViewById(R.id.chkNutricionista);
 
+        listeners();
+
         btnIniciarSesion.setOnClickListener(v -> {
             try{
-                if(validar() && validarSeleccionUsuario()){
+                if(validar()){
                     String dni = edtDNI.getText().toString();
                     String password = edtPassword.getText().toString();
-
-                    if (chkPaciente.isChecked()) {
+                    if (isPaciente) {
                         pViewModel.login(dni, password).observe(this, response -> manejarRespuestaPaciente(response));
-                    } else if (chkMedico.isChecked()) {
+                    } else if (isMedico) {
                         mViewModel.login(dni, password).observe(this, response -> manejarRespuestaMedico(response));
-                    } else if (chkNutricionista.isChecked()) {
+                    } else if (isNutricionista) {
                         nViewModel.login(dni, password).observe(this, response -> manejarRespuestaNutricionista(response));
+                    }else{
+                        toastInvalido("Por favor, seleccione un tipo de usuario.");
                     }
                 }else{
                     toastInvalido("Por favor, complete todos los campos.");
@@ -131,6 +135,10 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, OlvidarPasswordActivity.class));
             overridePendingTransition(R.anim.left_in, R.anim.left_out);
         });
+
+    }
+
+    private void listeners(){
         edtDNI.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -160,6 +168,33 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        chkPaciente.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isPaciente = true;
+                isNutricionista = true;
+                isMedico = false;
+                chkNutricionista.setChecked(false);
+                chkMedico.setChecked(false);
+            }
+        });
+        chkMedico.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isMedico = true;
+                isNutricionista = false;
+                isPaciente = false;
+                chkNutricionista.setChecked(false);
+                chkPaciente.setChecked(false);
+            }
+        });
+        chkNutricionista.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isNutricionista = true;
+                isPaciente = false;
+                isMedico = false;
+                chkPaciente.setChecked(false);
+                chkMedico.setChecked(false);
+            }
+        });
     }
 
     public void toastCorrecto(String msg){
@@ -186,18 +221,6 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
-    private String obtenerTipoUsuario(){
-        if(chkPaciente.isChecked()){
-            return "PACIENTE";
-        }else if(chkMedico.isChecked()){
-            return "MEDICO";
-        }else if(chkNutricionista.isChecked()){
-            return "NUTRICIONISTA";
-        }else{
-            return "";
-        }
-    }
-
     private boolean validar(){
         boolean val = true;
         String usuario, password;
@@ -218,24 +241,6 @@ public class MainActivity extends AppCompatActivity {
         return val;
     }
 
-    private boolean validarSeleccionUsuario() {
-        int cnt = 0;
-
-        if (chkPaciente.isChecked()) cnt++;
-        if (chkMedico.isChecked()) cnt++;
-        if (chkNutricionista.isChecked()) cnt++;
-
-        if (cnt == 0) {
-            toastInvalido("Debes seleccionar un tipo de usuario.");
-            return false;
-        } else if (cnt > 1) {
-            toastInvalido( "Solo puedes seleccionar un tipo de usuario.");
-            return false;
-        }
-
-        return true;
-    }
-
     private void manejarRespuestaPaciente(GenericResponse<Paciente> response){
         if(response.getRpta() == 1){
             //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
@@ -251,7 +256,7 @@ public class MainActivity extends AppCompatActivity {
             }.getType()));
             edtDNI.setText("");
             edtPassword.setText("");
-            chkPaciente.setSelected(false);
+            chkPaciente.setChecked(false);
             startActivity(new Intent(this, InicioActivity.class));
         } else{
             //Toast.makeText(this, "Ocurrio un error " + response.getMessage(), Toast.LENGTH_SHORT).show();
@@ -274,6 +279,7 @@ public class MainActivity extends AppCompatActivity {
             }.getType()));
             edtDNI.setText("");
             edtPassword.setText("");
+            chkMedico.setChecked(false);
             startActivity(new Intent(this, InicioActivity.class));
         } else{
             //Toast.makeText(this, "Ocurrio un error " + response.getMessage(), Toast.LENGTH_SHORT).show();
@@ -296,6 +302,7 @@ public class MainActivity extends AppCompatActivity {
             }.getType()));
             edtDNI.setText("");
             edtPassword.setText("");
+            chkNutricionista.setChecked(false);
             startActivity(new Intent(this, InicioActivity.class));
         } else{
             //Toast.makeText(this, "Ocurrio un error " + response.getMessage(), Toast.LENGTH_SHORT).show();

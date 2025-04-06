@@ -26,24 +26,14 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
 
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
     private Button btnContinuar;
-    private PacienteViewModel pViewModel;
-    private NutricionistaViewModel nViewModel;
-    private MedicoViewModel mViewModel;
     private Toolbar toolbar;
+    private Boolean isPaciente, isMedico, isNutricionista;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seleccion_tipo_usuario);
-        this.initViewModel();
         this.init();
-    }
-
-    private void initViewModel() {
-        final ViewModelProvider vmp = new ViewModelProvider(this);
-        pViewModel = vmp.get(PacienteViewModel.class);
-        mViewModel = vmp.get(MedicoViewModel.class);
-        nViewModel = vmp.get(NutricionistaViewModel.class);
     }
 
     private void init(){
@@ -60,36 +50,22 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        listeners();
+
         btnContinuar.setOnClickListener(v -> {
-            if(validarSeleccionUsuario()){
-                if(chkPaciente.isChecked()){
-                    startActivity(new Intent(this, RegistroPacienteActivity.class));
-                }else if(chkMedico.isChecked()) {
-                    startActivity(new Intent(this, RegistroMedicoActivity.class));
-                }else if(chkNutricionista.isChecked()){
-                    startActivity(new Intent(this, RegistroNutricionistaActivity.class));
-                }
+            if(isPaciente){
+                chkPaciente.setChecked(false);
+                startActivity(new Intent(this, RegistroPacienteActivity.class));
+            }else if(isMedico) {
+                chkMedico.setChecked(false);
+                startActivity(new Intent(this, RegistroMedicoActivity.class));
+            }else if(isNutricionista){
+                chkNutricionista.setChecked(false);
+                startActivity(new Intent(this, RegistroNutricionistaActivity.class));
             }else{
-                toastInvalido("Por favor, complete todos los campos.");
+                toastInvalido("Por favor, seleccione un tipo de usuario.");
             }
         });
-    }
-
-    private boolean validarSeleccionUsuario() {
-        int cnt = 0;
-
-        if (chkPaciente.isChecked()) cnt++;
-        if (chkMedico.isChecked()) cnt++;
-        if (chkNutricionista.isChecked()) cnt++;
-
-        if (cnt == 0) {
-            toastInvalido("Debes seleccionar un tipo de usuario.");
-            return false;
-        } else if (cnt > 1) {
-            toastInvalido( "Solo puedes seleccionar un tipo de usuario.");
-            return false;
-        }
-        return true;
     }
 
     public void toastInvalido(String msg){
@@ -104,6 +80,36 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
         toast.show();
     }
 
+    private void listeners(){
+        chkPaciente.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isPaciente = true;
+                isNutricionista = true;
+                isMedico = false;
+                chkNutricionista.setChecked(false);
+                chkMedico.setChecked(false);
+            }
+        });
+        chkMedico.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isMedico = true;
+                isNutricionista = false;
+                isPaciente = false;
+                chkNutricionista.setChecked(false);
+                chkPaciente.setChecked(false);
+            }
+        });
+        chkNutricionista.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                isNutricionista = true;
+                isPaciente = false;
+                isMedico = false;
+                chkPaciente.setChecked(false);
+                chkMedico.setChecked(false);
+            }
+        });
+    }
+
     // Capturar el clic en el botón de regreso
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -113,4 +119,6 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 }
