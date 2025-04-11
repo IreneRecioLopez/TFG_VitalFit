@@ -1,16 +1,10 @@
 package com.tfg.vitalfit.entity.service;
 
-import java.sql.Date;
 import java.util.List;
 
 public class Paciente {
 
     private String dni;
-    private String nombre;
-    private String apellido1;
-    private String apellido2;
-    private String contrasena;
-    private String telefono;
     private String numSeguridadSocial;
     private String fechaNacimiento;
     private Double pesoActual;
@@ -21,9 +15,8 @@ public class Paciente {
     private String direccion;
     private Integer vegetariana;
     private Integer vegana;
-    private Medico medico;
-    private Nutricionista nutricionista;
-    private Hospital hospital;
+    private Usuario medico;
+    private Usuario nutricionista;
     private List<Pesos> pesos;
     private List<Alergias> alergias;
     private List<Consejo> consejos;
@@ -40,40 +33,6 @@ public class Paciente {
         this.dni = dni;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido1() {
-        return apellido1;
-    }
-    public void setApellido1(String apellido1) {
-        this.apellido1 = apellido1;
-    }
-
-    public String getApellido2() {
-        return apellido2;
-    }
-    public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
 
     public String getNumSeguridadSocial() {
         return numSeguridadSocial;
@@ -133,25 +92,18 @@ public class Paciente {
     public Integer getVegana(){ return vegana; }
     public void setVegana(Integer vegana) { this.vegana = vegana; }
 
-    public Medico getMedico() {
+    public Usuario getMedico() {
         return medico;
     }
-    public void setMedico(Medico medico) {
+    public void setMedico(Usuario medico) {
         this.medico = medico;
     }
 
-    public Nutricionista getNutricionista() {
+    public Usuario getNutricionista() {
         return nutricionista;
     }
-    public void setNutricionista(Nutricionista nutricionista) {
+    public void setNutricionista(Usuario nutricionista) {
         this.nutricionista = nutricionista;
-    }
-
-    public Hospital getHospital() {
-        return hospital;
-    }
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
     }
 
     public List<Pesos> getPesos() {

@@ -25,6 +25,6 @@ public class Pesos {
     @ManyToOne
     @JoinColumn(name = "dni_paciente")
     //@JsonIgnoreProperties({"pesos"})
-    @JsonBackReference
+    @JsonBackReference("paciente-pesos")
     private Paciente paciente;
 }

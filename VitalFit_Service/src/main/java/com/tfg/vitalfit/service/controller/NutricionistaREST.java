@@ -1,7 +1,6 @@
 package com.tfg.vitalfit.service.controller;
 
 import com.tfg.vitalfit.service.entity.Hospital;
-import com.tfg.vitalfit.service.entity.Medico;
 import com.tfg.vitalfit.service.entity.Nutricionista;
 import com.tfg.vitalfit.service.service.NutricionistaService;
 import com.tfg.vitalfit.service.utils.GenericResponse;

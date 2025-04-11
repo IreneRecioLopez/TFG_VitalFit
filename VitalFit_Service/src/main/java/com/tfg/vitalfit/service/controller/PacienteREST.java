@@ -18,12 +18,12 @@ public class PacienteREST {
         this.service = service;
     }
 
-    @PostMapping("/login")
+    /*@PostMapping("/login")
     public GenericResponse<Paciente> login(HttpServletRequest request){
         String dni = request.getParameter("dni");
         String password = request.getParameter("password");
         return this.service.login(dni, password);
-    }
+    }*/
 
     @PostMapping("/save")
     public GenericResponse save(@RequestBody Paciente p){
@@ -35,14 +35,14 @@ public class PacienteREST {
         return this.service.guardarPaciente(p);
     }
 
-    @PutMapping("/{dni}/hospital")
+    /*@PutMapping("/{dni}/hospital")
     public GenericResponse asociarPacienteHospital(@PathVariable String dni, @RequestBody Hospital hospital){
         return this.service.asociarPacienteHospital(dni, hospital);
-    }
+    }*/
 
-    @PutMapping("/{dni}/password")
+   /* @PutMapping("/{dni}/password")
     public GenericResponse actualizarPassword(@PathVariable String dni, @RequestBody String password){
         return this.service.actualizarPassword(dni, password);
     }
-
+    */
 }

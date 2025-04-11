@@ -11,14 +11,14 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 public interface PacienteRepository extends CrudRepository<Paciente, Integer> {
-    @Query("SELECT p FROM Paciente p WHERE p.dni=:dni AND p.contrasena=:password")
+   /* @Query("SELECT p FROM Paciente p WHERE p.dni=:dni AND p.contrasena=:password")
     Optional<Paciente> login(String dni, String password);
-
+*/
     @Query("SELECT p from Paciente p WHERE p.dni=:dni")
     Optional<Paciente> findByDNI(String dni);
 
     // Método para asociar un paciente a un hospital
-    @Modifying
+   /* @Modifying
     @Transactional
     @Query("UPDATE Paciente p SET p.hospital=:hospital WHERE p.dni=:dniPaciente")
     void asociarPacienteHospital(@Param("dniPaciente") String deniPaciente, @Param("hospital") Hospital hospital);
@@ -28,5 +28,5 @@ public interface PacienteRepository extends CrudRepository<Paciente, Integer> {
     @Transactional
     @Query("UPDATE Paciente p SET p.contrasena=:password WHERE p.dni=:dniPaciente")
     void actualizarPasswordPaciente(@Param("dniPaciente") String dniPaciente, @Param("password") String password);
-
+    */
 }

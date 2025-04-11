@@ -27,11 +27,6 @@ public class Hospital {
 
     @OneToMany(mappedBy = "hospital")
     @JsonManagedReference
-    private List<Paciente> pacientes;
+    private List<Usuario> usuarios;
 
-    @OneToMany(mappedBy = "hospital")
-    private List<Medico> medicos;
-
-    @OneToMany(mappedBy = "hospital")
-    private List<Nutricionista> nutricionistas;
 }

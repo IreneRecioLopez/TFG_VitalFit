@@ -25,12 +25,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Medico;
+import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.entity.service.Nutricionista;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.utils.DateSerializer;
 import com.tfg.vitalfit.utils.TimeSerializer;
-import com.tfg.vitalfit.viewModel.MedicoViewModel;
+import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnIniciarSesion;
     private PacienteViewModel pViewModel;
     private NutricionistaViewModel nViewModel;
-    private MedicoViewModel mViewModel;
+    private UsuarioViewModel mViewModel;
     private TextInputLayout txtInputUsuario, txtInputPassword;
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
     private TextView txtNuevoUsuario, txtForgetPassword;
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViewModel() {
         pViewModel = new ViewModelProvider(this).get(PacienteViewModel.class);
-        mViewModel = new ViewModelProvider(this).get(MedicoViewModel.class);
+        mViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
         nViewModel = new ViewModelProvider(this).get(NutricionistaViewModel.class);
     }
 
@@ -264,18 +264,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void manejarRespuestaMedico(GenericResponse<Medico> response){
+    private void manejarRespuestaMedico(GenericResponse<Usuario> response){
         if(response.getRpta() == 1){
             //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
             toastCorrecto(response.getMessage());
-            Medico m = response.getBody();
+            Usuario m = response.getBody();
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
             final Gson g = new GsonBuilder()
                     .registerTypeAdapter(Date.class, new DateSerializer())
                     .registerTypeAdapter(Time.class, new TimeSerializer())
                     .create();
-            editor.putString("MedicoJson", g.toJson(m, new TypeToken<Medico>(){
+            editor.putString("MedicoJson", g.toJson(m, new TypeToken<Usuario>(){
             }.getType()));
             edtDNI.setText("");
             edtPassword.setText("");

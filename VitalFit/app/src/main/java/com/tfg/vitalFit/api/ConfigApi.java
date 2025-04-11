@@ -23,7 +23,7 @@ public class ConfigApi {
     private static String token = "";
 
     private static PacienteApi pacienteApi;
-    private static MedicoApi medicoApi;
+    private static UsuarioApi usuarioApi;
     private static NutricionistaApi nutricionistaApi;
     private static HospitalApi hospitalApi;
     private static PesosApi pesosApi;
@@ -74,11 +74,11 @@ public class ConfigApi {
         return pacienteApi;
     }
 
-    public static MedicoApi getMedicoApi(){
-        if(medicoApi == null){
-            medicoApi = retrofit.create(MedicoApi.class);
+    public static UsuarioApi getUsuarioApi(){
+        if(usuarioApi == null){
+            usuarioApi = retrofit.create(UsuarioApi.class);
         }
-        return medicoApi;
+        return usuarioApi;
     }
 
     public static NutricionistaApi getNutricionistaApi(){

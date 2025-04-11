@@ -31,6 +31,7 @@ import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Pesos;
+import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
@@ -104,15 +105,20 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
     private void guardarDatos() {
         Paciente p;
+        Usuario u;
         if(validar()){
             p = new Paciente();
+            u = new Usuario();
             try{
-                p.setNombre(edtName.getText().toString());
-                p.setApellido1(edtApellido1.getText().toString());
-                p.setApellido2(edtApellido2.getText().toString());
+                u.setNombre(edtName.getText().toString());
+                u.setApellido1(edtApellido1.getText().toString());
+                u.setApellido2(edtApellido2.getText().toString());
+                u.setDNI(edtDNI.getText().toString());
+                u.setTelefono(edtTlf.getText().toString());
+                u.setContrasena(edtPassword.getText().toString());
+                u.setRol("PACIENTE");
                 p.setDNI(edtDNI.getText().toString());
                 p.setNumSeguridadSocial(edtNSS.getText().toString());
-                p.setTelefono(edtTlf.getText().toString());
                 p.setFechaNacimiento(convertirFecha(edtFechaNacimiento.getText().toString()));
                 p.setProvincia(dropdownProvincia.getText().toString());
                 p.setCP(edtCP.getText().toString());
@@ -124,7 +130,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                 Double imc = peso / (altura * altura);
                 Log.e("IMC", imc.toString());
                 p.setImc(imc);
-                p.setContrasena(edtPassword.getText().toString());
+
                 if(chkVegana.isChecked()){
                     p.setVegana(1);
                 }else{

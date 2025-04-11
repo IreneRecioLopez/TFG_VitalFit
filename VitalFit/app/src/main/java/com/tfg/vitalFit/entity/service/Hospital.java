@@ -13,9 +13,9 @@ public class Hospital {
     private Long cp;
     private String direccion;
     private Long numero;
-    private List<Paciente> pacientes;
-    private List<Medico> medicos;
-    private List<Nutricionista> nutricionistas;
+    private List<Usuario> pacientes;
+    private List<Usuario> medicos;
+    private List<Usuario> nutricionistas;
 
     public Hospital(){}
 

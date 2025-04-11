@@ -17,82 +17,87 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Hospital;
-import com.tfg.vitalfit.entity.service.Medico;
-import com.tfg.vitalfit.entity.service.Nutricionista;
+import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
-import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
+import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistroNutricionistaActivity extends AppCompatActivity {
+public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
 
     private HospitalViewModel hViewModel;
-    private NutricionistaViewModel nViewModel;
+    private UsuarioViewModel mViewModel;
     private Toolbar toolbar;
     private AutoCompleteTextView dropdownProvincia, dropdownHospital;
     private Button btnGuardarDatos;
     private EditText edtName, edtApellido1, edtApellido2, edtDNI, edtTlf, edtPassword, edtPasswordVal;
     private TextInputLayout txtInputName, txtInputApellido1, txtInputApellido2, txtInputDNI, txtInputTlf,
-            txtInputPassword, txtInputPasswordVal, txtInputProvincia, txtInputHospital;
+                            txtInputPassword, txtInputPasswordVal, txtInputProvincia, txtInputHospital;
+
 
     private String hospital, provincia;
     private Hospital hospitalAsignado = new Hospital();
 
+
+
+    String rol = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_registro_nutricionista);
+        setContentView(R.layout.activity_registro_medico_nutricionista);
         this.initViewModel();
+        Intent intent = this.getIntent();
+        Bundle extra = intent.getExtras();
+        rol = extra.getString("ROL");
         this.init();
+        //this.spinners();
     }
 
     private void initViewModel(){
         final ViewModelProvider vmp = new ViewModelProvider(this);
-        nViewModel = vmp.get(NutricionistaViewModel.class);
+        mViewModel = vmp.get(UsuarioViewModel.class);
         hViewModel = vmp.get(HospitalViewModel.class);
     }
 
     private void init(){
-        toolbar = findViewById(R.id.toolbarRegNutricionista);
-        btnGuardarDatos = findViewById(R.id.btnGuardarDatosN);
-        edtName = findViewById(R.id.edtNameN);
-        edtApellido1 = findViewById(R.id.edtPrimerApellidoN);
-        edtApellido2 = findViewById(R.id.edtSegundoApellidoN);
-        edtDNI = findViewById(R.id.edtDNIN);
-        edtTlf = findViewById(R.id.edtTelefonoN);
-        edtPassword = findViewById(R.id.edtPasswordN);
-        edtPasswordVal = findViewById(R.id.edtPasswordValN);
+        toolbar = findViewById(R.id.toolbarRegMedico);
+        btnGuardarDatos = findViewById(R.id.btnGuardarDatosM);
+        edtName = findViewById(R.id.edtNameM);
+        edtApellido1 = findViewById(R.id.edtPrimerApellidoM);
+        edtApellido2 = findViewById(R.id.edtSegundoApellidoM);
+        edtDNI = findViewById(R.id.edtDNIM);
+        edtTlf = findViewById(R.id.edtTelefonoM);
+        edtPassword = findViewById(R.id.edtPasswordM);
+        edtPasswordVal = findViewById(R.id.edtPasswordValM);
         //TextInputLayout
-        txtInputName = findViewById(R.id.txtInputNameN);
-        txtInputApellido1 = findViewById(R.id.txtInputPrimerApellidoN);
-        txtInputApellido2 = findViewById(R.id.txtInputSegundoApellidoN);
-        txtInputDNI = findViewById(R.id.txtInputDNIN);
-        txtInputTlf = findViewById(R.id.txtInputTelefonoN);
-        txtInputPassword = findViewById(R.id.txtInputPasswordN);
-        txtInputPasswordVal = findViewById(R.id.txtInputPasswordValN);
-        txtInputProvincia = findViewById(R.id.txtInputProvinciaN);
-        txtInputHospital = findViewById(R.id.txtInputHospitalN);
+        txtInputName = findViewById(R.id.txtInputNameM);
+        txtInputApellido1 = findViewById(R.id.txtInputPrimerApellidoM);
+        txtInputApellido2 = findViewById(R.id.txtInputSegundoApellidoM);
+        txtInputDNI = findViewById(R.id.txtInputDNIM);
+        txtInputTlf = findViewById(R.id.txtInputTelefonoM);
+        txtInputPassword = findViewById(R.id.txtInputPasswordM);
+        txtInputPasswordVal = findViewById(R.id.txtInputPasswordValM);
+        txtInputProvincia = findViewById(R.id.txtInputProvinciaM);
+        txtInputHospital = findViewById(R.id.txtInputHospitalM);
         //AutoCompleteTextView
-        dropdownProvincia = findViewById(R.id.dropdownProvinciaN);
-        dropdownHospital = findViewById(R.id.dropdownHospitalN);
+        dropdownProvincia = findViewById(R.id.dropdownProvinciaM);
+        dropdownHospital = findViewById(R.id.dropdownHospitalM);
 
         // Habilitar el botón de regreso en el Toolbar
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
+            getSupportActionBar().setTitle("Registrar " + rol);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
@@ -118,29 +123,7 @@ public class RegistroNutricionistaActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void obtenerHospitalesPorProvincia(String provincia) {
-        hViewModel.hospitalPorProvincia(provincia).observe(this, new Observer<List<Hospital>>(){
-            @Override
-            public void onChanged(List<Hospital> hospitales){
-                if(hospitales != null){
-                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
-                    listaNombresHospitales(hospitales);
-                }
-            }
-        });
-    }
-
-    private void listaNombresHospitales(List<Hospital> hospitales){
-        List<String> nombresHospitales = new ArrayList<>();
-        for(Hospital hospital: hospitales){
-            nombresHospitales.add(hospital.getNombre());
-        }
-        ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
-        dropdownHospital.setAdapter(arrayHospitales);
-    }
-
     private void obtenerHospitalPorNombreYProvincia(String nombre, String provincia){
-
         hViewModel.hospitalPorNombreYProvincia(nombre, provincia).observe(this, new Observer<Hospital>() {
             @Override
             public void onChanged(Hospital hospital) {
@@ -168,10 +151,10 @@ public class RegistroNutricionistaActivity extends AppCompatActivity {
         }
     }
 
-    public void guardarNutricionista(Nutricionista n){
-        this.nViewModel.save(n).observe(this, mResponse -> {
+    public void guardarUsuario(Usuario m){
+        this.mViewModel.save(m).observe(this, mResponse -> {
             if (mResponse.getRpta() == 1) {
-                this.nViewModel.asociarNutricionistaHospital(n.getDni(), hospitalAsignado).observe(this, response -> {
+                this.mViewModel.asociarUsuarioHospital(m.getDni(), hospitalAsignado).observe(this, response -> {
                     Log.e("Respuesta", "Rpta: " + response.getRpta());
                     if (response.getRpta() == 1) {
                         toastCorrecto("Su información ha sido guardada con éxito.");
@@ -186,21 +169,45 @@ public class RegistroNutricionistaActivity extends AppCompatActivity {
         });
     }
 
+
+    private void obtenerHospitalesPorProvincia(String provincia) {
+        hViewModel.hospitalPorProvincia(provincia).observe(this, new Observer<List<Hospital>>(){
+            @Override
+            public void onChanged(List<Hospital> hospitales){
+                if(hospitales != null){
+                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
+                    listaNombresHospitales(hospitales);
+                }
+            }
+        });
+    }
+
+    private void listaNombresHospitales(List<Hospital> hospitales){
+        List<String> nombresHospitales = new ArrayList<>();
+        for(Hospital hospital: hospitales){
+            nombresHospitales.add(hospital.getNombre());
+        }
+        ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
+        dropdownHospital.setAdapter(arrayHospitales);
+    }
+
+
     private void guardarDatos(){
-        Nutricionista n;
+        Usuario m;
         if(validar()){
-            n = new Nutricionista();
+            m = new Usuario();
             try{
-                n.setNombre(edtName.getText().toString());
-                n.setApellido1(edtApellido1.getText().toString());
-                n.setApellido2(edtApellido2.getText().toString());
-                n.setDNI(edtDNI.getText().toString());
-                n.setTelefono(edtTlf.getText().toString());
-                n.setContrasena(edtPassword.getText().toString());
+                m.setNombre(edtName.getText().toString());
+                m.setApellido1(edtApellido1.getText().toString());
+                m.setApellido2(edtApellido2.getText().toString());
+                m.setDNI(edtDNI.getText().toString());
+                m.setTelefono(edtTlf.getText().toString());
+                m.setContrasena(edtPassword.getText().toString());
+                m.setRol(rol);
                 obtenerHospitalPorNombreYProvincia(hospital, provincia);
                 Long idHospital = hospitalAsignado.getIdHospital();
 
-                guardarNutricionista(n);
+                guardarUsuario(m);
 
             }catch (Exception e){
                 toastInvalido("Se ha producido un error " + e.getMessage());
@@ -277,6 +284,7 @@ public class RegistroNutricionistaActivity extends AppCompatActivity {
             return false;
         }
         return val;
+
     }
 
     public void toastCorrecto(String msg){
@@ -440,4 +448,6 @@ public class RegistroNutricionistaActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

@@ -12,15 +12,7 @@ import java.util.List;
 public class Paciente {
     @Id
     private String dni;
-    @Column(nullable = false)
-    private String nombre;
-    @Column(nullable = false)
-    private String apellido1;
-    private String apellido2;
-    @Column(nullable = false)
-    private String contrasena;
-    @Column(length = 9, nullable = false)
-    private String telefono;
+
     @Column(nullable = false)
     private String numSeguridadSocial;
     @Column(nullable = false)
@@ -42,22 +34,18 @@ public class Paciente {
 
     @ManyToOne
     @JoinColumn (name = "dni_medico")
-    @JsonIgnore
-    private Medico medico;
+    //@JsonIgnore
+    @JsonBackReference("medico-paciente")
+    private Usuario medico;
 
     @ManyToOne
     @JoinColumn(name = "dni_nutricionista")
-    @JsonIgnore
-    private Nutricionista nutricionista;
-
-    @ManyToOne
-    @JoinColumn(name = "idHospital")
     //@JsonIgnore
-    @JsonBackReference
-    private Hospital hospital;
+    @JsonBackReference("nutricionista-paciente")
+    private Usuario nutricionista;
 
     @OneToMany(mappedBy = "paciente")
-    @JsonManagedReference
+    @JsonManagedReference("paciente-pesos")
     private List<Pesos> pesos;
 
     @OneToMany(mappedBy = "paciente")
@@ -69,46 +57,17 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente")
     private List<Dieta> dietas;
 
+    @OneToOne
+    @JoinColumn(name = "dni")
+    @MapsId
+    @JsonBackReference
+    private Usuario usuario;
+
     public String getDni() {
         return dni;
     }
     public void setDni(String dni) {
         this.dni = dni;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getApellido1() {
-        return apellido1;
-    }
-    public void setApellido1(String apellido1) {
-        this.apellido1 = apellido1;
-    }
-
-    public String getApellido2() {
-        return apellido2;
-    }
-    public void setApellido2(String apellido2) {
-        this.apellido2 = apellido2;
-    }
-
-    public String getContrasena() {
-        return contrasena;
-    }
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
-
-    public String getTelefono() {
-        return telefono;
-    }
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
     }
 
     public String getNumSeguridadSocial() {
@@ -160,26 +119,20 @@ public class Paciente {
         this.direccion = direccion;
     }
 
-    public Medico getMedico() {
+    public Usuario getMedico() {
         return medico;
     }
-    public void setMedico(Medico medico) {
+    public void setMedico(Usuario medico) {
         this.medico = medico;
     }
 
-    public Nutricionista getNutricionista() {
+    public Usuario getNutricionista() {
         return nutricionista;
     }
-    public void setNutricionista(Nutricionista nutricionista) {
+    public void setNutricionista(Usuario nutricionista) {
         this.nutricionista = nutricionista;
     }
 
-    public Hospital getHospital() {
-        return hospital;
-    }
-    public void setHospital(Hospital hospital) {
-        this.hospital = hospital;
-    }
 
     public List<Pesos> getPesos() {
         return pesos;

@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.viewModel.MedicoViewModel;
+import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 
@@ -30,7 +30,7 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
     private PacienteViewModel pViewModel;
     private NutricionistaViewModel nViewModel;
-    private MedicoViewModel mViewModel;
+    private UsuarioViewModel mViewModel;
     private Toolbar toolbar;
     private EditText edtDNI, edtPassword, edtPasswordVal;
     private TextInputLayout txtInputDNI, txtInputPassword, txtInputPasswordVal;
@@ -48,7 +48,7 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
     private void initViewModel() {
         final ViewModelProvider vmp = new ViewModelProvider(this);
         pViewModel = vmp.get(PacienteViewModel.class);
-        mViewModel = vmp.get(MedicoViewModel.class);
+        mViewModel = vmp.get(UsuarioViewModel.class);
         nViewModel = vmp.get(NutricionistaViewModel.class);
     }
 

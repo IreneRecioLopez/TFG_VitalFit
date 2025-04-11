@@ -1,7 +1,6 @@
 package com.tfg.vitalfit.service.service;
 
 import com.tfg.vitalfit.service.entity.Hospital;
-import com.tfg.vitalfit.service.entity.Medico;
 import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.repository.PacienteRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -22,7 +21,7 @@ public class PacienteService {
     }
 
     //método para iniciar sesión
-    public GenericResponse<Paciente> login(String dni, String password){
+   /* public GenericResponse<Paciente> login(String dni, String password){
         Optional<Paciente> optP = this.repository.login(dni, password);
         if(optP.isPresent()){
             return new GenericResponse<Paciente>(TIPO_AUTH, RPTA_OK, "Has iniciado sesión correctamente", optP.get());
@@ -30,7 +29,7 @@ public class PacienteService {
             return new GenericResponse<Paciente>(TIPO_AUTH, RPTA_WARNING, "Lo sentimos, ese usuario no existe", new Paciente());
 
         }
-    }
+    }*/
 
     //método para guardar los datos del paciente
     public GenericResponse guardarPaciente(Paciente p){
@@ -43,7 +42,7 @@ public class PacienteService {
         }
     }
 
-    public GenericResponse asociarPacienteHospital(String dni, Hospital hospital) {
+    /*public GenericResponse asociarPacienteHospital(String dni, Hospital hospital) {
         Optional<Paciente> optP = this.repository.findByDNI(dni);
         Paciente p = optP.get();
         String idf = optP.isPresent()? optP.get().getDni() : "";
@@ -54,9 +53,9 @@ public class PacienteService {
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
 
         }
-    }
+    }*/
 
-    public GenericResponse actualizarPassword(String dni, String password){
+    /*public GenericResponse actualizarPassword(String dni, String password){
         Optional<Paciente> optP = this.repository.findByDNI(dni);
         if(optP.isPresent()){
             Paciente pBD = optP.get();
@@ -67,5 +66,5 @@ public class PacienteService {
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
 
         }
-    }
+    }*/
 }

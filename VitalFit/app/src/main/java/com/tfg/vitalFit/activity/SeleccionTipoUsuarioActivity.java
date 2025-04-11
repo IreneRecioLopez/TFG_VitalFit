@@ -15,12 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.viewModel.MedicoViewModel;
-import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
-import com.tfg.vitalfit.viewModel.PacienteViewModel;
 
 public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
 
@@ -58,10 +54,18 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
                 startActivity(new Intent(this, RegistroPacienteActivity.class));
             }else if(isMedico) {
                 chkMedico.setChecked(false);
-                startActivity(new Intent(this, RegistroMedicoActivity.class));
+                String valor = "Médico";
+                Intent intent = new Intent(this, RegistroMedicoNutricionistaActivity.class);
+                intent.putExtra("ROL", valor);
+                startActivity(intent);
+                //startActivity(new Intent(this, RegistroMedicoActivity.class));
             }else if(isNutricionista){
                 chkNutricionista.setChecked(false);
-                startActivity(new Intent(this, RegistroNutricionistaActivity.class));
+                String valor = "Nutricionista";
+                Intent intent = new Intent(this, RegistroMedicoNutricionistaActivity.class);
+                intent.putExtra("ROL", valor);
+                startActivity(intent);
+                //startActivity(new Intent(this, RegistroNutricionistaActivity.class));
             }else{
                 toastInvalido("Por favor, seleccione un tipo de usuario.");
             }
