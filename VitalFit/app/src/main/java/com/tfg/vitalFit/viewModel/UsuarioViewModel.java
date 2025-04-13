@@ -11,10 +11,12 @@ import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.repository.UsuarioRepository;
 
+import org.jetbrains.annotations.NotNull;
+
 public class UsuarioViewModel extends AndroidViewModel {
     private final UsuarioRepository repository;
 
-    public UsuarioViewModel(@NonNull Application application) {
+    public UsuarioViewModel(@NonNull @NotNull Application application) {
         super(application);
         this.repository = UsuarioRepository.getInstance();
     }
@@ -23,8 +25,8 @@ public class UsuarioViewModel extends AndroidViewModel {
         return this.repository.login(dni, password);
     }
 
-    public LiveData<GenericResponse<Usuario>> save(Usuario m){
-        return this.repository.save(m);
+    public LiveData<GenericResponse<Usuario>> save(Usuario u){
+        return this.repository.save(u);
     }
 
     public LiveData<GenericResponse<Void>> asociarUsuarioHospital(String dniUsuario, Hospital hospital){

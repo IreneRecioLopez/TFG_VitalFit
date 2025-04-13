@@ -12,6 +12,7 @@ public class Usuario {
     private String telefono;
     private String rol;
     private List<Paciente> pacientes;
+    private Paciente paciente;
     private Hospital hospital;
 
     public String getDni(){ return dni; }
@@ -22,6 +23,7 @@ public class Usuario {
     public String getPassword(){ return contrasena; }
     public String getRol(){ return rol; }
     public List<Paciente> getPacientes(){ return pacientes; }
+    public Paciente getPaciente(){ return paciente; }
     public Hospital getHospital(){ return hospital; }
 
     public void setDNI(String DNI){ this.dni = DNI;}
@@ -32,5 +34,6 @@ public class Usuario {
     public void setContrasena(String contrasena){ this.contrasena = contrasena; }
     public void setRol(String rol) { this.rol = rol; }
     public void setPacientes(List<Paciente> pacientes){ this.pacientes = pacientes; }
+    public void setPaciente(Paciente paciente) { this.paciente = paciente; }
     public void setHospital(Hospital hospital){ this.hospital = hospital; }
 }

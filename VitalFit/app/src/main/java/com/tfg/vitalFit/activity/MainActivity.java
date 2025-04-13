@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Button btnIniciarSesion;
     private PacienteViewModel pViewModel;
     private NutricionistaViewModel nViewModel;
-    private UsuarioViewModel mViewModel;
+    private UsuarioViewModel uViewModel;
     private TextInputLayout txtInputUsuario, txtInputPassword;
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
     private TextView txtNuevoUsuario, txtForgetPassword;
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void initViewModel() {
         pViewModel = new ViewModelProvider(this).get(PacienteViewModel.class);
-        mViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
+        uViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
         nViewModel = new ViewModelProvider(this).get(NutricionistaViewModel.class);
     }
 
@@ -111,10 +111,11 @@ public class MainActivity extends AppCompatActivity {
                 if(validar()){
                     String dni = edtDNI.getText().toString();
                     String password = edtPassword.getText().toString();
+                    //método para obtener usuario y despues comprobar el tipo de rol
                     if (isPaciente) {
                         pViewModel.login(dni, password).observe(this, response -> manejarRespuestaPaciente(response));
                     } else if (isMedico) {
-                        mViewModel.login(dni, password).observe(this, response -> manejarRespuestaMedico(response));
+                        uViewModel.login(dni, password).observe(this, response -> manejarRespuestaMedico(response));
                     } else if (isNutricionista) {
                         nViewModel.login(dni, password).observe(this, response -> manejarRespuestaNutricionista(response));
                     }else{

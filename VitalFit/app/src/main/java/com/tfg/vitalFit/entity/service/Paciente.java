@@ -17,6 +17,7 @@ public class Paciente {
     private Integer vegana;
     private Usuario medico;
     private Usuario nutricionista;
+    //private Usuario paciente;
     private List<Pesos> pesos;
     private List<Alergias> alergias;
     private List<Consejo> consejos;
@@ -133,4 +134,6 @@ public class Paciente {
     public void setDietas(List<Dieta> dietas) {
         this.dietas = dietas;
     }
+
+    //public void setUsuario(Usuario usuario) { this.paciente = usuario; }
 }

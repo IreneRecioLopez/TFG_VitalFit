@@ -46,8 +46,7 @@ public class Usuario {
     @JsonBackReference
     private Hospital hospital;
 
-    @OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @OneToOne(fetch = FetchType.EAGER)
     private Paciente paciente;
 
 }

@@ -2,7 +2,9 @@ package com.tfg.vitalfit.service.service;
 
 import com.tfg.vitalfit.service.entity.Hospital;
 import com.tfg.vitalfit.service.entity.Paciente;
+import com.tfg.vitalfit.service.entity.Usuario;
 import com.tfg.vitalfit.service.repository.PacienteRepository;
+import com.tfg.vitalfit.service.repository.UsuarioRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +17,11 @@ import static com.tfg.vitalfit.service.utils.Global.*;
 @Transactional
 public class PacienteService {
     private final PacienteRepository repository;
+    private final UsuarioRepository usuarioRepository;
 
-    public PacienteService(PacienteRepository repository) {
+    public PacienteService(PacienteRepository repository, UsuarioRepository usuarioRepository) {
         this.repository = repository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     //método para iniciar sesión
@@ -33,14 +37,26 @@ public class PacienteService {
 
     //método para guardar los datos del paciente
     public GenericResponse guardarPaciente(Paciente p){
-        Optional<Paciente> optP = this.repository.findByDNI(p.getDni());
-        String idf = optP.isPresent()? optP.get().getDni() : "";
-        if(!idf.equals("")){
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: Ya exite un paciente con el mismo número de DNI.", null);
+        Optional<Paciente> opt = this.repository.findByDNI(p.getDni());
+        String dni = opt.isPresent() ? opt.get().getDni() : "";
+        if(!dni.equals("")){
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: El paciente con este DNI ya existe.", null);
         }else{
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente registrado correctamente", this.repository.save(p));
         }
     }
+    /*public GenericResponse guardarPaciente(Paciente p){
+        String dni = p.getDni();
+        if(dni.equals("")){
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: El DNI no puede ser nulo.", null);
+        }else{
+            Usuario usuario = usuarioRepository.findByDNI(dni).get();
+            p.setUsuario(usuario);
+
+            this.repository.save(p);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente registrado correctamente", this.repository.save(p));
+        }
+    }*/
 
     /*public GenericResponse asociarPacienteHospital(String dni, Hospital hospital) {
         Optional<Paciente> optP = this.repository.findByDNI(dni);

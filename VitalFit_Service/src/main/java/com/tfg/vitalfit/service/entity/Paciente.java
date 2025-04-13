@@ -57,12 +57,6 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente")
     private List<Dieta> dietas;
 
-    @OneToOne
-    @JoinColumn(name = "dni")
-    @MapsId
-    @JsonBackReference
-    private Usuario usuario;
-
     public String getDni() {
         return dni;
     }

@@ -27,11 +27,11 @@ public interface UsuarioApi {
 
     //@FormUrlEncoded
     @POST(base + "/save")
-    Call<GenericResponse<Usuario>> guardarUsuario(@Body Usuario m);
+    Call<GenericResponse<Usuario>> guardarUsuario(@Body Usuario u);
 
 
     @PUT(base + "/{dni}/hospital")
-    Call<GenericResponse<Void>> asociarUsuarioHospital(@Path("dni") String dniMedico, @Body Hospital hospital);
+    Call<GenericResponse<Void>> asociarUsuarioHospital(@Path("dni") String dniUsuario, @Body Hospital hospital);
 
     @Headers("Content-Type: text/plain")
     @PUT(base + "/{dni}/password")

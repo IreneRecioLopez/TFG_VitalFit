@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("api/paciente")
@@ -31,7 +32,8 @@ public class PacienteREST {
     }
 
     @PutMapping("/{dni}")
-    public GenericResponse update(@PathVariable String dni, @RequestBody Paciente p){
+    public GenericResponse update(@PathVariable String dni, @Valid @RequestBody Paciente p){
+        p.setDni(dni);
         return this.service.guardarPaciente(p);
     }
 

@@ -35,6 +35,7 @@ import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
+import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,6 +48,7 @@ import java.util.Locale;
 public class RegistroPacienteActivity extends AppCompatActivity {
 
     private PacienteViewModel pViewModel;
+    private UsuarioViewModel uViewModel;
     private HospitalViewModel hViewModel;
     private PesosViewModel pesosViewModel;
     private Toolbar toolbar;
@@ -74,6 +76,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         final ViewModelProvider vmp = new ViewModelProvider(this);
         pViewModel = vmp.get(PacienteViewModel.class);
         hViewModel = vmp.get(HospitalViewModel.class);
+        uViewModel = vmp.get(UsuarioViewModel.class);
         pesosViewModel = vmp.get(PesosViewModel.class);
     }
 
@@ -102,21 +105,12 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         ///ONCHANGE LISTENER A LOS EDITEXT
         editTextListeners();
     }
-
+/*
     private void guardarDatos() {
         Paciente p;
-        Usuario u;
         if(validar()){
             p = new Paciente();
-            u = new Usuario();
             try{
-                u.setNombre(edtName.getText().toString());
-                u.setApellido1(edtApellido1.getText().toString());
-                u.setApellido2(edtApellido2.getText().toString());
-                u.setDNI(edtDNI.getText().toString());
-                u.setTelefono(edtTlf.getText().toString());
-                u.setContrasena(edtPassword.getText().toString());
-                u.setRol("PACIENTE");
                 p.setDNI(edtDNI.getText().toString());
                 p.setNumSeguridadSocial(edtNSS.getText().toString());
                 p.setFechaNacimiento(convertirFecha(edtFechaNacimiento.getText().toString()));
@@ -141,7 +135,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                 }else{
                     p.setVegetariana(0);
                 }
-
+                hospitalAsignado = new Hospital();
                 obtenerHospitalPorNombreYProvincia(hospital, provincia);
                 Long idHospital = hospitalAsignado.getIdHospital();
 
@@ -156,34 +150,136 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
     private void guardarPaciente(Paciente p){
         this.pViewModel.save(p).observe(this, pResponse -> {
-            Log.e("GuardarPaciente", "Respuesta pResponse: " + pResponse.getRpta());
             if(pResponse.getRpta() == 1){
-                this.pViewModel.asociarPacienteHospital(p.getDNI(), hospitalAsignado).observe(this, response -> {
-                    Log.e("Respuesta", "Rpta: " + response.getRpta());
-                    if (response.getRpta() == 1) {
-                        String dni = pResponse.getBody().getDNI();
-                        Pesos peso = new Pesos();
-                        peso.setPeso(p.getPesoActual());
-                        peso.setPaciente(new Paciente(dni));
-                        peso.setFecha(obtenerFechaActual());
-                        this.pesosViewModel.save(peso).observe(this, pesoResponse -> {
-                            if(pesoResponse.getRpta() == 1){
-                                toastCorrecto("Su información ha sido guardada con éxito.");
-                                startActivity(new Intent(this, MainActivity.class));
-                            }else{
-                                toastInvalido("No se ha podido guardar bien el peso");
+                String dni = pResponse.getBody().getDNI();
+                Usuario u = new Usuario();
+                u.setNombre(edtName.getText().toString());
+                u.setApellido1(edtApellido1.getText().toString());
+                u.setApellido2(edtApellido2.getText().toString());
+                u.setDNI(edtDNI.getText().toString());
+                u.setTelefono(edtTlf.getText().toString());
+                u.setContrasena(edtPassword.getText().toString());
+                u.setRol("Paciente");
+                u.setPaciente(p);
+                this.uViewModel.save(u).observe(this, uResponse -> {
+                    Log.e("GuardarPaciente", "Respuesta pResponse: " + uResponse.getRpta());
+                    if(uResponse.getRpta() == 1){
+                        this.uViewModel.asociarUsuarioHospital(u.getDni(), hospitalAsignado).observe(this, response -> {
+                            Log.e("Respuesta", "Rpta: " + response.getRpta());
+                            if (response.getRpta() == 1) {
+                                String DNI = pResponse.getBody().getDNI();
+                                Pesos peso = new Pesos();
+                                peso.setPeso(p.getPesoActual());
+                                peso.setPaciente(new Paciente(DNI));
+                                peso.setFecha(obtenerFechaActual());
+                                this.pesosViewModel.save(peso).observe(this, pesoResponse -> {
+                                    if(pesoResponse.getRpta() == 1){
+                                        toastCorrecto("Su información ha sido guardada con éxito.");
+                                        startActivity(new Intent(this, MainActivity.class));
+                                    }else{
+                                        toastInvalido("No se ha podido guardar bien el peso");
+                                    }
+                                });
+                            } else {
+                                toastInvalido("No se ha podido asociar bien al hospital");
                             }
                         });
                     } else {
-                        toastInvalido("No se ha podido asociar bien al hospital");
+                        toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
+                    }
+
+                });
+            }else{
+                toastInvalido("No se ha podido guardar bien el usuario");
+            }
+        });
+
+
+    }
+*/
+
+    private void guardarDatos() {
+        if(validar()){
+            try {
+                hViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(this, hospital -> {
+                    if (hospital != null) {
+                        guardarPacienteConHospital(hospital);
+                    } else {
+                        toastInvalido("No se ha encontrado el hospital.");
                     }
                 });
-            } else {
-                toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
+            } catch (Exception e){
+                toastInvalido("Error: " + e.getMessage());
+                Log.e("ERROR", e.getMessage(), e);
             }
-
-        });
+        }
     }
+
+    private void guardarPacienteConHospital(Hospital hospital){
+        Paciente p = new Paciente();
+        try {
+            p.setDNI(edtDNI.getText().toString());
+            p.setNumSeguridadSocial(edtNSS.getText().toString());
+            p.setFechaNacimiento(convertirFecha(edtFechaNacimiento.getText().toString()));
+            p.setProvincia(dropdownProvincia.getText().toString());
+            p.setCP(edtCP.getText().toString());
+            p.setDireccion(edtDireccion.getText().toString());
+            Double altura = Double.parseDouble(edtAltura.getText().toString());
+            p.setAltura(altura);
+            Double peso = Double.parseDouble(edtPeso.getText().toString());
+            p.setPesoActual(peso);
+            Double imc = peso / (altura * altura);
+            p.setImc(imc);
+            p.setVegana(chkVegana.isChecked() ? 1 : 0);
+            p.setVegetariana(chkVegetariana.isChecked() ? 1 : 0);
+
+            this.pViewModel.save(p).observe(this, pResponse -> {
+                if(pResponse.getRpta() == 1){
+                    Usuario u = new Usuario();
+                    u.setNombre(edtName.getText().toString());
+                    u.setApellido1(edtApellido1.getText().toString());
+                    u.setApellido2(edtApellido2.getText().toString());
+                    u.setDNI(edtDNI.getText().toString());
+                    u.setTelefono(edtTlf.getText().toString());
+                    u.setContrasena(edtPassword.getText().toString());
+                    u.setRol("Paciente");
+                    u.setPaciente(p);
+
+                    this.uViewModel.save(u).observe(this, uResponse -> {
+                        if(uResponse.getRpta() == 1){
+                            this.uViewModel.asociarUsuarioHospital(u.getDni(), hospital).observe(this, response -> {
+                                if (response.getRpta() == 1) {
+                                    Pesos pesoObj = new Pesos();
+                                    pesoObj.setPeso(p.getPesoActual());
+                                    pesoObj.setPaciente(new Paciente(p.getDNI()));
+                                    pesoObj.setFecha(obtenerFechaActual());
+
+                                    this.pesosViewModel.save(pesoObj).observe(this, pesoResponse -> {
+                                        if(pesoResponse.getRpta() == 1){
+                                            toastCorrecto("Su información ha sido guardada con éxito.");
+                                            startActivity(new Intent(this, MainActivity.class));
+                                        } else {
+                                            toastInvalido("No se ha podido guardar bien el peso");
+                                        }
+                                    });
+                                } else {
+                                    toastInvalido("No se ha podido asociar bien al hospital");
+                                }
+                            });
+                        } else {
+                            toastInvalido("No se ha podido guardar bien el usuario");
+                        }
+                    });
+                } else {
+                    toastInvalido("No se ha podido guardar el paciente");
+                }
+            });
+        } catch (Exception e){
+            toastInvalido("Se ha producido un error " + e.getMessage());
+            Log.e("ERROR EXCEPTION", e.getMessage(), e);
+        }
+    }
+
 
     private boolean validar(){
         boolean val = true;
