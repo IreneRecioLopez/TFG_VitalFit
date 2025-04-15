@@ -6,15 +6,17 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -44,6 +46,7 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
     }
 
     private void init(){
+        toolbar = findViewById(R.id.toolbarOlvidoPassword);
         btnOlvidarPassword = findViewById(R.id.btnOlvidoPassword);
         edtDNI = findViewById(R.id.edtDNI);
         edtPassword = findViewById(R.id.edtPassword);
@@ -51,6 +54,12 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
         txtInputDNI = findViewById(R.id.txtInputUsuarioDNI);
         txtInputPassword = findViewById(R.id.txtInputPassword);
         txtInputPasswordVal = findViewById(R.id.txtInputPasswordValidacion);
+
+        // Habilitar el botón de regreso en el Toolbar
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         listeners();
 
@@ -178,5 +187,15 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
         toast.setDuration(Toast.LENGTH_LONG);
         toast.setView(view);
         toast.show();
+    }
+
+    // Capturar el clic en el botón de regreso
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
+            onBackPressed(); // Regresa a la pantalla anterior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

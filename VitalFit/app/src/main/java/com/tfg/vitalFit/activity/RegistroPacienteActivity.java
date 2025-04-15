@@ -105,98 +105,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         ///ONCHANGE LISTENER A LOS EDITEXT
         editTextListeners();
     }
-/*
-    private void guardarDatos() {
-        Paciente p;
-        if(validar()){
-            p = new Paciente();
-            try{
-                p.setDNI(edtDNI.getText().toString());
-                p.setNumSeguridadSocial(edtNSS.getText().toString());
-                p.setFechaNacimiento(convertirFecha(edtFechaNacimiento.getText().toString()));
-                p.setProvincia(dropdownProvincia.getText().toString());
-                p.setCP(edtCP.getText().toString());
-                p.setDireccion(edtDireccion.getText().toString());
-                Double altura = Double.parseDouble(edtAltura.getText().toString());
-                p.setAltura(altura);
-                Double peso = Double.parseDouble(edtPeso.getText().toString());
-                p.setPesoActual(peso);
-                Double imc = peso / (altura * altura);
-                Log.e("IMC", imc.toString());
-                p.setImc(imc);
-
-                if(chkVegana.isChecked()){
-                    p.setVegana(1);
-                }else{
-                    p.setVegana(0);
-                }
-                if(chkVegetariana.isChecked()){
-                    p.setVegetariana(1);
-                }else{
-                    p.setVegetariana(0);
-                }
-                hospitalAsignado = new Hospital();
-                obtenerHospitalPorNombreYProvincia(hospital, provincia);
-                Long idHospital = hospitalAsignado.getIdHospital();
-
-                guardarPaciente(p);
-
-            }catch(Exception e){
-                toastInvalido("Se ha producido un error " + e.getMessage());
-                Log.e("ERROR EXCEPTION", e.getMessage() + " " + e.getStackTrace(), e);
-            }
-        }
-    }
-
-    private void guardarPaciente(Paciente p){
-        this.pViewModel.save(p).observe(this, pResponse -> {
-            if(pResponse.getRpta() == 1){
-                String dni = pResponse.getBody().getDNI();
-                Usuario u = new Usuario();
-                u.setNombre(edtName.getText().toString());
-                u.setApellido1(edtApellido1.getText().toString());
-                u.setApellido2(edtApellido2.getText().toString());
-                u.setDNI(edtDNI.getText().toString());
-                u.setTelefono(edtTlf.getText().toString());
-                u.setContrasena(edtPassword.getText().toString());
-                u.setRol("Paciente");
-                u.setPaciente(p);
-                this.uViewModel.save(u).observe(this, uResponse -> {
-                    Log.e("GuardarPaciente", "Respuesta pResponse: " + uResponse.getRpta());
-                    if(uResponse.getRpta() == 1){
-                        this.uViewModel.asociarUsuarioHospital(u.getDni(), hospitalAsignado).observe(this, response -> {
-                            Log.e("Respuesta", "Rpta: " + response.getRpta());
-                            if (response.getRpta() == 1) {
-                                String DNI = pResponse.getBody().getDNI();
-                                Pesos peso = new Pesos();
-                                peso.setPeso(p.getPesoActual());
-                                peso.setPaciente(new Paciente(DNI));
-                                peso.setFecha(obtenerFechaActual());
-                                this.pesosViewModel.save(peso).observe(this, pesoResponse -> {
-                                    if(pesoResponse.getRpta() == 1){
-                                        toastCorrecto("Su información ha sido guardada con éxito.");
-                                        startActivity(new Intent(this, MainActivity.class));
-                                    }else{
-                                        toastInvalido("No se ha podido guardar bien el peso");
-                                    }
-                                });
-                            } else {
-                                toastInvalido("No se ha podido asociar bien al hospital");
-                            }
-                        });
-                    } else {
-                        toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
-                    }
-
-                });
-            }else{
-                toastInvalido("No se ha podido guardar bien el usuario");
-            }
-        });
-
-
-    }
-*/
 
     private void guardarDatos() {
         if(validar()){
@@ -279,7 +187,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             Log.e("ERROR EXCEPTION", e.getMessage(), e);
         }
     }
-
 
     private boolean validar(){
         boolean val = true;
@@ -469,40 +376,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         );
 
         datePickerDialog.show();
-    }
-
-    // Capturar el clic en el botón de regreso
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
-            onBackPressed(); // Regresa a la pantalla anterior
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void toastCorrecto(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_ok, (ViewGroup) findViewById(R.id.ll_custom_toast_ok));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastOk);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
     }
 
     private void editTextListeners(){
@@ -781,5 +654,39 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         //AutoCompleteTextView
         dropdownProvincia = findViewById(R.id.dropdownProvinciaP);
         dropdownHospital = findViewById(R.id.dropdownHospitalP);
+    }
+
+    public void toastCorrecto(String msg){
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.custom_toast_ok, (ViewGroup) findViewById(R.id.ll_custom_toast_ok));
+        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastOk);
+        txtMensaje.setText(msg);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(view);
+        toast.show();
+    }
+
+    public void toastInvalido(String msg){
+        LayoutInflater layoutInflater = getLayoutInflater();
+        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
+        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
+        txtMensaje.setText(msg);
+        Toast toast = new Toast(getApplicationContext());
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(view);
+        toast.show();
+    }
+
+    // Capturar el clic en el botón de regreso
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
+            onBackPressed(); // Regresa a la pantalla anterior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
