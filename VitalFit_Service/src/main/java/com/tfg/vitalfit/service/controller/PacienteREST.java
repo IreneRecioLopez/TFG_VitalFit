@@ -1,13 +1,10 @@
 package com.tfg.vitalfit.service.controller;
 
-import com.tfg.vitalfit.service.entity.Hospital;
 import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.service.PacienteService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 @RestController
@@ -37,14 +34,4 @@ public class PacienteREST {
         return this.service.guardarPaciente(p);
     }
 
-    /*@PutMapping("/{dni}/hospital")
-    public GenericResponse asociarPacienteHospital(@PathVariable String dni, @RequestBody Hospital hospital){
-        return this.service.asociarPacienteHospital(dni, hospital);
-    }*/
-
-   /* @PutMapping("/{dni}/password")
-    public GenericResponse actualizarPassword(@PathVariable String dni, @RequestBody String password){
-        return this.service.actualizarPassword(dni, password);
-    }
-    */
 }

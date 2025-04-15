@@ -45,42 +45,5 @@ public class PacienteService {
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente registrado correctamente", this.repository.save(p));
         }
     }
-    /*public GenericResponse guardarPaciente(Paciente p){
-        String dni = p.getDni();
-        if(dni.equals("")){
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: El DNI no puede ser nulo.", null);
-        }else{
-            Usuario usuario = usuarioRepository.findByDNI(dni).get();
-            p.setUsuario(usuario);
 
-            this.repository.save(p);
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente registrado correctamente", this.repository.save(p));
-        }
-    }*/
-
-    /*public GenericResponse asociarPacienteHospital(String dni, Hospital hospital) {
-        Optional<Paciente> optP = this.repository.findByDNI(dni);
-        Paciente p = optP.get();
-        String idf = optP.isPresent()? optP.get().getDni() : "";
-        if(!idf.equals("")){
-            this.repository.asociarPacienteHospital(dni, hospital);
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente asociado correctamente", null);
-        }else{
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
-
-        }
-    }*/
-
-    /*public GenericResponse actualizarPassword(String dni, String password){
-        Optional<Paciente> optP = this.repository.findByDNI(dni);
-        if(optP.isPresent()){
-            Paciente pBD = optP.get();
-            pBD.setContrasena(password);
-            this.repository.save(pBD);
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Contraseña actualizada correctamente", null);
-        }else{
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
-
-        }
-    }*/
 }

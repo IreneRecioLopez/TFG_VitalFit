@@ -27,11 +27,4 @@ public class NutricionistaViewModel extends AndroidViewModel {
         return this.repository.save(n);
     }
 
-    public LiveData<GenericResponse<Void>> asociarNutricionistaHospital(String dniNutricionista, Hospital hospital){
-        return this.repository.asociarNutricionistaHospital(dniNutricionista, hospital);
-    }
-
-    public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String password) {
-        return this.repository.actualizarPassword(dni, password);
-    }
 }
