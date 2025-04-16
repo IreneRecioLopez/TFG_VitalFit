@@ -1,4 +1,4 @@
-package com.tfg.vitalfit.activity.ui.consejos;
+package com.tfg.vitalfit.activity.uiNutricionista.home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,18 +10,19 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.tfg.vitalfit.databinding.FragmentConsejosBinding;
+import com.tfg.vitalfit.activity.uiPaciente.home.HomeViewModel;
+import com.tfg.vitalfit.databinding.FragmentHomeBinding;
 
-public class ConsejosFragment extends Fragment {
+public class HomeFragment extends Fragment {
 
-    private FragmentConsejosBinding binding;
+    private FragmentHomeBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        ConsejosViewModel slideshowViewModel =
-                new ViewModelProvider(this).get(ConsejosViewModel.class);
+        com.tfg.vitalfit.activity.uiPaciente.home.HomeViewModel homeViewModel =
+                new ViewModelProvider(this).get(HomeViewModel.class);
 
-        binding = FragmentConsejosBinding.inflate(inflater, container, false);
+        binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         return root;

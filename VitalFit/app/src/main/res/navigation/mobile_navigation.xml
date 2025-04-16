@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_pagina_principal"
-        android:name="com.tfg.vitalfit.activity.ui.home.HomeFragment"
+        android:name="com.tfg.vitalfit.activity.uiPaciente.home.HomeFragment"
         android:label="@string/menu_pagina_principal"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_datos_personales"
-        android:name="com.tfg.vitalfit.activity.ui.datosPersonales.DatosPersonalesFragment"
+        android:name="com.tfg.vitalfit.activity.uiPaciente.datosPersonales.DatosPersonalesFragment"
         android:label="@string/menu_datos_personales"
         tools:layout="@layout/fragment_datospersonales" />
 
     <fragment
         android:id="@+id/nav_consejos"
-        android:name="com.tfg.vitalfit.activity.ui.consejos.ConsejosFragment"
+        android:name="com.tfg.vitalfit.activity.uiPaciente.consejos.ConsejosFragment"
         android:label="@string/menu_consejos"
         tools:layout="@layout/fragment_consejos" />
 </navigation>

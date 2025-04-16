@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,15 +113,7 @@ public class MainActivity extends AppCompatActivity {
                     String dni = edtDNI.getText().toString();
                     String password = edtPassword.getText().toString();
                     //método para obtener usuario y despues comprobar el tipo de rol
-                    if (isPaciente) {
-                        pViewModel.login(dni, password).observe(this, response -> manejarRespuestaPaciente(response));
-                    } else if (isMedico) {
-                        uViewModel.login(dni, password).observe(this, response -> manejarRespuestaMedico(response));
-                    } else if (isNutricionista) {
-                        nViewModel.login(dni, password).observe(this, response -> manejarRespuestaNutricionista(response));
-                    }else{
-                        toastInvalido("Por favor, seleccione un tipo de usuario.");
-                    }
+                    uViewModel.login(dni, password).observe(this, response -> manejarRespuestaUsuario(response));
                 }else{
                     toastInvalido("Por favor, complete todos los campos.");
                 }
@@ -242,73 +235,37 @@ public class MainActivity extends AppCompatActivity {
         return val;
     }
 
-    private void manejarRespuestaPaciente(GenericResponse<Paciente> response){
+    private void manejarRespuestaUsuario(GenericResponse<Usuario> response){
         if(response.getRpta() == 1){
             //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
             toastCorrecto(response.getMessage());
-            Paciente p = response.getBody();
+            Usuario u = response.getBody();
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
             final Gson g = new GsonBuilder()
                     .registerTypeAdapter(Date.class, new DateSerializer())
                     .registerTypeAdapter(Time.class, new TimeSerializer())
                     .create();
-            editor.putString("PacienteJson", g.toJson(p, new TypeToken<Paciente>(){
+            editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Usuario>(){
             }.getType()));
             edtDNI.setText("");
             edtPassword.setText("");
-            chkPaciente.setChecked(false);
-            startActivity(new Intent(this, InicioActivity.class));
+            String rol = u.getRol();
+            if(rol.equals("Paciente")){
+                Log.e("Inicio Sesion", "paciente");
+                startActivity(new Intent(this, InicioActivity.class));
+            }else if(rol.equals("Médico")){
+                Log.e("Inicio Sesion", "medico");
+                startActivity(new Intent(this, InicioMedicoActivity.class));
+            }else if(rol.equals("Nutricionista")){
+                Log.e("Inicio Sesion", "nutricionista");
+                startActivity(new Intent(this, InicioNutricionistaActivity.class));
+            }
         } else{
             //Toast.makeText(this, "Ocurrio un error " + response.getMessage(), Toast.LENGTH_SHORT).show();
             toastInvalido(response.getMessage());
         }
     }
 
-    private void manejarRespuestaMedico(GenericResponse<Usuario> response){
-        if(response.getRpta() == 1){
-            //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
-            toastCorrecto(response.getMessage());
-            Usuario m = response.getBody();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            final Gson g = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, new DateSerializer())
-                    .registerTypeAdapter(Time.class, new TimeSerializer())
-                    .create();
-            editor.putString("MedicoJson", g.toJson(m, new TypeToken<Usuario>(){
-            }.getType()));
-            edtDNI.setText("");
-            edtPassword.setText("");
-            chkMedico.setChecked(false);
-            startActivity(new Intent(this, InicioActivity.class));
-        } else{
-            //Toast.makeText(this, "Ocurrio un error " + response.getMessage(), Toast.LENGTH_SHORT).show();
-            toastInvalido(response.getMessage());
-        }
-    }
-
-    private void manejarRespuestaNutricionista(GenericResponse<Nutricionista> response){
-        if(response.getRpta() == 1){
-            //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
-            toastCorrecto(response.getMessage());
-            Nutricionista n = response.getBody();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            final Gson g = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, new DateSerializer())
-                    .registerTypeAdapter(Time.class, new TimeSerializer())
-                    .create();
-            editor.putString("NutricionistaJson", g.toJson(n, new TypeToken<Nutricionista>(){
-            }.getType()));
-            edtDNI.setText("");
-            edtPassword.setText("");
-            chkNutricionista.setChecked(false);
-            startActivity(new Intent(this, InicioActivity.class));
-        } else{
-            //Toast.makeText(this, "Ocurrio un error " + response.getMessage(), Toast.LENGTH_SHORT).show();
-            toastInvalido(response.getMessage());
-        }
-    }
 
 }

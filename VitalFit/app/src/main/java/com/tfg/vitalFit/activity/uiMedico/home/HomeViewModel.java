@@ -1,4 +1,4 @@
-package com.tfg.vitalfit.activity.ui.home;
+package com.tfg.vitalfit.activity.uiMedico.home;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
