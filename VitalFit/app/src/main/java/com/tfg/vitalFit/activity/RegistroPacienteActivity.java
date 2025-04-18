@@ -28,10 +28,13 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
+import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.entity.service.Hospital;
+import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Pesos;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
@@ -51,18 +54,20 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     private UsuarioViewModel uViewModel;
     private HospitalViewModel hViewModel;
     private PesosViewModel pesosViewModel;
+    private AlergiasViewModel alergiasViewModel;
     private Toolbar toolbar;
     private EditText edtName, edtApellido1, edtApellido2, edtDNI, edtNSS, edtTlf, edtDireccion,
-                        edtPeso, edtAltura, edtPassword, edtPasswordVal, edtFechaNacimiento, edtCP;
+                        edtPeso, edtAltura, edtPassword, edtPasswordVal, edtFechaNacimiento, edtCP,
+                        edtAlergiaAlimentaria, edtAlergiaMedicinal, edtOperaciones;
     private Button btnGuardarDatos;
     private TextInputLayout txtInputName, txtInputApellido1, txtInputApellido2, txtInputDNI, txtInputNSS,
                             txtInputTlf, txtInputFechaNacimiento,txtInputProvincia, txtInputCP, txtInputDireccion, txtInputPeso,
-                            txtInputAltura, txtInputHospital, txtInputPassword, txtInputPasswordVal;
+                            txtInputAltura, txtInputHospital, txtInputPassword, txtInputPasswordVal, txtInputOperaciones,
+                            txtInputAlergiaAlimentaria, txtInputAlergiaMedicinal;
     private CheckBox chkVegetariana, chkVegana;
     private AutoCompleteTextView dropdownProvincia, dropdownHospital;
 
     private String hospital, provincia, fechaNacimiento;
-    private Hospital hospitalAsignado = new Hospital();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         hViewModel = vmp.get(HospitalViewModel.class);
         uViewModel = vmp.get(UsuarioViewModel.class);
         pesosViewModel = vmp.get(PesosViewModel.class);
+        alergiasViewModel = vmp.get(AlergiasViewModel.class);
     }
 
     private void init(){
@@ -165,6 +171,41 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                     this.pesosViewModel.save(pesoObj).observe(this, pesoResponse -> {
                                         if(pesoResponse.getRpta() == 1){
                                             toastCorrecto("Su información ha sido guardada con éxito.");
+                                            //Codigo nuevo para alergias y operaciones
+                                            if(!edtAlergiaAlimentaria.getText().toString().isEmpty()){
+                                                String[] alergiasAlimentarias;
+                                                alergiasAlimentarias = edtAlergiaAlimentaria.getText().toString().split(",");
+                                                for (String alergia: alergiasAlimentarias) {
+                                                    Alergias a = new Alergias();
+                                                    a.setAlergia(alergia);
+                                                    a.setTipo("Alimentaria");
+                                                    a.setPaciente(new Paciente(p.getDNI()));
+                                                    alergiasViewModel.save(a).observe(this, alergiaResponse -> {
+                                                        if(alergiaResponse.getRpta() != 1){
+                                                            toastInvalido("Error al guardar la alergia");
+                                                        }
+                                                    });
+                                                }
+                                            }
+                                            if(!edtAlergiaMedicinal.getText().toString().isEmpty()){
+                                                String[] alergiasMedicinales;
+                                                alergiasMedicinales = edtAlergiaMedicinal.getText().toString().split(",");
+                                                for (String alergia: alergiasMedicinales) {
+                                                    Alergias a = new Alergias();
+                                                    a.setAlergia(alergia.trim());
+                                                    a.setTipo("Medicinal");
+                                                    a.setPaciente(new Paciente(p.getDNI()));
+                                                    alergiasViewModel.save(a).observe(this, alergiaResponse -> {
+                                                        if(alergiaResponse.getRpta() != 1){
+                                                            toastInvalido("Error al guardar la alergia");
+                                                        }
+                                                    });
+                                                }
+                                            }
+
+                                            String[] operaciones;
+                                            operaciones = edtOperaciones.getText().toString().split(",");
+
                                             startActivity(new Intent(this, MainActivity.class));
                                         } else {
                                             toastInvalido("No se ha podido guardar bien el peso");
@@ -312,35 +353,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         }
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
-    }
-
-    private void obtenerHospitalPorNombreYProvincia(String nombre, String provincia){
-
-        hViewModel.hospitalPorNombreYProvincia(nombre, provincia).observe(this, new Observer<Hospital>() {
-            @Override
-            public void onChanged(Hospital hospital) {
-                if(hospital != null) {
-                    hospitalAsignado = getHospitalAsignado(hospital);
-                    Log.e("Hospital obtenido", hospital.getNombre());
-                    Log.e("Hospital asignado", hospitalAsignado.getNombre());
-
-                    continuarConHospital();
-                }
-            }
-        });
-    }
-
-    // Método para continuar el flujo cuando el hospital ya se asignó
-    private void continuarConHospital() {
-        if (hospitalAsignado != null) {
-            Log.e("Proceso", "Hospital confirmado: " + hospitalAsignado.getNombre());
-        } else {
-            toastInvalido("Error inesperado: hospitalAsignado es null.");
-        }
-    }
-
-    private Hospital getHospitalAsignado(Hospital hospital){
-        return hospital;
     }
 
     private String convertirFecha(String fecha) {
@@ -629,6 +641,9 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         edtAltura = findViewById(R.id.edtAlturaP);
         edtPassword = findViewById(R.id.edtPasswordP);
         edtPasswordVal = findViewById(R.id.edtPasswordValP);
+        edtAlergiaAlimentaria = findViewById(R.id.edtAlergiasAlimentariasP);
+        edtAlergiaMedicinal = findViewById(R.id.edtAlergiasMedicinalesP);
+        edtOperaciones = findViewById(R.id.edtOperacionesP);
 
         //TextInputLayout
         txtInputName = findViewById(R.id.txtInputNameP);
@@ -646,6 +661,9 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         txtInputAltura = findViewById(R.id.txtInputAlturaP);
         txtInputPassword = findViewById(R.id.txtInputPasswordP);
         txtInputPasswordVal = findViewById(R.id.txtInputPasswordValP);
+        txtInputAlergiaAlimentaria = findViewById(R.id.txtInputAlergiasAlimentariasP);
+        txtInputAlergiaMedicinal = findViewById(R.id.txtInputAlergiasMedicinalesP);
+        txtInputOperaciones = findViewById(R.id.txtInputOperacionesP);
 
         //CheckBox
         chkVegetariana = findViewById(R.id.chkVegetariana);

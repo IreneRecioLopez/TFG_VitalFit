@@ -396,6 +396,53 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/txtInputAlergiasAlimentariasP"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Alergias Alimentarias"
+                                    app:startIconDrawable="@drawable/ic_allergy_food">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edtAlergiasAlimentariasP"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="48dp"
+                                        android:textSize="15sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/txtInputAlergiasMedicinalesP"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Alergias Medicinales"
+                                    app:startIconDrawable="@drawable/ic_allergy_medicine">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edtAlergiasMedicinalesP"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="48dp"
+                                        android:textSize="15sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/txtInputOperacionesP"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Operaciones"
+                                    app:startIconDrawable="@drawable/ic_scalpel">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edtOperacionesP"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="48dp"
+                                        android:textSize="15sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
 
                                 <CheckBox
                                     android:id="@+id/chkVegetariana"
