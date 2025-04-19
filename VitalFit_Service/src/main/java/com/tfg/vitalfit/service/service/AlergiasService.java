@@ -25,7 +25,7 @@ public class AlergiasService {
         if(a.getPaciente() == null){
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: no se ha asignado un paciente.", null);
         }else{
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Peso registrado correctamente", this.repository.save(a));
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Alergia registrada correctamente", this.repository.save(a));
         }
     }
 }

@@ -11,6 +11,7 @@ com\tfg\vitalfit\service\controller\AlergiasREST.class
 com\tfg\vitalfit\service\repository\PacienteRepository.class
 com\tfg\vitalfit\service\utils\GenericResponse.class
 com\tfg\vitalfit\service\repository\NutricionistaRepository.class
+com\tfg\vitalfit\service\service\AlergiasService.class
 com\tfg\vitalfit\service\controller\DietaREST.class
 com\tfg\vitalfit\service\controller\PacienteREST.class
 com\tfg\vitalfit\service\entity\Nutricionista.class
@@ -18,11 +19,13 @@ com\tfg\vitalfit\service\service\PacienteService.class
 com\tfg\vitalfit\service\controller\UsuarioREST.class
 com\tfg\vitalfit\service\service\NutricionistaService.class
 com\tfg\vitalfit\service\entity\Pesos.class
+com\tfg\vitalfit\service\repository\OperacionesRepository.class
 com\tfg\vitalfit\service\repository\PesosRepository.class
 com\tfg\vitalfit\service\utils\Global.class
 com\tfg\vitalfit\service\controller\OperacionesREST.class
 com\tfg\vitalfit\service\entity\Usuario.class
 com\tfg\vitalfit\service\controller\HospitalREST.class
+com\tfg\vitalfit\service\service\OperacionesService.class
 com\tfg\vitalfit\service\entity\Hospital.class
 com\tfg\vitalfit\service\controller\PesosREST.class
 com\tfg\vitalfit\service\repository\HospitalRepository.class
@@ -33,3 +36,4 @@ com\tfg\vitalfit\service\entity\Paciente.class
 com\tfg\vitalfit\service\entity\Operaciones.class
 com\tfg\vitalfit\service\utils\Global$Estado.class
 com\tfg\vitalfit\service\entity\Platos.class
+com\tfg\vitalfit\service\repository\AlergiasRepository.class

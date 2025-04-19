@@ -1,5 +1,7 @@
 package com.tfg.vitalfit.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -14,11 +16,13 @@ public class Operaciones {
     private Long idOperacion;
     @Column(nullable = false)
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date fecha;
     @Column(nullable = false)
     private String nombre;
 
     @ManyToOne
     @JoinColumn(name = "dni_paciente")
+    @JsonBackReference("paciente-operaciones")
     private Paciente paciente;
 }

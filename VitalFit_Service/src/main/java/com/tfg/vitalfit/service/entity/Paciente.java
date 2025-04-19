@@ -49,12 +49,19 @@ public class Paciente {
     private List<Pesos> pesos;
 
     @OneToMany(mappedBy = "paciente")
+    @JsonManagedReference("paciente-alergias")
     private List<Alergias> alergias;
 
     @OneToMany(mappedBy = "paciente")
+    @JsonManagedReference("paciente-operaciones")
+    private List<Operaciones> operaciones;
+
+    @OneToMany(mappedBy = "paciente")
+    @JsonManagedReference("paciente-consejos")
     private List<Consejo> consejos;
 
     @OneToMany(mappedBy = "paciente")
+    @JsonManagedReference("paciente-dietas")
     private List<Dieta> dietas;
 
     public String getDni() {

@@ -15,9 +15,13 @@ C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vita
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\entity\Consejo.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\entity\Hospital.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\controller\PacienteREST.java
+C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\repository\OperacionesRepository.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\controller\NutricionistaREST.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\repository\PesosRepository.java
+C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\service\OperacionesService.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\entity\Platos.java
+C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\service\AlergiasService.java
+C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\repository\AlergiasRepository.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\repository\NutricionistaRepository.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\service\NutricionistaService.java
 C:\Users\USUARIO\Desktop\TFG_App\TFG\VitalFit_Service\src\main\java\com\tfg\vitalfit\service\controller\AlergiasREST.java

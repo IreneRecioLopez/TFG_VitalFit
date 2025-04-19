@@ -16,6 +16,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Alergias;
@@ -36,6 +38,7 @@ import com.tfg.vitalfit.entity.service.Pesos;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
+import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
@@ -55,14 +58,16 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     private HospitalViewModel hViewModel;
     private PesosViewModel pesosViewModel;
     private AlergiasViewModel alergiasViewModel;
+    private OperacionesViewModel operacionesViewModel;
+    private LinearLayout layoutOperaciones;
     private Toolbar toolbar;
     private EditText edtName, edtApellido1, edtApellido2, edtDNI, edtNSS, edtTlf, edtDireccion,
                         edtPeso, edtAltura, edtPassword, edtPasswordVal, edtFechaNacimiento, edtCP,
-                        edtAlergiaAlimentaria, edtAlergiaMedicinal, edtOperaciones;
-    private Button btnGuardarDatos;
+                        edtAlergiaAlimentaria, edtAlergiaMedicinal, edtOperacionNombre, edtOperacionFecha;
+    private Button btnGuardarDatos, btnAgregarOperacion;
     private TextInputLayout txtInputName, txtInputApellido1, txtInputApellido2, txtInputDNI, txtInputNSS,
                             txtInputTlf, txtInputFechaNacimiento,txtInputProvincia, txtInputCP, txtInputDireccion, txtInputPeso,
-                            txtInputAltura, txtInputHospital, txtInputPassword, txtInputPasswordVal, txtInputOperaciones,
+                            txtInputAltura, txtInputHospital, txtInputPassword, txtInputPasswordVal, txtInputOperacionNombre, txtInputOperacionFecha,
                             txtInputAlergiaAlimentaria, txtInputAlergiaMedicinal;
     private CheckBox chkVegetariana, chkVegana;
     private AutoCompleteTextView dropdownProvincia, dropdownHospital;
@@ -84,6 +89,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         uViewModel = vmp.get(UsuarioViewModel.class);
         pesosViewModel = vmp.get(PesosViewModel.class);
         alergiasViewModel = vmp.get(AlergiasViewModel.class);
+        operacionesViewModel = vmp.get(OperacionesViewModel.class);
     }
 
     private void init(){
@@ -107,6 +113,10 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         btnGuardarDatos.setOnClickListener(v -> {
             Log.e("Boton guardar", "Voy a guardar los datos");
             this.guardarDatos();
+        });
+
+        btnAgregarOperacion.setOnClickListener(v -> {
+            agregarOperacion();
         });
         ///ONCHANGE LISTENER A LOS EDITEXT
         editTextListeners();
@@ -192,7 +202,9 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                 alergiasMedicinales = edtAlergiaMedicinal.getText().toString().split(",");
                                                 for (String alergia: alergiasMedicinales) {
                                                     Alergias a = new Alergias();
-                                                    a.setAlergia(alergia.trim());
+                                                    String tipo = alergia.trim();
+                                                    Log.d("ALERGIA TIPO", tipo);
+                                                    a.setAlergia(tipo);
                                                     a.setTipo("Medicinal");
                                                     a.setPaciente(new Paciente(p.getDNI()));
                                                     alergiasViewModel.save(a).observe(this, alergiaResponse -> {
@@ -203,8 +215,36 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                 }
                                             }
 
-                                            String[] operaciones;
-                                            operaciones = edtOperaciones.getText().toString().split(",");
+                                            List<Operaciones> listaOperaciones = new ArrayList<>();
+
+                                            for (int i = 0; i < layoutOperaciones.getChildCount(); i++) {
+                                                View itemOperacion = layoutOperaciones.getChildAt(i);
+
+                                                TextInputEditText edtOperacionNombre = itemOperacion.findViewById(R.id.edtNombreOperacion);
+                                                TextInputEditText edtOperacionFecha = itemOperacion.findViewById(R.id.edtFechaOperacion);
+
+                                                if (edtOperacionNombre == null || edtOperacionFecha == null) continue;
+
+                                                String nombre = edtOperacionNombre.getText().toString().trim();
+                                                String fecha = convertirFecha(edtOperacionFecha.getText().toString());
+
+                                                if (!nombre.isEmpty()) {
+                                                    if(fecha.isEmpty()){
+                                                        fecha = " ";
+                                                    }
+                                                    Operaciones op = new Operaciones();
+                                                    op.setPaciente(new Paciente(p.getDNI()));
+                                                    op.setNombre(nombre);
+                                                    op.setFecha(fecha);
+
+                                                    //Crear el Viewmodel
+                                                    operacionesViewModel.save(op).observe(this, operacionesResponse -> {
+                                                        if(operacionesResponse.getRpta() != 1){
+                                                            toastInvalido("Error al guardar la operacion");
+                                                        }
+                                                    });
+                                                }
+                                            }
 
                                             startActivity(new Intent(this, MainActivity.class));
                                         } else {
@@ -359,6 +399,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         try {
+            Log.e("FormatoFecha", fecha);
             Date date = formatoEntrada.parse(fecha);
             return formatoSalida.format(date);
         } catch (ParseException e) {
@@ -388,6 +429,12 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         );
 
         datePickerDialog.show();
+    }
+
+    private void agregarOperacion() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View itemOperacion = inflater.inflate(R.layout.item_operacion, layoutOperaciones, false);
+        layoutOperaciones.addView(itemOperacion);
     }
 
     private void editTextListeners(){
@@ -626,8 +673,10 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     }
 
     private void initVariablesView(){
+        layoutOperaciones = findViewById(R.id.layout_operaciones);
         toolbar = findViewById(R.id.toolbarRegPaciente);
         btnGuardarDatos = findViewById(R.id.btnGuardarDatosP);
+        btnAgregarOperacion = findViewById(R.id.btnAgregarOperacion);
         edtName = findViewById(R.id.edtNameP);
         edtApellido1 = findViewById(R.id.edtPrimerApellidoP);
         edtApellido2 = findViewById(R.id.edtSegundoApellidoP);
@@ -643,7 +692,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         edtPasswordVal = findViewById(R.id.edtPasswordValP);
         edtAlergiaAlimentaria = findViewById(R.id.edtAlergiasAlimentariasP);
         edtAlergiaMedicinal = findViewById(R.id.edtAlergiasMedicinalesP);
-        edtOperaciones = findViewById(R.id.edtOperacionesP);
 
         //TextInputLayout
         txtInputName = findViewById(R.id.txtInputNameP);
@@ -663,7 +711,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         txtInputPasswordVal = findViewById(R.id.txtInputPasswordValP);
         txtInputAlergiaAlimentaria = findViewById(R.id.txtInputAlergiasAlimentariasP);
         txtInputAlergiaMedicinal = findViewById(R.id.txtInputAlergiasMedicinalesP);
-        txtInputOperaciones = findViewById(R.id.txtInputOperacionesP);
+
 
         //CheckBox
         chkVegetariana = findViewById(R.id.chkVegetariana);

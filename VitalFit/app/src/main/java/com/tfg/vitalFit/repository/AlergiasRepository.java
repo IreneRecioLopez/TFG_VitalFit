@@ -38,7 +38,7 @@ public class AlergiasRepository {
             @Override
             public void onFailure(Call<GenericResponse<Alergias>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
-                System.out.println("Se ha producido un error al guardar el peso" + t.getMessage());
+                System.out.println("Se ha producido un error al guardar la alergia" + t.getMessage());
                 t.printStackTrace();
             }
         });
