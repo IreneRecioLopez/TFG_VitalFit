@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -43,6 +44,7 @@ import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
+import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -50,6 +52,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 public class RegistroPacienteActivity extends AppCompatActivity {
 
@@ -721,6 +726,8 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         dropdownProvincia = findViewById(R.id.dropdownProvinciaP);
         dropdownHospital = findViewById(R.id.dropdownHospitalP);
     }
+
+
 
     public void toastCorrecto(String msg){
         LayoutInflater layoutInflater = getLayoutInflater();

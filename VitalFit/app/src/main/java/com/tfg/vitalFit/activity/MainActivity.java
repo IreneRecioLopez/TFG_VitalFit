@@ -30,6 +30,7 @@ import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.entity.service.Nutricionista;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.utils.DateSerializer;
+import com.tfg.vitalfit.utils.Security;
 import com.tfg.vitalfit.utils.TimeSerializer;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
@@ -110,8 +111,8 @@ public class MainActivity extends AppCompatActivity {
         btnIniciarSesion.setOnClickListener(v -> {
             try{
                 if(validar()){
-                    String dni = edtDNI.getText().toString();
-                    String password = edtPassword.getText().toString();
+                    String dni = Security.encriptar(edtDNI.getText().toString());
+                    String password = Security.encriptar(edtPassword.getText().toString());
                     //método para obtener usuario y despues comprobar el tipo de rol
                     uViewModel.login(dni, password).observe(this, response -> manejarRespuestaUsuario(response));
                 }else{

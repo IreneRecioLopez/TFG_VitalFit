@@ -27,6 +27,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.Security;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
@@ -47,8 +48,6 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
 
     private String hospital, provincia;
     private Hospital hospitalAsignado = new Hospital();
-
-
 
     String rol = "";
 
@@ -113,85 +112,6 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
         editTextListeners();
     }
 
-    // Capturar el clic en el botón de regreso
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
-            onBackPressed(); // Regresa a la pantalla anterior
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void obtenerHospitalPorNombreYProvincia(String nombre, String provincia){
-        hViewModel.hospitalPorNombreYProvincia(nombre, provincia).observe(this, new Observer<Hospital>() {
-            @Override
-            public void onChanged(Hospital hospital) {
-                if(hospital != null) {
-                    hospitalAsignado = getHospitalAsignado(hospital);
-                    Log.e("Hospital obtenido", hospital.getNombre());
-                    Log.e("Hospital asignado", hospitalAsignado.getNombre());
-
-                    continuarConHospital();
-                }
-            }
-        });
-    }
-
-    private Hospital getHospitalAsignado(Hospital hospital){
-        return hospital;
-    }
-
-    // Método para continuar el flujo cuando el hospital ya se asignó
-    private void continuarConHospital() {
-        if (hospitalAsignado != null) {
-            Log.e("Proceso", "Hospital confirmado: " + hospitalAsignado.getNombre());
-        } else {
-            toastInvalido("Error inesperado: hospitalAsignado es null.");
-        }
-    }
-
-    public void guardarUsuario(Usuario m){
-        this.mViewModel.save(m).observe(this, mResponse -> {
-            if (mResponse.getRpta() == 1) {
-                this.mViewModel.asociarUsuarioHospital(m.getDni(), hospitalAsignado).observe(this, response -> {
-                    Log.e("Respuesta", "Rpta: " + response.getRpta());
-                    if (response.getRpta() == 1) {
-                        toastCorrecto("Su información ha sido guardada con éxito.");
-                        startActivity(new Intent(this, MainActivity.class));
-                    } else {
-                        toastInvalido("No se ha podido asociar bien al hospital");
-                    }
-                });
-            } else {
-                toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
-            }
-        });
-    }
-
-
-    private void obtenerHospitalesPorProvincia(String provincia) {
-        hViewModel.hospitalPorProvincia(provincia).observe(this, new Observer<List<Hospital>>(){
-            @Override
-            public void onChanged(List<Hospital> hospitales){
-                if(hospitales != null){
-                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
-                    listaNombresHospitales(hospitales);
-                }
-            }
-        });
-    }
-
-    private void listaNombresHospitales(List<Hospital> hospitales){
-        List<String> nombresHospitales = new ArrayList<>();
-        for(Hospital hospital: hospitales){
-            nombresHospitales.add(hospital.getNombre());
-        }
-        ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
-        dropdownHospital.setAdapter(arrayHospitales);
-    }
-
-
     private void guardarDatos(){
         Usuario m;
         if(validar()){
@@ -202,7 +122,7 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
                 m.setApellido2(edtApellido2.getText().toString());
                 m.setDNI(edtDNI.getText().toString());
                 m.setTelefono(edtTlf.getText().toString());
-                m.setContrasena(edtPassword.getText().toString());
+                m.setContrasena(Security.encriptar(edtPassword.getText().toString()));
                 m.setRol(rol);
                 obtenerHospitalPorNombreYProvincia(hospital, provincia);
                 Long idHospital = hospitalAsignado.getIdHospital();
@@ -216,6 +136,28 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
         }else{
             toastInvalido("Por favor, complete todos los campos del formulario.");
         }
+    }
+
+    public void guardarUsuario(Usuario m){
+        this.mViewModel.save(m).observe(this, mResponse -> {
+            if (mResponse.getRpta() == 1) {
+                try {
+                    this.mViewModel.asociarUsuarioHospital(Security.desencriptar(m.getDni()), hospitalAsignado).observe(this, response -> {
+                        Log.e("Respuesta", "Rpta: " + response.getRpta());
+                        if (response.getRpta() == 1) {
+                            toastCorrecto("Su información ha sido guardada con éxito.");
+                            startActivity(new Intent(this, MainActivity.class));
+                        } else {
+                            toastInvalido("No se ha podido asociar bien al hospital");
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            } else {
+                toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
+            }
+        });
     }
 
     private boolean validar(){
@@ -285,6 +227,55 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
         }
         return val;
 
+    }
+
+    private void obtenerHospitalPorNombreYProvincia(String nombre, String provincia){
+        hViewModel.hospitalPorNombreYProvincia(nombre, provincia).observe(this, new Observer<Hospital>() {
+            @Override
+            public void onChanged(Hospital hospital) {
+                if(hospital != null) {
+                    hospitalAsignado = getHospitalAsignado(hospital);
+                    Log.e("Hospital obtenido", hospital.getNombre());
+                    Log.e("Hospital asignado", hospitalAsignado.getNombre());
+
+                    continuarConHospital();
+                }
+            }
+        });
+    }
+
+    private Hospital getHospitalAsignado(Hospital hospital){
+        return hospital;
+    }
+
+    // Método para continuar el flujo cuando el hospital ya se asignó
+    private void continuarConHospital() {
+        if (hospitalAsignado != null) {
+            Log.e("Proceso", "Hospital confirmado: " + hospitalAsignado.getNombre());
+        } else {
+            toastInvalido("Error inesperado: hospitalAsignado es null.");
+        }
+    }
+
+    private void obtenerHospitalesPorProvincia(String provincia) {
+        hViewModel.hospitalPorProvincia(provincia).observe(this, new Observer<List<Hospital>>(){
+            @Override
+            public void onChanged(List<Hospital> hospitales){
+                if(hospitales != null){
+                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
+                    listaNombresHospitales(hospitales);
+                }
+            }
+        });
+    }
+
+    private void listaNombresHospitales(List<Hospital> hospitales){
+        List<String> nombresHospitales = new ArrayList<>();
+        for(Hospital hospital: hospitales){
+            nombresHospitales.add(hospital.getNombre());
+        }
+        ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
+        dropdownHospital.setAdapter(arrayHospitales);
     }
 
     public void toastCorrecto(String msg){
@@ -447,6 +438,16 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    // Capturar el clic en el botón de regreso
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
+            onBackPressed(); // Regresa a la pantalla anterior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
