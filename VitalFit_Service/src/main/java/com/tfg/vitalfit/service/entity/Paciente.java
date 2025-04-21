@@ -12,7 +12,6 @@ import java.util.List;
 public class Paciente {
     @Id
     private String dni;
-
     @Column(nullable = false)
     private String numSeguridadSocial;
     @Column(nullable = false)
@@ -29,6 +28,8 @@ public class Paciente {
     private String provincia;
     @Column(nullable = false)
     private String direccion;
+    @Column(nullable = false)
+    private String cp;
     private int vegetariana;
     private int vegana;
 

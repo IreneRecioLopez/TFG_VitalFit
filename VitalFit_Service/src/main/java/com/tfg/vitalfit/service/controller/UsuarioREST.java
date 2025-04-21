@@ -29,6 +29,12 @@ public class UsuarioREST {
         return this.service.guardarUsuario(m);
     }
 
+
+    @GetMapping("/getByDNI/{dni}")
+    public Usuario getByDNI(@PathVariable("dni") String dni){
+        return this.service.getUsuarioByDNI(dni);
+    }
+
     @PutMapping("/{dni}/hospital")
     public GenericResponse asociarUsuarioHospital(@PathVariable String dni, @RequestBody Hospital hospital){
         return this.service.asociarUsuarioHospital(dni, hospital);

@@ -66,6 +66,24 @@ public class UsuarioRepository {
         return mld;
     }
 
+    public LiveData<Usuario> UsuarioByDni(String dni) {
+        final MutableLiveData<Usuario> mld = new MutableLiveData<>();
+        this.api.getUsuarioByDni(dni).enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                mld.setValue(new Usuario());
+                System.out.println("Se ha producido un error al obtener el usuario de dni dado: " + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
+
     public LiveData<GenericResponse<Void>> asociarUsuarioHospital(String dniUsuario, Hospital hospital){
         MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
         api.asociarUsuarioHospital(dniUsuario, hospital).enqueue(new Callback<GenericResponse<Void>>() {

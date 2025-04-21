@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -28,6 +29,9 @@ public interface UsuarioApi {
     //@FormUrlEncoded
     @POST(base + "/save")
     Call<GenericResponse<Usuario>> guardarUsuario(@Body Usuario u);
+
+    @GET(base + "/getByDni/{dni}")
+    Call<Usuario> getUsuarioByDni(@Path("dni") String dni);
 
 
     @PUT(base + "/{dni}/hospital")

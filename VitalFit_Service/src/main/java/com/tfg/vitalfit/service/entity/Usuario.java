@@ -2,6 +2,7 @@ package com.tfg.vitalfit.service.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -40,10 +41,11 @@ public class Usuario {
     @OneToMany(mappedBy = "nutricionista")
     private List<Usuario> pacientesNutricionista;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idHospital")
     //@JsonIgnore
-    @JsonBackReference
+    //@JsonBackReference
+    @JsonIgnoreProperties("usuarios")
     private Hospital hospital;
 
     @OneToOne(fetch = FetchType.EAGER)

@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 
 public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
-    @Query("SELECT u FROM Usuario u WHERE u.dni=:dni AND u.contrasena=:password")
+    @Query("SELECT u FROM Usuario u JOIN FETCH u.hospital WHERE u.dni=:dni AND u.contrasena=:password")
     Optional<Usuario> login(String dni, String password);
 
     @Query("SELECT u from Usuario u WHERE u.dni=:dni")

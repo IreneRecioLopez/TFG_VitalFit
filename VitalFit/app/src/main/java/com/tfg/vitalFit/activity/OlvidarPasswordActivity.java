@@ -21,6 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
+import com.tfg.vitalfit.utils.Security;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
 
@@ -67,7 +68,7 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
             try{
                 if(validar()){
                    String dni = edtDNI.getText().toString();
-                   String password = edtPassword.getText().toString();
+                   String password = Security.encriptar(edtPassword.getText().toString());
                     uViewModel.actualizarPassword(dni, password).observe(this, response -> {
                         if(response.getRpta() == 1){
                             toastCorrecto(response.getMessage());

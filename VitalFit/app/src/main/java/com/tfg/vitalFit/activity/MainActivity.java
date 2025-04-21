@@ -66,11 +66,11 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
         String pref = preference.getString("UsuarioJson", "");
-        if(!pref.equals("")){
+        /*if(!pref.equals("")){
             ToastMessage.Correcto(this, "Se detectó una sesión activa, el login sera omitido");
             this.startActivity(new Intent(this, InicioActivity.class));
             this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
-        }
+        }*/
     }
 
     private void initViewModel() {
@@ -116,6 +116,40 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, OlvidarPasswordActivity.class));
             overridePendingTransition(R.anim.left_in, R.anim.left_out);
         });
+
+    }
+
+    private void manejarRespuestaUsuario(GenericResponse<Usuario> response) {
+        if (response.getRpta() == 1) {
+            //ToastMessage.makeText(this, response.getMessage(), ToastMessage.LENGTH_SHORT).show();
+            ToastMessage.Correcto(this, response.getMessage());
+            Usuario u = response.getBody();
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = preferences.edit();
+            final Gson g = new GsonBuilder()
+                    .registerTypeAdapter(Date.class, new DateSerializer())
+                    .registerTypeAdapter(Time.class, new TimeSerializer())
+                    .create();
+            editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Usuario>() {}.getType()));
+            editor.apply();
+            Log.d("UsuarioGuardado", g.toJson(u));
+            edtDNI.setText("");
+            edtPassword.setText("");
+            String rol = u.getRol();
+            if (rol.equals("Paciente")) {
+                Log.e("Inicio Sesion", "paciente");
+                startActivity(new Intent(this, InicioActivity.class));
+            } else if (rol.equals("Médico")) {
+                Log.e("Inicio Sesion", "medico");
+                startActivity(new Intent(this, InicioMedicoActivity.class));
+            } else if (rol.equals("Nutricionista")) {
+                Log.e("Inicio Sesion", "nutricionista");
+                startActivity(new Intent(this, InicioNutricionistaActivity.class));
+            }
+        } else {
+            //ToastMessage.makeText(this, "Ocurrio un error " + response.getMessage(), ToastMessage.LENGTH_SHORT).show();
+            ToastMessage.Invalido(this, response.getMessage());
+        }
 
     }
 
@@ -190,38 +224,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return val;
     }
-
-    private void manejarRespuestaUsuario(GenericResponse<Usuario> response){
-        if(response.getRpta() == 1){
-            //ToastMessage.makeText(this, response.getMessage(), ToastMessage.LENGTH_SHORT).show();
-            ToastMessage.Correcto(this, response.getMessage());
-            Usuario u = response.getBody();
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-            SharedPreferences.Editor editor = preferences.edit();
-            final Gson g = new GsonBuilder()
-                    .registerTypeAdapter(Date.class, new DateSerializer())
-                    .registerTypeAdapter(Time.class, new TimeSerializer())
-                    .create();
-            editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Usuario>(){
-            }.getType()));
-            edtDNI.setText("");
-            edtPassword.setText("");
-            String rol = u.getRol();
-            if(rol.equals("Paciente")){
-                Log.e("Inicio Sesion", "paciente");
-                startActivity(new Intent(this, InicioActivity.class));
-            }else if(rol.equals("Médico")){
-                Log.e("Inicio Sesion", "medico");
-                startActivity(new Intent(this, InicioMedicoActivity.class));
-            }else if(rol.equals("Nutricionista")){
-                Log.e("Inicio Sesion", "nutricionista");
-                startActivity(new Intent(this, InicioNutricionistaActivity.class));
-            }
-        } else{
-            //ToastMessage.makeText(this, "Ocurrio un error " + response.getMessage(), ToastMessage.LENGTH_SHORT).show();
-            ToastMessage.Invalido(this, response.getMessage());
-        }
-    }
-
 
 }
