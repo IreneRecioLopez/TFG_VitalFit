@@ -29,6 +29,11 @@ public class HospitalREST {
         return service.getHospitalsByNameAndProvincia(name, provincia);
     }
 
+    @GetMapping("/{nombre}")
+    public Hospital getHospitalByName(@PathVariable("nombre") String name){
+        return service.getHospitalByName(name);
+    }
+
 
 
 }

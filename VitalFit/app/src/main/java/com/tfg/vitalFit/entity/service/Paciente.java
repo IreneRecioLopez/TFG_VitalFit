@@ -88,7 +88,7 @@ public class Paciente {
     }
 
     public Integer getVegetariana(){ return vegetariana; }
-    public void setVegetariana(Integer vegetaria) { this.vegetariana = vegetariana; }
+    public void setVegetariana(Integer vegetariana) { this.vegetariana = vegetariana; }
 
     public Integer getVegana(){ return vegana; }
     public void setVegana(Integer vegana) { this.vegana = vegana; }

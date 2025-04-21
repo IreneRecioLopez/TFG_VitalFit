@@ -9,7 +9,7 @@ public class Hospital {
     private Long idHospital;
     private String nombre;
     private String provincia;
-    private String localidad;
+    private String distrito;
     private Long cp;
     private String direccion;
     private Long numero;
@@ -26,10 +26,10 @@ public class Hospital {
     public String getNombre(){
         return nombre;
     }
-
     public String getProvincia(){
         return provincia;
     }
 
     public void setIdHospital(Long id){ this.idHospital = id;}
+    public void setNombre(String nombre){ this.nombre = nombre; }
 }

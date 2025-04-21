@@ -32,6 +32,7 @@ import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.utils.DateSerializer;
 import com.tfg.vitalfit.utils.Security;
 import com.tfg.vitalfit.utils.TimeSerializer;
+import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
@@ -50,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     private TextInputLayout txtInputUsuario, txtInputPassword;
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
     private TextView txtNuevoUsuario, txtForgetPassword;
-    private Boolean isPaciente, isNutricionista, isMedico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,26 +65,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
-        String pref = preference.getString("PacienteJson", "");
+        String pref = preference.getString("UsuarioJson", "");
         if(!pref.equals("")){
-            toastCorrecto("Se detectó una sesión activa, el login sera omitido");
+            ToastMessage.Correcto(this, "Se detectó una sesión activa, el login sera omitido");
             this.startActivity(new Intent(this, InicioActivity.class));
             this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
-        }else{
-            pref = preference.getString("MedicoJson", "");
-            if(!pref.equals("")){
-                toastCorrecto("Se detectó una sesión activa, el login sera omitido");
-                this.startActivity(new Intent(this, InicioActivity.class));
-                this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
-            }else {
-                pref = preference.getString("NutricionistaJson", "");
-                if (!pref.equals("")) {
-                    toastCorrecto("Se detectó una sesión activa, el login sera omitido");
-                    this.startActivity(new Intent(this, InicioActivity.class));
-                    this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
-
-                }
-            }
         }
     }
 
@@ -111,15 +96,16 @@ public class MainActivity extends AppCompatActivity {
         btnIniciarSesion.setOnClickListener(v -> {
             try{
                 if(validar()){
-                    String dni = Security.encriptar(edtDNI.getText().toString());
+                    String dni = edtDNI.getText().toString();
                     String password = Security.encriptar(edtPassword.getText().toString());
                     //método para obtener usuario y despues comprobar el tipo de rol
                     uViewModel.login(dni, password).observe(this, response -> manejarRespuestaUsuario(response));
                 }else{
-                    toastInvalido("Por favor, complete todos los campos.");
+                    ToastMessage.Invalido(this, "Por favor, complete todos los campos.");
+
                 }
             }catch(Exception e){
-                toastInvalido("Se ha producido un error al intentar iniciar sesión: " + e.getMessage());
+                ToastMessage.Invalido(this, "Se ha producido un error al intentar iniciar sesión: " + e.getMessage());
             }
         });
         txtNuevoUsuario.setOnClickListener(v -> {
@@ -165,56 +151,25 @@ public class MainActivity extends AppCompatActivity {
         });
         chkPaciente.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                isPaciente = true;
-                isNutricionista = true;
-                isMedico = false;
+
                 chkNutricionista.setChecked(false);
                 chkMedico.setChecked(false);
             }
         });
         chkMedico.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                isMedico = true;
-                isNutricionista = false;
-                isPaciente = false;
                 chkNutricionista.setChecked(false);
                 chkPaciente.setChecked(false);
             }
         });
         chkNutricionista.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                isNutricionista = true;
-                isPaciente = false;
-                isMedico = false;
                 chkPaciente.setChecked(false);
                 chkMedico.setChecked(false);
             }
         });
     }
 
-    public void toastCorrecto(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_ok, (ViewGroup) findViewById(R.id.ll_custom_toast_ok));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastOk);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
 
     private boolean validar(){
         boolean val = true;
@@ -238,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
 
     private void manejarRespuestaUsuario(GenericResponse<Usuario> response){
         if(response.getRpta() == 1){
-            //Toast.makeText(this, response.getMessage(), Toast.LENGTH_SHORT).show();
-            toastCorrecto(response.getMessage());
+            //ToastMessage.makeText(this, response.getMessage(), ToastMessage.LENGTH_SHORT).show();
+            ToastMessage.Correcto(this, response.getMessage());
             Usuario u = response.getBody();
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
@@ -263,8 +218,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, InicioNutricionistaActivity.class));
             }
         } else{
-            //Toast.makeText(this, "Ocurrio un error " + response.getMessage(), Toast.LENGTH_SHORT).show();
-            toastInvalido(response.getMessage());
+            //ToastMessage.makeText(this, "Ocurrio un error " + response.getMessage(), ToastMessage.LENGTH_SHORT).show();
+            ToastMessage.Invalido(this, response.getMessage());
         }
     }
 

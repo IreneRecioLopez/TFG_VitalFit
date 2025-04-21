@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Base64;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,6 +36,8 @@ import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Pesos;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.Security;
+import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
 import com.tfg.vitalfit.viewModel.OperacionesViewModel;
@@ -44,7 +45,6 @@ import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
-import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,9 +52,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import javax.crypto.Cipher;
-import javax.crypto.spec.SecretKeySpec;
 
 public class RegistroPacienteActivity extends AppCompatActivity {
 
@@ -68,12 +65,11 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private EditText edtName, edtApellido1, edtApellido2, edtDNI, edtNSS, edtTlf, edtDireccion,
                         edtPeso, edtAltura, edtPassword, edtPasswordVal, edtFechaNacimiento, edtCP,
-                        edtAlergiaAlimentaria, edtAlergiaMedicinal, edtOperacionNombre, edtOperacionFecha;
+                        edtAlergiaAlimentaria, edtAlergiaMedicinal;
     private Button btnGuardarDatos, btnAgregarOperacion;
-    private TextInputLayout txtInputName, txtInputApellido1, txtInputApellido2, txtInputDNI, txtInputNSS,
+    private TextInputLayout txtInputName, txtInputApellido1, txtInputDNI, txtInputNSS,
                             txtInputTlf, txtInputFechaNacimiento,txtInputProvincia, txtInputCP, txtInputDireccion, txtInputPeso,
-                            txtInputAltura, txtInputHospital, txtInputPassword, txtInputPasswordVal, txtInputOperacionNombre, txtInputOperacionFecha,
-                            txtInputAlergiaAlimentaria, txtInputAlergiaMedicinal;
+                            txtInputAltura, txtInputHospital, txtInputPassword, txtInputPasswordVal;
     private CheckBox chkVegetariana, chkVegana;
     private AutoCompleteTextView dropdownProvincia, dropdownHospital;
 
@@ -127,18 +123,74 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         editTextListeners();
     }
 
+    private void initVariablesView(){
+        layoutOperaciones = findViewById(R.id.layout_operaciones);
+        toolbar = findViewById(R.id.toolbarRegPaciente);
+        btnGuardarDatos = findViewById(R.id.btnGuardarDatosP);
+        btnAgregarOperacion = findViewById(R.id.btnAgregarOperacion);
+        edtName = findViewById(R.id.edtNameP);
+        edtApellido1 = findViewById(R.id.edtPrimerApellidoP);
+        edtApellido2 = findViewById(R.id.edtSegundoApellidoP);
+        edtDNI = findViewById(R.id.edtDNIP);
+        edtNSS = findViewById(R.id.edtNSSP);
+        edtTlf = findViewById(R.id.edtTelefonoP);
+        edtFechaNacimiento = findViewById(R.id.edtFechaNacimientoP);
+        edtCP = findViewById(R.id.edtCPP);
+        edtDireccion = findViewById(R.id.edtDireccionP);
+        edtPeso = findViewById(R.id.edtPesoP);
+        edtAltura = findViewById(R.id.edtAlturaP);
+        edtPassword = findViewById(R.id.edtPasswordP);
+        edtPasswordVal = findViewById(R.id.edtPasswordValP);
+        edtAlergiaAlimentaria = findViewById(R.id.edtAlergiasAlimentariasP);
+        edtAlergiaMedicinal = findViewById(R.id.edtAlergiasMedicinalesP);
+
+        //TextInputLayout
+        txtInputName = findViewById(R.id.txtInputNameP);
+        txtInputApellido1 = findViewById(R.id.txtInputPrimerApellidoP);
+        txtInputDNI = findViewById(R.id.txtInputDNIP);
+        txtInputNSS = findViewById(R.id.txtInputNSSP);
+        txtInputTlf = findViewById(R.id.txtInputTelefonoP);
+        txtInputFechaNacimiento = findViewById(R.id.txtInputFechaNacimientoP);
+        txtInputProvincia = findViewById(R.id.txtInputProvinciaP);
+        txtInputHospital = findViewById(R.id.txtInputHospitalP);
+        txtInputCP = findViewById(R.id.txtInputCPP);
+        txtInputDireccion = findViewById(R.id.txtInputDireccionP);
+        txtInputPeso = findViewById(R.id.txtInputPesoP);
+        txtInputAltura = findViewById(R.id.txtInputAlturaP);
+        txtInputPassword = findViewById(R.id.txtInputPasswordP);
+        txtInputPasswordVal = findViewById(R.id.txtInputPasswordValP);
+
+        //CheckBox
+        chkVegetariana = findViewById(R.id.chkVegetariana);
+        chkVegana = findViewById(R.id.chkVegana);
+
+        //AutoCompleteTextView
+        dropdownProvincia = findViewById(R.id.dropdownProvinciaP);
+        dropdownHospital = findViewById(R.id.dropdownHospitalP);
+    }
+
     private void guardarDatos() {
         if(validar()){
             try {
-                hViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(this, hospital -> {
-                    if (hospital != null) {
-                        guardarPacienteConHospital(hospital);
-                    } else {
-                        toastInvalido("No se ha encontrado el hospital.");
-                    }
-                });
+                if (hospital.equals("Otro")) {
+                    hViewModel.hospitalPorNombre(hospital).observe(this, hospital -> {
+                        if(hospital != null){
+                            guardarPacienteConHospital(hospital);
+                        }else{
+                            ToastMessage.Invalido(this, "No se ha encontrado el hospital");
+                        }
+                    });
+                }else{
+                    hViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(this, hospital -> {
+                        if (hospital != null) {
+                            guardarPacienteConHospital(hospital);
+                        } else {
+                            ToastMessage.Invalido(this, "No se ha encontrado el hospital.");
+                        }
+                    });
+                }
             } catch (Exception e){
-                toastInvalido("Error: " + e.getMessage());
+                ToastMessage.Invalido(this, "Error: " + e.getMessage());
                 Log.e("ERROR", e.getMessage(), e);
             }
         }
@@ -170,7 +222,11 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                     u.setApellido2(edtApellido2.getText().toString());
                     u.setDNI(edtDNI.getText().toString());
                     u.setTelefono(edtTlf.getText().toString());
-                    u.setContrasena(edtPassword.getText().toString());
+                    try {
+                        u.setContrasena(Security.encriptar(edtPassword.getText().toString()));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     u.setRol("Paciente");
                     u.setPaciente(p);
 
@@ -185,7 +241,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
                                     this.pesosViewModel.save(pesoObj).observe(this, pesoResponse -> {
                                         if(pesoResponse.getRpta() == 1){
-                                            toastCorrecto("Su información ha sido guardada con éxito.");
                                             //Codigo nuevo para alergias y operaciones
                                             if(!edtAlergiaAlimentaria.getText().toString().isEmpty()){
                                                 String[] alergiasAlimentarias;
@@ -197,7 +252,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                     a.setPaciente(new Paciente(p.getDNI()));
                                                     alergiasViewModel.save(a).observe(this, alergiaResponse -> {
                                                         if(alergiaResponse.getRpta() != 1){
-                                                            toastInvalido("Error al guardar la alergia");
+                                                            ToastMessage.Invalido(this, "Error al guardar la alergia");
                                                         }
                                                     });
                                                 }
@@ -214,7 +269,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                     a.setPaciente(new Paciente(p.getDNI()));
                                                     alergiasViewModel.save(a).observe(this, alergiaResponse -> {
                                                         if(alergiaResponse.getRpta() != 1){
-                                                            toastInvalido("Error al guardar la alergia");
+                                                            ToastMessage.Invalido(this, "Error al guardar la alergia");
                                                         }
                                                     });
                                                 }
@@ -244,32 +299,33 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
                                                     //Crear el Viewmodel
                                                     operacionesViewModel.save(op).observe(this, operacionesResponse -> {
-                                                        if(operacionesResponse.getRpta() != 1){
-                                                            toastInvalido("Error al guardar la operacion");
+                                                        if(operacionesResponse.getRpta() == 1){
+                                                        }else{
+                                                            ToastMessage.Invalido(this, "Error al guardar la operacion");
                                                         }
                                                     });
                                                 }
                                             }
-
+                                            ToastMessage.Correcto(this, "Su información ha sido guardada con éxito.");
                                             startActivity(new Intent(this, MainActivity.class));
                                         } else {
-                                            toastInvalido("No se ha podido guardar bien el peso");
+                                            ToastMessage.Invalido(this, "No se ha podido guardar bien el peso");
                                         }
                                     });
                                 } else {
-                                    toastInvalido("No se ha podido asociar bien al hospital");
+                                    ToastMessage.Invalido(this, "No se ha podido asociar bien al hospital");
                                 }
                             });
                         } else {
-                            toastInvalido("No se ha podido guardar bien el usuario");
+                            ToastMessage.Invalido(this, "No se ha podido guardar bien el usuario");
                         }
                     });
                 } else {
-                    toastInvalido("No se ha podido guardar el paciente");
+                    ToastMessage.Invalido(this, "No se ha podido guardar el paciente");
                 }
             });
         } catch (Exception e){
-            toastInvalido("Se ha producido un error " + e.getMessage());
+            ToastMessage.Invalido(this, "Se ha producido un error " + e.getMessage());
             Log.e("ERROR EXCEPTION", e.getMessage(), e);
         }
     }
@@ -396,6 +452,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         for(Hospital hospital: hospitales){
             nombresHospitales.add(hospital.getNombre());
         }
+        nombresHospitales.add(0, "Otro");
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }
@@ -675,82 +732,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
-    }
-
-    private void initVariablesView(){
-        layoutOperaciones = findViewById(R.id.layout_operaciones);
-        toolbar = findViewById(R.id.toolbarRegPaciente);
-        btnGuardarDatos = findViewById(R.id.btnGuardarDatosP);
-        btnAgregarOperacion = findViewById(R.id.btnAgregarOperacion);
-        edtName = findViewById(R.id.edtNameP);
-        edtApellido1 = findViewById(R.id.edtPrimerApellidoP);
-        edtApellido2 = findViewById(R.id.edtSegundoApellidoP);
-        edtDNI = findViewById(R.id.edtDNIP);
-        edtNSS = findViewById(R.id.edtNSSP);
-        edtTlf = findViewById(R.id.edtTelefonoP);
-        edtFechaNacimiento = findViewById(R.id.edtFechaNacimientoP);
-        edtCP = findViewById(R.id.edtCPP);
-        edtDireccion = findViewById(R.id.edtDireccionP);
-        edtPeso = findViewById(R.id.edtPesoP);
-        edtAltura = findViewById(R.id.edtAlturaP);
-        edtPassword = findViewById(R.id.edtPasswordP);
-        edtPasswordVal = findViewById(R.id.edtPasswordValP);
-        edtAlergiaAlimentaria = findViewById(R.id.edtAlergiasAlimentariasP);
-        edtAlergiaMedicinal = findViewById(R.id.edtAlergiasMedicinalesP);
-
-        //TextInputLayout
-        txtInputName = findViewById(R.id.txtInputNameP);
-        txtInputApellido1 = findViewById(R.id.txtInputPrimerApellidoP);
-        txtInputApellido2 = findViewById(R.id.txtInputSegundoApellidoP);
-        txtInputDNI = findViewById(R.id.txtInputDNIP);
-        txtInputNSS = findViewById(R.id.txtInputNSSP);
-        txtInputTlf = findViewById(R.id.txtInputTelefonoP);
-        txtInputFechaNacimiento = findViewById(R.id.txtInputFechaNacimientoP);
-        txtInputProvincia = findViewById(R.id.txtInputProvinciaP);
-        txtInputHospital = findViewById(R.id.txtInputHospitalP);
-        txtInputCP = findViewById(R.id.txtInputCPP);
-        txtInputDireccion = findViewById(R.id.txtInputDireccionP);
-        txtInputPeso = findViewById(R.id.txtInputPesoP);
-        txtInputAltura = findViewById(R.id.txtInputAlturaP);
-        txtInputPassword = findViewById(R.id.txtInputPasswordP);
-        txtInputPasswordVal = findViewById(R.id.txtInputPasswordValP);
-        txtInputAlergiaAlimentaria = findViewById(R.id.txtInputAlergiasAlimentariasP);
-        txtInputAlergiaMedicinal = findViewById(R.id.txtInputAlergiasMedicinalesP);
-
-
-        //CheckBox
-        chkVegetariana = findViewById(R.id.chkVegetariana);
-        chkVegana = findViewById(R.id.chkVegana);
-
-        //AutoCompleteTextView
-        dropdownProvincia = findViewById(R.id.dropdownProvinciaP);
-        dropdownHospital = findViewById(R.id.dropdownHospitalP);
-    }
-
-
-
-    public void toastCorrecto(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_ok, (ViewGroup) findViewById(R.id.ll_custom_toast_ok));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastOk);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
     }
 
     // Capturar el clic en el botón de regreso

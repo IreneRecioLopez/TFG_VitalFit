@@ -28,6 +28,7 @@ import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.Security;
+import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
@@ -37,17 +38,16 @@ import java.util.List;
 public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
 
     private HospitalViewModel hViewModel;
-    private UsuarioViewModel mViewModel;
+    private UsuarioViewModel uViewModel;
     private Toolbar toolbar;
     private AutoCompleteTextView dropdownProvincia, dropdownHospital;
     private Button btnGuardarDatos;
     private EditText edtName, edtApellido1, edtApellido2, edtDNI, edtTlf, edtPassword, edtPasswordVal;
-    private TextInputLayout txtInputName, txtInputApellido1, txtInputApellido2, txtInputDNI, txtInputTlf,
+    private TextInputLayout txtInputName, txtInputApellido1, txtInputDNI, txtInputTlf,
                             txtInputPassword, txtInputPasswordVal, txtInputProvincia, txtInputHospital;
 
 
     private String hospital, provincia;
-    private Hospital hospitalAsignado = new Hospital();
 
     String rol = "";
 
@@ -65,7 +65,7 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
 
     private void initViewModel(){
         final ViewModelProvider vmp = new ViewModelProvider(this);
-        mViewModel = vmp.get(UsuarioViewModel.class);
+        uViewModel = vmp.get(UsuarioViewModel.class);
         hViewModel = vmp.get(HospitalViewModel.class);
     }
 
@@ -82,7 +82,6 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
         //TextInputLayout
         txtInputName = findViewById(R.id.txtInputNameM);
         txtInputApellido1 = findViewById(R.id.txtInputPrimerApellidoM);
-        txtInputApellido2 = findViewById(R.id.txtInputSegundoApellidoM);
         txtInputDNI = findViewById(R.id.txtInputDNIM);
         txtInputTlf = findViewById(R.id.txtInputTelefonoM);
         txtInputPassword = findViewById(R.id.txtInputPasswordM);
@@ -113,51 +112,61 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
     }
 
     private void guardarDatos(){
-        Usuario m;
         if(validar()){
-            m = new Usuario();
             try{
-                m.setNombre(edtName.getText().toString());
-                m.setApellido1(edtApellido1.getText().toString());
-                m.setApellido2(edtApellido2.getText().toString());
-                m.setDNI(edtDNI.getText().toString());
-                m.setTelefono(edtTlf.getText().toString());
-                m.setContrasena(Security.encriptar(edtPassword.getText().toString()));
-                m.setRol(rol);
-                obtenerHospitalPorNombreYProvincia(hospital, provincia);
-                Long idHospital = hospitalAsignado.getIdHospital();
-
-                guardarUsuario(m);
-
+                if (hospital.equals("Otro")) {
+                    hViewModel.hospitalPorNombre(hospital).observe(this, hospital -> {
+                        if(hospital != null){
+                            guardarUsuarioConHospital(hospital);
+                        }else{
+                            ToastMessage.Invalido(this, "No se ha encontrado el hospital");
+                        }
+                    });
+                }else{
+                    hViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(this, hospital -> {
+                        if (hospital != null) {
+                            guardarUsuarioConHospital(hospital);
+                        } else {
+                            ToastMessage.Invalido(this,"No se ha encontrado el hospital.");
+                        }
+                    });
+                }
             }catch (Exception e){
-                toastInvalido("Se ha producido un error " + e.getMessage());
+                ToastMessage.Invalido(this, "Se ha producido un error " + e.getMessage());
                 Log.e("ERROR EXCEPTION", e.getMessage() + " " + e.getStackTrace(), e);
             }
         }else{
-            toastInvalido("Por favor, complete todos los campos del formulario.");
+            ToastMessage.Invalido(this, "Por favor, complete todos los campos del formulario.");
         }
     }
 
-    public void guardarUsuario(Usuario m){
-        this.mViewModel.save(m).observe(this, mResponse -> {
-            if (mResponse.getRpta() == 1) {
-                try {
-                    this.mViewModel.asociarUsuarioHospital(Security.desencriptar(m.getDni()), hospitalAsignado).observe(this, response -> {
-                        Log.e("Respuesta", "Rpta: " + response.getRpta());
-                        if (response.getRpta() == 1) {
-                            toastCorrecto("Su información ha sido guardada con éxito.");
-                            startActivity(new Intent(this, MainActivity.class));
-                        } else {
-                            toastInvalido("No se ha podido asociar bien al hospital");
-                        }
+    private void guardarUsuarioConHospital(Hospital hospital){
+        Usuario u = new Usuario();
+        try{
+            u.setNombre(edtName.getText().toString());
+            u.setApellido1(edtApellido1.getText().toString());
+            u.setApellido2(edtApellido2.getText().toString());
+            u.setDNI(edtDNI.getText().toString());
+            u.setTelefono(edtTlf.getText().toString());
+            u.setContrasena(Security.encriptar(edtPassword.getText().toString()));
+            u.setRol(rol);
+
+            this.uViewModel.save(u).observe(this, uResponse -> {
+                if(uResponse.getRpta() == 1){
+                    this.uViewModel.asociarUsuarioHospital(u.getDni(), hospital).observe(this, response -> {
+                       if(response.getRpta() == 1){
+                           ToastMessage.Correcto(this, "Su información se ha guardado con éxito.");
+                           startActivity(new Intent(this, MainActivity.class));
+                       }else{
+                           ToastMessage.Invalido(this, "Se ha producido un erro al guardar los datos.");
+                       }
                     });
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
                 }
-            } else {
-                toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
-            }
-        });
+            });
+        }catch (Exception e){
+            ToastMessage.Invalido(this, "Se ha producido un error " + e.getMessage());
+            Log.e("ERROR EXCEPTION", e.getMessage(), e);
+        }
     }
 
     private boolean validar(){
@@ -229,34 +238,6 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
 
     }
 
-    private void obtenerHospitalPorNombreYProvincia(String nombre, String provincia){
-        hViewModel.hospitalPorNombreYProvincia(nombre, provincia).observe(this, new Observer<Hospital>() {
-            @Override
-            public void onChanged(Hospital hospital) {
-                if(hospital != null) {
-                    hospitalAsignado = getHospitalAsignado(hospital);
-                    Log.e("Hospital obtenido", hospital.getNombre());
-                    Log.e("Hospital asignado", hospitalAsignado.getNombre());
-
-                    continuarConHospital();
-                }
-            }
-        });
-    }
-
-    private Hospital getHospitalAsignado(Hospital hospital){
-        return hospital;
-    }
-
-    // Método para continuar el flujo cuando el hospital ya se asignó
-    private void continuarConHospital() {
-        if (hospitalAsignado != null) {
-            Log.e("Proceso", "Hospital confirmado: " + hospitalAsignado.getNombre());
-        } else {
-            toastInvalido("Error inesperado: hospitalAsignado es null.");
-        }
-    }
-
     private void obtenerHospitalesPorProvincia(String provincia) {
         hViewModel.hospitalPorProvincia(provincia).observe(this, new Observer<List<Hospital>>(){
             @Override
@@ -274,32 +255,9 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
         for(Hospital hospital: hospitales){
             nombresHospitales.add(hospital.getNombre());
         }
+        nombresHospitales.add(0, "Otro");
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
-    }
-
-    public void toastCorrecto(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_ok, (ViewGroup) findViewById(R.id.ll_custom_toast_ok));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastOk);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
     }
 
     private void editTextListeners(){

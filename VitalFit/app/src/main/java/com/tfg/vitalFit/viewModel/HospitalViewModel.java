@@ -27,4 +27,8 @@ public class HospitalViewModel extends AndroidViewModel {
     public LiveData<Hospital> hospitalPorNombreYProvincia(String nombre, String provincia){
         return this.repository.hospitalByNameAndProvince(nombre, provincia);
     }
+
+    public LiveData<Hospital> hospitalPorNombre(String nombre) {
+        return this.repository.hospitalByName(nombre);
+    }
 }

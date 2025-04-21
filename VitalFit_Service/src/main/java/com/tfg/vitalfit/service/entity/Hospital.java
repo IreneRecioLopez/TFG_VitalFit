@@ -18,7 +18,7 @@ public class Hospital {
     @Column(nullable = false)
     private String provincia;
     @Column(nullable = false)
-    private String localidad;
+    private String distrito;
     @Column(nullable = false)
     private Long cp;
     @Column(nullable = false)

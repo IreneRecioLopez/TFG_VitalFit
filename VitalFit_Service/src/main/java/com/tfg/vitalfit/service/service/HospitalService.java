@@ -24,4 +24,8 @@ public class HospitalService {
     public Hospital getHospitalsByNameAndProvincia(String name, String provincia) {
         return repository.findByNameAndProvincia(name, provincia);
     }
+
+    public Hospital getHospitalByName(String name){
+        return repository.findByName(name);
+    }
 }
