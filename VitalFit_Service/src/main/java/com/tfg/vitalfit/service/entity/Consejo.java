@@ -22,6 +22,6 @@ public class Consejo {
 
     @ManyToOne
     @JoinColumn(name = "dni_nutricionista")
-    @JsonIgnore
-    private Nutricionista nutricionista;
+    @JsonBackReference("nutricionista-consejos")
+    private Usuario nutricionista;
 }

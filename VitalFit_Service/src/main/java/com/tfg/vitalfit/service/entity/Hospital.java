@@ -26,7 +26,7 @@ public class Hospital {
     private Long numero;
 
     @OneToMany(mappedBy = "hospital")
-    @JsonManagedReference
+    @JsonManagedReference(value = "hospital-usuario")
     private List<Usuario> usuarios;
 
 }

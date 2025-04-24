@@ -23,6 +23,6 @@ public class Operaciones {
 
     @ManyToOne
     @JoinColumn(name = "dni_paciente")
-    @JsonBackReference("paciente-operaciones")
+    @JsonBackReference(value = "paciente-operaciones")
     private Paciente paciente;
 }

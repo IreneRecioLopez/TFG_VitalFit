@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.service.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class Platos {
 
     @ManyToOne
     @JoinColumn(name = "idDieta")
-    @JsonIgnore
+    //@JsonIgnore
+    @JsonBackReference(value = "dieta-platos")
     private Dieta dieta;
 }

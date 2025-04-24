@@ -42,27 +42,27 @@ public class Paciente {
     @ManyToOne
     @JoinColumn(name = "dni_nutricionista")
     //@JsonIgnore
-    @JsonBackReference("nutricionista-paciente")
+    @JsonBackReference(value = "nutricionista-paciente")
     private Usuario nutricionista;
 
     @OneToMany(mappedBy = "paciente")
-    @JsonManagedReference("paciente-pesos")
+    @JsonManagedReference(value = "paciente-pesos")
     private List<Pesos> pesos;
 
     @OneToMany(mappedBy = "paciente")
-    @JsonManagedReference("paciente-alergias")
+    @JsonManagedReference(value = "paciente-alergias")
     private List<Alergias> alergias;
 
     @OneToMany(mappedBy = "paciente")
-    @JsonManagedReference("paciente-operaciones")
+    @JsonManagedReference(value = "paciente-operaciones")
     private List<Operaciones> operaciones;
 
     @OneToMany(mappedBy = "paciente")
-    @JsonManagedReference("paciente-consejos")
+    @JsonManagedReference(value = "paciente-consejos")
     private List<Consejo> consejos;
 
     @OneToMany(mappedBy = "paciente")
-    @JsonManagedReference("paciente-dietas")
+    @JsonManagedReference(value = "paciente-dietas")
     private List<Dieta> dietas;
 
     public String getDni() {
