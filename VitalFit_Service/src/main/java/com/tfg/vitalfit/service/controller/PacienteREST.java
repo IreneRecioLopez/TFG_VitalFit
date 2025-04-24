@@ -1,6 +1,7 @@
 package com.tfg.vitalfit.service.controller;
 
 import com.tfg.vitalfit.service.entity.Paciente;
+import com.tfg.vitalfit.service.entity.Usuario;
 import com.tfg.vitalfit.service.service.PacienteService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.web.bind.annotation.*;
@@ -28,10 +29,9 @@ public class PacienteREST {
         return this.service.guardarPaciente(p);
     }
 
-    @PutMapping("/{dni}")
-    public GenericResponse update(@PathVariable String dni, @Valid @RequestBody Paciente p){
-        p.setDni(dni);
-        return this.service.guardarPaciente(p);
+    @PutMapping("/update")
+    public GenericResponse actualizarPaciente(@RequestBody Paciente p){
+        return this.service.actualizarPaciente(p);
     }
 
 }

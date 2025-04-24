@@ -44,7 +44,7 @@ public class Usuario {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "idHospital")
     //@JsonIgnore
-    @JsonBackReference(value = "hospital-usuario")
+    //@JsonBackReference(value = "hospital-usuario")
     @JsonIgnoreProperties("usuarios")
     private Hospital hospital;
 

@@ -27,10 +27,10 @@ public class Paciente {
     public Paciente(String dni){ this.dni = dni;}
 
     //METODOS GETTERS Y SETTERS
-    public String getDNI() {
+    public String getDni() {
         return dni;
     }
-    public void setDNI(String dni) {
+    public void setDni(String dni) {
         this.dni = dni;
     }
 

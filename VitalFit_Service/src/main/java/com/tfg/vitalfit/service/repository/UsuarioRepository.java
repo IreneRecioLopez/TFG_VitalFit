@@ -23,4 +23,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
     @Query("UPDATE Usuario u SET u.hospital = :hospital WHERE u.dni = :dniMedico")
     void asociarUsuarioHospital(@Param("dniMedico") String dniMedico, @Param("hospital") Hospital hospital);
 
+
+
 }

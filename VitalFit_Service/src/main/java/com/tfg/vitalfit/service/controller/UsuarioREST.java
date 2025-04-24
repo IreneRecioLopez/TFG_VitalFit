@@ -44,4 +44,10 @@ public class UsuarioREST {
     public GenericResponse actualizarPassword(@PathVariable String dni, @RequestBody String password){
         return this.service.actualizarPassword(dni, password);
     }
+
+    @PutMapping("/update")
+    public GenericResponse actualizarUsuario(@RequestBody Usuario u){
+        return this.service.actualizarUsuario(u);
+    }
+
 }

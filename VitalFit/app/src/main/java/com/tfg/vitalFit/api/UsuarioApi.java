@@ -33,11 +33,13 @@ public interface UsuarioApi {
     @GET(base + "/getByDni/{dni}")
     Call<Usuario> getUsuarioByDni(@Path("dni") String dni);
 
-
     @PUT(base + "/{dni}/hospital")
     Call<GenericResponse<Void>> asociarUsuarioHospital(@Path("dni") String dniUsuario, @Body Hospital hospital);
 
     @Headers("Content-Type: text/plain")
     @PUT(base + "/{dni}/password")
     Call<GenericResponse<Void>> actualizarPassword(@Path("dni")String dni, @Body RequestBody password);
+
+    @PUT(base + "/update")
+    Call<GenericResponse<Void>> actualizarUsuario(@Body Usuario u);
 }

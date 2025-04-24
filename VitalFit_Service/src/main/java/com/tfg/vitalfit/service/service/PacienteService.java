@@ -46,4 +46,14 @@ public class PacienteService {
         }
     }
 
+    public GenericResponse actualizarPaciente(Paciente p){
+        Optional<Paciente> optP = this.repository.findByDNI(p.getDni());
+        if(optP.isPresent()){
+            this.repository.save(p);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente actualizado correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
+        }
+    }
+
 }

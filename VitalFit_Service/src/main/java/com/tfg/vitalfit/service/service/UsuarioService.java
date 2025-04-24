@@ -61,8 +61,17 @@ public class UsuarioService {
             this.repository.save(uBD);
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Contraseña actualizada correctamente", null);
         }else{
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el medico con ese dni", null);
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el usuario con ese dni", null);
+        }
+    }
 
+    public GenericResponse actualizarUsuario(Usuario u){
+        Optional<Usuario> optU = this.repository.findByDNI(u.getDni());
+        if(optU.isPresent()){
+            this.repository.save(u);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Usuario actualizado correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el usuario con ese dni", null);
         }
     }
 

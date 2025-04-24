@@ -199,7 +199,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     private void guardarPacienteConHospital(Hospital hospital){
         Paciente p = new Paciente();
         try {
-            p.setDNI(edtDNI.getText().toString());
+            p.setDni(edtDNI.getText().toString());
             p.setNumSeguridadSocial(edtNSS.getText().toString());
             p.setFechaNacimiento(convertirFecha(edtFechaNacimiento.getText().toString()));
             p.setProvincia(dropdownProvincia.getText().toString());
@@ -220,7 +220,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                     u.setNombre(edtName.getText().toString());
                     u.setApellido1(edtApellido1.getText().toString());
                     u.setApellido2(edtApellido2.getText().toString());
-                    u.setDNI(edtDNI.getText().toString());
+                    u.setDni(edtDNI.getText().toString());
                     u.setTelefono(edtTlf.getText().toString());
                     try {
                         u.setContrasena(Security.encriptar(edtPassword.getText().toString()));
@@ -236,7 +236,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                 if (response.getRpta() == 1) {
                                     Pesos pesoObj = new Pesos();
                                     pesoObj.setPeso(p.getPesoActual());
-                                    pesoObj.setPaciente(new Paciente(p.getDNI()));
+                                    pesoObj.setPaciente(new Paciente(p.getDni()));
                                     pesoObj.setFecha(obtenerFechaActual());
 
                                     this.pesosViewModel.save(pesoObj).observe(this, pesoResponse -> {
@@ -249,7 +249,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                     Alergias a = new Alergias();
                                                     a.setAlergia(alergia);
                                                     a.setTipo("Alimentaria");
-                                                    a.setPaciente(new Paciente(p.getDNI()));
+                                                    a.setPaciente(new Paciente(p.getDni()));
                                                     alergiasViewModel.save(a).observe(this, alergiaResponse -> {
                                                         if(alergiaResponse.getRpta() != 1){
                                                             ToastMessage.Invalido(this, "Error al guardar la alergia");
@@ -266,7 +266,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                     Log.d("ALERGIA TIPO", tipo);
                                                     a.setAlergia(tipo);
                                                     a.setTipo("Medicinal");
-                                                    a.setPaciente(new Paciente(p.getDNI()));
+                                                    a.setPaciente(new Paciente(p.getDni()));
                                                     alergiasViewModel.save(a).observe(this, alergiaResponse -> {
                                                         if(alergiaResponse.getRpta() != 1){
                                                             ToastMessage.Invalido(this, "Error al guardar la alergia");
@@ -293,7 +293,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         fecha = " ";
                                                     }
                                                     Operaciones op = new Operaciones();
-                                                    op.setPaciente(new Paciente(p.getDNI()));
+                                                    op.setPaciente(new Paciente(p.getDni()));
                                                     op.setNombre(nombre);
                                                     op.setFecha(fecha);
 

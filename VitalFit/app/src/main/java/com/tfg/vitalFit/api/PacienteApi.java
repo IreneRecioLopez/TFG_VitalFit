@@ -3,6 +3,7 @@ package com.tfg.vitalfit.api;
 import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
+import com.tfg.vitalfit.entity.service.Usuario;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;
@@ -33,4 +34,7 @@ public interface PacienteApi {
     @Headers("Content-Type: text/plain")
     @PUT(base + "/{dni}/password")
     Call<GenericResponse<Void>> actualizarPassword(@Path("dni")String dni, @Body RequestBody password);
+
+    @PUT(base + "/update")
+    Call<GenericResponse<Void>> actualizarPaciente(@Body Paciente p);
 }

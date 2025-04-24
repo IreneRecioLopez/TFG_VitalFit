@@ -124,4 +124,24 @@ public class UsuarioRepository {
         });
         return mld;
     }
+
+    public LiveData<GenericResponse<Void>> actualizarUsuario(Usuario u) {
+        MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
+        api.actualizarUsuario(u).enqueue(new Callback<GenericResponse<Void>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
+                if(response.isSuccessful()){
+                    mld.setValue(new GenericResponse("Result", 1, "Actualizado el usuario", null));
+                }
+
+            }
+            @Override
+            public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al actualizar el usuario" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
 }

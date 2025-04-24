@@ -37,6 +37,10 @@ public class UsuarioViewModel extends AndroidViewModel {
         return this.repository.actualizarPassword(dni, password);
     }
 
+    public LiveData<GenericResponse<Void>> actualizarUsuario(Usuario u){
+        return this.repository.actualizarUsuario(u);
+    }
+
     public LiveData<Usuario> getUsuarioByDni(String dni){
         return this.repository.UsuarioByDni(dni);
     }
