@@ -13,6 +13,8 @@ public class Consejo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idConsejo;
     @Column(nullable = false)
+    private String titulo;
+    @Column(nullable = false)
     private String mensaje;
 
     @ManyToOne

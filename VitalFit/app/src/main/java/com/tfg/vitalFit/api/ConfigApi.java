@@ -3,7 +3,6 @@ package com.tfg.vitalfit.api;
 import com.facebook.stetho.okhttp3.StethoInterceptor;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.utils.DateSerializer;
 import com.tfg.vitalfit.utils.TimeSerializer;
 
@@ -30,6 +29,7 @@ public class ConfigApi {
     private static PesosApi pesosApi;
     private static AlergiasApi alergiasApi;
     private static OperacionesApi operacionesApi;
+    private static ConsejosApi consejosApi;
 
     static {
         initClient();
@@ -117,6 +117,13 @@ public class ConfigApi {
             operacionesApi = retrofit.create(OperacionesApi.class);
         }
         return operacionesApi;
+    }
+
+    public static ConsejosApi getConsejosApi(){
+        if(consejosApi == null){
+            consejosApi = retrofit.create(ConsejosApi.class);
+        }
+        return consejosApi;
     }
 
 }

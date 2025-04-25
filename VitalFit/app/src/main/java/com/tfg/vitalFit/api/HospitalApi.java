@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface HospitalApi {
-    //RUTA DEL CONTROLADOR NUTRICIONISTA
+    //RUTA DEL CONTROLADOR HOSPITAL
     String base = "api/hospital";
 
     @GET(base + "/provincia/{provincia}")

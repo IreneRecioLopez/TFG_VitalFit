@@ -46,6 +46,7 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -65,6 +66,8 @@ dependencies {
     //Libreria Spinner
     //implementation("com.github.ganfra:material-spinner:2.0.0")
 
+    //RecylerView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     
 }
