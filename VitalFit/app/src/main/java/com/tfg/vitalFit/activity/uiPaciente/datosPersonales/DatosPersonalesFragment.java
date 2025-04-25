@@ -151,19 +151,6 @@ public class DatosPersonalesFragment extends Fragment {
                 guardarDatosPaciente();
             }
         });
-        // Agregar el listener para manejar el "back press"
-        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(), new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                // Si hay cambios no guardados, mostrar el diálogo
-                if (modoEdicion) {
-                    showDiscardChangesDialog();
-                } else {
-                    // Si no hay cambios, proceder con la navegación normalmente
-                    requireActivity().onBackPressed(); // Llama al "back press" de la actividad
-                }
-            }
-        });
 
         return root;
     }
@@ -273,7 +260,7 @@ public class DatosPersonalesFragment extends Fragment {
     }
 
     private void obtenerHospitalesPorProvincia(String provincia) {
-        hospitalViewModel.hospitalPorProvincia(provincia).observe(this, new Observer<List<Hospital>>(){
+        hospitalViewModel.hospitalPorProvincia(provincia).observe(getViewLifecycleOwner(), new Observer<List<Hospital>>(){
             @Override
             public void onChanged(List<Hospital> hospitales){
                 if(hospitales != null){
@@ -294,18 +281,14 @@ public class DatosPersonalesFragment extends Fragment {
         dropdownHospital.setAdapter(arrayHospitales);
     }
 
+    public boolean estaEnModoEdicion() {
+        return modoEdicion;
+    }
 
-    private void showDiscardChangesDialog() {
-        new AlertDialog.Builder(getContext())
-                .setMessage("¿Estás seguro de que deseas descartar los cambios?")
-                .setCancelable(false) // No permitir cerrar el diálogo sin una acción
-                .setPositiveButton("Sí", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Navegar a otro fragmento o actividad
-                        Navigation.findNavController(getView()).navigate(R.id.nav_host_fragment_content_inicio);
-                    }
-                })
-                .setNegativeButton("No", null)
-                .show();
+    public void cancelarEdicion() {
+        modoEdicion = false;
+        btnEditarDatos.setText("Editar");
+        for (View campo : camposEditables) campo.setEnabled(false);
+        obtenerDatosUsuario(getView()); // Restaurar datos originales
     }
 }

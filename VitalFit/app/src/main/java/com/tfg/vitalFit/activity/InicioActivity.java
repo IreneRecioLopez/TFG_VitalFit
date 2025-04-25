@@ -11,6 +11,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -19,6 +21,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.tfg.vitalfit.R;
+import com.tfg.vitalfit.activity.uiPaciente.datosPersonales.DatosPersonalesFragment;
 import com.tfg.vitalfit.databinding.ActivityInicioBinding;
 
 public class InicioActivity extends AppCompatActivity {
@@ -52,7 +55,42 @@ public class InicioActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_inicio);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        //NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            Fragment currentFragment = getSupportFragmentManager()
+                    .findFragmentById(R.id.nav_host_fragment_content_inicio)
+                    .getChildFragmentManager()
+                    .getFragments()
+                    .get(0);
+
+            if (currentFragment instanceof DatosPersonalesFragment) {
+                DatosPersonalesFragment fragment = (DatosPersonalesFragment) currentFragment;
+
+                if (fragment.estaEnModoEdicion()) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("¿Descartar cambios?")
+                            .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
+                            .setPositiveButton("Sí", (dialog, which) -> {
+                                fragment.cancelarEdicion();
+
+                                // ✅ Forzar navegación y actualizar ítem seleccionado
+                                navController.navigate(item.getItemId());
+                                item.setChecked(true); // <- ACTUALIZA el estado visual del menú
+                                drawer.closeDrawers();
+                            })
+                            .setNegativeButton("Cancelar", null)
+                            .show();
+                    return false;
+                }
+            }
+
+            // Sin edición activa, navegar normalmente
+            boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+            if (handled) {
+                drawer.closeDrawers();
+            }
+            return handled;
+        });
     }
 
     @Override
