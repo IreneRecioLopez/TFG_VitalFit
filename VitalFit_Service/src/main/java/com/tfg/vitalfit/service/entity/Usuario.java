@@ -28,6 +28,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "medico_dni")
+    @JsonIgnoreProperties("pacientesMedico")
     private Usuario medico;
 
     @ManyToOne

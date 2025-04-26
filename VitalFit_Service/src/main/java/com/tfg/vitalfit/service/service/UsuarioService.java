@@ -6,6 +6,7 @@ import com.tfg.vitalfit.service.repository.UsuarioRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 import static com.tfg.vitalfit.service.utils.Global.*;
@@ -46,9 +47,21 @@ public class UsuarioService {
         String idf = opt.isPresent()? opt.get().getDni() : "";
         if(!idf.equals("")){
             this.repository.asociarUsuarioHospital(dni, hospital);
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Medico asociado correctamente", null);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Usuario asociado correctamente al hospital", null);
         }else{
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el médico con ese dni", null);
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el usuario con ese dni", null);
+
+        }
+    }
+
+    public GenericResponse asociarPacienteMedico(String dni, Usuario medico) {
+        Optional<Usuario> opt = this.repository.findByDNI(dni);
+        String idf = opt.isPresent()? opt.get().getDni() : "";
+        if(!idf.equals("")){
+            this.repository.asociarPacienteMedico(dni, medico);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente asociado correctamente al medico", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
 
         }
     }
@@ -78,4 +91,10 @@ public class UsuarioService {
     public Usuario getUsuarioByDNI(String dni) {
         return repository.findByDNI(dni).get();
     }
+
+    public List<Usuario> obtenerMedicoHospital(Long id) { return repository.obtenerMedicoHospital(id); }
+
+    public Usuario obtenerMedicoPorNombreCompleto(String nombreCompleto, Long idHospital){ return repository.obtenerMedicoPorNombreCompleto(nombreCompleto, idHospital); }
+
+
 }

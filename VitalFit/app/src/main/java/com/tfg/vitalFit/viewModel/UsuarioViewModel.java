@@ -13,6 +13,8 @@ import com.tfg.vitalfit.repository.UsuarioRepository;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class UsuarioViewModel extends AndroidViewModel {
     private final UsuarioRepository repository;
 
@@ -33,6 +35,10 @@ public class UsuarioViewModel extends AndroidViewModel {
         return this.repository.asociarUsuarioHospital(dniUsuario, hospital);
     }
 
+    public LiveData<GenericResponse<Void>> asociarPacienteMedico(String dniPaciente, Usuario medico){
+        return this.repository.asociarPacienteMedico(dniPaciente, medico);
+    }
+
     public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String password) {
         return this.repository.actualizarPassword(dni, password);
     }
@@ -42,6 +48,14 @@ public class UsuarioViewModel extends AndroidViewModel {
     }
 
     public LiveData<Usuario> getUsuarioByDni(String dni){
-        return this.repository.UsuarioByDni(dni);
+        return this.repository.usuarioByDni(dni);
+    }
+
+    public LiveData<List<Usuario>> getMedicosByHospital(Long idHospital){
+        return this.repository.medicosByHospital(idHospital);
+    }
+
+    public LiveData<Usuario> getMedicoByNombreCompletoByHospital(String nombreCompleto, Long idHospital){
+        return this.repository.medicoByNombreCompletoByHospital(nombreCompleto, idHospital);
     }
 }

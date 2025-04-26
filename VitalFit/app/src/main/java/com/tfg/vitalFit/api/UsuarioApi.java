@@ -5,6 +5,8 @@ import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Usuario;
 
 
+import java.util.List;
+
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,6 +17,7 @@ import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface UsuarioApi {
@@ -30,11 +33,20 @@ public interface UsuarioApi {
     @POST(base + "/save")
     Call<GenericResponse<Usuario>> guardarUsuario(@Body Usuario u);
 
-    @GET(base + "/getByDni/{dni}")
+    @GET(base + "/{dni}")
     Call<Usuario> getUsuarioByDni(@Path("dni") String dni);
+
+    @GET(base + "/medico/hospital/{idHospital}")
+    Call<List<Usuario>> getMedicosByHospital(@Path("idHospital") Long idHospital);
+
+    @GET(base + "/medico/hospital")
+    Call<Usuario> getMedicoByHospital(@Query("nombreCompleto") String nombreCompleto, @Query("idHospital") Long idHospital);
 
     @PUT(base + "/{dni}/hospital")
     Call<GenericResponse<Void>> asociarUsuarioHospital(@Path("dni") String dniUsuario, @Body Hospital hospital);
+
+    @PUT(base + "/paciente/{dni}/medico")
+    Call<GenericResponse<Void>> asociarPacienteMedico(@Path("dni") String dniPaciente, @Body Usuario medico);
 
     @Headers("Content-Type: text/plain")
     @PUT(base + "/{dni}/password")

@@ -7,6 +7,7 @@ import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/usuario")
@@ -30,14 +31,29 @@ public class UsuarioREST {
     }
 
 
-    @GetMapping("/getByDNI/{dni}")
+    @GetMapping("/{dni}")
     public Usuario getByDNI(@PathVariable("dni") String dni){
         return this.service.getUsuarioByDNI(dni);
+    }
+
+    @GetMapping("/medico/hospital/{idHospital}")
+    public List<Usuario> medicosHospital(@PathVariable("idHospital") Long id){
+        return this.service.obtenerMedicoHospital(id);
+    }
+
+    @GetMapping("/medico/hospital")
+    public Usuario medicoNombreCompletoPorHospital(@RequestParam String nombreCompleto, @RequestParam Long idHospital){
+        return this.service.obtenerMedicoPorNombreCompleto(nombreCompleto, idHospital);
     }
 
     @PutMapping("/{dni}/hospital")
     public GenericResponse asociarUsuarioHospital(@PathVariable String dni, @RequestBody Hospital hospital){
         return this.service.asociarUsuarioHospital(dni, hospital);
+    }
+
+    @PutMapping("/paciente/{dni}/medico")
+    public GenericResponse asociarPacienteMedico(@PathVariable String dni, @RequestBody Usuario medico){
+        return this.service.asociarPacienteMedico(dni, medico);
     }
 
     @PutMapping("/{dni}/password")

@@ -66,7 +66,7 @@ dependencies {
     //Libreria Spinner
     //implementation("com.github.ganfra:material-spinner:2.0.0")
 
-    //RecylerView
+    //RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     

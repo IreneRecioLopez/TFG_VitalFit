@@ -3,6 +3,7 @@ package com.tfg.vitalfit.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -69,11 +70,11 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     private Button btnGuardarDatos, btnAgregarOperacion;
     private TextInputLayout txtInputName, txtInputApellido1, txtInputDNI, txtInputNSS,
                             txtInputTlf, txtInputFechaNacimiento,txtInputProvincia, txtInputCP, txtInputDireccion, txtInputPeso,
-                            txtInputAltura, txtInputHospital, txtInputPassword, txtInputPasswordVal;
+                            txtInputAltura, txtInputHospital, txtInputMedico, txtInputPassword, txtInputPasswordVal;
     private CheckBox chkVegetariana, chkVegana;
-    private AutoCompleteTextView dropdownProvincia, dropdownHospital;
+    private AutoCompleteTextView dropdownProvincia, dropdownHospital, dropdownMedico;
 
-    private String hospital, provincia, fechaNacimiento;
+    private String hospital, provincia, fechaNacimiento, medico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,6 +154,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         txtInputFechaNacimiento = findViewById(R.id.txtInputFechaNacimientoP);
         txtInputProvincia = findViewById(R.id.txtInputProvinciaP);
         txtInputHospital = findViewById(R.id.txtInputHospitalP);
+        txtInputMedico = findViewById(R.id.txtInputMedicoP);
         txtInputCP = findViewById(R.id.txtInputCPP);
         txtInputDireccion = findViewById(R.id.txtInputDireccionP);
         txtInputPeso = findViewById(R.id.txtInputPesoP);
@@ -167,6 +169,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         //AutoCompleteTextView
         dropdownProvincia = findViewById(R.id.dropdownProvinciaP);
         dropdownHospital = findViewById(R.id.dropdownHospitalP);
+        dropdownMedico = findViewById(R.id.dropdownMedicoP);
     }
 
     private void guardarDatos() {
@@ -175,7 +178,11 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                 if (hospital.equals("Otro")) {
                     hViewModel.hospitalPorNombre(hospital).observe(this, hospital -> {
                         if(hospital != null){
-                            guardarPacienteConHospital(hospital);
+                            uViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(this, medico -> {
+                                if(medico != null){
+                                    guardarPacienteConHospitalYMedico(hospital, medico);
+                                }
+                            });
                         }else{
                             ToastMessage.Invalido(this, "No se ha encontrado el hospital");
                         }
@@ -183,7 +190,12 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                 }else{
                     hViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(this, hospital -> {
                         if (hospital != null) {
-                            guardarPacienteConHospital(hospital);
+                            uViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(this, medico -> {
+                                if(medico != null){
+                                    guardarPacienteConHospitalYMedico(hospital, medico);
+                                }
+                            });
+
                         } else {
                             ToastMessage.Invalido(this, "No se ha encontrado el hospital.");
                         }
@@ -196,7 +208,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         }
     }
 
-    private void guardarPacienteConHospital(Hospital hospital){
+    private void guardarPacienteConHospitalYMedico(Hospital hospital, Usuario medico){
         Paciente p = new Paciente();
         try {
             p.setDni(edtDNI.getText().toString());
@@ -234,82 +246,88 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                         if(uResponse.getRpta() == 1){
                             this.uViewModel.asociarUsuarioHospital(u.getDni(), hospital).observe(this, response -> {
                                 if (response.getRpta() == 1) {
-                                    Pesos pesoObj = new Pesos();
-                                    pesoObj.setPeso(p.getPesoActual());
-                                    pesoObj.setPaciente(new Paciente(p.getDni()));
-                                    pesoObj.setFecha(obtenerFechaActual());
+                                    this.uViewModel.asociarPacienteMedico(u.getDni(), medico).observe(this, pmResponse -> {
+                                        if(pmResponse.getRpta() == 1){
+                                            Pesos pesoObj = new Pesos();
+                                            pesoObj.setPeso(p.getPesoActual());
+                                            pesoObj.setPaciente(new Paciente(p.getDni()));
+                                            pesoObj.setFecha(obtenerFechaActual());
 
-                                    this.pesosViewModel.save(pesoObj).observe(this, pesoResponse -> {
-                                        if(pesoResponse.getRpta() == 1){
-                                            //Codigo nuevo para alergias y operaciones
-                                            if(!edtAlergiaAlimentaria.getText().toString().isEmpty()){
-                                                String[] alergiasAlimentarias;
-                                                alergiasAlimentarias = edtAlergiaAlimentaria.getText().toString().split(",");
-                                                for (String alergia: alergiasAlimentarias) {
-                                                    Alergias a = new Alergias();
-                                                    a.setAlergia(alergia);
-                                                    a.setTipo("Alimentaria");
-                                                    a.setPaciente(new Paciente(p.getDni()));
-                                                    alergiasViewModel.save(a).observe(this, alergiaResponse -> {
-                                                        if(alergiaResponse.getRpta() != 1){
-                                                            ToastMessage.Invalido(this, "Error al guardar la alergia");
+                                            this.pesosViewModel.save(pesoObj).observe(this, pesoResponse -> {
+                                                if(pesoResponse.getRpta() == 1){
+                                                    //Codigo nuevo para alergias y operaciones
+                                                    if(!edtAlergiaAlimentaria.getText().toString().isEmpty()){
+                                                        String[] alergiasAlimentarias;
+                                                        alergiasAlimentarias = edtAlergiaAlimentaria.getText().toString().split(",");
+                                                        for (String alergia: alergiasAlimentarias) {
+                                                            Alergias a = new Alergias();
+                                                            a.setAlergia(alergia);
+                                                            a.setTipo("Alimentaria");
+                                                            a.setPaciente(new Paciente(p.getDni()));
+                                                            alergiasViewModel.save(a).observe(this, alergiaResponse -> {
+                                                                if(alergiaResponse.getRpta() != 1){
+                                                                    ToastMessage.Invalido(this, "Error al guardar la alergia");
+                                                                }
+                                                            });
                                                         }
-                                                    });
-                                                }
-                                            }
-                                            if(!edtAlergiaMedicinal.getText().toString().isEmpty()){
-                                                String[] alergiasMedicinales;
-                                                alergiasMedicinales = edtAlergiaMedicinal.getText().toString().split(",");
-                                                for (String alergia: alergiasMedicinales) {
-                                                    Alergias a = new Alergias();
-                                                    String tipo = alergia.trim();
-                                                    Log.d("ALERGIA TIPO", tipo);
-                                                    a.setAlergia(tipo);
-                                                    a.setTipo("Medicinal");
-                                                    a.setPaciente(new Paciente(p.getDni()));
-                                                    alergiasViewModel.save(a).observe(this, alergiaResponse -> {
-                                                        if(alergiaResponse.getRpta() != 1){
-                                                            ToastMessage.Invalido(this, "Error al guardar la alergia");
-                                                        }
-                                                    });
-                                                }
-                                            }
-
-                                            List<Operaciones> listaOperaciones = new ArrayList<>();
-
-                                            for (int i = 0; i < layoutOperaciones.getChildCount(); i++) {
-                                                View itemOperacion = layoutOperaciones.getChildAt(i);
-
-                                                TextInputEditText edtOperacionNombre = itemOperacion.findViewById(R.id.edtNombreOperacion);
-                                                TextInputEditText edtOperacionFecha = itemOperacion.findViewById(R.id.edtFechaOperacion);
-
-                                                if (edtOperacionNombre == null || edtOperacionFecha == null) continue;
-
-                                                String nombre = edtOperacionNombre.getText().toString().trim();
-                                                String fecha = convertirFecha(edtOperacionFecha.getText().toString());
-
-                                                if (!nombre.isEmpty()) {
-                                                    if(fecha.isEmpty()){
-                                                        fecha = " ";
                                                     }
-                                                    Operaciones op = new Operaciones();
-                                                    op.setPaciente(new Paciente(p.getDni()));
-                                                    op.setNombre(nombre);
-                                                    op.setFecha(fecha);
-
-                                                    //Crear el Viewmodel
-                                                    operacionesViewModel.save(op).observe(this, operacionesResponse -> {
-                                                        if(operacionesResponse.getRpta() == 1){
-                                                        }else{
-                                                            ToastMessage.Invalido(this, "Error al guardar la operacion");
+                                                    if(!edtAlergiaMedicinal.getText().toString().isEmpty()){
+                                                        String[] alergiasMedicinales;
+                                                        alergiasMedicinales = edtAlergiaMedicinal.getText().toString().split(",");
+                                                        for (String alergia: alergiasMedicinales) {
+                                                            Alergias a = new Alergias();
+                                                            String tipo = alergia.trim();
+                                                            Log.d("ALERGIA TIPO", tipo);
+                                                            a.setAlergia(tipo);
+                                                            a.setTipo("Medicinal");
+                                                            a.setPaciente(new Paciente(p.getDni()));
+                                                            alergiasViewModel.save(a).observe(this, alergiaResponse -> {
+                                                                if(alergiaResponse.getRpta() != 1){
+                                                                    ToastMessage.Invalido(this, "Error al guardar la alergia");
+                                                                }
+                                                            });
                                                         }
-                                                    });
+                                                    }
+
+                                                    List<Operaciones> listaOperaciones = new ArrayList<>();
+
+                                                    for (int i = 0; i < layoutOperaciones.getChildCount(); i++) {
+                                                        View itemOperacion = layoutOperaciones.getChildAt(i);
+
+                                                        TextInputEditText edtOperacionNombre = itemOperacion.findViewById(R.id.edtNombreOperacion);
+                                                        TextInputEditText edtOperacionFecha = itemOperacion.findViewById(R.id.edtFechaOperacion);
+
+                                                        if (edtOperacionNombre == null || edtOperacionFecha == null) continue;
+
+                                                        String nombre = edtOperacionNombre.getText().toString().trim();
+                                                        String fecha = convertirFecha(edtOperacionFecha.getText().toString());
+
+                                                        if (!nombre.isEmpty()) {
+                                                            if(fecha.isEmpty()){
+                                                                fecha = " ";
+                                                            }
+                                                            Operaciones op = new Operaciones();
+                                                            op.setPaciente(new Paciente(p.getDni()));
+                                                            op.setNombre(nombre);
+                                                            op.setFecha(fecha);
+
+                                                            //Crear el Viewmodel
+                                                            operacionesViewModel.save(op).observe(this, operacionesResponse -> {
+                                                                if(operacionesResponse.getRpta() == 1){
+                                                                }else{
+                                                                    ToastMessage.Invalido(this, "Error al guardar la operacion");
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                    ToastMessage.Correcto(this, "Su información ha sido guardada con éxito.");
+                                                    startActivity(new Intent(this, MainActivity.class));
+                                                } else {
+                                                    ToastMessage.Invalido(this, "No se ha podido guardar bien el peso");
                                                 }
-                                            }
-                                            ToastMessage.Correcto(this, "Su información ha sido guardada con éxito.");
-                                            startActivity(new Intent(this, MainActivity.class));
-                                        } else {
-                                            ToastMessage.Invalido(this, "No se ha podido guardar bien el peso");
+                                            });
+                                        } else{
+                                            ToastMessage.Invalido(this, "No se ha podido asociar bien al medico");
                                         }
                                     });
                                 } else {
@@ -456,6 +474,36 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }
+
+    private void obtenerMedicosPorHospital(String hospitalNombre){
+        hViewModel.hospitalPorNombre(hospitalNombre).observe(this, new Observer<Hospital>() {
+            @Override
+            public void onChanged(Hospital hospital) {
+                if(hospital != null){
+                    listaMedicosHospital(hospital.getIdHospital());
+                }
+            }
+        });
+    }
+
+    private void listaMedicosHospital(Long idHospital){
+        List<String> nombresCompletosMedicos = new ArrayList<>();
+        uViewModel.getMedicosByHospital(idHospital).observe(this, new Observer<List<Usuario>>() {
+            @Override
+            public void onChanged(List<Usuario> usuarios) {
+                if(usuarios != null){
+                    for(Usuario medico : usuarios){
+                        String nombreCompleto = medico.getNombre() + " " + medico.getApellido1() + " " + medico.getApellido2();
+                        nombresCompletosMedicos.add(nombreCompleto);
+                    }
+                }
+            }
+        });
+        nombresCompletosMedicos.add(0, "Otro");
+        ArrayAdapter<String> arrayMedicos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresCompletosMedicos);
+        dropdownMedico.setAdapter(arrayMedicos);
+    }
+
 
     private String convertirFecha(String fecha) {
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
@@ -725,11 +773,29 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 hospital = s.toString();
+                obtenerMedicosPorHospital(hospital);
                 txtInputHospital.setErrorEnabled(false);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+            }
+        });
+        dropdownMedico.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                medico = s.toString();
+                txtInputMedico.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }

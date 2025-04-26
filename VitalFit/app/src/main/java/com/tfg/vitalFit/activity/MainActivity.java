@@ -137,12 +137,15 @@ public class MainActivity extends AppCompatActivity {
             edtPassword.setText("");
             String rol = u.getRol();
             if (rol.equals("Paciente")) {
+                chkPaciente.setChecked(true);
                 Log.e("Inicio Sesion", "paciente");
                 startActivity(new Intent(this, InicioActivity.class));
             } else if (rol.equals("Médico")) {
+                chkMedico.setChecked(true);
                 Log.e("Inicio Sesion", "medico");
                 startActivity(new Intent(this, InicioMedicoActivity.class));
             } else if (rol.equals("Nutricionista")) {
+                chkNutricionista.setChecked(true);
                 Log.e("Inicio Sesion", "nutricionista");
                 startActivity(new Intent(this, InicioNutricionistaActivity.class));
             }
@@ -150,7 +153,9 @@ public class MainActivity extends AppCompatActivity {
             //ToastMessage.makeText(this, "Ocurrio un error " + response.getMessage(), ToastMessage.LENGTH_SHORT).show();
             ToastMessage.Invalido(this, response.getMessage());
         }
-
+        chkPaciente.setChecked(false);
+        chkMedico.setChecked(false);
+        chkNutricionista.setChecked(false);
     }
 
     private void listeners(){
