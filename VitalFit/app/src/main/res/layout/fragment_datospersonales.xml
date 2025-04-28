@@ -265,6 +265,25 @@
                                 android:inputType="none"
                                 android:textSize="15sp" />
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/txtInputMedicoP"
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:hint="Médico"
+                            app:startIconDrawable="@drawable/ic_hospital">
+
+                            <AutoCompleteTextView
+                                android:id="@+id/dropdownMedicoP"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingStart="48dp"
+                                android:clickable="true"
+                                android:inputType="none"
+                                android:textSize="15sp" />
+                        </com.google.android.material.textfield.TextInputLayout>
                     </LinearLayout>
                     <Button
                         android:id="@+id/btnEditarDatos"

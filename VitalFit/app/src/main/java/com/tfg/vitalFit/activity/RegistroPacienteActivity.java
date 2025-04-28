@@ -104,6 +104,9 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        dropdownHospital.setEnabled(false);
+        dropdownMedico.setEnabled(false);
+
         //seleccion fecha de nacimiento
         edtFechaNacimiento.setOnClickListener(v -> mostrarCalendario());
 
@@ -504,7 +507,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         dropdownMedico.setAdapter(arrayMedicos);
     }
 
-
     private String convertirFecha(String fecha) {
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -763,6 +765,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                dropdownHospital.setEnabled(true);
             }
         });
         dropdownHospital.addTextChangedListener(new TextWatcher() {
@@ -779,6 +782,8 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                dropdownMedico.setEnabled(true);
+
             }
         });
         dropdownMedico.addTextChangedListener(new TextWatcher() {
