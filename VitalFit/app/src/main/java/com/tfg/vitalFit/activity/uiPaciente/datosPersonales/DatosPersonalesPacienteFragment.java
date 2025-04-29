@@ -1,6 +1,5 @@
 package com.tfg.vitalfit.activity.uiPaciente.datosPersonales;
 
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -15,13 +14,10 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.Navigation;
 
 import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
@@ -42,7 +38,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class DatosPersonalesFragment extends Fragment {
+public class DatosPersonalesPacienteFragment extends Fragment {
 
     private List<View> camposEditables;
     private List<View> camposNoEditables;
@@ -205,9 +201,9 @@ public class DatosPersonalesFragment extends Fragment {
             ((EditText) view.findViewById(R.id.edtFechaNacimientoP)).setText(LeerFecha(usuario.getPaciente().getFechaNacimiento()));
             ((EditText) view.findViewById(R.id.edtCPP)).setText(usuario.getPaciente().getCP());
             ((EditText) view.findViewById(R.id.edtDireccionP)).setText(usuario.getPaciente().getDireccion());
-            ((EditText) view.findViewById(R.id.dropdownProvinciaP)).setText(usuario.getPaciente().getProvincia());
+            ((EditText) view.findViewById(R.id.dropdownProvinciaP)).setText(usuario.getProvincia());
             ((EditText) view.findViewById(R.id.dropdownHospitalP)).setText(usuario.getHospital().getNombre());
-            ((EditText) view.findViewById(R.id.dropdownMedicoP)).setText(usuario.getMedico().getNombre());
+            ((EditText) view.findViewById(R.id.dropdownMedicoP)).setText(usuario.getMedico().getNombreCompleto());
         }
     }
 
@@ -251,10 +247,10 @@ public class DatosPersonalesFragment extends Fragment {
         updateUsuario.setApellido1(binding.edtPrimerApellidoP.getText().toString());
         updateUsuario.setApellido2(binding.edtSegundoApellidoP.getText().toString());
         updateUsuario.setTelefono(binding.edtTelefonoP.getText().toString());
+        updateUsuario.setProvincia(provincia);
 
         updatePaciente.setDireccion(binding.edtDireccionP.getText().toString());
         updatePaciente.setCP(binding.edtCPP.getText().toString());
-        updatePaciente.setProvincia(provincia);
 
         usuarioViewModel.actualizarUsuario(updateUsuario).observe(getViewLifecycleOwner(), response ->{
             if(response.getRpta() == 1){

@@ -217,7 +217,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             p.setDni(edtDNI.getText().toString());
             p.setNumSeguridadSocial(edtNSS.getText().toString());
             p.setFechaNacimiento(convertirFecha(edtFechaNacimiento.getText().toString()));
-            p.setProvincia(dropdownProvincia.getText().toString());
             p.setCP(edtCP.getText().toString());
             p.setDireccion(edtDireccion.getText().toString());
             Double altura = Double.parseDouble(edtAltura.getText().toString());
@@ -237,6 +236,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                     u.setApellido2(edtApellido2.getText().toString());
                     u.setDni(edtDNI.getText().toString());
                     u.setTelefono(edtTlf.getText().toString());
+                    u.setProvincia(dropdownProvincia.getText().toString());
                     try {
                         u.setContrasena(Security.encriptar(edtPassword.getText().toString()));
                     } catch (Exception e) {

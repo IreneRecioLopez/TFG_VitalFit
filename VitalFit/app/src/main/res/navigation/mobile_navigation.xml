@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_datos_personales"
-        android:name="com.tfg.vitalfit.activity.uiPaciente.datosPersonales.DatosPersonalesFragment"
+        android:name="com.tfg.vitalfit.activity.uiPaciente.datosPersonales.DatosPersonalesPacienteFragment"
         android:label="@string/menu_datos_personales"
         tools:layout="@layout/fragment_datospersonales" />
 

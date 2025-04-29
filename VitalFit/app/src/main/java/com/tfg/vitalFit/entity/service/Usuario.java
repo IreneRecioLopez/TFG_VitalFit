@@ -11,6 +11,7 @@ public class Usuario {
     private String contrasena;
     private String telefono;
     private String rol;
+    private String provincia;
     private List<Paciente> pacientes;
     private Paciente paciente;
     private Usuario medico;
@@ -23,6 +24,7 @@ public class Usuario {
     public String getTelefono(){ return telefono; }
     public String getContrasena(){ return contrasena; }
     public String getRol(){ return rol; }
+    public String getProvincia(){ return provincia; }
     public List<Paciente> getPacientes(){ return pacientes; }
     public Paciente getPaciente(){ return paciente; }
     public Hospital getHospital(){ return hospital; }
@@ -36,6 +38,7 @@ public class Usuario {
     public void setTelefono(String telefono){ this.telefono = telefono; }
     public void setContrasena(String contrasena){ this.contrasena = contrasena; }
     public void setRol(String rol) { this.rol = rol; }
+    public void setProvincia(String provincia){ this.provincia = provincia; }
     public void setPacientes(List<Paciente> pacientes){ this.pacientes = pacientes; }
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
     public void setHospital(Hospital hospital){ this.hospital = hospital; }

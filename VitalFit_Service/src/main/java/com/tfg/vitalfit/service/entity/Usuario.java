@@ -25,6 +25,8 @@ public class Usuario {
     private String telefono;
     @Column(nullable = false)
     private String rol;
+    @Column(nullable = false)
+    private String provincia;
 
     @ManyToOne
     @JoinColumn(name = "medico_dni")

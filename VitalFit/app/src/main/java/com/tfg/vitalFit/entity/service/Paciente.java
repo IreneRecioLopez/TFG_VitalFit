@@ -10,7 +10,6 @@ public class Paciente {
     private Double pesoActual;
     private Double altura;
     private Double imc;
-    private String provincia;
     private String cp;
     private String direccion;
     private Integer vegetariana;
@@ -68,13 +67,6 @@ public class Paciente {
     }
     public void setImc(Double imc) {
         this.imc = imc;
-    }
-
-    public String getProvincia() {
-        return provincia;
-    }
-    public void setProvincia(String provincia) {
-        this.provincia = provincia;
     }
 
     public String getCP(){ return cp; }

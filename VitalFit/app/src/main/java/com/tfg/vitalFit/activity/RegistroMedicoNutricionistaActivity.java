@@ -148,6 +148,7 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
             u.setApellido2(edtApellido2.getText().toString());
             u.setDni(edtDNI.getText().toString());
             u.setTelefono(edtTlf.getText().toString());
+            u.setProvincia(dropdownProvincia.getText().toString());
             u.setContrasena(Security.encriptar(edtPassword.getText().toString()));
             u.setRol(rol);
 

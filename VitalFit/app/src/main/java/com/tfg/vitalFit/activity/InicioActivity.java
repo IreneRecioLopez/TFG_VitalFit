@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.activity.uiPaciente.datosPersonales.DatosPersonalesFragment;
+import com.tfg.vitalfit.activity.uiPaciente.datosPersonales.DatosPersonalesPacienteFragment;
 import com.tfg.vitalfit.databinding.ActivityInicioBinding;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.DateSerializer;
@@ -64,8 +63,8 @@ public class InicioActivity extends AppCompatActivity {
                     .getFragments()
                     .get(0);
 
-            if (currentFragment instanceof DatosPersonalesFragment) {
-                DatosPersonalesFragment fragment = (DatosPersonalesFragment) currentFragment;
+            if (currentFragment instanceof DatosPersonalesPacienteFragment) {
+                DatosPersonalesPacienteFragment fragment = (DatosPersonalesPacienteFragment) currentFragment;
 
                 if (fragment.estaEnModoEdicion()) {
                     new AlertDialog.Builder(this)
