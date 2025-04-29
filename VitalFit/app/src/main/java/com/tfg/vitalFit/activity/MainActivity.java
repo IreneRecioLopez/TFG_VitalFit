@@ -7,15 +7,10 @@ import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,14 +22,11 @@ import com.google.gson.reflect.TypeToken;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Usuario;
-import com.tfg.vitalfit.entity.service.Nutricionista;
-import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.utils.DateSerializer;
 import com.tfg.vitalfit.utils.Security;
 import com.tfg.vitalfit.utils.TimeSerializer;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
-import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 
 import java.sql.Date;
@@ -46,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private EditText edtDNI, edtPassword;
     private Button btnIniciarSesion;
     private PacienteViewModel pViewModel;
-    private NutricionistaViewModel nViewModel;
     private UsuarioViewModel uViewModel;
     private TextInputLayout txtInputUsuario, txtInputPassword;
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
@@ -76,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
     private void initViewModel() {
         pViewModel = new ViewModelProvider(this).get(PacienteViewModel.class);
         uViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
-        nViewModel = new ViewModelProvider(this).get(NutricionistaViewModel.class);
     }
 
     private void init(){

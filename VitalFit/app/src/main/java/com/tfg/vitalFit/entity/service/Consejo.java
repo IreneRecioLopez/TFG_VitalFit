@@ -5,19 +5,22 @@ public class Consejo {
     private Long idConsejo;
     private String titulo;
     private String mensaje;
+    private Integer leido;
 
     private Paciente paciente;
-    private Nutricionista nutricionista;
+    private Usuario nutricionista;
 
     public Long getIdConsejo() { return idConsejo; }
     public String getTitulo() { return titulo; }
     public String getMensaje() { return mensaje; }
+    public Integer getLeido() { return leido; }
     public Paciente getPaciente() { return paciente; }
-    public Nutricionista getNutricionista() { return nutricionista; }
+    public Usuario getNutricionista() { return nutricionista; }
 
     public void setIdConsejo(Long idConsejo) { this.idConsejo = idConsejo; }
     public void setTitulo(String titulo) { this.titulo = titulo; }
     public void setMensaje(String mensaje) { this.mensaje = mensaje; }
+    public void setLeido(Integer leido) { this.leido = leido; }
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
-    public void setNutricionista(Nutricionista nutricionista) { this.nutricionista = nutricionista; }
+    public void setNutricionista(Usuario nutricionista) { this.nutricionista = nutricionista; }
 }

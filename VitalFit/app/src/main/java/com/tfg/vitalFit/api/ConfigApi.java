@@ -24,7 +24,6 @@ public class ConfigApi {
 
     private static PacienteApi pacienteApi;
     private static UsuarioApi usuarioApi;
-    private static NutricionistaApi nutricionistaApi;
     private static HospitalApi hospitalApi;
     private static PesosApi pesosApi;
     private static AlergiasApi alergiasApi;
@@ -82,13 +81,6 @@ public class ConfigApi {
             usuarioApi = retrofit.create(UsuarioApi.class);
         }
         return usuarioApi;
-    }
-
-    public static NutricionistaApi getNutricionistaApi(){
-        if(nutricionistaApi == null){
-            nutricionistaApi = retrofit.create(NutricionistaApi.class);
-        }
-        return nutricionistaApi;
     }
 
     public static HospitalApi getHospitalApi(){

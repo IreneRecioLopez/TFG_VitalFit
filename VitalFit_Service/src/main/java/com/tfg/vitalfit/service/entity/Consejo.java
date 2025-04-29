@@ -15,6 +15,9 @@ public class Consejo {
     private String titulo;
     @Column(nullable = false)
     private String mensaje;
+    @Column(nullable = false)
+    private Integer leido;
+
 
     @ManyToOne
     @JoinColumn(name = "dni_paciente")
