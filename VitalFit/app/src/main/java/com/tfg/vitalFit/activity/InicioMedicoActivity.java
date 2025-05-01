@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.Menu;
 import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
@@ -25,7 +24,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.activity.uiMedico.datosPersonales.DatosPersonalesMedicoFragment;
-import com.tfg.vitalfit.activity.uiPaciente.datosPersonales.DatosPersonalesPacienteFragment;
 import com.tfg.vitalfit.databinding.ActivityInicioMedicoBinding;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.DateSerializer;
@@ -52,7 +50,7 @@ public class InicioMedicoActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home_medico, R.id.nav_datos_personales_medico, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_inicio_medico);

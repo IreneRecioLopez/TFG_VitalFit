@@ -4,28 +4,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-import com.tfg.vitalfit.activity.uiPaciente.home.HomeViewModel;
-import com.tfg.vitalfit.databinding.FragmentHomeBinding;
+import com.tfg.vitalfit.databinding.FragmentHomeNutricionistaBinding;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeBinding binding;
+    private FragmentHomeNutricionistaBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        com.tfg.vitalfit.activity.uiPaciente.home.HomeViewModel homeViewModel =
-                new ViewModelProvider(this).get(HomeViewModel.class);
+        initViewModel();
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentHomeNutricionistaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         return root;
+    }
+
+    private void initViewModel(){
+
     }
 
     @Override

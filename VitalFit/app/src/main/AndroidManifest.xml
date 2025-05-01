@@ -20,11 +20,6 @@
             android:name=".activity.LeerConsejosActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.InicioNutricionistaActivity"
-            android:exported="false"
-            android:label="@string/title_activity_inicio_nutricionista"
-            android:theme="@style/Theme.VitalFit.NoActionBar" />
-        <activity
             android:name=".activity.RegistroMedicoNutricionistaActivity"
             android:exported="false" />
         <activity
@@ -45,6 +40,11 @@
             android:name=".activity.InicioMedicoActivity"
             android:exported="false"
             android:label="@string/title_activity_inicio_medico"
+            android:theme="@style/Theme.VitalFit.NoActionBar" />
+        <activity
+            android:name=".activity.InicioNutricionistaActivity"
+            android:exported="false"
+            android:label="@string/title_activity_inicio_nutricionista"
             android:theme="@style/Theme.VitalFit.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"
