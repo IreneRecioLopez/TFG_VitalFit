@@ -45,10 +45,6 @@ public class ConsejosFragment extends Fragment {
 
         obtenerDatosUsuario(root);
 
-        consejosViewModel.consejosPorPaciente(usuario.getDni()).observe(getViewLifecycleOwner(), consejos ->{
-            ConsejoAdapter adapter = new ConsejoAdapter(getContext(), consejos);
-            recyclerView.setAdapter(adapter);
-        });
 
         return root;
     }

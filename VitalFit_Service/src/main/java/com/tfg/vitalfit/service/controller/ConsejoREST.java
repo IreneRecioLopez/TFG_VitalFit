@@ -1,11 +1,10 @@
 package com.tfg.vitalfit.service.controller;
 
 import com.tfg.vitalfit.service.entity.Consejo;
+import com.tfg.vitalfit.service.entity.Usuario;
 import com.tfg.vitalfit.service.service.ConsejoService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.tfg.vitalfit.service.utils.GenericResponse;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,5 +18,10 @@ public class ConsejoREST {
     @GetMapping("/paciente/{dni}")
     public List<Consejo> getConsejosByPaciente(@PathVariable("dni") String dni){
         return service.getConsejosByPaciente(dni);
+    }
+
+    @PutMapping("/leido/{idConsejo}")
+    public GenericResponse marcarLeido(@PathVariable("idConsejo") Long id){
+        return this.service.marcarComoLeido(id);
     }
 }

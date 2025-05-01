@@ -7,8 +7,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.ConsejosApi;
+import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Consejo;
 import com.tfg.vitalfit.entity.service.Hospital;
+import com.tfg.vitalfit.entity.service.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +47,26 @@ public class ConsejosRepository {
                 t.printStackTrace();
             }
 
+        });
+        return mld;
+    }
+
+    public LiveData<GenericResponse<Void>> marcarComoLeido(Consejo c) {
+        MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
+        api.marcarComoLeido(c.getIdConsejo()).enqueue(new Callback<GenericResponse<Void>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
+                if(response.isSuccessful()){
+                    mld.setValue(new GenericResponse("Result", 1, "Actualizado el consejo", null));
+                }
+
+            }
+            @Override
+            public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al actualizar el consejo" + t.getMessage());
+                t.printStackTrace();
+            }
         });
         return mld;
     }

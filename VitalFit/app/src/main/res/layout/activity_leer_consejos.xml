@@ -24,7 +24,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@color/light_green"
                 app:navigationIcon="@drawable/ic_arrow_back"
-                app:title="Leer Consejos"
+                app:title="Consejos"
                 app:titleTextColor="@color/white" />
         </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>

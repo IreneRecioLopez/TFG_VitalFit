@@ -1,6 +1,7 @@
 package com.tfg.vitalfit.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.vitalfit.R;
@@ -18,10 +20,16 @@ import java.util.List;
 public class ConsejoAdapter extends RecyclerView.Adapter<ConsejoAdapter.ConsejoViewHolder>{
     private List<Consejo> listaConsejos;
     private Context context;
+    private OnConsejoLeidoListener listener;
 
-    public ConsejoAdapter(Context context, List<Consejo> listaConsejos) {
+    public interface OnConsejoLeidoListener {
+        void onConsejoLeido(Consejo consejo);
+    }
+
+    public ConsejoAdapter(Context context, List<Consejo> listaConsejos, OnConsejoLeidoListener listener) {
         this.context = context;
         this.listaConsejos = listaConsejos;
+        this.listener = listener;
     }
 
     @NonNull
@@ -35,13 +43,24 @@ public class ConsejoAdapter extends RecyclerView.Adapter<ConsejoAdapter.ConsejoV
     public void onBindViewHolder(@NonNull ConsejoViewHolder holder, int position) {
         Consejo consejo = listaConsejos.get(position);
         holder.txtTitulo.setText(consejo.getTitulo());
-        holder.txtDescripcion.setText(consejo.getMensaje());
+        holder.txtDescripcion.setVisibility(View.GONE);
+
+        if(consejo.getLeido() == 0){
+            holder.txtTitulo.setTypeface(null, Typeface.BOLD);
+            holder.itemView.setBackgroundResource(R.drawable.borde_resaltado);
+        }
 
         holder.itemView.setOnClickListener(v -> {
             new AlertDialog.Builder(context)
                     .setTitle(consejo.getTitulo())
                     .setMessage(consejo.getMensaje())
-                    .setPositiveButton("Cerrar", null)
+                    .setPositiveButton("Cerrar", (dialog, which) -> {
+                        if (consejo.getLeido() == 0) {
+                            consejo.setLeido(1);
+                            notifyItemChanged(position);
+                            listener.onConsejoLeido(consejo);
+                        }
+                    })
                     .show();
         });
     }
