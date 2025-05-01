@@ -189,7 +189,45 @@ public class UsuarioRepository {
 
     public LiveData<Usuario> medicoByNombreCompletoByHospital(String nombreCompleto, Long idHospital){
         final MutableLiveData<Usuario> mld = new MutableLiveData<>();
-        this.api.getMedicoByHospital(nombreCompleto, idHospital).enqueue(new Callback<Usuario>() {
+        this.api.getMedicoByNombreCompletoByHospital(nombreCompleto, idHospital).enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                mld.setValue(new Usuario());
+                System.out.println("Se ha producido un error al obtener el medico de un hospital a partir del nombre completo del médico: " + t.getMessage());
+                t.printStackTrace();
+            }
+
+        });
+        return mld;
+    }
+
+    public LiveData<List<Usuario>> pacientesByNutricionista(String dni) {
+        final MutableLiveData<List<Usuario>> mld = new MutableLiveData<>();
+        this.api.getPacientesByNutricionista(dni).enqueue(new Callback<List<Usuario>>() {
+            @Override
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                mld.setValue(new ArrayList<>());
+                System.out.println("Se ha producido un error al obtener los pacientes de un nutricionista: " + t.getMessage());
+                t.printStackTrace();
+            }
+
+        });
+        return mld;
+    }
+
+    public LiveData<Usuario> pacienteByNombreCompletoByNutricionista(String nombreCompleto, String dni){
+        final MutableLiveData<Usuario> mld = new MutableLiveData<>();
+        this.api.getPacienteByNombreCompletoByNutricionista(nombreCompleto, dni).enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 mld.setValue(response.body());

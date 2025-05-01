@@ -40,7 +40,13 @@ public interface UsuarioApi {
     Call<List<Usuario>> getMedicosByHospital(@Path("idHospital") Long idHospital);
 
     @GET(base + "/medico/hospital")
-    Call<Usuario> getMedicoByHospital(@Query("nombreCompleto") String nombreCompleto, @Query("idHospital") Long idHospital);
+    Call<Usuario> getMedicoByNombreCompletoByHospital(@Query("nombreCompleto") String nombreCompleto, @Query("idHospital") Long idHospital);
+
+    @GET(base + "/paciente/nutricionista/{dni}")
+    Call<List<Usuario>> getPacientesByNutricionista(@Path("dni") String dni);
+
+    @GET(base + "/paciente/nutricionista")
+    Call<Usuario> getPacienteByNombreCompletoByNutricionista(@Query("nombreCompleto") String nombreCompleto, @Query("dni") String dni);
 
     @PUT(base + "/{dni}/hospital")
     Call<GenericResponse<Void>> asociarUsuarioHospital(@Path("dni") String dniUsuario, @Body Hospital hospital);

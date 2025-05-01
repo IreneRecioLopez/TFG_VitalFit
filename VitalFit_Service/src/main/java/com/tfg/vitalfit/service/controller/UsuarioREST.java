@@ -46,6 +46,16 @@ public class UsuarioREST {
         return this.service.obtenerMedicoPorNombreCompleto(nombreCompleto, idHospital);
     }
 
+    @GetMapping("/paciente/nutricionista/{dni}")
+    public List<Usuario> pacientesPorNutricionista(@PathVariable("dni") String dni){
+        return this.service.obtenerPacienteNutricionista(dni);
+    }
+
+    @GetMapping("/paciente/nutricionista")
+    public Usuario pacienteNombreCompletoPorNutricionista(@RequestParam String nombreCompleto, @RequestParam String dni){
+        return this.service.obtenerPacientePorNombreCompleto(nombreCompleto, dni);
+    }
+
     @PutMapping("/{dni}/hospital")
     public GenericResponse asociarUsuarioHospital(@PathVariable String dni, @RequestBody Hospital hospital){
         return this.service.asociarUsuarioHospital(dni, hospital);
