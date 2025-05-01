@@ -20,6 +20,11 @@ public class ConsejoREST {
         return service.getConsejosByPaciente(dni);
     }
 
+    @GetMapping("/nutricionista/{dni}")
+    public List<Consejo> getConsejosByNutricionista(@PathVariable("dni") String dni){
+        return service.getConsejosByNutricionista(dni);
+    }
+
     @PutMapping("/leido/{idConsejo}")
     public GenericResponse marcarLeido(@PathVariable("idConsejo") Long id){
         return this.service.marcarComoLeido(id);

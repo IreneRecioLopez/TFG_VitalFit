@@ -51,6 +51,25 @@ public class ConsejosRepository {
         return mld;
     }
 
+    public LiveData<List<Consejo>> consejosPorNutricionista(String dni){
+        final MutableLiveData<List<Consejo>> mld = new MutableLiveData<>();
+        this.api.obtenerConsejosPorNutricionista(dni).enqueue(new Callback<List<Consejo>>() {
+            @Override
+            public void onResponse(Call<List<Consejo>> call, Response<List<Consejo>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Consejo>> call, Throwable t) {
+                mld.setValue(new ArrayList<>());
+                System.out.println("Se ha producido un error al obtener los consejos de un paciente: " + t.getMessage());
+                t.printStackTrace();
+            }
+
+        });
+        return mld;
+    }
+
     public LiveData<GenericResponse<Void>> marcarComoLeido(Consejo c) {
         MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
         api.marcarComoLeido(c.getIdConsejo()).enqueue(new Callback<GenericResponse<Void>>() {

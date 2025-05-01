@@ -7,5 +7,17 @@
     android:orientation="vertical"
     tools:context=".activity.uiNutricionista.home.HomeFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
+        <Button
+            android:id="@+id/consejos"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Consejos"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
 </LinearLayout>

@@ -19,6 +19,9 @@ public interface ConsejosApi {
     @GET(base + "/paciente/{dni}")
     Call<List<Consejo>> obtenerConsejosPorPaciente(@Path("dni") String dni);
 
+    @GET(base + "/nutricionista/{dni}")
+    Call<List<Consejo>> obtenerConsejosPorNutricionista(@Path("dni") String dni);
+
     @PUT(base + "/leido/{idConsejo}")
     Call<GenericResponse<Void>> marcarComoLeido(@Path("idConsejo")Long idConsejo);
 }

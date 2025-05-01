@@ -7,5 +7,4 @@
     android:orientation="vertical"
     tools:context=".activity.uiMedico.home.HomeFragment">
 
-
 </LinearLayout>

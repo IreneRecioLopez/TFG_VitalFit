@@ -32,6 +32,11 @@ public class ConsejoAdapter extends RecyclerView.Adapter<ConsejoAdapter.ConsejoV
         this.listener = listener;
     }
 
+    public ConsejoAdapter(Context context, List<Consejo> listaConsejos) {
+        this.context = context;
+        this.listaConsejos = listaConsejos;
+    }
+
     @NonNull
     @Override
     public ConsejoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
