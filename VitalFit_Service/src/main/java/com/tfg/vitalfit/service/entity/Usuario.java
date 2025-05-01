@@ -21,7 +21,7 @@ public class Usuario {
     private String apellido2;
     @Column(nullable = false)
     private String contrasena;
-    @Column(nullable = false, length = 9)
+    @Column(nullable = false)
     private String telefono;
     @Column(nullable = false)
     private String rol;

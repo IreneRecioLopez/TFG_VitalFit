@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.utils.Security;
+import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
 
@@ -71,18 +72,18 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
                    String password = Security.encriptar(edtPassword.getText().toString());
                     uViewModel.actualizarPassword(dni, password).observe(this, response -> {
                         if(response.getRpta() == 1){
-                            toastCorrecto(response.getMessage());
+                            ToastMessage.Correcto(this, response.getMessage());
                             startActivity(new Intent(this, MainActivity.class));
                         }else{
-                            toastInvalido("No se ha podido actualizar la contraseña");
+                            ToastMessage.Invalido(this, "No se ha podido actualizar la contraseña");
                         }
                     });
                 }else{
-                    toastInvalido("Por favor, complete todos los campos");
+                    ToastMessage.Invalido(this, "Por favor, complete todos los campos");
                 }
 
             }catch (Exception e){
-                toastInvalido("Se ha producido un error al intentar cambiar la contraseña " + e.getMessage());
+                ToastMessage.Invalido(this, "Se ha producido un error al intentar cambiar la contraseña " + e.getMessage());
             }
         });
     }
@@ -113,7 +114,7 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
         }
 
         if(!password.equals(passwordVal)){
-            toastInvalido("La contraseña y la contraseña de validación no son iguales");
+            ToastMessage.Invalido( this, "La contraseña y la contraseña de validación no son iguales");
             val = false;
         }
         return val;
@@ -166,29 +167,6 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
         });
     }
 
-    public void toastCorrecto(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_ok, (ViewGroup) findViewById(R.id.ll_custom_toast_ok));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastOk);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
 
     // Capturar el clic en el botón de regreso
     @Override

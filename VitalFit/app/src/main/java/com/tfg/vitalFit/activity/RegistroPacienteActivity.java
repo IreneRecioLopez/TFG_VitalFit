@@ -224,6 +224,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             Double peso = Double.parseDouble(edtPeso.getText().toString());
             p.setPesoActual(peso);
             Double imc = peso / (altura * altura);
+            imc = Math.round(imc * 1000.0) / 1000.0;
             p.setImc(imc);
             p.setVegana(chkVegana.isChecked() ? 1 : 0);
             p.setVegetariana(chkVegetariana.isChecked() ? 1 : 0);

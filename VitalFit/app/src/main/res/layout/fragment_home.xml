@@ -7,5 +7,18 @@
     android:orientation="vertical"
     tools:context=".activity.uiPaciente.home.HomeFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/leerMensajes"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Leer consejos"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
 
 </LinearLayout>
