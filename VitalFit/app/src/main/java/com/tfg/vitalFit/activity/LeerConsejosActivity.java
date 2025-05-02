@@ -20,13 +20,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.adapter.ConsejoAdapter;
+import com.tfg.vitalfit.entity.service.Consejo;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.ConsejosViewModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LeerConsejosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
+    private ConsejoAdapter adapter;
     private ConsejosViewModel consejosViewModel;
     private Usuario paciente;
     private Toolbar toolbar;
@@ -40,6 +45,8 @@ public class LeerConsejosActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         this.initViewModel();
+        obtenerDatosUsuario();
+        initToolbar();
         this.init();
 
     }
@@ -49,7 +56,7 @@ public class LeerConsejosActivity extends AppCompatActivity {
         consejosViewModel = vmp.get(ConsejosViewModel.class);
     }
 
-    private void init(){
+    private void initToolbar(){
         toolbar = findViewById(R.id.toolbarLeerConsejos);
 
         // Habilitar el botón de regreso en el Toolbar
@@ -57,19 +64,13 @@ public class LeerConsejosActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
 
-        obtenerDatosUsuario();
-
-        /*if (usuario != null) {
-            consejosViewModel.consejosPorPaciente(usuario.getDni()).observe(this, consejos -> {
-                ConsejoAdapter adapter = new ConsejoAdapter(this, consejos);
-                recyclerView.setAdapter(adapter);
-            });
-        }*/
+    private void init(){
 
         if (paciente != null) {
             consejosViewModel.consejosPorPaciente(paciente.getDni()).observe(this, consejos -> {
-                ConsejoAdapter adapter = new ConsejoAdapter(this, consejos, consejo -> {
+                ConsejoAdapter adapter = new ConsejoAdapter(this, consejos, paciente,  consejo -> {
                     consejo.setLeido(1);
                     consejosViewModel.marcarComoLeido(consejo).observe(this, response -> {
                     });
@@ -77,6 +78,7 @@ public class LeerConsejosActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             });
         }
+
     }
 
     private void obtenerDatosUsuario() {
