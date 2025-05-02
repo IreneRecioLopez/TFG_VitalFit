@@ -18,6 +18,15 @@ public class ConsejoService {
     private final ConsejoRepository repository;
 
     public ConsejoService(ConsejoRepository repository) { this.repository = repository; }
+
+    public GenericResponse guardarConsejo(Consejo c) {
+        if(c.getPaciente() == null || c.getNutricionista() == null){
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: no se ha asignado un paciente o nutricionista.", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Consejo registrado correctamente", this.repository.save(c));
+        }
+    }
+
     public List<Consejo> getConsejosByPaciente(String dni) {
         return repository.findByPaciente(dni);
     }
@@ -35,4 +44,6 @@ public class ConsejoService {
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el consejo con ese id", null);
         }
     }
+
+
 }

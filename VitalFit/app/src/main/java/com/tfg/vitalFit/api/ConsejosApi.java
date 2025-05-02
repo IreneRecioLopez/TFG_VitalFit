@@ -9,12 +9,16 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface ConsejosApi {
     //RUTA DEL CONTROLADOR CONSEJOS
     String base = "api/consejo";
+
+    @POST(base + "/save")
+    Call<GenericResponse<Consejo>> guardarConsejo(@Body Consejo c);
 
     @GET(base + "/paciente/{dni}")
     Call<List<Consejo>> obtenerConsejosPorPaciente(@Path("dni") String dni);

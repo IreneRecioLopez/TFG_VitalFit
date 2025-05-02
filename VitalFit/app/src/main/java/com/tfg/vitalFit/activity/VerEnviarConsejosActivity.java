@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -32,8 +33,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.adapter.ConsejoAdapter;
+import com.tfg.vitalfit.entity.service.Consejo;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.ConsejosViewModel;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
@@ -42,7 +45,7 @@ import java.util.List;
 
 public class VerEnviarConsejosActivity extends AppCompatActivity {
 
-    private Button btnEnviarConsejo, btnVerConsejos, btnEnviar;
+    private Button btnEnviarConsejo, btnVerConsejos, btnGuardarConsejo;
     private LinearLayout verConsejosLayout, enviarConsejosLayout;
     private TextView noHayConsejos;
     private AutoCompleteTextView dropdownPaciente;
@@ -77,6 +80,7 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
         enviarConsejosLayout = findViewById(R.id.enviarConsejosLayout);
         verConsejosLayout = findViewById(R.id.verConsejosLayout);
 
+        btnGuardarConsejo = findViewById(R.id.btnGuardarConsejo);
         noHayConsejos = findViewById(R.id.noHayConsejos);
         dropdownPaciente = findViewById(R.id.dropdownPaciente);
         edtTitulo = findViewById(R.id.edtTitulo);
@@ -133,6 +137,45 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
     private void rellenarConsejo(){
         listaPacientesNutriocionista(nutricionista.getDni());
 
+        btnGuardarConsejo.setOnClickListener(v -> {
+            guardarConsejo();
+        });
+
+    }
+
+    private void guardarConsejo(){
+        if(validar()){
+            try{
+                usuarioViewModel.getPacienteByNombreCompletoByNutricionista(paciente, nutricionista.getDni()).observe(this, paciente -> {
+                    if(paciente != null){
+                        guardarConsejoConPaciente(paciente);
+                    }else{
+                        ToastMessage.Invalido(this,"No se ha encontrado el paciente.");
+                    }
+                });
+            }catch(Exception e){
+                ToastMessage.Invalido(this, "Se ha producido un error " + e.getMessage());
+            }
+        }else{
+            ToastMessage.Invalido(this, "Por favor, complete todos los campos del formulario.");
+        }
+    }
+
+    private void guardarConsejoConPaciente(Usuario paciente){
+        Consejo c = new Consejo();
+        c.setTitulo(edtTitulo.getText().toString());
+        c.setMensaje(edtDescripcion.getText().toString());
+        c.setLeido(0);
+        c.setPaciente(paciente.getPaciente());
+        c.setNutricionista(nutricionista);
+        this.consejosViewModel.save(c).observe(this, cResponse -> {
+            if(cResponse.getRpta() == 1){
+                ToastMessage.Correcto(this, "Consejo enviado correctamente");
+                startActivity(new Intent(this, VerEnviarConsejosActivity.class));
+            }else{
+                ToastMessage.Invalido(this, "No se ha enviado el consejo correctamente");
+            }
+        });
 
     }
 
@@ -180,6 +223,34 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    private boolean validar(){
+        boolean val = true;
+        String dropPaciente, titulo, descripcion;
+        dropPaciente = paciente;
+        titulo = edtTitulo.getText().toString();
+        descripcion = edtDescripcion.getText().toString();
+
+        if(dropPaciente.isEmpty()){
+            txtInputPaciente.setError("Seleccione un paciente");
+            return false;
+        }else{
+            txtInputPaciente.setErrorEnabled(false);
+        }
+        if(titulo.isEmpty()){
+            txtInputTitulo.setError("Escriba un título");
+            return false;
+        }else{
+            txtInputTitulo.setErrorEnabled(false);
+        }
+        if(descripcion.isEmpty()){
+            txtInputDescripcion.setError("Escriba una descripción");
+            return false;
+        }else{
+            txtInputDescripcion.setErrorEnabled(false);
+        }
+        return val;
     }
 
     private void obtenerDatosNutricionista() {

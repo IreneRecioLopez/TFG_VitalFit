@@ -8,6 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.ConsejosApi;
 import com.tfg.vitalfit.entity.GenericResponse;
+import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.entity.service.Consejo;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Usuario;
@@ -30,6 +31,24 @@ public class ConsejosRepository {
             repository = new ConsejosRepository();
         }
         return repository;
+    }
+
+    public LiveData<GenericResponse<Consejo>> save(Consejo c){
+        final MutableLiveData<GenericResponse<Consejo>> mld = new MutableLiveData<>();
+        this.api.guardarConsejo(c).enqueue(new Callback<GenericResponse<Consejo>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Consejo>> call, Response<GenericResponse<Consejo>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<Consejo>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al guardar el consejo" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
     }
 
     public LiveData<List<Consejo>> consejosPorPaciente(String dni){

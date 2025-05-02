@@ -15,6 +15,9 @@ public class ConsejoREST {
 
     public ConsejoREST(ConsejoService service) { this.service = service; }
 
+    @PostMapping("/save")
+    public GenericResponse save(@RequestBody Consejo c) { return this.service.guardarConsejo(c); }
+
     @GetMapping("/paciente/{dni}")
     public List<Consejo> getConsejosByPaciente(@PathVariable("dni") String dni){
         return service.getConsejosByPaciente(dni);

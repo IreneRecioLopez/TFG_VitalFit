@@ -187,6 +187,7 @@
                                     </com.google.android.material.textfield.TextInputLayout>
 
                                     <Button
+                                        android:id="@+id/btnGuardarConsejo"
                                         android:layout_width="380dp"
                                         android:layout_height="wrap_content"
                                         android:text="Enviar">

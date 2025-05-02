@@ -21,6 +21,8 @@ public class ConsejosViewModel extends AndroidViewModel {
         this.repository = ConsejosRepository.getInstance();
     }
 
+    public LiveData<GenericResponse<Consejo>> save(Consejo c){ return this.repository.save(c); }
+
     public LiveData<List<Consejo>> consejosPorPaciente(String dni){
         return this.repository.consejosPorPaciente(dni);
     }
