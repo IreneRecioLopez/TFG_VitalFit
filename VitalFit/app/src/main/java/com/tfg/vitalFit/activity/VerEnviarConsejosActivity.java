@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -53,6 +54,7 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
     private UsuarioViewModel usuarioViewModel;
     private Usuario nutricionista;
     private String paciente;
+    private Boolean escribirConsejo = false;
 
 
     @Override
@@ -97,6 +99,7 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
         btnEnviarConsejo.setOnClickListener(v -> {
             enviarConsejosLayout.setVisibility(View.VISIBLE);
             verConsejosLayout.setVisibility(View.GONE);
+            escribirConsejo = true;
             rellenarConsejo();
 
         });
@@ -104,6 +107,7 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
         btnVerConsejos.setOnClickListener(v -> {
             enviarConsejosLayout.setVisibility(View.GONE);
             verConsejosLayout.setVisibility(View.VISIBLE);
+            escribirConsejo = false;
             mostrarConsejos();
         });
     }
@@ -208,9 +212,21 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
     // Capturar el clic en el botón de regreso
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
-            onBackPressed(); // Regresa a la pantalla anterior
-            return true;
+        if (item.getItemId() == android.R.id.home) {// Este es el ID del botón de navegación
+            if (escribirConsejo) {
+                new AlertDialog.Builder(this)
+                        .setTitle("¿Descartar cambios?")
+                        .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
+                        .setPositiveButton("Sí", (dialog, which) -> {
+                            onBackPressed(); // Regresa a la pantalla anterior
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+                return false;
+            }else{
+                onBackPressed(); // Regresa a la pantalla anterior
+            }
+
         }
         return super.onOptionsItemSelected(item);
     }

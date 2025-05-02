@@ -35,6 +35,7 @@ public class Usuario {
 
     @ManyToOne
     @JoinColumn(name = "nutricionista_dni")
+    @JsonIgnoreProperties("pacientesNutricionista")
     private Usuario nutricionista;
 
     @OneToMany(mappedBy = "medico")
