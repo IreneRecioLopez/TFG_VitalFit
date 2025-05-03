@@ -127,6 +127,26 @@ public class UsuarioRepository {
         return mld;
     }
 
+    public LiveData<GenericResponse<Void>> asociarPacienteNutricionista(String dniPaciente, Usuario nutricionista){
+        MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
+        api.asociarPacienteNutricionista(dniPaciente, nutricionista).enqueue(new Callback<GenericResponse<Void>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
+                if(response.isSuccessful()){
+                    mld.setValue(new GenericResponse("Result", 1, "Paciente asociado al nutricionista correctamente", null));
+                }
+
+            }
+            @Override
+            public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al asociar" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
+
     public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String nuevaPassword) {
         MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
         RequestBody password = RequestBody.create(nuevaPassword, MediaType.parse("text/plain"));

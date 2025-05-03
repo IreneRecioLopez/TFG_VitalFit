@@ -39,6 +39,10 @@ public class UsuarioViewModel extends AndroidViewModel {
         return this.repository.asociarPacienteMedico(dniPaciente, medico);
     }
 
+    public LiveData<GenericResponse<Void>> asociarPacienteNutricionista(String dniPaciente, Usuario nutricionista){
+        return this.repository.asociarPacienteNutricionista(dniPaciente, nutricionista);
+    }
+
     public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String password) {
         return this.repository.actualizarPassword(dni, password);
     }

@@ -54,6 +54,9 @@ public interface UsuarioApi {
     @PUT(base + "/paciente/{dni}/medico")
     Call<GenericResponse<Void>> asociarPacienteMedico(@Path("dni") String dniPaciente, @Body Usuario medico);
 
+    @PUT(base + "/paciente/{dni}/nutricionista")
+    Call<GenericResponse<Void>> asociarPacienteNutricionista(@Path("dni") String dniPaciente, @Body Usuario nutricionista);
+
     @Headers("Content-Type: text/plain")
     @PUT(base + "/{dni}/password")
     Call<GenericResponse<Void>> actualizarPassword(@Path("dni")String dni, @Body RequestBody password);

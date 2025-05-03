@@ -66,6 +66,18 @@ public class UsuarioService {
         }
     }
 
+    public GenericResponse asociarPacienteNutricionista(String dni, Usuario nutricionista) {
+        Optional<Usuario> opt = this.repository.findByDNI(dni);
+        String idf = opt.isPresent() ? opt.get().getDni() : "";
+        if (!idf.equals("")) {
+            this.repository.asociarPacienteMedico(dni, nutricionista);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente asociado correctamente al nutricionista", null);
+        } else {
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
+
+        }
+    }
+
     public GenericResponse actualizarPassword(String dni, String password) {
         Optional<Usuario> optU = this.repository.findByDNI(dni);
         if (optU.isPresent()) {

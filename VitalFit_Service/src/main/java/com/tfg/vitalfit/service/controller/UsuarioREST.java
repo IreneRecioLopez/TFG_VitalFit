@@ -66,6 +66,11 @@ public class UsuarioREST {
         return this.service.asociarPacienteMedico(dni, medico);
     }
 
+    @PutMapping("/paciente/{dni}/nutricionista")
+    public GenericResponse asociarPacienteNutricionista(@PathVariable String dni, @RequestBody Usuario nutricionista){
+        return this.service.asociarPacienteNutricionista(dni, nutricionista);
+    }
+
     @PutMapping("/{dni}/password")
     public GenericResponse actualizarPassword(@PathVariable String dni, @RequestBody String password){
         return this.service.actualizarPassword(dni, password);

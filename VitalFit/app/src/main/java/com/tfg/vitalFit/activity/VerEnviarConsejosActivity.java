@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -56,7 +57,7 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
     private ConsejosViewModel consejosViewModel;
     private UsuarioViewModel usuarioViewModel;
     private Usuario nutricionista;
-    private String paciente;
+    private String paciente = null;
     private Boolean escribirConsejo = false;
 
 
@@ -253,6 +254,16 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
         return val;
     }
 
+    private boolean isLleno() {
+        boolean lleno = true;
+
+        if ((paciente == null) && (edtTitulo.getText().toString().isEmpty()) && (edtDescripcion.getText().toString().isEmpty())) {
+            return false;
+        } else {
+            return lleno;
+        }
+    }
+
     private void obtenerDatosNutricionista() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String jsonUsuario = prefs.getString("UsuarioJson", null);
@@ -284,7 +295,7 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) {// Este es el ID del botón de navegación
-            if (escribirConsejo) {
+            if (escribirConsejo && isLleno()) {
                 new AlertDialog.Builder(this)
                         .setTitle("¿Descartar cambios?")
                         .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
@@ -297,7 +308,6 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
             }else{
                 onBackPressed(); // Regresa a la pantalla anterior
             }
-
         }
         return super.onOptionsItemSelected(item);
     }
