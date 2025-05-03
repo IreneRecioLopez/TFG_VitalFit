@@ -30,7 +30,7 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        binding.leerMensajes.setOnClickListener(v -> {
+        binding.leerConsejos.setOnClickListener(v -> {
             startActivity(new Intent(getContext(), LeerConsejosActivity.class));
         });
 
