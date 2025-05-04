@@ -45,6 +45,9 @@ public interface UsuarioApi {
     @GET(base + "/paciente/nutricionista/{dni}")
     Call<List<Usuario>> getPacientesByNutricionista(@Path("dni") String dni);
 
+    @GET(base + "/paciente/medico/{dni}")
+    Call<List<Usuario>> getPacientesByMedico(@Path("dni") String dni);
+
     @GET(base + "/paciente/nutricionista")
     Call<Usuario> getPacienteByNombreCompletoByNutricionista(@Query("nombreCompleto") String nombreCompleto, @Query("dni") String dni);
 

@@ -116,6 +116,10 @@ public class UsuarioService {
         return repository.obtenerPacienteNutricionista(dni);
     }
 
+    public List<Usuario> obtenerPacienteMedico(String dni) {
+        return repository.obtenerPacienteMedico(dni);
+    }
+
     public Usuario obtenerPacientePorNombreCompleto(String nombreCompleto, String dni) {
         return repository.obtenerPacientePorNombreCompleto(nombreCompleto, dni);
     }

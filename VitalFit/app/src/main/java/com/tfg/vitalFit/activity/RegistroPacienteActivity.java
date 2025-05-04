@@ -3,23 +3,18 @@ package com.tfg.vitalfit.activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -546,7 +541,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
     private void agregarOperacion() {
         LayoutInflater inflater = LayoutInflater.from(this);
-        View itemOperacion = inflater.inflate(R.layout.item_operacion, layoutOperaciones, false);
+        View itemOperacion = inflater.inflate(R.layout.item_add_operacion, layoutOperaciones, false);
         layoutOperaciones.addView(itemOperacion);
     }
 

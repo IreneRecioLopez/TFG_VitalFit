@@ -1,7 +1,9 @@
 package com.tfg.vitalfit.entity.service;
 
 
-public class Alergias {
+import java.io.Serializable;
+
+public class Alergias implements Serializable {
     private Long idAlergia;
     private String tipo;
     private String alergia;

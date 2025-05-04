@@ -1,7 +1,9 @@
 package com.tfg.vitalfit.entity.service;
 
 
-public class Consejo {
+import java.io.Serializable;
+
+public class Consejo implements Serializable {
     private Long idConsejo;
     private String titulo;
     private String mensaje;

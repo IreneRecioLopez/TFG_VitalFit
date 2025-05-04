@@ -1,10 +1,11 @@
 package com.tfg.vitalfit.entity.service;
 
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class Hospital {
+public class Hospital implements Serializable {
 
     private Long idHospital;
     private String nombre;

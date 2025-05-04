@@ -333,13 +333,12 @@ public class DatosPersonalesPacienteFragment extends Fragment {
             public void onChanged(List<Usuario> usuarios) {
                 if(usuarios != null){
                     for(Usuario medico : usuarios){
-                        String nombreCompleto = medico.getNombre() + " " + medico.getApellido1() + " " + medico.getApellido2();
+                        String nombreCompleto = medico.getNombreCompleto();
                         nombresCompletosMedicos.add(nombreCompleto);
                     }
                 }
             }
         });
-        nombresCompletosMedicos.add(0, "Otro");
         ArrayAdapter<String> arrayMedicos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, nombresCompletosMedicos);
         dropdownMedico.setAdapter(arrayMedicos);
     }

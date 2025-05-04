@@ -453,7 +453,7 @@
                                     <!-- Aquí se irán agregando los campos de operaciones -->
                                     <include
                                         android:visibility="gone"
-                                        layout="@layout/item_operacion"/>
+                                        layout="@layout/item_add_operacion"/>
 
                                     <Button
                                         android:id="@+id/btnAgregarOperacion"

@@ -1,7 +1,9 @@
 package com.tfg.vitalfit.entity.service;
 
 
-public class Platos {
+import java.io.Serializable;
+
+public class Platos implements Serializable {
     private Long idPlato;
     private String primerPlato;
     private String segundoPlato;

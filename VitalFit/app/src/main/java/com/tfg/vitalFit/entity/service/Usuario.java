@@ -1,9 +1,10 @@
 package com.tfg.vitalfit.entity.service;
 
+import java.io.Serializable;
 import java.util.List;
 
 
-public class Usuario {
+public class Usuario implements Serializable {
     private String dni;
     private String nombre;
     private String apellido1;
@@ -12,7 +13,7 @@ public class Usuario {
     private String telefono;
     private String rol;
     private String provincia;
-    private List<Paciente> pacientes;
+    private List<Usuario> pacientesMedico;
     private Paciente paciente;
     private Usuario medico;
     private Hospital hospital;
@@ -25,7 +26,7 @@ public class Usuario {
     public String getContrasena(){ return contrasena; }
     public String getRol(){ return rol; }
     public String getProvincia(){ return provincia; }
-    public List<Paciente> getPacientes(){ return pacientes; }
+    public List<Usuario> getPacientesMedico(){ return pacientesMedico; }
     public Paciente getPaciente(){ return paciente; }
     public Hospital getHospital(){ return hospital; }
     public Usuario getMedico(){ return medico; }
@@ -39,7 +40,7 @@ public class Usuario {
     public void setContrasena(String contrasena){ this.contrasena = contrasena; }
     public void setRol(String rol) { this.rol = rol; }
     public void setProvincia(String provincia){ this.provincia = provincia; }
-    public void setPacientes(List<Paciente> pacientes){ this.pacientes = pacientes; }
+    public void setPacientesMedico(List<Usuario> pacientesMedico){ this.pacientesMedico = pacientesMedico; }
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
     public void setHospital(Hospital hospital){ this.hospital = hospital; }
     public void setMedico(Usuario medico) { this.medico = medico; }

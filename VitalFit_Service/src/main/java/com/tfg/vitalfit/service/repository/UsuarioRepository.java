@@ -46,5 +46,8 @@ public interface UsuarioRepository extends CrudRepository<Usuario, Integer> {
     @Query("SELECT p FROM Usuario p WHERE p.rol = 'Paciente' AND CONCAT(p.nombre, ' ', p.apellido1, ' ', p.apellido2) = :nombreCompleto AND p.nutricionista.dni = :dni")
     Usuario obtenerPacientePorNombreCompleto(@Param("nombreCompleto") String nombreCompleto, @Param("dni") String dni);
 
+    @Query("SELECT p from Usuario p WHERE p.rol='Paciente' AND p.medico.dni=:dni")
+    List<Usuario> obtenerPacienteMedico(String dni);
+
 
 }

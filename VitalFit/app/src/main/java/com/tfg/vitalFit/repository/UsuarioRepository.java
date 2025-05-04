@@ -263,4 +263,23 @@ public class UsuarioRepository {
         });
         return mld;
     }
+
+    public LiveData<List<Usuario>> pacientesByMedico(String dni) {
+        final MutableLiveData<List<Usuario>> mld = new MutableLiveData<>();
+        this.api.getPacientesByMedico(dni).enqueue(new Callback<List<Usuario>>() {
+            @Override
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                mld.setValue(new ArrayList<>());
+                System.out.println("Se ha producido un error al obtener los pacientes de un medico: " + t.getMessage());
+                t.printStackTrace();
+            }
+
+        });
+        return mld;
+    }
 }

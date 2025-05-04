@@ -17,6 +17,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.MedicoDatosPacienteActivity"
+            android:exported="false" />
+        <activity
             android:name=".activity.VerEnviarConsejosActivity"
             android:exported="false" />
         <activity

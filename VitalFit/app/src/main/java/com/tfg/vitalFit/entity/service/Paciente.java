@@ -1,8 +1,9 @@
 package com.tfg.vitalfit.entity.service;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Paciente {
+public class Paciente implements Serializable {
 
     private String dni;
     private String numSeguridadSocial;

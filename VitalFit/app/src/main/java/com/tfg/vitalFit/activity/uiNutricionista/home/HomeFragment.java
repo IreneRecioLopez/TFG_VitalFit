@@ -12,20 +12,21 @@ import androidx.fragment.app.Fragment;
 
 import com.tfg.vitalfit.activity.LeerConsejosActivity;
 import com.tfg.vitalfit.activity.VerEnviarConsejosActivity;
+import com.tfg.vitalfit.databinding.FragmentHomeMedicoBinding;
 import com.tfg.vitalfit.databinding.FragmentHomeNutricionistaBinding;
 
 public class HomeFragment extends Fragment {
 
-    private FragmentHomeNutricionistaBinding binding;
+    private FragmentHomeMedicoBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         initViewModel();
 
-        binding = FragmentHomeNutricionistaBinding.inflate(inflater, container, false);
+        binding = FragmentHomeMedicoBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        binding.consejos.setOnClickListener(v -> {
+        binding.btnContinuarMedico.setOnClickListener(v -> {
             startActivity(new Intent(getContext(), VerEnviarConsejosActivity.class));
         });
 

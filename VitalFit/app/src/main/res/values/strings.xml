@@ -18,6 +18,7 @@
     <string name="action_cerrarSesion">Cerrar Sesión</string>
     <string name="label_eleccion_usuario">¿Qué tipo de usuario es?</string>
     <string name="label_nuevaPassword">Introduzca a continuación su dni y la nueva contraseña que quiere establecer</string>
+    <string name="label_elegirPaciente">Seleccione el paciente</string>
     <string name="menu_home">Home</string>
 
     <string-array name="provincias">

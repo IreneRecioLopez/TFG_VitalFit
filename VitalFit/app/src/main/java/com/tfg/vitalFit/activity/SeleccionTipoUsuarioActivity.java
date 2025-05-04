@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.tfg.vitalfit.R;
+import com.tfg.vitalfit.utils.ToastMessage;
 
 public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
 
@@ -67,21 +68,9 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
                 startActivity(intent);
                 //startActivity(new Intent(this, RegistroNutricionistaActivity.class));
             }else{
-                toastInvalido("Por favor, seleccione un tipo de usuario.");
+                ToastMessage.Invalido(this, "Por favor, seleccione un tipo de usuario.");
             }
         });
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
     }
 
     private void listeners(){
