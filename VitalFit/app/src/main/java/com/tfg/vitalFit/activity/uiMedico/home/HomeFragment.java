@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.activity.MedicoDatosPacienteActivity;
+import com.tfg.vitalfit.activity.NutricionistaDatosPacienteActivity;
 import com.tfg.vitalfit.databinding.FragmentHomeMedicoBinding;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.ToastMessage;
@@ -53,7 +54,13 @@ public class HomeFragment extends Fragment {
         obtenerDatosUsuario(root);
 
         dropdownPaciente = binding.dropdownPaciente;
-        obtenerPacientesPorMedico(usuario.getDni());
+
+        if(usuario.getRol().equals("Médico")){
+            obtenerPacientesPorMedico(usuario.getDni());
+        }else if(usuario.getRol().equals("Nutricionista")){
+            obtenerPacientesPorNutricionista(usuario.getDni());
+        }
+
         dropdownPaciente.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -75,18 +82,35 @@ public class HomeFragment extends Fragment {
                 String dniSeleccionado = dniPacientes.get(index);
                 Usuario pacienteSeleccionado = null;
 
-                for(Usuario p: usuario.getPacientesMedico()){
-                    if(p.getDni().equals(dniSeleccionado)){
-                        pacienteSeleccionado = p;
-                        break;
+                if(usuario.getRol().equals("Médico")){
+                    for(Usuario p: usuario.getPacientesMedico()){
+                        if(p.getDni().equals(dniSeleccionado)){
+                            pacienteSeleccionado = p;
+                            break;
+                        }
+                    }
+                    if(pacienteSeleccionado != null){
+                        Intent intent = new Intent(getContext(), MedicoDatosPacienteActivity.class);
+                        intent.putExtra("paciente", pacienteSeleccionado);
+                        startActivity(intent);
+                        dropdownPaciente.setText("");
+                    }
+                }else if(usuario.getRol().equals("Nutricionista")){
+                    for(Usuario p: usuario.getPacientesNutricionista()){
+                        if(p.getDni().equals(dniSeleccionado)){
+                            pacienteSeleccionado = p;
+                            break;
+                        }
+                    }
+                    if(pacienteSeleccionado != null){
+                        Intent intent = new Intent(getContext(), NutricionistaDatosPacienteActivity.class);
+                        intent.putExtra("paciente", pacienteSeleccionado);
+                        startActivity(intent);
+                        dropdownPaciente.setText("");
                     }
                 }
-                if(pacienteSeleccionado != null){
-                    Intent intent = new Intent(getContext(), MedicoDatosPacienteActivity.class);
-                    intent.putExtra("paciente", pacienteSeleccionado);
-                    startActivity(intent);
-                    dropdownPaciente.setText("");
-                }
+
+
             }else{
                 ToastMessage.Invalido(getContext(), "Selecciona un paciente");
             }
@@ -104,7 +128,7 @@ public class HomeFragment extends Fragment {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String jsonUsuario = prefs.getString("UsuarioJson", null);
 
-        Log.d("UsuarioRecibido", new Gson().toJson(usuario));
+        Log.d("UsuarioRecibidoHomeFragment", new Gson().toJson(usuario));
 
         if(jsonUsuario != null) {
             usuario = new Gson().fromJson(jsonUsuario, Usuario.class);
@@ -127,6 +151,19 @@ public class HomeFragment extends Fragment {
             }
         });*/
         for(Usuario paciente: usuario.getPacientesMedico()){
+            String nombreCompleto = paciente.getNombreCompleto();
+            nombreCompletosPacientes.add(nombreCompleto);
+            dniPacientes.add(paciente.getDni());
+        }
+        ArrayAdapter<String> arrayPacientes = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, nombreCompletosPacientes);
+        dropdownPaciente.setAdapter(arrayPacientes);
+    }
+
+    private void obtenerPacientesPorNutricionista(String dniMedico){
+        nombreCompletosPacientes = new ArrayList<>();
+        dniPacientes = new ArrayList<>();
+
+        for(Usuario paciente: usuario.getPacientesNutricionista()){
             String nombreCompleto = paciente.getNombreCompleto();
             nombreCompletosPacientes.add(nombreCompleto);
             dniPacientes.add(paciente.getDni());

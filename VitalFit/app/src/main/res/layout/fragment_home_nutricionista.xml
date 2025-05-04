@@ -13,7 +13,7 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/consejos"
+            android:id="@+id/btnConsejos"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Consejos"

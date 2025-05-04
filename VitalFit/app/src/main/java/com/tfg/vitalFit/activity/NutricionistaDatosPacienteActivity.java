@@ -1,8 +1,10 @@
 package com.tfg.vitalfit.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -17,16 +19,17 @@ import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.ToastMessage;
 
-public class MedicoDatosPacienteActivity extends AppCompatActivity {
+public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
 
     private TextView txtNombrePaciente, txtFechaNacimientoPaciente, txtTarjetaSanitariaPaciente;
     private Toolbar toolbar;
+    private Button btnConsejos;
     private Usuario paciente;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_medico_datos_paciente);
+        setContentView(R.layout.activity_nutricionista_datos_paciente);
         this.initViewModel();
         this.init();
     }
@@ -39,7 +42,8 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
         txtNombrePaciente = findViewById(R.id.txtNombreCompletoPaciente);
         txtFechaNacimientoPaciente = findViewById(R.id.txtFechaNacimientoPaciente);
         txtTarjetaSanitariaPaciente = findViewById(R.id.txtNumeroTarjetaSanitaria);
-        toolbar = findViewById(R.id.toolbarDatosPacienteMedico);
+        toolbar = findViewById(R.id.toolbarDatosPacienteNutricionista);
+        btnConsejos = findViewById(R.id.btnConsejos);
 
         setSupportActionBar(toolbar);
 
@@ -58,6 +62,10 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
         } else {
             ToastMessage.Invalido(this, "No se recibió el paciente");
         }
+
+        btnConsejos.setOnClickListener(v -> {
+            startActivity(new Intent(this, VerEnviarConsejosActivity.class));
+        });
     }
 
     // Capturar el clic en el botón de regreso

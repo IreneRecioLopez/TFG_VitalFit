@@ -178,11 +178,7 @@ public class DatosPersonalesMedicoFragment extends Fragment {
         if (hospital.equals("Otro")) {
             hospitalViewModel.hospitalPorNombre(hospital).observe(getViewLifecycleOwner(), hospital -> {
                 if(hospital != null){
-                    usuarioViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(getViewLifecycleOwner(), medico -> {
-                        if(medico != null){
-                            guardarUsuarioConHospitalYMedico(hospital, medico);
-                        }
-                    });
+                    guardarUsuarioConHospital(hospital);
                 }else{
                     ToastMessage.Invalido(getContext(), "No se ha encontrado el hospital");
                 }
@@ -190,12 +186,7 @@ public class DatosPersonalesMedicoFragment extends Fragment {
         }else{
             hospitalViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(getViewLifecycleOwner(), hospital -> {
                 if (hospital != null) {
-                    usuarioViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(getViewLifecycleOwner(), medico -> {
-                        if(medico != null){
-                            guardarUsuarioConHospitalYMedico(hospital, medico);
-                        }
-                    });
-
+                    guardarUsuarioConHospital(hospital);
                 } else {
                     ToastMessage.Invalido(getContext(), "No se ha encontrado el hospital.");
                 }
@@ -203,9 +194,8 @@ public class DatosPersonalesMedicoFragment extends Fragment {
         }
     }
 
-    private void guardarUsuarioConHospitalYMedico(Hospital hospital, Usuario medico){
+    private void guardarUsuarioConHospital(Hospital hospital){
         Usuario updateUsuario = usuario;
-        Paciente updatePaciente = usuario.getPaciente();
         //Obtener datos actualizados de los campos editados
         updateUsuario.setDni(usuario.getDni());
         updateUsuario.setNombre(binding.edtName.getText().toString());
@@ -218,14 +208,7 @@ public class DatosPersonalesMedicoFragment extends Fragment {
             if(response.getRpta() == 1){
                 this.usuarioViewModel.asociarUsuarioHospital(updateUsuario.getDni(), hospital).observe(getViewLifecycleOwner(), hResponse -> {
                     if(hResponse.getRpta() == 1){
-                        this.usuarioViewModel.asociarPacienteMedico(updatePaciente.getDni(), medico).observe(getViewLifecycleOwner(), pmResponse -> {
-                            if(pmResponse.getRpta() == 1){
-                                ToastMessage.Correcto(getContext(), "Datos guardados correctamente.");
-                            }else{
-                                ToastMessage.Invalido(getContext(), "Error al actualizar los datos.");
-                            }
-                        });
-
+                        ToastMessage.Correcto(getContext(), "Datos guardados correctamente.");
                     }else{
                         ToastMessage.Invalido(getContext(), "Error al actualizar los datos.");
                     }

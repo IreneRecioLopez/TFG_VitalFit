@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (rol.equals("Nutricionista")) {
                 chkNutricionista.setChecked(true);
                 Log.e("Inicio Sesion", "nutricionista");
-                startActivity(new Intent(this, InicioNutricionistaActivity.class));
+                startActivity(new Intent(this, InicioMedicoActivity.class));
             }
         } else {
             //ToastMessage.makeText(this, "Ocurrio un error " + response.getMessage(), ToastMessage.LENGTH_SHORT).show();

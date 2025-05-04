@@ -14,6 +14,7 @@ public class Usuario implements Serializable {
     private String rol;
     private String provincia;
     private List<Usuario> pacientesMedico;
+    private List<Usuario> pacientesNutricionista;
     private Paciente paciente;
     private Usuario medico;
     private Hospital hospital;
@@ -27,6 +28,7 @@ public class Usuario implements Serializable {
     public String getRol(){ return rol; }
     public String getProvincia(){ return provincia; }
     public List<Usuario> getPacientesMedico(){ return pacientesMedico; }
+    public List<Usuario> getPacientesNutricionista(){ return pacientesNutricionista; }
     public Paciente getPaciente(){ return paciente; }
     public Hospital getHospital(){ return hospital; }
     public Usuario getMedico(){ return medico; }
@@ -41,6 +43,7 @@ public class Usuario implements Serializable {
     public void setRol(String rol) { this.rol = rol; }
     public void setProvincia(String provincia){ this.provincia = provincia; }
     public void setPacientesMedico(List<Usuario> pacientesMedico){ this.pacientesMedico = pacientesMedico; }
+    public void setPacientesNutricionista(List<Usuario> pacientesNutricionista){ this.pacientesNutricionista = pacientesNutricionista; }
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
     public void setHospital(Hospital hospital){ this.hospital = hospital; }
     public void setMedico(Usuario medico) { this.medico = medico; }

@@ -14,7 +14,7 @@
     <fragment
         android:id="@+id/nav_datos_personales_medico"
         android:name="com.tfg.vitalfit.activity.uiMedico.datosPersonales.DatosPersonalesMedicoFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/menu_datos_personales"
         tools:layout="@layout/fragment_datospersonales_medico" />
 
     <fragment
