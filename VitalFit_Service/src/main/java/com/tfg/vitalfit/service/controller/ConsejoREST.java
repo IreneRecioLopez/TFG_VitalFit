@@ -1,7 +1,6 @@
 package com.tfg.vitalfit.service.controller;
 
 import com.tfg.vitalfit.service.entity.Consejo;
-import com.tfg.vitalfit.service.entity.Usuario;
 import com.tfg.vitalfit.service.service.ConsejoService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.web.bind.annotation.*;

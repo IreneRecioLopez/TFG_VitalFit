@@ -19,10 +19,10 @@ public class Hospital implements Serializable {
     private List<Usuario> nutricionistas;
 
     public Hospital(){}
-
     public Hospital(Long id){
         this.idHospital = id;
     }
+
     public Long getIdHospital(){return idHospital;}
     public String getNombre(){
         return nombre;

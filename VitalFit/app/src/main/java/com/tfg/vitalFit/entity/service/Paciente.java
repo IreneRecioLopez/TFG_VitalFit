@@ -13,8 +13,6 @@ public class Paciente implements Serializable {
     private Double imc;
     private String cp;
     private String direccion;
-    private Integer vegetariana;
-    private Integer vegana;
     private Usuario medico;
     private Usuario nutricionista;
     //private Usuario paciente;
@@ -22,6 +20,7 @@ public class Paciente implements Serializable {
     private List<Alergias> alergias;
     private List<Consejo> consejos;
     private List<Dieta> dietas;
+    private List<Observaciones> observaciones;
 
     public Paciente(){ }
     public Paciente(String dni){ this.dni = dni;}
@@ -80,12 +79,6 @@ public class Paciente implements Serializable {
         this.direccion = direccion;
     }
 
-    public Integer getVegetariana(){ return vegetariana; }
-    public void setVegetariana(Integer vegetariana) { this.vegetariana = vegetariana; }
-
-    public Integer getVegana(){ return vegana; }
-    public void setVegana(Integer vegana) { this.vegana = vegana; }
-
     public Usuario getMedico() {
         return medico;
     }
@@ -127,6 +120,9 @@ public class Paciente implements Serializable {
     public void setDietas(List<Dieta> dietas) {
         this.dietas = dietas;
     }
+
+    public List<Observaciones> getObservaciones(){ return this.observaciones; }
+    public void setObservaciones(List<Observaciones> observaciones){ this.observaciones = observaciones; }
 
     //public void setUsuario(Usuario usuario) { this.paciente = usuario; }
 }

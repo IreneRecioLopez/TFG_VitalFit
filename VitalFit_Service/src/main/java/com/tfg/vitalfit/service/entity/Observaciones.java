@@ -7,17 +7,15 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Alergias {
+public class Observaciones {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAlergia;
+    private Long idObservacion;
     @Column(nullable = false)
-    private String tipo;
-    @Column(nullable = false)
-    private String alergia;
+    private String observacion;
 
     @ManyToOne
     @JoinColumn(name = "dni_paciente")
-    @JsonBackReference(value = "paciente-alergias")
+    @JsonBackReference(value = "paciente-observaciones")
     private Paciente paciente;
 }

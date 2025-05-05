@@ -88,4 +88,22 @@
         <item>Otras Observaciones</item>
     </string-array>
 
+    <string-array name="diasDeLaSemana">
+        <item>Lunes</item>
+        <item>Martes</item>
+        <item>Miércoles</item>
+        <item>Jueves</item>
+        <item>Viernes</item>
+        <item>Sábado</item>
+        <item>Domingo</item>
+    </string-array>
+
+    <string-array name="tramoComida">
+        <item>Desayuno</item>
+        <item>Media mañana</item>
+        <item>Almuerzo</item>
+        <item>Merienda</item>
+        <item>Cena</item>
+    </string-array>
+
 </resources>

@@ -21,7 +21,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.databinding.FragmentDatospersonalesBinding;
+import com.tfg.vitalfit.databinding.FragmentDatosPersonalesBinding;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Usuario;
@@ -54,7 +54,7 @@ public class DatosPersonalesPacienteFragment extends Fragment {
 
     String provincia, hospital, medico;
 
-    private FragmentDatospersonalesBinding binding;
+    private FragmentDatosPersonalesBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class DatosPersonalesPacienteFragment extends Fragment {
         pacienteViewModel = new ViewModelProvider(this).get(PacienteViewModel.class);
         hospitalViewModel = new ViewModelProvider(this).get(HospitalViewModel.class);
 
-        binding = FragmentDatospersonalesBinding.inflate(inflater, container, false);
+        binding = FragmentDatosPersonalesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         obtenerDatosUsuario(root);

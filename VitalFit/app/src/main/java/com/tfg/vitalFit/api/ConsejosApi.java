@@ -2,7 +2,6 @@ package com.tfg.vitalfit.api;
 
 import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Consejo;
-import com.tfg.vitalfit.entity.service.Usuario;
 
 import java.util.List;
 

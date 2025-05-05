@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.tfg.vitalfit.activity.LeerConsejosActivity;
-import com.tfg.vitalfit.activity.MainActivity;
 import com.tfg.vitalfit.databinding.FragmentHomeBinding;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 

@@ -29,6 +29,7 @@ public class ConfigApi {
     private static AlergiasApi alergiasApi;
     private static OperacionesApi operacionesApi;
     private static ConsejosApi consejosApi;
+    private static ObservacionesApi observacionesApi;
 
     static {
         initClient();
@@ -116,6 +117,13 @@ public class ConfigApi {
             consejosApi = retrofit.create(ConsejosApi.class);
         }
         return consejosApi;
+    }
+
+    public static ObservacionesApi getObservacionesApi(){
+        if(operacionesApi == null){
+            observacionesApi = retrofit.create(ObservacionesApi.class);
+        }
+        return observacionesApi;
     }
 
 }

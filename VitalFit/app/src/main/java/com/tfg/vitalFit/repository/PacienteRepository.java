@@ -1,20 +1,13 @@
 package com.tfg.vitalfit.repository;
 
-import android.util.Log;
-import android.widget.Toast;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.PacienteApi;
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
-import com.tfg.vitalfit.entity.service.Usuario;
 
-import okhttp3.MediaType;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

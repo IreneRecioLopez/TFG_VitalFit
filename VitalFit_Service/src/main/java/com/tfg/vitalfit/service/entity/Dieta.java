@@ -18,6 +18,9 @@ public class Dieta {
     private String diaSemana;
     @Column(nullable = false)
     private String tramoDia;
+    private String primerPlato;
+    private String segundoPlato;
+    private String postre;
 
     @ManyToOne
     @JoinColumn(name = "dni_paciente")

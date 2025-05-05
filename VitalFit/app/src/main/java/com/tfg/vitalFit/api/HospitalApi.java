@@ -1,6 +1,5 @@
 package com.tfg.vitalfit.api;
 
-import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 
 import java.util.List;

@@ -1,17 +1,12 @@
 package com.tfg.vitalfit.repository;
 
-import android.graphics.Bitmap;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.ConsejosApi;
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.entity.service.Consejo;
-import com.tfg.vitalfit.entity.service.Hospital;
-import com.tfg.vitalfit.entity.service.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;

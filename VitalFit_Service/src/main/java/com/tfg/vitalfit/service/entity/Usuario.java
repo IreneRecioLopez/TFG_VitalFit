@@ -1,7 +1,5 @@
 package com.tfg.vitalfit.service.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
@@ -41,7 +39,6 @@ public class Usuario {
     @OneToMany(mappedBy = "medico")
     private List<Usuario> pacientesMedico;
 
-    // Lista de pacientes asignados a un nutricionista (relación inversa)
     @OneToMany(mappedBy = "nutricionista")
     private List<Usuario> pacientesNutricionista;
 

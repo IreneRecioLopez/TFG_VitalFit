@@ -3,11 +3,9 @@ package com.tfg.vitalfit.repository;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.tfg.vitalfit.api.AlergiasApi;
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.OperacionesApi;
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.entity.service.Operaciones;
 
 import retrofit2.Call;

@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.PesosApi;
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Pesos;
 
 import retrofit2.Call;

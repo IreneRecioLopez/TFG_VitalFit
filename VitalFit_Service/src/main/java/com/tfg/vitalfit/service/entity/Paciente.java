@@ -28,8 +28,6 @@ public class Paciente {
     private String direccion;
     @Column(nullable = false)
     private String cp;
-    private int vegetariana;
-    private int vegana;
 
     @ManyToOne
     @JoinColumn(name = "dni_medico")
@@ -62,5 +60,9 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente")
     @JsonManagedReference(value = "paciente-dietas")
     private List<Dieta> dietas;
+
+    @OneToMany(mappedBy = "paciente")
+    @JsonManagedReference(value = "paciente-observaciones")
+    private List<Alergias> observaciones;
 
 }

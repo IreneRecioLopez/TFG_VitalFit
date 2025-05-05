@@ -1,7 +1,6 @@
 package com.tfg.vitalfit.entity.service;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class Operaciones implements Serializable {
     private Long idOperacion;

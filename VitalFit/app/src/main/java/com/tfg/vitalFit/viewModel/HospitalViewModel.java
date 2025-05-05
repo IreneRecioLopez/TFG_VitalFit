@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.repository.HospitalRepository;
 

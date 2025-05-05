@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.HospitalApi;
-import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 
 import java.util.ArrayList;

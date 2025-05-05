@@ -6,13 +6,9 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,13 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.adapter.ConsejoAdapter;
-import com.tfg.vitalfit.entity.service.Consejo;
 import com.tfg.vitalfit.entity.service.Usuario;
-import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.ConsejosViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class LeerConsejosActivity extends AppCompatActivity {
 

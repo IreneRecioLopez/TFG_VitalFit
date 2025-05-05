@@ -1,6 +1,5 @@
 package com.tfg.vitalfit.service.controller;
 
-import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.entity.Pesos;
 import com.tfg.vitalfit.service.service.PesosService;
 import com.tfg.vitalfit.service.utils.GenericResponse;

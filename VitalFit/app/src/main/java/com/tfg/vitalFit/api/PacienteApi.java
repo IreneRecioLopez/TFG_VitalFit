@@ -3,7 +3,6 @@ package com.tfg.vitalfit.api;
 import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
-import com.tfg.vitalfit.entity.service.Usuario;
 
 import okhttp3.RequestBody;
 import retrofit2.Call;

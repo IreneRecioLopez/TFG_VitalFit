@@ -28,6 +28,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.entity.service.Hospital;
+import com.tfg.vitalfit.entity.service.Observaciones;
 import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Pesos;
@@ -36,6 +37,7 @@ import com.tfg.vitalfit.utils.Security;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
+import com.tfg.vitalfit.viewModel.ObservacionesViewModel;
 import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
@@ -57,6 +59,8 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     private PesosViewModel pesosViewModel;
     private AlergiasViewModel alergiasViewModel;
     private OperacionesViewModel operacionesViewModel;
+    private ObservacionesViewModel observacionesViewModel;
+
     private LinearLayout layoutOperaciones;
     private Toolbar toolbar;
     private EditText edtName, edtApellido1, edtApellido2, edtDNI, edtNSS, edtTlf, edtDireccion,
@@ -87,6 +91,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         pesosViewModel = vmp.get(PesosViewModel.class);
         alergiasViewModel = vmp.get(AlergiasViewModel.class);
         operacionesViewModel = vmp.get(OperacionesViewModel.class);
+        observacionesViewModel = vmp.get(ObservacionesViewModel.class);
     }
 
     private void init(){
@@ -221,8 +226,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             Double imc = peso / (altura * altura);
             imc = Math.round(imc * 1000.0) / 1000.0;
             p.setImc(imc);
-            p.setVegana(chkVegana.isChecked() ? 1 : 0);
-            p.setVegetariana(chkVegetariana.isChecked() ? 1 : 0);
 
             this.pViewModel.save(p).observe(this, pResponse -> {
                 if(pResponse.getRpta() == 1){
@@ -312,12 +315,31 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
                                                             //Crear el Viewmodel
                                                             operacionesViewModel.save(op).observe(this, operacionesResponse -> {
-                                                                if(operacionesResponse.getRpta() == 1){
-                                                                }else{
+                                                                if(operacionesResponse.getRpta() != 1){
                                                                     ToastMessage.Invalido(this, "Error al guardar la operacion");
                                                                 }
                                                             });
                                                         }
+                                                    }
+                                                    if(chkVegana.isChecked()){
+                                                        Observaciones ob = new Observaciones();
+                                                        ob.setPaciente(new Paciente(p.getDni()));
+                                                        ob.setObservacion("Vegana");
+                                                        observacionesViewModel.save(ob).observe(this, observacionesResponse -> {
+                                                            if(observacionesResponse.getRpta() != 1){
+                                                                ToastMessage.Invalido(this, "Error al guardar la observación");
+                                                            }
+                                                        });
+                                                    }
+                                                    if(chkVegetariana.isChecked()){
+                                                        Observaciones ob = new Observaciones();
+                                                        ob.setPaciente(new Paciente(p.getDni()));
+                                                        ob.setObservacion("Vegetariana");
+                                                        observacionesViewModel.save(ob).observe(this, observacionesResponse -> {
+                                                            if(observacionesResponse.getRpta() != 1){
+                                                                ToastMessage.Invalido(this, "Error al guardar la observación");
+                                                            }
+                                                        });
                                                     }
                                                     ToastMessage.Correcto(this, "Su información ha sido guardada con éxito.");
                                                     startActivity(new Intent(this, MainActivity.class));

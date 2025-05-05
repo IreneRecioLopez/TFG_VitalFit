@@ -1,7 +1,6 @@
 package com.tfg.vitalfit.service.repository;
 
 import com.tfg.vitalfit.service.entity.Consejo;
-import com.tfg.vitalfit.service.entity.Hospital;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

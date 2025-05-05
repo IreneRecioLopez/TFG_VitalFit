@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
@@ -20,7 +19,6 @@ import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Consejo;
 import com.tfg.vitalfit.entity.service.Usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ConsejoAdapter extends RecyclerView.Adapter<ConsejoAdapter.ConsejoViewHolder>{
