@@ -6,7 +6,9 @@
     <string name="label_dni">DNI</string>
     <string name="label_nuevoUsuario">¿Eres un nuevo usuario? Regístrate ahora</string>
     <string name="label_forgetPassword">Olvidé mi contraseña</string>
+    <string name="menu_home">Home</string>
     <string name="menu_consejos">Consejos</string>
+    <string name="menu_configuracion">Configuración</string>
     <string name="menu_datos_personales">Datos personales</string>
     <string name="menu_pagina_principal">Menu Principal</string>
     <string name="title_activity_inicio">InicioActivity</string>
@@ -19,7 +21,11 @@
     <string name="label_eleccion_usuario">¿Qué tipo de usuario es?</string>
     <string name="label_nuevaPassword">Introduzca a continuación su dni y la nueva contraseña que quiere establecer</string>
     <string name="label_elegirPaciente">Seleccione el paciente</string>
-    <string name="menu_home">Home</string>
+    <string name="title_activity_inicio_medico">InicioMedicoActivity</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="title_activity_inicio_nutricionista">InicioNutricionistaActivity</string>
 
     <string-array name="provincias">
         <item>Álava</item>
@@ -75,10 +81,11 @@
         <item>Ceuta</item>
         <item>Melilla</item>
     </string-array>
-    <string name="title_activity_inicio_medico">InicioMedicoActivity</string>
-    <string name="action_settings">Settings</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-    <string name="title_activity_inicio_nutricionista">InicioNutricionistaActivity</string>
+
+    <string-array name="otrosDatos">
+        <item>Alergias</item>
+        <item>Operaciones</item>
+        <item>Otras Observaciones</item>
+    </string-array>
 
 </resources>

@@ -65,13 +65,13 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Número de la Tarjeta Sanitaria:"/>
+                    android:text="Número de la Seguridad Social:"/>
 
                 <TextView
-                    android:id="@+id/txtNumeroTarjetaSanitaria"
+                    android:id="@+id/txtNumeroSeguridadSocial"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Numero Tarjeta Sanitaria"/>
+                    android:text="Numero Seguridad Social"/>
 
             </LinearLayout>
 
@@ -86,6 +86,25 @@
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
                     android:text="Consejos"
+                    android:layout_gravity="center_horizontal" />
+                <Button
+                    android:id="@+id/btnOtrosDatos"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Otros datos"
+                    android:layout_gravity="center_horizontal" />
+                <Button
+                    android:id="@+id/btnEstadisticas"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Estadísticas"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    android:id="@+id/btnDieta"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dieta"
                     android:layout_gravity="center_horizontal" />
 
             </LinearLayout>

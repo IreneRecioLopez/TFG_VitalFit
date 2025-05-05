@@ -7,13 +7,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Usuario;
@@ -26,9 +22,9 @@ import java.util.Locale;
 
 public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
 
-    private TextView txtNombrePaciente, txtFechaNacimientoPaciente, txtTarjetaSanitariaPaciente;
+    private TextView txtNombrePaciente, txtFechaNacimientoPaciente, txtSeguridadSocialPaciente;
     private Toolbar toolbar;
-    private Button btnConsejos;
+    private Button btnConsejos, btnOtrosDatos, btnEstadisticas, btnDieta;
     private Usuario paciente;
 
     @Override
@@ -46,9 +42,12 @@ public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
     private void init(){
         txtNombrePaciente = findViewById(R.id.txtNombreCompletoPaciente);
         txtFechaNacimientoPaciente = findViewById(R.id.txtFechaNacimientoPaciente);
-        txtTarjetaSanitariaPaciente = findViewById(R.id.txtNumeroTarjetaSanitaria);
+        txtSeguridadSocialPaciente = findViewById(R.id.txtNumeroSeguridadSocial);
         toolbar = findViewById(R.id.toolbarDatosPacienteNutricionista);
         btnConsejos = findViewById(R.id.btnConsejos);
+        btnOtrosDatos = findViewById(R.id.btnOtrosDatos);
+        btnEstadisticas = findViewById(R.id.btnEstadisticas);
+        btnDieta = findViewById(R.id.btnDieta);
 
         setSupportActionBar(toolbar);
 
@@ -63,13 +62,21 @@ public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
         if (paciente != null) {
             txtNombrePaciente.setText(paciente.getNombreCompleto());
             txtFechaNacimientoPaciente.setText(convertirFecha(paciente.getPaciente().getFechaNacimiento()));
-            txtTarjetaSanitariaPaciente.setText(paciente.getPaciente().getNumSeguridadSocial());
+            txtSeguridadSocialPaciente.setText(paciente.getPaciente().getNumSeguridadSocial());
         } else {
             ToastMessage.Invalido(this, "No se recibió el paciente");
         }
 
         btnConsejos.setOnClickListener(v -> {
-            startActivity(new Intent(this, VerEnviarConsejosActivity.class));
+            Intent intent = new Intent(this, VerEnviarConsejosActivity.class);
+            intent.putExtra("paciente", paciente);
+            startActivity(intent);
+        });
+
+        btnOtrosDatos.setOnClickListener(v -> {
+            Intent intent = new Intent(this, OtrosDatosPacienteActivity.class);
+            intent.putExtra("paciente", paciente);
+            startActivity(intent);
         });
     }
 

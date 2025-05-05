@@ -15,11 +15,11 @@
         android:id="@+id/nav_datos_personales_nutricionista"
         android:name="com.tfg.vitalfit.activity.uiNutricionista.datosPersonales.DatosPersonalesNutricionistaFragment"
         android:label="@string/menu_datos_personales"
-        tools:layout="@layout/fragment_datospersonales_medico" />
+        tools:layout="@layout/fragment_datos_personales_medico_nutricionista" />
 
     <fragment
         android:id="@+id/nav_slideshow"
         android:name="com.tfg.vitalfit.activity.uiNutricionista.slideshow.SlideshowFragment"
         android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        tools:layout="@layout/fragment_configuracion_medico_nutricionista" />
 </navigation>

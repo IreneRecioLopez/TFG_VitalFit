@@ -23,7 +23,7 @@ import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.activity.MedicoDatosPacienteActivity;
 import com.tfg.vitalfit.activity.NutricionistaDatosPacienteActivity;
-import com.tfg.vitalfit.databinding.FragmentHomeMedicoBinding;
+import com.tfg.vitalfit.databinding.FragmentHomeMedicoNutricionistaBinding;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
@@ -41,14 +41,14 @@ public class HomeFragment extends Fragment {
     private String paciente;
     private List<String> nombreCompletosPacientes, dniPacientes;
 
-    private FragmentHomeMedicoBinding binding;
+    private FragmentHomeMedicoNutricionistaBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         initViewModel();
 
-        binding = FragmentHomeMedicoBinding.inflate(inflater, container, false);
+        binding = FragmentHomeMedicoNutricionistaBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         obtenerDatosUsuario(root);

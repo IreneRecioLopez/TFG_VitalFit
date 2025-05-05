@@ -7,23 +7,17 @@
     android:gravity="center_vertical">
 
     <TextView
-        android:id="@+id/txtNombreAlergia"
+        android:id="@+id/txtNombreOperacion"
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="wrap_content"
         android:text="Nombre" />
 
     <TextView
-        android:id="@+id/txtTipoAlergia"
+        android:id="@+id/txtFechaOperacion"
         android:layout_width="0dp"
         android:layout_weight="2"
         android:layout_height="wrap_content"
         android:text="Fecha" />
 
-    <Button
-        android:id="@+id/btnEliminarAlergia"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        android:drawableRight="@drawable/ic_delete" />
 </LinearLayout>
