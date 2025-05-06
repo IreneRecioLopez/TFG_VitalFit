@@ -37,6 +37,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/layoutElecctionTipoDato"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -58,7 +59,7 @@
                         <AutoCompleteTextView
                             android:id="@+id/dropdownTiposDato"
                             android:layout_width="match_parent"
-                            android:layout_height="45dp"
+                            android:layout_height="50dp"
                             android:clickable="true"
                             android:hint="Tipo de Datos"
                             android:inputType="none"
@@ -72,7 +73,21 @@
                     android:id="@+id/layoutOperaciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_below="@id/layoutElecctionTipoDato"
+                    android:visibility="visible">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingStart="20dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerOperaciones"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </ScrollView>
 
                 </LinearLayout>
 
@@ -80,7 +95,21 @@
                     android:id="@+id/layoutAlergias"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_below="@id/layoutElecctionTipoDato"
+                    android:visibility="gone">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingStart="20dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerAlergias"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </ScrollView>
 
                 </LinearLayout>
 
@@ -88,7 +117,21 @@
                     android:id="@+id/layoutOtrasObservaciones"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_below="@id/layoutElecctionTipoDato"
+                    android:visibility="gone">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="15dp"
+                        android:paddingStart="20dp">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recyclerOtrasObservaciones"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                    </ScrollView>
 
                 </LinearLayout>
 
