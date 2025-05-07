@@ -21,4 +21,6 @@ public class AlergiasViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Alergias>> save(Alergias a){
         return this.repository.save(a);
     }
+
+    public LiveData<GenericResponse<Void>> delete(Long idAlergia){ return this.repository.eliminarAlergia(idAlergia); }
 }

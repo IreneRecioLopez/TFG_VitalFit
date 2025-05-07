@@ -88,6 +88,11 @@
         <item>Otras Observaciones</item>
     </string-array>
 
+    <string-array name="tipoAlergia">
+        <item>Medicinal</item>
+        <item>Alimentaria</item>
+    </string-array>
+
     <string-array name="diasDeLaSemana">
         <item>Lunes</item>
         <item>Martes</item>

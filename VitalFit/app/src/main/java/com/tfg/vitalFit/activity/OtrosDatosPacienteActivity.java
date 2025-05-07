@@ -1,6 +1,8 @@
 package com.tfg.vitalfit.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -8,15 +10,21 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.adapter.AlergiasAdapter;
 import com.tfg.vitalfit.adapter.ObservacionesAdapter;
@@ -25,6 +33,8 @@ import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.entity.service.Observaciones;
 import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.ToastMessage;
+import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 
 import java.util.List;
 
@@ -34,18 +44,28 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private AlergiasAdapter alergiasAdapter;
     private OperacionesAdapter operacionesAdapter;
     private ObservacionesAdapter observacionesAdapter;
-    private AutoCompleteTextView dropdownTipoDatos;
+    private AlergiasViewModel alergiasViewModel;
+    private AutoCompleteTextView dropdownTipoDatos, dropdownTipoAlergia;
+    private EditText edtNombreAlergia;
+    private TextInputLayout txtInputNombreAlergia, txtInputTipoAlergia;
     private TextView noHayAlergias, noHayOperaciones, noHayOtrasObservaciones;
     private Toolbar toolbar;
-    private LinearLayout alergiasLayout, operacionesLayout, otrasObservacionesLayout;
-    private String tipoDato;
+    private LinearLayout alergiasLayout, operacionesLayout, otrasObservacionesLayout, addAlergia;
+    private Button btnAddAlergia, btnGuardarAlergia;
+    private String tipoDato, tipoAlergia;
+    private Boolean anadirAlergia, anadirOperacion, anadirObservacion;
+    private Boolean vaciaAlergia;
     private Usuario paciente;
+    private Usuario usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otros_datos_paciente);
         this.initRecyclers();
+        this.initViewModels();
+        this.obtenerDatosUsuario();
+        this.obtenerDatosPaciente();
         this.init();
     }
 
@@ -58,6 +78,11 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         recyclerOtrasObservaciones.setLayoutManager(new LinearLayoutManager(this));
     }
 
+    private void initViewModels(){
+        final ViewModelProvider vmp = new ViewModelProvider(this);
+        alergiasViewModel = vmp.get(AlergiasViewModel.class);
+    }
+
     private void init(){
         toolbar = findViewById(R.id.toolbarOtrosDatosPaciente);
         alergiasLayout = findViewById(R.id.layoutAlergias);
@@ -66,7 +91,14 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         noHayAlergias = findViewById(R.id.noHayAlergias);
         noHayOperaciones = findViewById(R.id.noHayOperaciones);
         noHayOtrasObservaciones = findViewById(R.id.noHayObservaciones);
+        addAlergia = findViewById(R.id.addAlergia);
         dropdownTipoDatos = findViewById(R.id.dropdownTiposDato);
+        dropdownTipoAlergia = findViewById(R.id.dropdownTipoAlergia);
+        edtNombreAlergia = findViewById(R.id.edtNombreAlergia);
+        txtInputNombreAlergia = findViewById(R.id.txtInputNombreAlergia);
+        txtInputTipoAlergia = findViewById(R.id.txtInputTipoAlergia);
+        btnAddAlergia = findViewById(R.id.btnAddAlergia);
+        btnGuardarAlergia = findViewById(R.id.btnGuardarAlergia);
 
         setSupportActionBar(toolbar);
 
@@ -74,8 +106,6 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-
-        obtenerDatosPaciente();
 
         // Adapter para otros tipoos de datos
         String[] tipoDatos = getResources().getStringArray(R.array.otrosDatos);
@@ -114,14 +144,95 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     }
 
     private void initAlergias(){
+        anadirAlergia = false;
         if(paciente != null){
             List<Alergias> alergias = paciente.getPaciente().getAlergias();
             if(alergias.isEmpty()){
                 noHayAlergias.setVisibility(View.VISIBLE);
             }
-            alergiasAdapter = new AlergiasAdapter(this, alergias);
+            if(usuario.getRol().equals("Paciente")){
+                alergiasAdapter = new AlergiasAdapter(this, alergias, true, alergiasViewModel);
+                btnAddAlergia.setVisibility(View.VISIBLE);
+            }else{
+                alergiasAdapter = new AlergiasAdapter(this, alergias, false, alergiasViewModel);
+            }
             recyclerAlergias.setAdapter(alergiasAdapter);
+
+            btnAddAlergia.setOnClickListener(v -> {
+                addAlergia.setVisibility(View.VISIBLE);
+                anadirAlergia = true;
+                addAlergia();
+            });
         }
+    }
+
+    private void addAlergia(){
+        vaciaAlergia = true;
+        // Adapter para otros tipoos de datos
+        String[] alergiaTipo = getResources().getStringArray(R.array.tipoAlergia);
+        ArrayAdapter<String> adapterAlergiaTipos = new ArrayAdapter<>(
+                this, android.R.layout.simple_dropdown_item_1line, alergiaTipo
+        );
+        dropdownTipoAlergia.setAdapter(adapterAlergiaTipos);
+        dropdownTipoAlergia.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                tipoAlergia = s.toString();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        btnGuardarAlergia.setOnClickListener(v -> {
+            if(validAlergia()){
+                Alergias a = new Alergias();
+                a.setAlergia(edtNombreAlergia.getText().toString());
+                a.setTipo(tipoAlergia);
+                a.setPaciente(paciente.getPaciente());
+                alergiasViewModel.save(a).observe(this, response -> {
+                    if(response.getRpta() == 1){
+                        ToastMessage.Correcto(this, "Alergia guardada");
+                        paciente.getPaciente().getAlergias().add(a);
+                        alergiasAdapter.notifyItemInserted(paciente.getPaciente().getAlergias().size() - 1);
+                        edtNombreAlergia.setText("");
+                        dropdownTipoAlergia.setText("");
+                        edtNombreAlergia.clearFocus();
+                        dropdownTipoAlergia.clearFocus();
+                        addAlergia.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+
+    }
+
+    private boolean validAlergia(){
+        boolean val = true;
+        String dropTipo, alergia;
+        alergia = edtNombreAlergia.getText().toString();
+        dropTipo = dropdownTipoAlergia.getText().toString();
+
+        if(dropTipo.isEmpty()){
+            txtInputTipoAlergia.setError("Seleccione un tipo");
+            return false;
+        }else{
+            vaciaAlergia = false;
+            txtInputTipoAlergia.setErrorEnabled(false);
+        }
+        if(alergia.isEmpty()){
+            txtInputNombreAlergia.setError("Escriba la alergia");
+            return false;
+        }else{
+            vaciaAlergia = false;
+            txtInputNombreAlergia.setErrorEnabled(false);
+        }
+        return val;
     }
 
     private void initOperaciones(){
@@ -147,17 +258,39 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         }
     }
 
+    private void obtenerDatosUsuario(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String jsonUsuario = prefs.getString("UsuarioJson", null);
+
+        Log.d("UsuarioRecibidoHomeFragment", new Gson().toJson(usuario));
+
+        if(jsonUsuario != null) {
+            usuario = new Gson().fromJson(jsonUsuario, Usuario.class);
+        }
+    }
+
     private void obtenerDatosPaciente(){
         paciente = (Usuario) getIntent().getSerializableExtra("paciente");
-        Log.d("Paciente recibido otros datos", paciente.toString());
+        //Log.d("Paciente recibido otros datos", paciente.toString());
     }
 
     // Capturar el clic en el botón de regreso
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
-            onBackPressed(); // Regresa a la pantalla anterior
-            return true;
+            if (anadirAlergia && !vaciaAlergia) {
+                new AlertDialog.Builder(this)
+                        .setTitle("¿Descartar cambios?")
+                        .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
+                        .setPositiveButton("Sí", (dialog, which) -> {
+                            onBackPressed(); // Regresa a la pantalla anterior
+                        })
+                        .setNegativeButton("Cancelar", null)
+                        .show();
+                return false;
+            }else{
+                onBackPressed(); // Regresa a la pantalla anterior
+            }
         }
         return super.onOptionsItemSelected(item);
     }

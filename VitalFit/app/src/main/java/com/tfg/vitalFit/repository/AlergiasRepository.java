@@ -44,4 +44,22 @@ public class AlergiasRepository {
         });
         return mld;
     }
+
+    public LiveData<GenericResponse<Void>> eliminarAlergia(Long idAlergia){
+        final MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
+        this.api.eliminarAlergia(idAlergia).enqueue(new Callback<GenericResponse<Void>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al eliminar la alergia" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
 }

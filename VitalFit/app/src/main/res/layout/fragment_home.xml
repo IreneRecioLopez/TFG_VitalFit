@@ -13,11 +13,18 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/leerConsejos"
+            android:id="@+id/btnLeerConsejos"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="Leer consejos"
             android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/btnOtrosDatos"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Otros Datos" />
 
     </LinearLayout>
 
