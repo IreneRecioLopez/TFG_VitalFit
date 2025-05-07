@@ -6,10 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface HospitalRepository extends CrudRepository<Hospital, Integer> {
-
-    @Query("SELECT h from Hospital h WHERE h.idHospital=:id")
-    Hospital findById(Long id);
+public interface HospitalRepository extends CrudRepository<Hospital, Long> {
 
     @Query("SELECT h from Hospital h WHERE h.provincia=:provincia")
     List<Hospital> findByProvincia(String provincia);
