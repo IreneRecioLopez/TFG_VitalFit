@@ -156,6 +156,8 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
                            ToastMessage.Invalido(this, "Se ha producido un erro al guardar los datos.");
                        }
                     });
+                }else if(uResponse.getRpta() == 0){
+                    ToastMessage.Invalido(this, uResponse.getMessage());
                 }
             });
         }catch (Exception e){

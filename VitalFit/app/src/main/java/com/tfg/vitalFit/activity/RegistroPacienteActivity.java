@@ -263,7 +263,9 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         alergiasAlimentarias = edtAlergiaAlimentaria.getText().toString().split(",");
                                                         for (String alergia: alergiasAlimentarias) {
                                                             Alergias a = new Alergias();
-                                                            a.setAlergia(alergia);
+                                                            String nombre = alergia.trim();
+                                                            Log.d("ALERGIA NOMBRE", nombre);
+                                                            a.setAlergia(nombre);
                                                             a.setTipo("Alimentaria");
                                                             a.setPaciente(new Paciente(p.getDni()));
                                                             alergiasViewModel.save(a).observe(this, alergiaResponse -> {
@@ -278,9 +280,9 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         alergiasMedicinales = edtAlergiaMedicinal.getText().toString().split(",");
                                                         for (String alergia: alergiasMedicinales) {
                                                             Alergias a = new Alergias();
-                                                            String tipo = alergia.trim();
-                                                            Log.d("ALERGIA TIPO", tipo);
-                                                            a.setAlergia(tipo);
+                                                            String nombre = alergia.trim();
+                                                            Log.d("ALERGIA NOMBRE", nombre);
+                                                            a.setAlergia(nombre);
                                                             a.setTipo("Medicinal");
                                                             a.setPaciente(new Paciente(p.getDni()));
                                                             alergiasViewModel.save(a).observe(this, alergiaResponse -> {
@@ -333,8 +335,8 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                     }
                                                     if(chkVegetariana.isChecked()){
                                                         Observaciones ob = new Observaciones();
-                                                        ob.setPaciente(new Paciente(p.getDni()));
                                                         ob.setObservacion("Vegetariana");
+                                                        ob.setPaciente(new Paciente(p.getDni()));
                                                         observacionesViewModel.save(ob).observe(this, observacionesResponse -> {
                                                             if(observacionesResponse.getRpta() != 1){
                                                                 ToastMessage.Invalido(this, "Error al guardar la observación");

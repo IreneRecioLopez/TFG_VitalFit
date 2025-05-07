@@ -19,7 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.adapter.AlergiasAdapter;
+import com.tfg.vitalfit.adapter.OperacionesAdapter;
 import com.tfg.vitalfit.entity.service.Alergias;
+import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Usuario;
 
 import java.util.ArrayList;
@@ -27,8 +29,9 @@ import java.util.List;
 
 public class OtrosDatosPacienteActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerAlergias;
+    private RecyclerView recyclerAlergias, recyclerOperaciones;
     private AlergiasAdapter alergiasAdapter;
+    private OperacionesAdapter operacionesAdapter;
     private AutoCompleteTextView dropdownTipoDatos;
     private Toolbar toolbar;
     private LinearLayout alergiasLayout, operacionesLayout, otrasObservacionesLayout;
@@ -42,7 +45,8 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
 
         recyclerAlergias = findViewById(R.id.recyclerAlergias);
         recyclerAlergias.setLayoutManager(new LinearLayoutManager(this));
-        //alergiasAdapter = new AlergiasAdapter(this, new ArrayList<>());
+        recyclerOperaciones = findViewById(R.id.recyclerOperaciones);
+        recyclerOperaciones.setLayoutManager(new LinearLayoutManager(this));
 
         this.initViewModel();
         this.init();
@@ -91,6 +95,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.VISIBLE);
                     otrasObservacionesLayout.setVisibility(View.GONE);
+                    initOperaciones();
                 }else if(tipoDato.equals("Otras Observaciones")){
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.GONE);
@@ -106,9 +111,28 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private void initAlergias(){
         if(paciente != null){
             List<Alergias> alergias = paciente.getPaciente().getAlergias();
+            if(alergias.isEmpty()){
+                Alergias a = new Alergias();
+                a.setAlergia("No tiene ninguna alergia registrada");
+                alergias.add(a);
+            }
             Log.d("Alergias paciente", alergias.toString());
             AlergiasAdapter adapter = new AlergiasAdapter(this, alergias);
             recyclerAlergias.setAdapter(adapter);
+        }
+    }
+
+    private void initOperaciones(){
+        if(paciente != null){
+            List<Operaciones> operaciones = paciente.getPaciente().getOperaciones();
+            if(operaciones.isEmpty()){
+                Operaciones o = new Operaciones();
+                o.setNombre("No tiene ninguna alergia registrada");
+                operaciones.add(o);
+            }
+            Log.d("Operaciones paciente", operaciones.toString());
+            OperacionesAdapter adapter = new OperacionesAdapter(this, operaciones);
+            recyclerOperaciones.setAdapter(adapter);
         }
     }
 

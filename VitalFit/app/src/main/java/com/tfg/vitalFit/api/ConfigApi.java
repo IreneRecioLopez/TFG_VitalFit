@@ -120,7 +120,7 @@ public class ConfigApi {
     }
 
     public static ObservacionesApi getObservacionesApi(){
-        if(operacionesApi == null){
+        if(observacionesApi == null){
             observacionesApi = retrofit.create(ObservacionesApi.class);
         }
         return observacionesApi;
