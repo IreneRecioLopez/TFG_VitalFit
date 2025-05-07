@@ -14,8 +14,8 @@ public interface ConsejoRepository extends CrudRepository<Consejo, Integer> {
     @Query("SELECT c from Consejo c WHERE c.paciente.dni=:dni")
     List<Consejo> findByPaciente(String dni);
 
-    @Query("SELECT c from Consejo c WHERE c.nutricionista.dni=:dni")
-    List<Consejo> findByNutricionista(String dni);
+    @Query("SELECT c from Consejo c WHERE c.nutricionista.dni=:dni AND c.paciente.dni =:dniPaciente")
+    List<Consejo> findByNutricionistaAndPaciente(String dni, String dniPaciente);
 
     @Query("SELECT c from Consejo c WHERE c.idConsejo=:id")
     Optional<Consejo> findById(Long id);

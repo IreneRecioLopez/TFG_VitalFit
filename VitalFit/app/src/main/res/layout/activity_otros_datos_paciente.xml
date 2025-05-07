@@ -40,7 +40,9 @@
                     android:id="@+id/layoutElecctionTipoDato"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingTop="10dp"
+                    android:paddingStart="15dp">
 
                     <TextView
                         android:layout_width="match_parent"
@@ -77,6 +79,17 @@
                     android:layout_below="@id/layoutElecctionTipoDato"
                     android:visibility="gone">
 
+                    <TextView
+                        android:id="@+id/noHayOperaciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:text="No hay operaciones registradas"
+                        android:paddingStart="20dp"
+                        android:paddingTop="15dp"
+                        android:textSize="18dp"
+                        android:visibility="gone">
+                    </TextView>
+
                     <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -99,6 +112,18 @@
                     android:layout_below="@id/layoutElecctionTipoDato"
                     android:visibility="gone">
 
+                    <TextView
+                        android:id="@+id/noHayAlergias"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="20dp"
+                        android:paddingTop="15dp"
+                        android:textSize="18dp"
+                        android:text="No hay alergias registradas"
+                        android:visibility="gone">
+
+                    </TextView>
+
                     <ScrollView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -120,6 +145,17 @@
                     android:orientation="vertical"
                     android:layout_below="@id/layoutElecctionTipoDato"
                     android:visibility="gone">
+
+                    <TextView
+                        android:id="@+id/noHayObservaciones"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:paddingStart="20dp"
+                        android:paddingTop="15dp"
+                        android:textSize="18dp"
+                        android:text="No hay otras observaciones registradas"
+                        android:visibility="gone">
+                    </TextView>
 
                     <ScrollView
                         android:layout_width="match_parent"

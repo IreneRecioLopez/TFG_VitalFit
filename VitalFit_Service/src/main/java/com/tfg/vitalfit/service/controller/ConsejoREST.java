@@ -22,9 +22,9 @@ public class ConsejoREST {
         return service.getConsejosByPaciente(dni);
     }
 
-    @GetMapping("/nutricionista/{dni}")
-    public List<Consejo> getConsejosByNutricionista(@PathVariable("dni") String dni){
-        return service.getConsejosByNutricionista(dni);
+    @GetMapping("/nutricionista/{dni}/paciente")
+    public List<Consejo> getConsejosByNutricionista(@PathVariable("dni") String dni, @RequestParam String dniPaciente){
+        return service.getConsejosByNutricionistaAndPaciente(dni, dniPaciente);
     }
 
     @PutMapping("/leido/{idConsejo}")

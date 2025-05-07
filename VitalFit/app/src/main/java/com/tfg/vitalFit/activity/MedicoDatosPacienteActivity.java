@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -25,7 +26,7 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
 
     private TextView txtNombrePaciente, txtFechaNacimientoPaciente, txtTarjetaSanitariaPaciente;
     private Toolbar toolbar;
-    private Button btnAsignarNutricionista;
+    private Button btnAsignarNutricionista, btnOtrosDatos;
     private UsuarioViewModel usuarioViewModel;
     private Usuario paciente;
 
@@ -48,6 +49,7 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
         txtTarjetaSanitariaPaciente = findViewById(R.id.txtNumeroTarjetaSanitaria);
         toolbar = findViewById(R.id.toolbarDatosPacienteMedico);
         btnAsignarNutricionista = findViewById(R.id.btnAsignarNutricionista);
+        btnOtrosDatos = findViewById(R.id.btnOtrosDatos);
 
         setSupportActionBar(toolbar);
 
@@ -69,6 +71,12 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
 
         btnAsignarNutricionista.setOnClickListener(v -> {
 
+        });
+
+        btnOtrosDatos.setOnClickListener(v -> {
+            Intent intent = new Intent(this, OtrosDatosPacienteActivity.class);
+            intent.putExtra("paciente", paciente);
+            startActivity(intent);
         });
 
     }

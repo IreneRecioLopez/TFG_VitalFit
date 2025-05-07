@@ -1,6 +1,5 @@
 package com.tfg.vitalfit.activity;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +26,6 @@ import com.tfg.vitalfit.entity.service.Observaciones;
 import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Usuario;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class OtrosDatosPacienteActivity extends AppCompatActivity {
@@ -36,6 +35,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private OperacionesAdapter operacionesAdapter;
     private ObservacionesAdapter observacionesAdapter;
     private AutoCompleteTextView dropdownTipoDatos;
+    private TextView noHayAlergias, noHayOperaciones, noHayOtrasObservaciones;
     private Toolbar toolbar;
     private LinearLayout alergiasLayout, operacionesLayout, otrasObservacionesLayout;
     private String tipoDato;
@@ -47,7 +47,6 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_otros_datos_paciente);
         this.initRecyclers();
         this.init();
-
     }
 
     private void initRecyclers(){
@@ -64,6 +63,9 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         alergiasLayout = findViewById(R.id.layoutAlergias);
         operacionesLayout = findViewById(R.id.layoutOperaciones);
         otrasObservacionesLayout = findViewById(R.id.layoutOtrasObservaciones);
+        noHayAlergias = findViewById(R.id.noHayAlergias);
+        noHayOperaciones = findViewById(R.id.noHayOperaciones);
+        noHayOtrasObservaciones = findViewById(R.id.noHayObservaciones);
         dropdownTipoDatos = findViewById(R.id.dropdownTiposDato);
 
         setSupportActionBar(toolbar);
@@ -75,12 +77,12 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
 
         obtenerDatosPaciente();
 
-        // Adapter para provincias
+        // Adapter para otros tipoos de datos
         String[] tipoDatos = getResources().getStringArray(R.array.otrosDatos);
-        ArrayAdapter<String> adapterProvincia = new ArrayAdapter<>(
+        ArrayAdapter<String> adapterOtrosDatos = new ArrayAdapter<>(
                 this, android.R.layout.simple_dropdown_item_1line, tipoDatos
         );
-        dropdownTipoDatos.setAdapter(adapterProvincia);
+        dropdownTipoDatos.setAdapter(adapterOtrosDatos);
         dropdownTipoDatos.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -115,13 +117,10 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         if(paciente != null){
             List<Alergias> alergias = paciente.getPaciente().getAlergias();
             if(alergias.isEmpty()){
-                Alergias a = new Alergias();
-                a.setAlergia("No tiene ninguna alergia registrada");
-                alergias.add(a);
+                noHayAlergias.setVisibility(View.VISIBLE);
             }
-            Log.d("Alergias paciente", alergias.toString());
-            AlergiasAdapter adapter = new AlergiasAdapter(this, alergias);
-            recyclerAlergias.setAdapter(adapter);
+            alergiasAdapter = new AlergiasAdapter(this, alergias);
+            recyclerAlergias.setAdapter(alergiasAdapter);
         }
     }
 
@@ -129,13 +128,10 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         if(paciente != null){
             List<Operaciones> operaciones = paciente.getPaciente().getOperaciones();
             if(operaciones.isEmpty()){
-                Operaciones o = new Operaciones();
-                o.setNombre("No tiene ninguna operación registrada");
-                operaciones.add(o);
+                noHayOperaciones.setVisibility(View.VISIBLE);
             }
-            Log.d("Operaciones paciente", operaciones.toString());
-            OperacionesAdapter adapter = new OperacionesAdapter(this, operaciones);
-            recyclerOperaciones.setAdapter(adapter);
+            operacionesAdapter = new OperacionesAdapter(this, operaciones);
+            recyclerOperaciones.setAdapter(operacionesAdapter);
         }
     }
 
@@ -143,13 +139,11 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         if(paciente != null){
             List<Observaciones> observaciones = paciente.getPaciente().getObservaciones();
             if(observaciones.isEmpty()){
-                Observaciones o = new Observaciones();
-                o.setObservacion("No tiene ninguna observación registrada");
-                observaciones.add(o);
+                noHayOtrasObservaciones.setVisibility(View.VISIBLE);
             }
             Log.d("Operaciones paciente", observaciones.toString());
-            ObservacionesAdapter adapter = new ObservacionesAdapter(this, observaciones);
-            recyclerOtrasObservaciones.setAdapter(adapter);
+            observacionesAdapter = new ObservacionesAdapter(this, observaciones);
+            recyclerOtrasObservaciones.setAdapter(observacionesAdapter);
         }
     }
 

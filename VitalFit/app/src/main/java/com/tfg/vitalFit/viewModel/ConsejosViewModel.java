@@ -26,8 +26,8 @@ public class ConsejosViewModel extends AndroidViewModel {
         return this.repository.consejosPorPaciente(dni);
     }
 
-    public LiveData<List<Consejo>> consejosPorNutricionista(String dni){
-        return this.repository.consejosPorNutricionista(dni);
+    public LiveData<List<Consejo>> consejosPorNutricionistaYPaciente(String dni, String dniPaciente){
+        return this.repository.consejosPorNutricionistaYPaciente(dni, dniPaciente);
     }
 
     public LiveData<GenericResponse<Void>> marcarComoLeido(Consejo c){

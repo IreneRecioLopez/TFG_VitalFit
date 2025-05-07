@@ -31,8 +31,8 @@ public class ConsejoService {
         return repository.findByPaciente(dni);
     }
 
-    public List<Consejo> getConsejosByNutricionista(String dni){
-        return repository.findByNutricionista(dni);
+    public List<Consejo> getConsejosByNutricionistaAndPaciente(String dni, String dniPaciente){
+        return repository.findByNutricionistaAndPaciente(dni, dniPaciente);
     }
 
     public GenericResponse marcarComoLeido(Long id) {

@@ -65,9 +65,9 @@ public class ConsejosRepository {
         return mld;
     }
 
-    public LiveData<List<Consejo>> consejosPorNutricionista(String dni){
+    public LiveData<List<Consejo>> consejosPorNutricionistaYPaciente(String dni, String dniPaciente){
         final MutableLiveData<List<Consejo>> mld = new MutableLiveData<>();
-        this.api.obtenerConsejosPorNutricionista(dni).enqueue(new Callback<List<Consejo>>() {
+        this.api.obtenerConsejosPorNutricionistaYPaciente(dni, dniPaciente).enqueue(new Callback<List<Consejo>>() {
             @Override
             public void onResponse(Call<List<Consejo>> call, Response<List<Consejo>> response) {
                 mld.setValue(response.body());

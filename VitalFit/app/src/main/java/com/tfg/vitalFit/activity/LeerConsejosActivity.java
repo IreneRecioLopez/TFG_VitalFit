@@ -58,10 +58,9 @@ public class LeerConsejosActivity extends AppCompatActivity {
     }
 
     private void init(){
-
         if (paciente != null) {
             consejosViewModel.consejosPorPaciente(paciente.getDni()).observe(this, consejos -> {
-                ConsejoAdapter adapter = new ConsejoAdapter(this, consejos, paciente,  consejo -> {
+                ConsejoAdapter adapter = new ConsejoAdapter(this, consejos, paciente, consejo -> {
                     consejo.setLeido(1);
                     consejosViewModel.marcarComoLeido(consejo).observe(this, response -> {
                     });
@@ -69,7 +68,6 @@ public class LeerConsejosActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             });
         }
-
     }
 
     private void obtenerDatosUsuario() {

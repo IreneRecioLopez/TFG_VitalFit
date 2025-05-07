@@ -125,6 +125,8 @@ public class MainActivity extends AppCompatActivity {
             Log.d("UsuarioGuardado", g.toJson(u));
             edtDNI.setText("");
             edtPassword.setText("");
+            edtDNI.clearFocus();
+            edtPassword.clearFocus();
             String rol = u.getRol();
             if (rol.equals("Paciente")) {
                 chkPaciente.setChecked(true);

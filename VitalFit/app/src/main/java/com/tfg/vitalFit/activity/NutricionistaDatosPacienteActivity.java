@@ -56,8 +56,7 @@ public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        paciente = (Usuario) getIntent().getSerializableExtra("paciente");
-        Log.d("Paciente recibido", paciente.toString());
+        obtenerDatosPaciente();
 
         if (paciente != null) {
             txtNombrePaciente.setText(paciente.getNombreCompleto());
@@ -78,6 +77,11 @@ public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
             intent.putExtra("paciente", paciente);
             startActivity(intent);
         });
+    }
+
+    private void obtenerDatosPaciente(){
+        paciente = (Usuario) getIntent().getSerializableExtra("paciente");
+        Log.d("Paciente recibido", paciente.toString());
     }
 
     private String convertirFecha(String fecha) {

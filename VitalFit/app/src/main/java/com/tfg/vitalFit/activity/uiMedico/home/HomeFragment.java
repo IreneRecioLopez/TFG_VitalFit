@@ -93,6 +93,7 @@ public class HomeFragment extends Fragment {
                         intent.putExtra("paciente", pacienteSeleccionado);
                         startActivity(intent);
                         dropdownPaciente.setText("");
+                        dropdownPaciente.clearFocus();
                     }
                 }else if(usuario.getRol().equals("Nutricionista")){
                     for(Usuario p: usuario.getPacientesNutricionista()){
