@@ -22,4 +22,5 @@ public class Observaciones implements Serializable {
         this.observacion = observacion;
     }
     public void setPaciente(Paciente p){ this.paciente = p; }
+
 }

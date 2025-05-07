@@ -3,15 +3,18 @@ package com.tfg.vitalfit.activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.ToastMessage;
+import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +25,8 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
 
     private TextView txtNombrePaciente, txtFechaNacimientoPaciente, txtTarjetaSanitariaPaciente;
     private Toolbar toolbar;
+    private Button btnAsignarNutricionista;
+    private UsuarioViewModel usuarioViewModel;
     private Usuario paciente;
 
     @Override
@@ -33,7 +38,8 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
     }
 
     private void initViewModel(){
-
+        final ViewModelProvider vmp = new ViewModelProvider(this);
+        usuarioViewModel = vmp.get(UsuarioViewModel.class);
     }
 
     private void init(){
@@ -41,6 +47,7 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
         txtFechaNacimientoPaciente = findViewById(R.id.txtFechaNacimientoPaciente);
         txtTarjetaSanitariaPaciente = findViewById(R.id.txtNumeroTarjetaSanitaria);
         toolbar = findViewById(R.id.toolbarDatosPacienteMedico);
+        btnAsignarNutricionista = findViewById(R.id.btnAsignarNutricionista);
 
         setSupportActionBar(toolbar);
 
@@ -59,6 +66,11 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
         } else {
             ToastMessage.Invalido(this, "No se recibió el paciente");
         }
+
+        btnAsignarNutricionista.setOnClickListener(v -> {
+
+        });
+
     }
 
     private String convertirFecha(String fecha) {

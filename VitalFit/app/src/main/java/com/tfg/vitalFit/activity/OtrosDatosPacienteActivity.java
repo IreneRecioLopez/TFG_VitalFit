@@ -19,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.adapter.AlergiasAdapter;
+import com.tfg.vitalfit.adapter.ObservacionesAdapter;
 import com.tfg.vitalfit.adapter.OperacionesAdapter;
 import com.tfg.vitalfit.entity.service.Alergias;
+import com.tfg.vitalfit.entity.service.Observaciones;
 import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Usuario;
 
@@ -29,9 +31,10 @@ import java.util.List;
 
 public class OtrosDatosPacienteActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerAlergias, recyclerOperaciones;
+    private RecyclerView recyclerAlergias, recyclerOperaciones, recyclerOtrasObservaciones;
     private AlergiasAdapter alergiasAdapter;
     private OperacionesAdapter operacionesAdapter;
+    private ObservacionesAdapter observacionesAdapter;
     private AutoCompleteTextView dropdownTipoDatos;
     private Toolbar toolbar;
     private LinearLayout alergiasLayout, operacionesLayout, otrasObservacionesLayout;
@@ -42,19 +45,18 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otros_datos_paciente);
-
-        recyclerAlergias = findViewById(R.id.recyclerAlergias);
-        recyclerAlergias.setLayoutManager(new LinearLayoutManager(this));
-        recyclerOperaciones = findViewById(R.id.recyclerOperaciones);
-        recyclerOperaciones.setLayoutManager(new LinearLayoutManager(this));
-
-        this.initViewModel();
+        this.initRecyclers();
         this.init();
 
     }
 
-    private void initViewModel(){
-
+    private void initRecyclers(){
+        recyclerAlergias = findViewById(R.id.recyclerAlergias);
+        recyclerAlergias.setLayoutManager(new LinearLayoutManager(this));
+        recyclerOperaciones = findViewById(R.id.recyclerOperaciones);
+        recyclerOperaciones.setLayoutManager(new LinearLayoutManager(this));
+        recyclerOtrasObservaciones = findViewById(R.id.recyclerOtrasObservaciones);
+        recyclerOtrasObservaciones.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void init(){
@@ -100,6 +102,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.GONE);
                     otrasObservacionesLayout.setVisibility(View.VISIBLE);
+                    initOtrasObservaciones();
                 }
             }
             @Override
@@ -127,12 +130,26 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             List<Operaciones> operaciones = paciente.getPaciente().getOperaciones();
             if(operaciones.isEmpty()){
                 Operaciones o = new Operaciones();
-                o.setNombre("No tiene ninguna alergia registrada");
+                o.setNombre("No tiene ninguna operación registrada");
                 operaciones.add(o);
             }
             Log.d("Operaciones paciente", operaciones.toString());
             OperacionesAdapter adapter = new OperacionesAdapter(this, operaciones);
             recyclerOperaciones.setAdapter(adapter);
+        }
+    }
+
+    private void initOtrasObservaciones(){
+        if(paciente != null){
+            List<Observaciones> observaciones = paciente.getPaciente().getObservaciones();
+            if(observaciones.isEmpty()){
+                Observaciones o = new Observaciones();
+                o.setObservacion("No tiene ninguna observación registrada");
+                observaciones.add(o);
+            }
+            Log.d("Operaciones paciente", observaciones.toString());
+            ObservacionesAdapter adapter = new ObservacionesAdapter(this, observaciones);
+            recyclerOtrasObservaciones.setAdapter(adapter);
         }
     }
 

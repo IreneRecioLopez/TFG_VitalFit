@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.entity.service.Operaciones;
 
 import java.text.ParseException;

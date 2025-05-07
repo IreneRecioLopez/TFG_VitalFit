@@ -38,6 +38,7 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/datosPaciente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -71,6 +72,40 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Numero Tarjeta Sanitaria"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/datosPaciente">
+
+                <Button
+                    android:id="@+id/btnAsignarNutricionista"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Asignar Nutricionista"
+                    android:layout_gravity="center_horizontal" />
+                <Button
+                    android:id="@+id/btnOtrosDatos"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Otros datos"
+                    android:layout_gravity="center_horizontal" />
+                <Button
+                    android:id="@+id/btnEstadisticas"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Estadísticas"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    android:id="@+id/btnDieta"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dieta"
+                    android:layout_gravity="center_horizontal" />
 
             </LinearLayout>
 
