@@ -13,12 +13,9 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.utils.ToastMessage;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
 
@@ -60,7 +57,7 @@ public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
 
         if (paciente != null) {
             txtNombrePaciente.setText(paciente.getNombreCompleto());
-            txtFechaNacimientoPaciente.setText(convertirFecha(paciente.getPaciente().getFechaNacimiento()));
+            txtFechaNacimientoPaciente.setText(Fecha.obtenerFecha(paciente.getPaciente().getFechaNacimiento()));
             txtSeguridadSocialPaciente.setText(paciente.getPaciente().getNumSeguridadSocial());
         } else {
             ToastMessage.Invalido(this, "No se recibió el paciente");
@@ -82,19 +79,6 @@ public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
     private void obtenerDatosPaciente(){
         paciente = (Usuario) getIntent().getSerializableExtra("paciente");
         Log.d("Paciente recibido", paciente.toString());
-    }
-
-    private String convertirFecha(String fecha) {
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        try {
-            Log.e("FormatoFecha", fecha);
-            Date date = formatoEntrada.parse(fecha);
-            return formatoSalida.format(date);
-        } catch (ParseException e) {
-            Log.e("ErrorFecha", "Formato incorrecto: " + fecha);
-            return null;
-        }
     }
 
     // Capturar el clic en el botón de regreso

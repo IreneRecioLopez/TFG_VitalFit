@@ -33,6 +33,7 @@ import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Pesos;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.utils.Security;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.AlergiasViewModel;
@@ -216,7 +217,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         try {
             p.setDni(edtDNI.getText().toString());
             p.setNumSeguridadSocial(edtNSS.getText().toString());
-            p.setFechaNacimiento(convertirFecha(edtFechaNacimiento.getText().toString()));
+            p.setFechaNacimiento(Fecha.registrarFecha(edtFechaNacimiento.getText().toString()));
             p.setCP(edtCP.getText().toString());
             p.setDireccion(edtDireccion.getText().toString());
             Double altura = Double.parseDouble(edtAltura.getText().toString());
@@ -253,7 +254,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                             Pesos pesoObj = new Pesos();
                                             pesoObj.setPeso(p.getPesoActual());
                                             pesoObj.setPaciente(new Paciente(p.getDni()));
-                                            pesoObj.setFecha(obtenerFechaActual());
+                                            pesoObj.setFecha(Fecha.obtenerFechaActual());
 
                                             this.pesosViewModel.save(pesoObj).observe(this, pesoResponse -> {
                                                 if(pesoResponse.getRpta() == 1){
@@ -304,7 +305,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         if (edtOperacionNombre == null || edtOperacionFecha == null) continue;
 
                                                         String nombre = edtOperacionNombre.getText().toString().trim();
-                                                        String fecha = convertirFecha(edtOperacionFecha.getText().toString());
+                                                        String fecha = Fecha.registrarFecha(edtOperacionFecha.getText().toString());
 
                                                         if (!nombre.isEmpty()) {
                                                             if(fecha.isEmpty()){
@@ -525,24 +526,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         nombresCompletosMedicos.add(0, "Otro");
         ArrayAdapter<String> arrayMedicos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresCompletosMedicos);
         dropdownMedico.setAdapter(arrayMedicos);
-    }
-
-    private String convertirFecha(String fecha) {
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            Log.e("FormatoFecha", fecha);
-            Date date = formatoEntrada.parse(fecha);
-            return formatoSalida.format(date);
-        } catch (ParseException e) {
-            Log.e("ErrorFecha", "Formato incorrecto: " + fecha);
-            return null;
-        }
-    }
-
-    private String obtenerFechaActual() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        return sdf.format(new Date());
     }
 
     private void mostrarCalendario(){

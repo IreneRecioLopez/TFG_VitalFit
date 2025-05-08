@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.activity;
 
+import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -33,12 +34,14 @@ import com.tfg.vitalfit.entity.service.Alergias;
 import com.tfg.vitalfit.entity.service.Observaciones;
 import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -60,7 +63,6 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private Button btnAddAlergia, btnGuardarAlergia, btnAddOperacion, btnGuardarOperacion;
     private String tipoDato, tipoAlergia;
     private Boolean anadirAlergia, anadirOperacion, anadirObservacion, alergia, operacion, observaciones;
-    private Boolean vaciaAlergia;
     private Usuario paciente;
     private Usuario usuario;
 
@@ -284,6 +286,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             btnAddOperacion.setOnClickListener(v -> {
                 addOperacion.setVisibility(View.VISIBLE);
                 anadirOperacion = true;
+                edtFechaOperacion.setOnClickListener(x -> mostrarCalendario());
                 addOperacion();
             });
         }
@@ -294,7 +297,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             if(validOperacion()){
                 Operaciones o = new Operaciones();
                 o.setNombre(edtNombreOperacion.getText().toString());
-                o.setFecha(convertirFecha(edtFechaOperacion.getText().toString()));
+                o.setFecha(Fecha.registrarFecha(edtFechaOperacion.getText().toString()));
                 o.setPaciente(paciente.getPaciente());
                 operacionesViewModel.save(o).observe(this, response -> {
                     if(response.getRpta() == 1){
@@ -373,17 +376,22 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         //Log.d("Paciente recibido otros datos", paciente.toString());
     }
 
-    private String convertirFecha(String fecha) {
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            Log.e("FormatoFecha", fecha);
-            Date date = formatoEntrada.parse(fecha);
-            return formatoSalida.format(date);
-        } catch (ParseException e) {
-            Log.e("ErrorFecha", "Formato incorrecto: " + fecha);
-            return null;
-        }
+    private void mostrarCalendario(){
+        final Calendar calendario = Calendar.getInstance();
+        int anio = calendario.get(Calendar.YEAR);
+        int mes = calendario.get(Calendar.MONTH);
+        int dia = calendario.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                (view, year, month, dayOfMonth) -> {
+                    String fechaSeleccionada = String.format(Locale.getDefault(), "%02d/%02d/%04d", dayOfMonth, month + 1, year);
+                    edtFechaOperacion.setText(fechaSeleccionada);
+                },
+                anio, mes, dia
+        );
+
+        datePickerDialog.show();
     }
 
     // Capturar el clic en el botón de regreso
