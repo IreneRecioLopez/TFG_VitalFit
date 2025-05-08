@@ -22,7 +22,7 @@ import java.util.List;
 public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     private static final int VIEW_TYPE_PACIENTE = 1;
-    private static final int VIEW_TYPE_NUTRICIONISTA = 0;
+    private static final int VIEW_TYPE_NUTRICIONISTA_MEDICO = 0;
 
     private Context context;
     private AlergiasViewModel alergiasViewModel;
@@ -58,13 +58,6 @@ public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHolder.txtTipo.setText(alergia.getTipo());
 
             viewHolder.btnEliminar.setOnClickListener(v -> {
-                listaAlergias.remove(position);
-                notifyItemRemoved(position);
-                notifyItemRangeChanged(position, listaAlergias.size());
-                // También puedes hacer una llamada a la API si necesitas eliminar en el backend
-            });
-
-            viewHolder.btnEliminar.setOnClickListener(v -> {
                 new AlertDialog.Builder(context)
                         .setTitle("Eliminar alergia")
                         .setMessage("¿Estás seguro de que deseas eliminar esta alergia?")
@@ -94,7 +87,7 @@ public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        return esPaciente? VIEW_TYPE_PACIENTE : VIEW_TYPE_NUTRICIONISTA;
+        return esPaciente? VIEW_TYPE_PACIENTE : VIEW_TYPE_NUTRICIONISTA_MEDICO;
     }
 
     @Override
@@ -120,7 +113,7 @@ public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             txtAlergia = itemView.findViewById(R.id.txtNombreAlergia);
             txtTipo = itemView.findViewById(R.id.txtTipoAlergia);
-            btnEliminar = itemView.findViewById(R.id.btnEliminarAlergia); // Este botón está en item_alergia_paciente.xml
+            btnEliminar = itemView.findViewById(R.id.btnEliminarAlergia);
         }
     }
 }

@@ -5,7 +5,9 @@ import com.tfg.vitalfit.entity.service.Operaciones;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.DELETE;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface OperacionesApi {
     //RUTA DEL CONTROLADOR PESOS
@@ -14,4 +16,7 @@ public interface OperacionesApi {
     //@FormUrlEncoded
     @POST(base + "/save")
     Call<GenericResponse<Operaciones>> guardarOperacion(@Body Operaciones op);
+
+    @DELETE(base + "/delete/{idOperacion}")
+    Call<GenericResponse<Void>> eliminarOperacion(@Path("idOperacion") Long idOperacion);
 }

@@ -21,4 +21,6 @@ public class OperacionesViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Operaciones>> save(Operaciones op){
         return this.repository.save(op);
     }
+
+    public LiveData<GenericResponse<Void>> delete(Long idOperacion){ return this.repository.eliminarOperacion(idOperacion);}
 }

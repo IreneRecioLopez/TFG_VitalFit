@@ -35,6 +35,7 @@ import com.tfg.vitalfit.entity.service.Operaciones;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.AlergiasViewModel;
+import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 
 import java.util.List;
 
@@ -45,6 +46,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private OperacionesAdapter operacionesAdapter;
     private ObservacionesAdapter observacionesAdapter;
     private AlergiasViewModel alergiasViewModel;
+    private OperacionesViewModel operacionesViewModel;
     private AutoCompleteTextView dropdownTipoDatos, dropdownTipoAlergia;
     private EditText edtNombreAlergia;
     private TextInputLayout txtInputNombreAlergia, txtInputTipoAlergia;
@@ -53,7 +55,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private LinearLayout alergiasLayout, operacionesLayout, otrasObservacionesLayout, addAlergia;
     private Button btnAddAlergia, btnGuardarAlergia;
     private String tipoDato, tipoAlergia;
-    private Boolean anadirAlergia, anadirOperacion, anadirObservacion;
+    private Boolean anadirAlergia, anadirOperacion, anadirObservacion, alergia, operacion, observaciones;
     private Boolean vaciaAlergia;
     private Usuario paciente;
     private Usuario usuario;
@@ -81,6 +83,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private void initViewModels(){
         final ViewModelProvider vmp = new ViewModelProvider(this);
         alergiasViewModel = vmp.get(AlergiasViewModel.class);
+        operacionesViewModel = vmp.get(OperacionesViewModel.class);
     }
 
     private void init(){
@@ -124,16 +127,25 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
                     alergiasLayout.setVisibility(View.VISIBLE);
                     operacionesLayout.setVisibility(View.GONE);
                     otrasObservacionesLayout.setVisibility(View.GONE);
+                    alergia = true;
+                    observaciones = false;
+                    operacion = false;
                     initAlergias();
                 }else if(tipoDato.equals("Operaciones")){
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.VISIBLE);
                     otrasObservacionesLayout.setVisibility(View.GONE);
+                    operacion = true;
+                    alergia = false;
+                    observaciones = false;
                     initOperaciones();
                 }else if(tipoDato.equals("Otras Observaciones")){
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.GONE);
                     otrasObservacionesLayout.setVisibility(View.VISIBLE);
+                    observaciones = true;
+                    operacion = false;
+                    alergia = false;
                     initOtrasObservaciones();
                 }
             }
@@ -167,7 +179,6 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     }
 
     private void addAlergia(){
-        vaciaAlergia = true;
         // Adapter para otros tipoos de datos
         String[] alergiaTipo = getResources().getStringArray(R.array.tipoAlergia);
         ArrayAdapter<String> adapterAlergiaTipos = new ArrayAdapter<>(
@@ -222,17 +233,28 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             txtInputTipoAlergia.setError("Seleccione un tipo");
             return false;
         }else{
-            vaciaAlergia = false;
             txtInputTipoAlergia.setErrorEnabled(false);
         }
         if(alergia.isEmpty()){
             txtInputNombreAlergia.setError("Escriba la alergia");
             return false;
         }else{
-            vaciaAlergia = false;
             txtInputNombreAlergia.setErrorEnabled(false);
         }
+
+
         return val;
+    }
+
+    private boolean vaciaAlergia(){
+        String dropTipo, alergia;
+        alergia = edtNombreAlergia.getText().toString();
+        dropTipo = dropdownTipoAlergia.getText().toString();
+        if(dropTipo.isEmpty() && alergia.isEmpty()){
+            return true;
+        }else{
+            return false;
+        }
     }
 
     private void initOperaciones(){
@@ -241,8 +263,14 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             if(operaciones.isEmpty()){
                 noHayOperaciones.setVisibility(View.VISIBLE);
             }
-            operacionesAdapter = new OperacionesAdapter(this, operaciones);
+            if(usuario.getRol().equals("Paciente")){
+                operacionesAdapter = new OperacionesAdapter(this, operaciones, true, operacionesViewModel);
+            }else{
+                operacionesAdapter = new OperacionesAdapter(this, operaciones, false, operacionesViewModel);
+            }
             recyclerOperaciones.setAdapter(operacionesAdapter);
+
+
         }
     }
 
@@ -278,19 +306,27 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
-            if (anadirAlergia && !vaciaAlergia) {
-                new AlertDialog.Builder(this)
-                        .setTitle("¿Descartar cambios?")
-                        .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
-                        .setPositiveButton("Sí", (dialog, which) -> {
-                            onBackPressed(); // Regresa a la pantalla anterior
-                        })
-                        .setNegativeButton("Cancelar", null)
-                        .show();
-                return false;
-            }else{
+            if(alergia){
+                if (anadirAlergia && !vaciaAlergia()) {
+                    Log.d("AñadiendoAlergiaAlert", "estoy añadiendo una alergia");
+                    new AlertDialog.Builder(this)
+                            .setTitle("¿Descartar cambios?")
+                            .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
+                            .setPositiveButton("Sí", (dialog, which) -> {
+                                onBackPressed(); // Regresa a la pantalla anterior
+                            })
+                            .setNegativeButton("Cancelar", null)
+                            .show();
+                    return false;
+                }else{
+                    onBackPressed(); // Regresa a la pantalla anterior
+                }
+            }else if (operacion){
+                onBackPressed(); // Regresa a la pantalla anterior
+            }else if(observaciones){
                 onBackPressed(); // Regresa a la pantalla anterior
             }
+
         }
         return super.onOptionsItemSelected(item);
     }
