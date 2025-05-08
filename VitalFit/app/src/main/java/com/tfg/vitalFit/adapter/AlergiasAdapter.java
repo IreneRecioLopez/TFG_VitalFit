@@ -45,7 +45,7 @@ public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             return new PacienteAlergiasViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ver_alergia, parent, false);
-            return new NutricionistaAlergiasViewHolder(view);
+            return new AlergiasViewHolder(view);
         }
     }
 
@@ -78,8 +78,8 @@ public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .show();
             });
 
-        } else if (holder instanceof NutricionistaAlergiasViewHolder) {
-            NutricionistaAlergiasViewHolder viewHolder = (NutricionistaAlergiasViewHolder) holder;
+        } else if (holder instanceof AlergiasViewHolder) {
+            AlergiasViewHolder viewHolder = (AlergiasViewHolder) holder;
             viewHolder.txtAlergia.setText(alergia.getAlergia());
             viewHolder.txtTipo.setText(alergia.getTipo());
         }
@@ -95,10 +95,10 @@ public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return listaAlergias.size();
     }
 
-    public static class NutricionistaAlergiasViewHolder extends RecyclerView.ViewHolder {
+    public static class AlergiasViewHolder extends RecyclerView.ViewHolder {
         TextView txtAlergia, txtTipo;
 
-        public NutricionistaAlergiasViewHolder(@NonNull View itemView) {
+        public AlergiasViewHolder(@NonNull View itemView) {
             super(itemView);
             txtAlergia = itemView.findViewById(R.id.txtNombreAlergia);
             txtTipo = itemView.findViewById(R.id.txtTipoAlergia);

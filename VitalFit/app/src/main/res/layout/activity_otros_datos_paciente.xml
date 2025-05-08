@@ -36,6 +36,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <!--LAYOUT ELECCION TIPO DE DATO-->
                 <LinearLayout
                     android:id="@+id/layoutElecctionTipoDato"
                     android:layout_width="match_parent"
@@ -68,9 +69,9 @@
                             android:paddingStart="48dp"
                             android:textSize="15sp" />
                     </com.google.android.material.textfield.TextInputLayout>
-
                 </LinearLayout>
 
+                <!--LAYOUT OPERACIONES-->
                 <LinearLayout
                     android:id="@+id/layoutOperaciones"
                     android:layout_width="match_parent"
@@ -176,7 +177,7 @@
                                         android:layout_height="wrap_content"
                                         android:layout_marginStart="10dp"
                                         android:layout_marginEnd="10dp"
-                                        android:drawableLeft="@drawable/ic_save"></Button>
+                                        android:drawableLeft="@drawable/ic_save"/>
                                 </LinearLayout>
                             </RelativeLayout>
 
@@ -186,6 +187,7 @@
 
                 </LinearLayout>
 
+                <!--LAYOUT ALERGIAS-->
                 <LinearLayout
                     android:id="@+id/layoutAlergias"
                     android:layout_width="match_parent"
@@ -304,6 +306,7 @@
 
                 </LinearLayout>
 
+                <!--LAYOUT OBSERVACIONES-->
                 <LinearLayout
                     android:id="@+id/layoutOtrasObservaciones"
                     android:layout_width="match_parent"
@@ -335,14 +338,73 @@
                             android:layout_height="match_parent"/>
                     </ScrollView>
 
+                    <Button
+                        android:id="@+id/btnAddObservacion"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="Añadir Observación"
+                        android:visibility="gone">
+                    </Button>
+
+                    <LinearLayout
+                        android:id="@+id/addObservacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:elevation="8dp"
+                            app:cardCornerRadius="15dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" >
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:paddingStart="10dp"
+                                    android:orientation="horizontal">
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:id="@+id/txtInputObservacion"
+                                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_weight="1"
+                                        android:hint="Observacion">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edtObservacion"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:paddingStart="48dp"
+                                            android:textSize="15sp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <Button
+                                        android:id="@+id/btnGuardarObservacion"
+                                        android:layout_width="47dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        android:drawableLeft="@drawable/ic_save"/>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+
                 </LinearLayout>
 
-
-
             </RelativeLayout>
-
         </ScrollView>
-
     </LinearLayout>
-
 </LinearLayout>

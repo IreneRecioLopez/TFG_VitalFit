@@ -37,6 +37,7 @@ import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.AlergiasViewModel;
+import com.tfg.vitalfit.viewModel.ObservacionesViewModel;
 import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 
 import java.text.ParseException;
@@ -54,13 +55,14 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private ObservacionesAdapter observacionesAdapter;
     private AlergiasViewModel alergiasViewModel;
     private OperacionesViewModel operacionesViewModel;
+    private ObservacionesViewModel observacionesViewModel;
     private AutoCompleteTextView dropdownTipoDatos, dropdownTipoAlergia;
-    private EditText edtNombreAlergia, edtNombreOperacion, edtFechaOperacion;
-    private TextInputLayout txtInputNombreAlergia, txtInputTipoAlergia, txtInputNombreOperacion, txtInputFechaOperacion;
+    private EditText edtNombreAlergia, edtNombreOperacion, edtFechaOperacion, edtObservacion;
+    private TextInputLayout txtInputNombreAlergia, txtInputTipoAlergia, txtInputNombreOperacion, txtInputFechaOperacion, txtInputObservacion;
     private TextView noHayAlergias, noHayOperaciones, noHayOtrasObservaciones;
     private Toolbar toolbar;
-    private LinearLayout alergiasLayout, operacionesLayout, otrasObservacionesLayout, addAlergia, addOperacion;
-    private Button btnAddAlergia, btnGuardarAlergia, btnAddOperacion, btnGuardarOperacion;
+    private LinearLayout alergiasLayout, operacionesLayout, otrasObservacionesLayout, addAlergia, addOperacion, addObservacion;
+    private Button btnAddAlergia, btnGuardarAlergia, btnAddOperacion, btnGuardarOperacion, btnAddObservacion, btnGuardarObservacion;
     private String tipoDato, tipoAlergia;
     private Boolean anadirAlergia, anadirOperacion, anadirObservacion, alergia, operacion, observaciones;
     private Usuario paciente;
@@ -90,31 +92,11 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         final ViewModelProvider vmp = new ViewModelProvider(this);
         alergiasViewModel = vmp.get(AlergiasViewModel.class);
         operacionesViewModel = vmp.get(OperacionesViewModel.class);
+        observacionesViewModel = vmp.get(ObservacionesViewModel.class);
     }
 
     private void init(){
-        toolbar = findViewById(R.id.toolbarOtrosDatosPaciente);
-        alergiasLayout = findViewById(R.id.layoutAlergias);
-        operacionesLayout = findViewById(R.id.layoutOperaciones);
-        otrasObservacionesLayout = findViewById(R.id.layoutOtrasObservaciones);
-        noHayAlergias = findViewById(R.id.noHayAlergias);
-        noHayOperaciones = findViewById(R.id.noHayOperaciones);
-        noHayOtrasObservaciones = findViewById(R.id.noHayObservaciones);
-        addAlergia = findViewById(R.id.addAlergia);
-        addOperacion = findViewById(R.id.addOperacion);
-        dropdownTipoDatos = findViewById(R.id.dropdownTiposDato);
-        dropdownTipoAlergia = findViewById(R.id.dropdownTipoAlergia);
-        edtNombreAlergia = findViewById(R.id.edtNombreAlergia);
-        edtNombreOperacion = findViewById(R.id.edtNombreOperacion);
-        edtFechaOperacion = findViewById(R.id.edtFechaOperacion);
-        txtInputNombreAlergia = findViewById(R.id.txtInputNombreAlergia);
-        txtInputTipoAlergia = findViewById(R.id.txtInputTipoAlergia);
-        txtInputNombreOperacion = findViewById(R.id.txtInputNombreOperacion);
-        txtInputFechaOperacion = findViewById(R.id.txtInputFechaOperacion);
-        btnAddAlergia = findViewById(R.id.btnAddAlergia);
-        btnGuardarAlergia = findViewById(R.id.btnGuardarAlergia);
-        btnAddOperacion = findViewById(R.id.btnAddOperacion);
-        btnGuardarOperacion = findViewById(R.id.btnGuardarOperacion);
+        initVariables();
 
         setSupportActionBar(toolbar);
 
@@ -166,6 +148,36 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    private void initVariables(){
+        toolbar = findViewById(R.id.toolbarOtrosDatosPaciente);
+        alergiasLayout = findViewById(R.id.layoutAlergias);
+        operacionesLayout = findViewById(R.id.layoutOperaciones);
+        otrasObservacionesLayout = findViewById(R.id.layoutOtrasObservaciones);
+        noHayAlergias = findViewById(R.id.noHayAlergias);
+        noHayOperaciones = findViewById(R.id.noHayOperaciones);
+        noHayOtrasObservaciones = findViewById(R.id.noHayObservaciones);
+        addAlergia = findViewById(R.id.addAlergia);
+        addOperacion = findViewById(R.id.addOperacion);
+        addObservacion = findViewById(R.id.addObservacion);
+        dropdownTipoDatos = findViewById(R.id.dropdownTiposDato);
+        dropdownTipoAlergia = findViewById(R.id.dropdownTipoAlergia);
+        edtNombreAlergia = findViewById(R.id.edtNombreAlergia);
+        edtNombreOperacion = findViewById(R.id.edtNombreOperacion);
+        edtFechaOperacion = findViewById(R.id.edtFechaOperacion);
+        edtObservacion = findViewById(R.id.edtObservacion);
+        txtInputNombreAlergia = findViewById(R.id.txtInputNombreAlergia);
+        txtInputTipoAlergia = findViewById(R.id.txtInputTipoAlergia);
+        txtInputNombreOperacion = findViewById(R.id.txtInputNombreOperacion);
+        txtInputFechaOperacion = findViewById(R.id.txtInputFechaOperacion);
+        txtInputObservacion = findViewById(R.id.txtInputObservacion);
+        btnAddAlergia = findViewById(R.id.btnAddAlergia);
+        btnGuardarAlergia = findViewById(R.id.btnGuardarAlergia);
+        btnAddOperacion = findViewById(R.id.btnAddOperacion);
+        btnGuardarOperacion = findViewById(R.id.btnGuardarOperacion);
+        btnAddObservacion = findViewById(R.id.btnAddObservacion);
+        btnGuardarObservacion = findViewById(R.id.btnGuardarObservacion);
     }
 
     private void initAlergias(){
@@ -270,6 +282,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     }
 
     private void initOperaciones(){
+        anadirOperacion = false;
         if(paciente != null){
             List<Operaciones> operaciones = paciente.getPaciente().getOperaciones();
             if(operaciones.isEmpty()){
@@ -349,14 +362,68 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     }
 
     private void initOtrasObservaciones(){
+        anadirObservacion = false;
         if(paciente != null){
             List<Observaciones> observaciones = paciente.getPaciente().getObservaciones();
             if(observaciones.isEmpty()){
                 noHayOtrasObservaciones.setVisibility(View.VISIBLE);
             }
-            Log.d("Operaciones paciente", observaciones.toString());
-            observacionesAdapter = new ObservacionesAdapter(this, observaciones);
+            if(usuario.getRol().equals("Paciente")){
+                observacionesAdapter = new ObservacionesAdapter(this, observaciones, true, observacionesViewModel);
+                btnAddObservacion.setVisibility(View.VISIBLE);
+            }else{
+                observacionesAdapter = new ObservacionesAdapter(this, observaciones, false, observacionesViewModel);
+            }
             recyclerOtrasObservaciones.setAdapter(observacionesAdapter);
+
+            btnAddObservacion.setOnClickListener(v -> {
+                addObservacion.setVisibility(View.VISIBLE);
+                anadirObservacion = true;
+                addObservacion();
+            });
+        }
+    }
+
+    private void addObservacion(){
+        btnGuardarObservacion.setOnClickListener(v -> {
+            if(validObservacion()){
+                Observaciones o = new Observaciones();
+                o.setObservacion(edtObservacion.getText().toString());
+                o.setPaciente(paciente.getPaciente());
+                observacionesViewModel.save(o).observe(this, response -> {
+                    if(response.getRpta() == 1){
+                        ToastMessage.Correcto(this, "Operación guardada");
+                        paciente.getPaciente().getObservaciones().add(o);
+                        observacionesAdapter.notifyItemInserted(paciente.getPaciente().getObservaciones().size() - 1);
+                        edtObservacion.setText("");
+                        edtObservacion.clearFocus();
+                        addObservacion.setVisibility(View.GONE);
+                    }
+                });
+            }
+        });
+    }
+
+    private boolean validObservacion(){
+        String observacion;
+        observacion = edtObservacion.getText().toString();
+
+        if(observacion.isEmpty()){
+            txtInputObservacion.setError("Escriba el nombre de la operación");
+            return false;
+        }else{
+            txtInputObservacion.setErrorEnabled(false);
+            return true;
+        }
+    }
+
+    private boolean vaciaObservacion(){
+        String observacion;
+        observacion = edtObservacion.getText().toString();
+        if(observacion.isEmpty()){
+            return true;
+        }else{
+            return false;
         }
     }
 
@@ -397,40 +464,56 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     // Capturar el clic en el botón de regreso
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
-            if(alergia){
-                if (anadirAlergia && !vaciaAlergia()) {
-                    new AlertDialog.Builder(this)
-                            .setTitle("¿Descartar cambios?")
-                            .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
-                            .setPositiveButton("Sí", (dialog, which) -> {
-                                onBackPressed(); // Regresa a la pantalla anterior
-                            })
-                            .setNegativeButton("Cancelar", null)
-                            .show();
-                    return false;
-                }else{
-                    onBackPressed(); // Regresa a la pantalla anterior
+        if (item.getItemId() == android.R.id.home) {// Este es el ID del botón de navegación
+            if(usuario.getRol().equals("Paciente")){
+                if(alergia){
+                    if (anadirAlergia && !vaciaAlergia()) {
+                        new AlertDialog.Builder(this)
+                                .setTitle("¿Descartar cambios?")
+                                .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
+                                .setPositiveButton("Sí", (dialog, which) -> {
+                                    onBackPressed(); // Regresa a la pantalla anterior
+                                })
+                                .setNegativeButton("Cancelar", null)
+                                .show();
+                        return false;
+                    }else{
+                        onBackPressed(); // Regresa a la pantalla anterior
+                    }
+                }else if (operacion){
+                    if (anadirOperacion && !vaciaOperacion()) {
+                        new AlertDialog.Builder(this)
+                                .setTitle("¿Descartar cambios?")
+                                .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
+                                .setPositiveButton("Sí", (dialog, which) -> {
+                                    onBackPressed(); // Regresa a la pantalla anterior
+                                })
+                                .setNegativeButton("Cancelar", null)
+                                .show();
+                        return false;
+                    }else{
+                        onBackPressed(); // Regresa a la pantalla anterior
+                    }
+                }else if(observaciones){
+                    if (anadirObservacion && !vaciaObservacion()) {
+                        new AlertDialog.Builder(this)
+                                .setTitle("¿Descartar cambios?")
+                                .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
+                                .setPositiveButton("Sí", (dialog, which) -> {
+                                    onBackPressed(); // Regresa a la pantalla anterior
+                                })
+                                .setNegativeButton("Cancelar", null)
+                                .show();
+                        return false;
+                    }else{
+                        onBackPressed(); // Regresa a la pantalla anterior
+                    }
                 }
-            }else if (operacion){
-                if (anadirOperacion && !vaciaOperacion()) {
-                    new AlertDialog.Builder(this)
-                            .setTitle("¿Descartar cambios?")
-                            .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
-                            .setPositiveButton("Sí", (dialog, which) -> {
-                                onBackPressed(); // Regresa a la pantalla anterior
-                            })
-                            .setNegativeButton("Cancelar", null)
-                            .show();
-                    return false;
-                }else{
-                    onBackPressed(); // Regresa a la pantalla anterior
-                }
-            }else if(observaciones){
+            }else{
                 onBackPressed(); // Regresa a la pantalla anterior
             }
-
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

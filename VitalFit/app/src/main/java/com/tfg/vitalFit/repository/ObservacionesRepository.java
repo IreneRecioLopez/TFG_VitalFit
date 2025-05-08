@@ -44,4 +44,22 @@ public class ObservacionesRepository {
         });
         return mld;
     }
+
+    public LiveData<GenericResponse<Void>> eliminarOperacion(Long idAlergia){
+        final MutableLiveData<GenericResponse<Void>> mld = new MutableLiveData<>();
+        this.api.eliminarObservacion(idAlergia).enqueue(new Callback<GenericResponse<Void>>() {
+            @Override
+            public void onResponse(Call<GenericResponse<Void>> call, Response<GenericResponse<Void>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<GenericResponse<Void>> call, Throwable t) {
+                mld.setValue(new GenericResponse<>());
+                System.out.println("Se ha producido un error al eliminar la observación" + t.getMessage());
+                t.printStackTrace();
+            }
+        });
+        return mld;
+    }
 }

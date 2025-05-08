@@ -51,7 +51,7 @@ public class OperacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             return new PacienteOperacionesViewHolder(view);
         } else {
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_ver_operacion, parent, false);
-            return new NutricionistaOperacionesViewHolder(view);
+            return new OperacionesViewHolder(view);
         }
     }
 
@@ -83,8 +83,8 @@ public class OperacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                         .setNegativeButton("Cancelar", null)
                         .show();
             });
-        }else if(holder instanceof NutricionistaOperacionesViewHolder){
-            NutricionistaOperacionesViewHolder viewHolder = (NutricionistaOperacionesViewHolder) holder;
+        }else if(holder instanceof OperacionesViewHolder){
+            OperacionesViewHolder viewHolder = (OperacionesViewHolder) holder;
             viewHolder.txtOperacion.setText(operacion.getNombre());
             viewHolder.txtFecha.setText(convertirFecha(operacion.getFecha()));
         }
@@ -113,10 +113,10 @@ public class OperacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }
     }
 
-    public static class NutricionistaOperacionesViewHolder extends RecyclerView.ViewHolder {
+    public static class OperacionesViewHolder extends RecyclerView.ViewHolder {
         TextView txtOperacion, txtFecha;
 
-        public NutricionistaOperacionesViewHolder(@NonNull View itemView) {
+        public OperacionesViewHolder(@NonNull View itemView) {
             super(itemView);
             txtOperacion = itemView.findViewById(R.id.txtNombreOperacion);
             txtFecha = itemView.findViewById(R.id.txtFechaOperacion);

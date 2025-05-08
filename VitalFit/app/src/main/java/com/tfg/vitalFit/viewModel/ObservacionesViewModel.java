@@ -19,4 +19,8 @@ public class ObservacionesViewModel extends AndroidViewModel {
     }
 
     public LiveData<GenericResponse<Observaciones>> save(Observaciones o){ return this.repository.save(o); }
+
+    public LiveData<GenericResponse<Void>> delete(Long idObservacion){
+        return this.repository.eliminarOperacion(idObservacion);
+    }
 }

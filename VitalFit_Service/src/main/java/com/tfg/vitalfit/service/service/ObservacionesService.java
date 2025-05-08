@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.util.Optional;
+
 import static com.tfg.vitalfit.service.utils.Global.*;
 
 @Service
@@ -26,6 +28,16 @@ public class ObservacionesService {
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: no se ha asignado un paciente.", null);
         }else{
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Observación registrada correctamente", this.repository.save(o));
+        }
+    }
+
+    public GenericResponse eliminarObservacion(Long idObservacion) {
+        Optional<Observaciones> optO = this.repository.findById(idObservacion);
+        if(optO.isPresent()){
+            this.repository.deleteById(idObservacion);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Observación eliminada correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "No se ha encontrado la observación a eliminar", null);
         }
     }
 }

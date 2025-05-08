@@ -37,6 +37,5 @@ public class AlergiasService {
         }else{
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "No se ha encontrado la alergia a eliminar", null);
         }
-
     }
 }
