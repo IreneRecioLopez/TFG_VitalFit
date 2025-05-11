@@ -65,8 +65,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private Button btnAddAlergia, btnGuardarAlergia, btnAddOperacion, btnGuardarOperacion, btnAddObservacion, btnGuardarObservacion;
     private String tipoDato, tipoAlergia;
     private Boolean anadirAlergia, anadirOperacion, anadirObservacion, alergia, operacion, observaciones;
-    private Usuario paciente;
-    private Usuario usuario;
+    private Usuario paciente, usuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -178,6 +177,10 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         btnGuardarOperacion = findViewById(R.id.btnGuardarOperacion);
         btnAddObservacion = findViewById(R.id.btnAddObservacion);
         btnGuardarObservacion = findViewById(R.id.btnGuardarObservacion);
+
+        alergia = false;
+        operacion = false;
+        observaciones = false;
     }
 
     private void initAlergias(){
@@ -508,6 +511,8 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
                     }else{
                         onBackPressed(); // Regresa a la pantalla anterior
                     }
+                }else{
+                    onBackPressed(); // Regresa a la pantalla anterior
                 }
             }else{
                 onBackPressed(); // Regresa a la pantalla anterior

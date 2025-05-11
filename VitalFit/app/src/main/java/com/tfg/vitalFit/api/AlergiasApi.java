@@ -10,7 +10,7 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface AlergiasApi {
-    //RUTA DEL CONTROLADOR PESOS
+    //RUTA DEL CONTROLADOR ALERGIAS
     String base = "api/alergias";
 
     //@FormUrlEncoded

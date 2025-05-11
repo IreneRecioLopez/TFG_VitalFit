@@ -22,7 +22,7 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
 
     private TextView txtNombrePaciente, txtFechaNacimientoPaciente, txtTarjetaSanitariaPaciente;
     private Toolbar toolbar;
-    private Button btnAsignarNutricionista, btnOtrosDatos;
+    private Button btnAsignarNutricionista, btnOtrosDatos, btnDieta;
     private UsuarioViewModel usuarioViewModel;
     private Usuario paciente;
 
@@ -46,6 +46,7 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbarDatosPacienteMedico);
         btnAsignarNutricionista = findViewById(R.id.btnAsignarNutricionista);
         btnOtrosDatos = findViewById(R.id.btnOtrosDatos);
+        btnDieta = findViewById(R.id.btnDieta);
 
         setSupportActionBar(toolbar);
 
@@ -71,6 +72,12 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
 
         btnOtrosDatos.setOnClickListener(v -> {
             Intent intent = new Intent(this, OtrosDatosPacienteActivity.class);
+            intent.putExtra("paciente", paciente);
+            startActivity(intent);
+        });
+
+        btnDieta.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DietaActivity.class);
             intent.putExtra("paciente", paciente);
             startActivity(intent);
         });

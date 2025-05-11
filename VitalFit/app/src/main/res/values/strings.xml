@@ -21,6 +21,7 @@
     <string name="label_eleccion_usuario">¿Qué tipo de usuario es?</string>
     <string name="label_nuevaPassword">Introduzca a continuación su dni y la nueva contraseña que quiere establecer</string>
     <string name="label_elegirPaciente">Seleccione el paciente</string>
+    <string name="label_elegirDiaSemana">Seleccione el día de la semana</string>
     <string name="title_activity_inicio_medico">InicioMedicoActivity</string>
     <string name="action_settings">Settings</string>
     <string name="menu_gallery">Gallery</string>

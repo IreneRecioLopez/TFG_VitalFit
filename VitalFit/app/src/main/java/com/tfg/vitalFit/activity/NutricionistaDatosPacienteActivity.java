@@ -74,6 +74,12 @@ public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
             intent.putExtra("paciente", paciente);
             startActivity(intent);
         });
+
+        btnDieta.setOnClickListener(v -> {
+            Intent intent = new Intent(this, DietaActivity.class);
+            intent.putExtra("paciente", paciente);
+            startActivity(intent);
+        });
     }
 
     private void obtenerDatosPaciente(){

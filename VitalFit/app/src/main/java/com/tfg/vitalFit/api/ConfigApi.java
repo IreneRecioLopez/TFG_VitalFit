@@ -30,6 +30,7 @@ public class ConfigApi {
     private static OperacionesApi operacionesApi;
     private static ConsejosApi consejosApi;
     private static ObservacionesApi observacionesApi;
+    private static DietasApi dietasApi;
 
     static {
         initClient();
@@ -124,6 +125,13 @@ public class ConfigApi {
             observacionesApi = retrofit.create(ObservacionesApi.class);
         }
         return observacionesApi;
+    }
+
+    public static  DietasApi getDietasApi(){
+        if(dietasApi == null){
+            dietasApi = retrofit.create(DietasApi.class);
+        }
+        return dietasApi;
     }
 
 }

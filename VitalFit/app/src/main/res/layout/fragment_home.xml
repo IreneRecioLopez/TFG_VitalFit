@@ -26,6 +26,13 @@
             android:layout_gravity="center_horizontal"
             android:text="Otros Datos" />
 
+        <Button
+            android:id="@+id/btnDieta"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Dieta" />
+
     </LinearLayout>
 
 </LinearLayout>

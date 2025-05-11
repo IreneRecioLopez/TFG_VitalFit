@@ -12,6 +12,7 @@ public class Platos {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPlato;
     @Column(nullable = false)
+    private String tramoDia;
     private String primerPlato;
     private String segundoPlato;
     private String postre;
