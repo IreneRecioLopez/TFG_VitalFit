@@ -47,23 +47,23 @@ public class DietasRepository {
         return mld;
     }
 
-    /*public LiveData<GenericResponse<List<DietaConPlatosDTO>>> obtenerDietaPorPaciente(String dniPaciente){
-        final MutableLiveData<GenericResponse<List<DietaConPlatosDTO>>> mld = new MutableLiveData<>();
-        this.api.obtenerDietasPorPaciente(dniPaciente).enqueue(new Callback<GenericResponse<List<DietaConPlatosDTO>>>() {
+    public LiveData<GenericResponse<GenerarDietaDTO>> updateDieta(GenerarDietaDTO dto) {
+        final MutableLiveData<GenericResponse<GenerarDietaDTO>> mld = new MutableLiveData<>();
+        this.api.updateDieta(dto).enqueue(new Callback<GenericResponse<GenerarDietaDTO>>() {
             @Override
-            public void onResponse(Call<GenericResponse<List<DietaConPlatosDTO>>> call, Response<GenericResponse<List<DietaConPlatosDTO>>> response) {
+            public void onResponse(Call<GenericResponse<GenerarDietaDTO>> call, Response<GenericResponse<GenerarDietaDTO>> response) {
                 mld.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<List<DietaConPlatosDTO>>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<GenerarDietaDTO>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
-                System.out.println("Se ha producido un error al obtener las dietas" + t.getMessage());
+                System.out.println("Se ha producido un error al actualizar la dieta" + t.getMessage());
                 t.printStackTrace();
             }
         });
         return mld;
-    }*/
+    }
 
     public LiveData<DietaConPlatosDTO> getDietaPorPacienteYDia(String dniPaciente, String diaSemana) {
         final MutableLiveData<DietaConPlatosDTO> mld = new MutableLiveData<>();
@@ -82,4 +82,6 @@ public class DietasRepository {
         });
         return mld;
     }
+
+
 }

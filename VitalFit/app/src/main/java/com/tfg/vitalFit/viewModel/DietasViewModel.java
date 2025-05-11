@@ -31,4 +31,8 @@ public class DietasViewModel extends AndroidViewModel {
     public LiveData<DietaConPlatosDTO> obtenerDietaPorPacienteYDia(String dniPaciente, String diaSemana){
         return repository.getDietaPorPacienteYDia(dniPaciente, diaSemana);
     }
+
+    public LiveData<GenericResponse<GenerarDietaDTO>> updateDieta(GenerarDietaDTO dto) {
+        return this.repository.updateDieta(dto);
+    }
 }

@@ -11,6 +11,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface DietasApi {
@@ -26,4 +27,7 @@ public interface DietasApi {
 
     @GET(base + "/{dni}/{diaSemana}")
     Call<DietaConPlatosDTO> getDietaPorPacienteYDia(@Path("dni") String dniPaciente, @Path("diaSemana") String diaSemana);
+
+    @PUT(base + "/update")
+    Call<GenericResponse<GenerarDietaDTO>> updateDieta(@Body GenerarDietaDTO dto);
 }

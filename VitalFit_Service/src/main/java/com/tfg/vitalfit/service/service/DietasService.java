@@ -71,4 +71,26 @@ public class DietasService {
         }
         return null;
     }
+
+    public GenericResponse updateDieta(GenerarDietaDTO dto) {
+        Dieta dieta = dto.getDieta();
+        Iterable<Platos> nuevosPlatos = dto.getPlatos();
+
+        // Verificar que la dieta existe
+        Optional<Dieta> dietaExistenteOpt = repository.findById(dieta.getIdDieta());
+        if (!dietaExistenteOpt.isPresent()) {
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado la dieta con ese id", null);
+
+        }else{
+            Dieta dietaExistente = dietaExistenteOpt.get();
+
+            // Guardar nuevos platos
+            for (Platos p : nuevosPlatos) {
+                p.setDieta(dietaExistente);
+                platosRepository.save(p);
+            }
+            return new GenericResponse(TIPO_DATA, RPTA_OK, OPERACION_CORRECTA, dto);
+        }
+
+    }
 }
