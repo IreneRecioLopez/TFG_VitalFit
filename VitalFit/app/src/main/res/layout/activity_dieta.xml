@@ -114,6 +114,7 @@
                 android:layout_marginTop="24dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:visibility="gone"/>
         </LinearLayout>
 
@@ -123,43 +124,41 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_marginTop="15dp"
             android:visibility="gone">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Editar Dieta" />
-
-            <!-- Puedes repetir este bloque para cada tramo horario -->
-            <EditText
-                android:id="@+id/edtPrimerPlato"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Primer plato" />
+                android:layout_height="wrap_content">
 
-            <EditText
-                android:id="@+id/edtSegundoPlato"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Segundo plato" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp">
 
-            <EditText
-                android:id="@+id/edtPostre"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Postre" />
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/scrollViewTablaEdicion">
+                        <TableLayout
+                            android:id="@+id/tableLayoutEdicion"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </HorizontalScrollView>
 
-            <Button
-                android:id="@+id/btnGuardarDieta"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Guardar" />
+                    <Button
+                        android:id="@+id/btnGuardarDieta"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/scrollViewTablaEdicion"
+                        android:layout_marginTop="3dp"
+                        android:layout_marginStart="150dp"
+                        android:text="Guardar" />
 
-            <Button
-                android:id="@+id/btnCancelarEdicion"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Cancelar" />
+                </RelativeLayout>
+
+            </ScrollView>
+
         </LinearLayout>
 
     </LinearLayout>

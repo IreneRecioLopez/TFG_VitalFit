@@ -1,6 +1,7 @@
 package com.tfg.vitalfit.activity;
 
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,9 +11,11 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -21,18 +24,26 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
+import com.tfg.vitalfit.entity.service.Dieta;
+import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Platos;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.entity.service.dto.DietaConPlatosDTO;
+import com.tfg.vitalfit.entity.service.dto.GenerarDietaDTO;
+import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.DietasViewModel;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,16 +53,19 @@ public class DietaActivity extends AppCompatActivity {
 
     private RecyclerView recyclerPlatos;
     private Toolbar toolbar;
-    private Button btnEditarDieta;
+    private Button btnEditarDieta, btnGuardarDieta;
     private AutoCompleteTextView dropdownDiasSemana;
     private TextView txtNoHayDieta;
-    private TableLayout tableLayoutDieta;
-    private LinearLayout layoutVerDieta;
+    private TableLayout tableLayoutDieta, tableLayoutEdicion;
+    private LinearLayout layoutVerDieta, layoutEditarDieta;
     //private PlatosAdapter platosAdapter;
     private DietasViewModel dietasViewModel;
     private DietaConPlatosDTO dietaConPlatos;
+    private final List<String> ordenTramos = Arrays.asList("Desayuno", "Media mañana", "Comida", "Merienda", "Cena");
+    private final Map<String, Platos> platosEditables = new HashMap<>();
     private Usuario usuario, paciente;
     private String diaSemana;
+    private Boolean esNueva = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,9 +91,13 @@ public class DietaActivity extends AppCompatActivity {
     private void init(){
         toolbar = findViewById(R.id.toolbarDietaPaciente);
         btnEditarDieta = findViewById(R.id.btnEditarDieta);
+        btnGuardarDieta = findViewById(R.id.btnGuardarDieta);
         dropdownDiasSemana = findViewById(R.id.dropdownDiaSemana);
         txtNoHayDieta = findViewById(R.id.txtNoHayDieta);
         tableLayoutDieta = findViewById(R.id.tableLayoutDieta);
+        tableLayoutEdicion = findViewById(R.id.tableLayoutEdicion);
+        layoutVerDieta = findViewById(R.id.layoutTablaDieta);
+        layoutEditarDieta = findViewById(R.id.layoutEditarDieta);
 
 
         setSupportActionBar(toolbar);
@@ -87,10 +105,6 @@ public class DietaActivity extends AppCompatActivity {
         // Habilitar el botón de regreso en el Toolbar
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
-
-        if(usuario.getRol().equals("Nutricionista")){
-            btnEditarDieta.setVisibility(View.VISIBLE);
         }
 
         // Adapter para otros tipoos de datos
@@ -117,13 +131,18 @@ public class DietaActivity extends AppCompatActivity {
             }
         });
 
+        btnEditarDieta.setOnClickListener(v -> {
+            layoutVerDieta.setVisibility(View.GONE);
+            layoutEditarDieta.setVisibility(View.VISIBLE);
+            tableLayoutEdicion.setVisibility(View.VISIBLE);
+            obtenerDietaEdicion();
+        });
 
-        /*btnEditarDieta.setOnClickListener(v -> {
-            Intent intent = new Intent(this, EditarDietaActivity.class);
-            intent.putExtra("pacienteId", usuario.getDni());
-            intent.putExtra("diaSemana", diaSemana);
-            startActivity(intent);
-        });*/
+        btnGuardarDieta.setOnClickListener(v -> {
+            guardarDieta(esNueva, paciente.getPaciente(), diaSemana);
+            obtenerDieta();
+        });
+
     }
 
     private void obtenerDieta(){
@@ -148,11 +167,21 @@ public class DietaActivity extends AppCompatActivity {
         });
     }
 
+    private void obtenerDietaEdicion(){
+        dietasViewModel.obtenerDietaPorPacienteYDia(paciente.getDni(), diaSemana).observe(this, dieta -> {
+            if (dieta != null && !dieta.getPlatos().isEmpty()) {
+                dietaConPlatos = dieta;
+                esNueva = false;
+                mostrarTablaEdicion(dieta.getPlatos());
+            } else {
+                esNueva = true;
+                mostrarTablaEdicion(new ArrayList<>());
+            }
+        });
+    }
+
     private void mostrarTablaDieta(List<Platos> platos) {
         tableLayoutDieta.removeAllViews();
-
-        // Orden personalizado de tramos
-        List<String> ordenTramos = Arrays.asList("Desayuno", "Media mañana", "Almuerzo", "Merienda", "Cena");
 
         // Agrupar platos por tramo
         Map<String, List<Platos>> platosPorTramo = new LinkedHashMap<>();
@@ -225,6 +254,125 @@ public class DietaActivity extends AppCompatActivity {
         tv.setTypeface(null, esCabecera ? Typeface.BOLD : Typeface.NORMAL);
         return tv;
     }
+
+    private void mostrarTablaEdicion(List<Platos> platos) {
+        tableLayoutEdicion.removeAllViews();
+        platosEditables.clear();
+
+        // Mapear platos por tramo (inicializa vacíos si no hay)
+        Map<String, Platos> platosPorTramo = new HashMap<>();
+        for (Platos p : platos) {
+            platosPorTramo.put(p.getTramoDia(), p);
+        }
+
+        for (String tramo : ordenTramos) {
+            TableRow row = new TableRow(this);
+
+            TextView tramoView = new TextView(this);
+            tramoView.setText(tramo);
+            tramoView.setPadding(16, 8, 16, 8);
+
+            // Obtener o crear plato vacío
+            Platos plato = platosPorTramo.getOrDefault(tramo, new Platos());
+            plato.setTramoDia(tramo); // asegurar tramo asignado
+            platosEditables.put(tramo, plato);
+
+            LinearLayout inputsLayout = new LinearLayout(this);
+            inputsLayout.setOrientation(LinearLayout.VERTICAL);
+
+            inputsLayout.addView(crearInput(plato, "1º", "primerPlato"));
+            inputsLayout.addView(crearInput(plato, "2º", "segundoPlato"));
+            inputsLayout.addView(crearInput(plato, "Postre", "postre"));
+
+            row.addView(tramoView);
+            row.addView(inputsLayout);
+            tableLayoutEdicion.addView(row);
+
+            // Agregar separador (barra)
+            View separator = new View(this);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(
+                    TableRow.LayoutParams.MATCH_PARENT,
+                    2 // altura en píxeles (puedes ajustar)
+            );
+            params.setMargins(0, 8, 0, 8); // márgenes si deseas espacio
+            separator.setLayoutParams(params);
+            separator.setBackgroundColor(Color.LTGRAY); // o usa tu color deseado
+
+            tableLayoutEdicion.addView(separator);
+        }
+    }
+
+    private View crearInput(Platos plato, String hint, String campo) {
+        //TextInputLayout inputLayout = new TextInputLayout(this);
+        TextInputEditText editText = new TextInputEditText(this);
+        editText.setHint(hint);
+        editText.setBackground(null);
+        editText.setText(obtenerCampo(plato, campo));
+
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                setCampo(plato, campo, s.toString());
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        //inputLayout.addView(editText);
+        //return inputLayout;
+        return editText;
+    }
+
+    private String obtenerCampo(Platos plato, String campo) {
+        switch (campo) {
+            case "primerPlato": return plato.getPrimerPlato() != null ? plato.getPrimerPlato() : "";
+            case "segundoPlato": return plato.getSegundoPlato() != null ? plato.getSegundoPlato() : "";
+            case "postre": return plato.getPostre() != null ? plato.getPostre() : "";
+            default: return "";
+        }
+    }
+
+    private void setCampo(Platos plato, String campo, String valor) {
+        switch (campo) {
+            case "primerPlato": plato.setPrimerPlato(valor); break;
+            case "segundoPlato": plato.setSegundoPlato(valor); break;
+            case "postre": plato.setPostre(valor); break;
+        }
+    }
+
+    private void guardarDieta(boolean esNueva, Paciente paciente, String diaSemana) {
+        Dieta dieta = new Dieta();
+        dieta.setDiaSemana(diaSemana);
+        dieta.setPaciente(paciente);
+
+        List<Platos> listaPlatos = new ArrayList<>(platosEditables.values());
+        for (Platos p : listaPlatos) {
+            p.setDieta(dieta); // relación inversa
+        }
+
+        GenerarDietaDTO dto = new GenerarDietaDTO();
+        dto.setDieta(dieta);
+        dto.setPaciente(paciente);
+        dto.setPlatos(new ArrayList<>(listaPlatos));
+
+        if (esNueva) {
+            dietasViewModel.save(dto).observe(this, response ->{
+                if(response.getRpta() == 1){
+                    ToastMessage.Correcto(this, "Dieta Guardada");
+                    layoutVerDieta.setVisibility(View.VISIBLE);
+                    layoutEditarDieta.setVisibility(View.GONE);
+                }
+            });
+        } else {
+            dietasViewModel.save(dto).observe(this, response ->{
+                if(response.getRpta() == 1){
+                    ToastMessage.Correcto(this, "Dieta Actualizada");
+                    layoutVerDieta.setVisibility(View.VISIBLE);
+                    layoutEditarDieta.setVisibility(View.GONE);
+                }
+            });
+        }
+    }
+
 
 
     private void obtenerDatosUsuario(){
