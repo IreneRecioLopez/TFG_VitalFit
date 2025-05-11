@@ -140,9 +140,6 @@ public class DietaActivity extends AppCompatActivity {
 
         btnGuardarDieta.setOnClickListener(v -> {
             guardarDieta(esNueva, paciente.getPaciente(), diaSemana);
-            obtenerDieta();
-            layoutVerDieta.setVisibility(View.VISIBLE);
-            layoutEditarDieta.setVisibility(View.GONE);
         });
 
     }
@@ -342,43 +339,43 @@ public class DietaActivity extends AppCompatActivity {
     }
 
     private void guardarDieta(boolean esNueva, Paciente paciente, String diaSemana) {
+        Dieta dieta = new Dieta();
+        if (!esNueva && dietaConPlatos != null && dietaConPlatos.getDieta() != null) {
+            dieta.setIdDieta(dietaConPlatos.getDieta().getIdDieta());
+        }
+        dieta.setDiaSemana(diaSemana);
+        dieta.setPaciente(paciente);
+
+        List<Platos> listaPlatos = new ArrayList<>(platosEditables.values());
+        for (Platos p : listaPlatos) {
+            p.setDieta(dieta); // relación inversa
+        }
+
+        GenerarDietaDTO dto = new GenerarDietaDTO();
+        dto.setDieta(dieta);
+        dto.setPaciente(paciente);
+        dto.setPlatos(new ArrayList<>(listaPlatos));
+
         if (esNueva) {
-            Dieta dieta = new Dieta();
-            dieta.setDiaSemana(diaSemana);
-            dieta.setPaciente(paciente);
-
-            List<Platos> listaPlatos = new ArrayList<>(platosEditables.values());
-            for (Platos p : listaPlatos) {
-                p.setDieta(dieta); // relación inversa
-            }
-
-            GenerarDietaDTO dto = new GenerarDietaDTO();
-            dto.setDieta(dieta);
-            dto.setPaciente(paciente);
-            dto.setPlatos(new ArrayList<>(listaPlatos));
-            dietasViewModel.save(dto).observe(this, response ->{
-                if(response.getRpta() == 1){
+            dietasViewModel.save(dto).observe(this, response -> {
+                if (response != null && response.getRpta() == 1) {
                     ToastMessage.Correcto(this, "Dieta Guardada");
+                    layoutVerDieta.setVisibility(View.VISIBLE);
+                    layoutEditarDieta.setVisibility(View.GONE);
+                    obtenerDieta(); // ✅ Ahora aquí, una vez se ha guardado
+                } else {
+                    ToastMessage.Invalido(this, "Error al guardar la dieta");
                 }
             });
         } else {
-            Dieta dieta = new Dieta();
-            dieta.setIdDieta(dietaConPlatos.getDieta().getIdDieta());
-            dieta.setDiaSemana(diaSemana);
-            dieta.setPaciente(paciente);
-
-            List<Platos> listaPlatos = new ArrayList<>(platosEditables.values());
-            for (Platos p : listaPlatos) {
-                p.setDieta(dieta); // relación inversa
-            }
-
-            GenerarDietaDTO dto = new GenerarDietaDTO();
-            dto.setDieta(dieta);
-            dto.setPaciente(paciente);
-            dto.setPlatos(new ArrayList<>(listaPlatos));
-            dietasViewModel.updateDieta(dto).observe(this, response ->{
-                if(response.getRpta() == 1){
+            dietasViewModel.updateDieta(dto).observe(this, response -> {
+                if (response != null && response.getRpta() == 1) {
                     ToastMessage.Correcto(this, "Dieta Actualizada");
+                    layoutVerDieta.setVisibility(View.VISIBLE);
+                    layoutEditarDieta.setVisibility(View.GONE);
+                    obtenerDieta(); // ✅ Aquí también
+                } else {
+                    ToastMessage.Invalido(this, "Error al actualizar la dieta");
                 }
             });
         }
