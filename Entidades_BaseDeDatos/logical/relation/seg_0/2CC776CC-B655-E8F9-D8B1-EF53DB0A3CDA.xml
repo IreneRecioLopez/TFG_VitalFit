@@ -1,19 +1,20 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Hospital_Medico" directorySegmentName="seg_0" id="A861079A-9CAB-21CC-5CA9-5005A0836849">
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="nutricionista_paciente" directorySegmentName="seg_0" id="2CC776CC-B655-E8F9-D8B1-EF53DB0A3CDA">
 <createdBy>USUARIO</createdBy>
-<createdTime>2025-02-26 11:32:16 UTC</createdTime>
+<createdTime>2025-05-12 10:38:49 UTC</createdTime>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
 <engineerTo>
 <item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
 </engineerTo>
-<sourcePk>36AD52D0-B336-CB4A-C9F2-9F125F3CA2E5</sourcePk>
+<sourcePk>2EF9AF32-85BD-75C8-9AB0-F57BCB27619E</sourcePk>
+<targetPk>2EF9AF32-85BD-75C8-9AB0-F57BCB27619E</targetPk>
 <identifying>false</identifying>
-<nameOnSource>HAY</nameOnSource>
-<nameOnTarget>ASOCIADO A</nameOnTarget>
-<optionalSource>false</optionalSource>
+<nameOnSource>NUTRICIONISTA DE</nameOnSource>
+<nameOnTarget>ASIGNADO A</nameOnTarget>
+<optionalSource>true</optionalSource>
 <optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>
-<sourceEntity>BFBDA052-AE60-AB73-D326-011C1128C7FF</sourceEntity>
+<sourceEntity>7B2C19E2-8F2F-775F-8B8D-AB4A1C7BE983</sourceEntity>
 <targetCardinalityString>*</targetCardinalityString>
 <targetEntity>7B2C19E2-8F2F-775F-8B8D-AB4A1C7BE983</targetEntity>
 <transferable>true</transferable>

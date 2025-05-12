@@ -1,21 +1,21 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="Nutricionista_Paciente" directorySegmentName="seg_0" id="821C8B8B-5404-7EA3-4874-FE0367B35ACF">
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="paciente_observacion" directorySegmentName="seg_0" id="9D1C48E9-F4ED-0FDB-ABCF-546DD2969673">
 <createdBy>USUARIO</createdBy>
-<createdTime>2025-02-26 11:46:42 UTC</createdTime>
+<createdTime>2025-05-12 10:23:33 UTC</createdTime>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
 <engineerTo>
 <item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
 </engineerTo>
-<sourcePk>91C3719F-F58F-964A-8A3A-52D133F97CA8</sourcePk>
-<identifying>false</identifying>
+<sourcePk>6852CE7E-CB83-685C-211E-4839634B5DF8</sourcePk>
+<identifying>true</identifying>
 <nameOnSource>TIENE</nameOnSource>
-<nameOnTarget>ASIGNADO A</nameOnTarget>
+<nameOnTarget>PERTENCE A</nameOnTarget>
 <optionalSource>true</optionalSource>
 <optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>
-<sourceEntity>BB74F54C-68DE-3678-9063-0299AF31CD60</sourceEntity>
+<sourceEntity>73021762-B589-FA3C-1EB5-8548BCC72DA8</sourceEntity>
 <targetCardinalityString>*</targetCardinalityString>
-<targetEntity>73021762-B589-FA3C-1EB5-8548BCC72DA8</targetEntity>
+<targetEntity>F39E3918-3FA8-7CD3-7929-11F731E171F6</targetEntity>
 <transferable>true</transferable>
 <deleteRule>NO ACTION</deleteRule>
 </Relation>
