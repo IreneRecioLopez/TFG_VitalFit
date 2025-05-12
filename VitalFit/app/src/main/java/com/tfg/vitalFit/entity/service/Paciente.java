@@ -16,12 +16,12 @@ public class Paciente implements Serializable {
     private Usuario medico;
     private Usuario nutricionista;
     //private Usuario paciente;
-    private List<Pesos> pesos;
-    private List<Alergias> alergias;
+    private List<Peso> pesos;
+    private List<Alergia> alergias;
     private List<Consejo> consejos;
     private List<Dieta> dietas;
-    private List<Operaciones> operaciones;
-    private List<Observaciones> observaciones;
+    private List<Operacion> operaciones;
+    private List<Observacion> observaciones;
 
     public Paciente(){ }
     public Paciente(String dni){ this.dni = dni;}
@@ -55,8 +55,8 @@ public class Paciente implements Serializable {
     public Usuario getNutricionista() {
         return nutricionista;
     }
-    public List<Pesos> getPesos() { return pesos; }
-    public List<Alergias> getAlergias() {
+    public List<Peso> getPesos() { return pesos; }
+    public List<Alergia> getAlergias() {
         return alergias;
     }
     public List<Consejo> getConsejos() {
@@ -65,8 +65,8 @@ public class Paciente implements Serializable {
     public List<Dieta> getDietas() {
         return dietas;
     }
-    public List<Observaciones> getObservaciones(){ return this.observaciones; }
-    public List<Operaciones> getOperaciones(){ return this.operaciones; }
+    public List<Observacion> getObservaciones(){ return this.observaciones; }
+    public List<Operacion> getOperaciones(){ return this.operaciones; }
 
 
 
@@ -94,10 +94,10 @@ public class Paciente implements Serializable {
     public void setNutricionista(Usuario nutricionista) {
         this.nutricionista = nutricionista;
     }
-    public void setPesos(List<Pesos> pesos) {
+    public void setPesos(List<Peso> pesos) {
         this.pesos = pesos;
     }
-    public void setAlergias(List<Alergias> alergias) {
+    public void setAlergias(List<Alergia> alergias) {
         this.alergias = alergias;
     }
     public void setConsejos(List<Consejo> consejos) {
@@ -106,8 +106,8 @@ public class Paciente implements Serializable {
     public void setDietas(List<Dieta> dietas) {
         this.dietas = dietas;
     }
-    public void setObservaciones(List<Observaciones> observaciones){ this.observaciones = observaciones; }
-    public void setOperaciones(List<Operaciones> operaciones){ this.operaciones = operaciones; }
+    public void setObservaciones(List<Observacion> observaciones){ this.observaciones = observaciones; }
+    public void setOperaciones(List<Operacion> operaciones){ this.operaciones = operaciones; }
 
     //public void setUsuario(Usuario usuario) { this.paciente = usuario; }
 }

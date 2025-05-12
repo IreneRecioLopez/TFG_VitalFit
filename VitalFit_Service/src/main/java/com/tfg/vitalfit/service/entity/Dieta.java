@@ -1,7 +1,6 @@
 package com.tfg.vitalfit.service.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
@@ -25,6 +24,6 @@ public class Dieta {
 
     @OneToMany(mappedBy = "dieta")
     @JsonManagedReference(value = "dieta-platos")
-    private List<Platos> platos;
+    private List<Plato> platos;
 
 }

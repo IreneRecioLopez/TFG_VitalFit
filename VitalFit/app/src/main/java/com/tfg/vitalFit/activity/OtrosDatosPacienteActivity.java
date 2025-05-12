@@ -30,9 +30,9 @@ import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.adapter.AlergiasAdapter;
 import com.tfg.vitalfit.adapter.ObservacionesAdapter;
 import com.tfg.vitalfit.adapter.OperacionesAdapter;
-import com.tfg.vitalfit.entity.service.Alergias;
-import com.tfg.vitalfit.entity.service.Observaciones;
-import com.tfg.vitalfit.entity.service.Operaciones;
+import com.tfg.vitalfit.entity.service.Alergia;
+import com.tfg.vitalfit.entity.service.Observacion;
+import com.tfg.vitalfit.entity.service.Operacion;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.utils.ToastMessage;
@@ -40,10 +40,7 @@ import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 import com.tfg.vitalfit.viewModel.ObservacionesViewModel;
 import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -117,7 +114,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 tipoDato = s.toString();
-                if(tipoDato.equals("Alergias")){
+                if(tipoDato.equals("Alergia")){
                     alergiasLayout.setVisibility(View.VISIBLE);
                     operacionesLayout.setVisibility(View.GONE);
                     otrasObservacionesLayout.setVisibility(View.GONE);
@@ -125,7 +122,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
                     observaciones = false;
                     operacion = false;
                     initAlergias();
-                }else if(tipoDato.equals("Operaciones")){
+                }else if(tipoDato.equals("Operacion")){
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.VISIBLE);
                     otrasObservacionesLayout.setVisibility(View.GONE);
@@ -133,7 +130,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
                     alergia = false;
                     observaciones = false;
                     initOperaciones();
-                }else if(tipoDato.equals("Otras Observaciones")){
+                }else if(tipoDato.equals("Otras Observacion")){
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.GONE);
                     otrasObservacionesLayout.setVisibility(View.VISIBLE);
@@ -186,7 +183,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private void initAlergias(){
         anadirAlergia = false;
         if(paciente != null){
-            List<Alergias> alergias = paciente.getPaciente().getAlergias();
+            List<Alergia> alergias = paciente.getPaciente().getAlergias();
             if(alergias.isEmpty()){
                 noHayAlergias.setVisibility(View.VISIBLE);
             }
@@ -230,7 +227,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         });
         btnGuardarAlergia.setOnClickListener(v -> {
             if(validAlergia()){
-                Alergias a = new Alergias();
+                Alergia a = new Alergia();
                 a.setAlergia(edtNombreAlergia.getText().toString());
                 a.setTipo(tipoAlergia);
                 a.setPaciente(paciente.getPaciente());
@@ -287,7 +284,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private void initOperaciones(){
         anadirOperacion = false;
         if(paciente != null){
-            List<Operaciones> operaciones = paciente.getPaciente().getOperaciones();
+            List<Operacion> operaciones = paciente.getPaciente().getOperaciones();
             if(operaciones.isEmpty()){
                 noHayOperaciones.setVisibility(View.VISIBLE);
             }
@@ -311,7 +308,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private void addOperacion(){
         btnGuardarOperacion.setOnClickListener(v -> {
             if(validOperacion()){
-                Operaciones o = new Operaciones();
+                Operacion o = new Operacion();
                 o.setNombre(edtNombreOperacion.getText().toString());
                 o.setFecha(Fecha.registrarFecha(edtFechaOperacion.getText().toString()));
                 o.setPaciente(paciente.getPaciente());
@@ -367,7 +364,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private void initOtrasObservaciones(){
         anadirObservacion = false;
         if(paciente != null){
-            List<Observaciones> observaciones = paciente.getPaciente().getObservaciones();
+            List<Observacion> observaciones = paciente.getPaciente().getObservaciones();
             if(observaciones.isEmpty()){
                 noHayOtrasObservaciones.setVisibility(View.VISIBLE);
             }
@@ -390,7 +387,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     private void addObservacion(){
         btnGuardarObservacion.setOnClickListener(v -> {
             if(validObservacion()){
-                Observaciones o = new Observaciones();
+                Observacion o = new Observacion();
                 o.setObservacion(edtObservacion.getText().toString());
                 o.setPaciente(paciente.getPaciente());
                 observacionesViewModel.save(o).observe(this, response -> {

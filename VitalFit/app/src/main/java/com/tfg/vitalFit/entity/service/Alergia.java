@@ -3,7 +3,7 @@ package com.tfg.vitalfit.entity.service;
 
 import java.io.Serializable;
 
-public class Alergias implements Serializable {
+public class Alergia implements Serializable {
     private Long idAlergia;
     private String tipo;
     private String alergia;

@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface ConsejoRepository extends CrudRepository<Consejo, Long> {
     @Query("SELECT c from Consejo c WHERE c.paciente.dni=:dni")

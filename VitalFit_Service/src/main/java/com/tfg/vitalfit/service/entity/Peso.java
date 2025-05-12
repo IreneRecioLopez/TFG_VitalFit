@@ -9,7 +9,7 @@ import java.util.Date;
 
 @Entity
 @Data
-public class Pesos {
+public class Peso {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPeso;

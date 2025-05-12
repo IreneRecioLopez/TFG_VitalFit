@@ -11,11 +11,9 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -24,17 +22,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Dieta;
 import com.tfg.vitalfit.entity.service.Paciente;
-import com.tfg.vitalfit.entity.service.Platos;
+import com.tfg.vitalfit.entity.service.Plato;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.entity.service.dto.DietaConPlatosDTO;
 import com.tfg.vitalfit.entity.service.dto.GenerarDietaDTO;
@@ -47,7 +43,6 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 public class DietaActivity extends AppCompatActivity {
 
@@ -62,7 +57,7 @@ public class DietaActivity extends AppCompatActivity {
     private DietasViewModel dietasViewModel;
     private DietaConPlatosDTO dietaConPlatos;
     private final List<String> ordenTramos = Arrays.asList("Desayuno", "Media mañana", "Comida", "Merienda", "Cena");
-    private final Map<String, Platos> platosEditables = new HashMap<>();
+    private final Map<String, Plato> platosEditables = new HashMap<>();
     private Usuario usuario, paciente;
     private String diaSemana;
     private Boolean esNueva = true;
@@ -179,16 +174,16 @@ public class DietaActivity extends AppCompatActivity {
         });
     }
 
-    private void mostrarTablaDieta(List<Platos> platos) {
+    private void mostrarTablaDieta(List<Plato> platos) {
         tableLayoutDieta.removeAllViews();
 
         // Agrupar platos por tramo
-        Map<String, List<Platos>> platosPorTramo = new LinkedHashMap<>();
+        Map<String, List<Plato>> platosPorTramo = new LinkedHashMap<>();
         for (String tramo : ordenTramos) {
             platosPorTramo.put(tramo, new ArrayList<>());
         }
 
-        for (Platos p : platos) {
+        for (Plato p : platos) {
             if (platosPorTramo.containsKey(p.getTramoDia())) {
                 platosPorTramo.get(p.getTramoDia()).add(p);
             } else {
@@ -214,7 +209,7 @@ public class DietaActivity extends AppCompatActivity {
 
             TextView platosText = new TextView(this);
             StringBuilder sb = new StringBuilder();
-            for (Platos p : platosPorTramo.get(tramo)) {
+            for (Plato p : platosPorTramo.get(tramo)) {
                 String primerPlato = p.getPrimerPlato() != null ? p.getPrimerPlato() : "";
                 String segundoPlato = p.getSegundoPlato() != null ? p.getSegundoPlato() : "";
                 String postre = p.getPostre() != null ? p.getPostre() : "";
@@ -254,13 +249,13 @@ public class DietaActivity extends AppCompatActivity {
         return tv;
     }
 
-    private void mostrarTablaEdicion(List<Platos> platos) {
+    private void mostrarTablaEdicion(List<Plato> platos) {
         tableLayoutEdicion.removeAllViews();
         platosEditables.clear();
 
         // Mapear platos por tramo (inicializa vacíos si no hay)
-        Map<String, Platos> platosPorTramo = new HashMap<>();
-        for (Platos p : platos) {
+        Map<String, Plato> platosPorTramo = new HashMap<>();
+        for (Plato p : platos) {
             platosPorTramo.put(p.getTramoDia(), p);
         }
 
@@ -272,7 +267,7 @@ public class DietaActivity extends AppCompatActivity {
             tramoView.setPadding(16, 8, 16, 8);
 
             // Obtener o crear plato vacío
-            Platos plato = platosPorTramo.getOrDefault(tramo, new Platos());
+            Plato plato = platosPorTramo.getOrDefault(tramo, new Plato());
             plato.setTramoDia(tramo); // asegurar tramo asignado
             platosEditables.put(tramo, plato);
 
@@ -301,7 +296,7 @@ public class DietaActivity extends AppCompatActivity {
         }
     }
 
-    private View crearInput(Platos plato, String hint, String campo) {
+    private View crearInput(Plato plato, String hint, String campo) {
         //TextInputLayout inputLayout = new TextInputLayout(this);
         TextInputEditText editText = new TextInputEditText(this);
         editText.setHint(hint);
@@ -321,7 +316,7 @@ public class DietaActivity extends AppCompatActivity {
         return editText;
     }
 
-    private String obtenerCampo(Platos plato, String campo) {
+    private String obtenerCampo(Plato plato, String campo) {
         switch (campo) {
             case "primerPlato": return plato.getPrimerPlato() != null ? plato.getPrimerPlato() : "";
             case "segundoPlato": return plato.getSegundoPlato() != null ? plato.getSegundoPlato() : "";
@@ -330,7 +325,7 @@ public class DietaActivity extends AppCompatActivity {
         }
     }
 
-    private void setCampo(Platos plato, String campo, String valor) {
+    private void setCampo(Plato plato, String campo, String valor) {
         switch (campo) {
             case "primerPlato": plato.setPrimerPlato(valor); break;
             case "segundoPlato": plato.setSegundoPlato(valor); break;
@@ -346,8 +341,8 @@ public class DietaActivity extends AppCompatActivity {
         dieta.setDiaSemana(diaSemana);
         dieta.setPaciente(paciente);
 
-        List<Platos> listaPlatos = new ArrayList<>(platosEditables.values());
-        for (Platos p : listaPlatos) {
+        List<Plato> listaPlatos = new ArrayList<>(platosEditables.values());
+        for (Plato p : listaPlatos) {
             p.setDieta(dieta); // relación inversa
         }
 

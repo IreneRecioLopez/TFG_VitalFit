@@ -1,7 +1,7 @@
 package com.tfg.vitalfit.api;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Observaciones;
+import com.tfg.vitalfit.entity.service.Observacion;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,7 +15,7 @@ public interface ObservacionesApi {
 
     //@FormUrlEncoded
     @POST(base + "/save")
-    Call<GenericResponse<Observaciones>> guardarObservacion(@Body Observaciones o);
+    Call<GenericResponse<Observacion>> guardarObservacion(@Body Observacion o);
 
     @DELETE(base + "/delete/{idObservacion}")
     Call<GenericResponse<Void>> eliminarObservacion(@Path("idObservacion") Long idObservacion);

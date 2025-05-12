@@ -26,12 +26,12 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.entity.service.Alergias;
+import com.tfg.vitalfit.entity.service.Alergia;
 import com.tfg.vitalfit.entity.service.Hospital;
-import com.tfg.vitalfit.entity.service.Observaciones;
-import com.tfg.vitalfit.entity.service.Operaciones;
+import com.tfg.vitalfit.entity.service.Observacion;
+import com.tfg.vitalfit.entity.service.Operacion;
 import com.tfg.vitalfit.entity.service.Paciente;
-import com.tfg.vitalfit.entity.service.Pesos;
+import com.tfg.vitalfit.entity.service.Peso;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.utils.Security;
@@ -44,11 +44,8 @@ import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -251,7 +248,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                 if (response.getRpta() == 1) {
                                     this.uViewModel.asociarPacienteMedico(u.getDni(), medico).observe(this, pmResponse -> {
                                         if(pmResponse.getRpta() == 1){
-                                            Pesos pesoObj = new Pesos();
+                                            Peso pesoObj = new Peso();
                                             pesoObj.setPeso(p.getPesoActual());
                                             pesoObj.setPaciente(new Paciente(p.getDni()));
                                             pesoObj.setFecha(Fecha.obtenerFechaActual());
@@ -263,7 +260,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         String[] alergiasAlimentarias;
                                                         alergiasAlimentarias = edtAlergiaAlimentaria.getText().toString().split(",");
                                                         for (String alergia: alergiasAlimentarias) {
-                                                            Alergias a = new Alergias();
+                                                            Alergia a = new Alergia();
                                                             String nombre = alergia.trim();
                                                             Log.d("ALERGIA NOMBRE", nombre);
                                                             a.setAlergia(nombre);
@@ -280,7 +277,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         String[] alergiasMedicinales;
                                                         alergiasMedicinales = edtAlergiaMedicinal.getText().toString().split(",");
                                                         for (String alergia: alergiasMedicinales) {
-                                                            Alergias a = new Alergias();
+                                                            Alergia a = new Alergia();
                                                             String nombre = alergia.trim();
                                                             Log.d("ALERGIA NOMBRE", nombre);
                                                             a.setAlergia(nombre);
@@ -294,7 +291,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         }
                                                     }
 
-                                                    List<Operaciones> listaOperaciones = new ArrayList<>();
+                                                    List<Operacion> listaOperaciones = new ArrayList<>();
 
                                                     for (int i = 0; i < layoutOperaciones.getChildCount(); i++) {
                                                         View itemOperacion = layoutOperaciones.getChildAt(i);
@@ -311,7 +308,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                             if(fecha.isEmpty()){
                                                                 fecha = " ";
                                                             }
-                                                            Operaciones op = new Operaciones();
+                                                            Operacion op = new Operacion();
                                                             op.setPaciente(new Paciente(p.getDni()));
                                                             op.setNombre(nombre);
                                                             op.setFecha(fecha);
@@ -325,7 +322,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         }
                                                     }
                                                     if(chkVegana.isChecked()){
-                                                        Observaciones ob = new Observaciones();
+                                                        Observacion ob = new Observacion();
                                                         ob.setPaciente(new Paciente(p.getDni()));
                                                         ob.setObservacion("Vegana");
                                                         observacionesViewModel.save(ob).observe(this, observacionesResponse -> {
@@ -335,7 +332,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         });
                                                     }
                                                     if(chkVegetariana.isChecked()){
-                                                        Observaciones ob = new Observaciones();
+                                                        Observacion ob = new Observacion();
                                                         ob.setObservacion("Vegetariana");
                                                         ob.setPaciente(new Paciente(p.getDni()));
                                                         observacionesViewModel.save(ob).observe(this, observacionesResponse -> {

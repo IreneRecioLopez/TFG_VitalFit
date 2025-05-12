@@ -1,39 +1,42 @@
 package com.tfg.vitalfit.entity.service;
 
-
 import java.io.Serializable;
 
-public class Pesos implements Serializable {
-    private Long idPeso;
+public class Operacion implements Serializable {
+    private Long idOperacion;
     private String fecha;
-    private Double peso;
+    private String nombre;
     private Paciente paciente;
 
-    public Long getIdPeso() {
-        return idPeso;
+    public Long getIdOperacion() {
+        return idOperacion;
     }
-    public void setIdPeso(Long idPeso) {
-        this.idPeso = idPeso;
+
+    public void setIdOperacion(Long idOperacion) {
+        this.idOperacion = idOperacion;
     }
 
     public String getFecha() {
         return fecha;
     }
+
     public void setFecha(String fecha) {
         this.fecha = fecha;
-    }
-
-    public Double getPeso() {
-        return peso;
-    }
-    public void setPeso(Double peso) {
-        this.peso = peso;
     }
 
     public Paciente getPaciente() {
         return paciente;
     }
+
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }

@@ -1,27 +1,23 @@
 package com.tfg.vitalfit.service.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
 @Data
-public class Operaciones {
+public class Alergia {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idOperacion;
+    private Long idAlergia;
     @Column(nullable = false)
-    @Temporal(TemporalType.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date fecha;
+    private String tipo;
     @Column(nullable = false)
-    private String nombre;
+    private String alergia;
 
     @ManyToOne
     @JoinColumn(name = "dni_paciente")
-    @JsonBackReference(value = "paciente-operaciones")
+    @JsonBackReference(value = "paciente-alergias")
     private Paciente paciente;
 }

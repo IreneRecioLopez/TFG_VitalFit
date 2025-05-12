@@ -14,7 +14,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.entity.service.Operaciones;
+import com.tfg.vitalfit.entity.service.Operacion;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 
@@ -32,11 +32,11 @@ public class OperacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context context;
     private OperacionesViewModel operacionesViewModel;
 
-    private List<Operaciones> listaOperaciones;
+    private List<Operacion> listaOperaciones;
     private Boolean esPaciente;
 
 
-    public OperacionesAdapter(Context context, List<Operaciones> listaOperaciones, Boolean esPaciente, OperacionesViewModel operacionesViewModel){
+    public OperacionesAdapter(Context context, List<Operacion> listaOperaciones, Boolean esPaciente, OperacionesViewModel operacionesViewModel){
         this.context = context;
         this.listaOperaciones = listaOperaciones;
         this.esPaciente = esPaciente;
@@ -57,7 +57,7 @@ public class OperacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Operaciones operacion = listaOperaciones.get(position);
+        Operacion operacion = listaOperaciones.get(position);
         if(holder instanceof PacienteOperacionesViewHolder){
             PacienteOperacionesViewHolder viewHolder = (PacienteOperacionesViewHolder) holder;
             viewHolder.txtOperacion.setText(operacion.getNombre());

@@ -1,6 +1,6 @@
 package com.tfg.vitalfit.service.service;
 
-import com.tfg.vitalfit.service.entity.Pesos;
+import com.tfg.vitalfit.service.entity.Peso;
 import com.tfg.vitalfit.service.repository.PesosRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class PesosService {
     }
 
     //método para guardar peso
-    public GenericResponse guardarPeso(Pesos p){
+    public GenericResponse guardarPeso(Peso p){
         if(p.getPaciente() == null){
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: no se ha asignado un paciente.", null);
         }else{

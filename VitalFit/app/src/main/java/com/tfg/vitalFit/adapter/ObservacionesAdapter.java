@@ -13,8 +13,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.entity.service.Alergias;
-import com.tfg.vitalfit.entity.service.Observaciones;
+import com.tfg.vitalfit.entity.service.Observacion;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.ObservacionesViewModel;
 
@@ -28,10 +27,10 @@ public class ObservacionesAdapter extends RecyclerView.Adapter<RecyclerView.View
     private Context context;
     private ObservacionesViewModel observacionesViewModel;
 
-    private List<Observaciones> listaObservaciones;
+    private List<Observacion> listaObservaciones;
     private Boolean esPaciente;
 
-    public ObservacionesAdapter(Context context, List<Observaciones> listaObservaciones, Boolean esPaciente, ObservacionesViewModel observacionesViewModel){
+    public ObservacionesAdapter(Context context, List<Observacion> listaObservaciones, Boolean esPaciente, ObservacionesViewModel observacionesViewModel){
         this.context = context;
         this.listaObservaciones = listaObservaciones;
         this.esPaciente = esPaciente;
@@ -52,7 +51,7 @@ public class ObservacionesAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Observaciones observacion = listaObservaciones.get(position);
+        Observacion observacion = listaObservaciones.get(position);
         if (holder instanceof PacienteObservacionesViewHolder) {
             PacienteObservacionesViewHolder viewHolder = (PacienteObservacionesViewHolder) holder;
             viewHolder.txtObservacion.setText(observacion.getObservacion());

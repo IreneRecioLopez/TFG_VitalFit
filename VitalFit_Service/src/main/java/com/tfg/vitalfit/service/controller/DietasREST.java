@@ -1,14 +1,10 @@
 package com.tfg.vitalfit.service.controller;
 
-import com.tfg.vitalfit.service.entity.Dieta;
-
 import com.tfg.vitalfit.service.entity.dto.DietaConPlatosDTO;
 import com.tfg.vitalfit.service.entity.dto.GenerarDietaDTO;
 import com.tfg.vitalfit.service.service.DietasService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("api/dietas")

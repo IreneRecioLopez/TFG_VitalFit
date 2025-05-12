@@ -1,6 +1,6 @@
 package com.tfg.vitalfit.service.controller;
 
-import com.tfg.vitalfit.service.entity.Operaciones;
+import com.tfg.vitalfit.service.entity.Operacion;
 import com.tfg.vitalfit.service.service.OperacionesService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +14,7 @@ public class OperacionesREST {
     }
 
     @PostMapping("/save")
-    public GenericResponse save(@RequestBody Operaciones op){
+    public GenericResponse save(@RequestBody Operacion op){
         return this.service.guardarOperacion(op);
     }
 

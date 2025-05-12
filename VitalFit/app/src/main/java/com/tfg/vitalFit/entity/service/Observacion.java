@@ -2,7 +2,7 @@ package com.tfg.vitalfit.entity.service;
 
 import java.io.Serializable;
 
-public class Observaciones implements Serializable {
+public class Observacion implements Serializable {
     private Long idObservacion;
     private String observacion;
     private Paciente paciente;

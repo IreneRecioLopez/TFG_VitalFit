@@ -1,7 +1,7 @@
 package com.tfg.vitalfit.api;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Operaciones;
+import com.tfg.vitalfit.entity.service.Operacion;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,7 +15,7 @@ public interface OperacionesApi {
 
     //@FormUrlEncoded
     @POST(base + "/save")
-    Call<GenericResponse<Operaciones>> guardarOperacion(@Body Operaciones op);
+    Call<GenericResponse<Operacion>> guardarOperacion(@Body Operacion op);
 
     @DELETE(base + "/delete/{idOperacion}")
     Call<GenericResponse<Void>> eliminarOperacion(@Path("idOperacion") Long idOperacion);

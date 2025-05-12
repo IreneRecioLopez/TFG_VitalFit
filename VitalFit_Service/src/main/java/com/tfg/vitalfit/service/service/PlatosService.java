@@ -1,6 +1,6 @@
 package com.tfg.vitalfit.service.service;
 
-import com.tfg.vitalfit.service.entity.Platos;
+import com.tfg.vitalfit.service.entity.Plato;
 import com.tfg.vitalfit.service.repository.PlatosRepository;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class PlatosService {
     }
 
     //metodo para guardar los platos de la dieta
-    public void guardarPlatos(Iterable<Platos> platos) {
+    public void guardarPlatos(Iterable<Plato> platos) {
         this.repository.saveAll(platos);
     }
 }

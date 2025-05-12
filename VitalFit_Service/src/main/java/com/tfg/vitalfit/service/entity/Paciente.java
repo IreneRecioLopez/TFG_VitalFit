@@ -43,15 +43,15 @@ public class Paciente {
 
     @OneToMany(mappedBy = "paciente")
     @JsonManagedReference(value = "paciente-pesos")
-    private List<Pesos> pesos;
+    private List<Peso> pesos;
 
     @OneToMany(mappedBy = "paciente")
     @JsonManagedReference(value = "paciente-alergias")
-    private List<Alergias> alergias;
+    private List<Alergia> alergias;
 
     @OneToMany(mappedBy = "paciente")
     @JsonManagedReference(value = "paciente-operaciones")
-    private List<Operaciones> operaciones;
+    private List<Operacion> operaciones;
 
     @OneToMany(mappedBy = "paciente")
     @JsonManagedReference(value = "paciente-consejos")
@@ -63,6 +63,6 @@ public class Paciente {
 
     @OneToMany(mappedBy = "paciente")
     @JsonManagedReference(value = "paciente-observaciones")
-    private List<Observaciones> observaciones;
+    private List<Observacion> observaciones;
 
 }

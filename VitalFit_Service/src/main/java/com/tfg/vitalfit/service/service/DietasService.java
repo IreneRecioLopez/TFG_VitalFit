@@ -1,11 +1,9 @@
 package com.tfg.vitalfit.service.service;
 
-import com.tfg.vitalfit.service.entity.Alergias;
 import com.tfg.vitalfit.service.entity.Dieta;
-import com.tfg.vitalfit.service.entity.Platos;
+import com.tfg.vitalfit.service.entity.Plato;
 import com.tfg.vitalfit.service.entity.dto.DietaConPlatosDTO;
 import com.tfg.vitalfit.service.entity.dto.GenerarDietaDTO;
-import com.tfg.vitalfit.service.repository.AlergiasRepository;
 import com.tfg.vitalfit.service.repository.DietasRepository;
 import com.tfg.vitalfit.service.repository.PlatosRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -13,8 +11,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 import static com.tfg.vitalfit.service.utils.Global.*;
@@ -45,7 +41,7 @@ public class DietasService {
         dto.getDieta().setDiaSemana(dto.getDieta().getDiaSemana());
         dto.getDieta().setPaciente(dto.getPaciente());
         this.repository.save(dto.getDieta());
-        for(Platos p : dto.getPlatos()){
+        for(Plato p : dto.getPlatos()){
             p.setDieta(dto.getDieta());
         }
         this.platosService.guardarPlatos(dto.getPlatos());
@@ -74,7 +70,7 @@ public class DietasService {
 
     public GenericResponse updateDieta(GenerarDietaDTO dto) {
         Dieta dieta = dto.getDieta();
-        Iterable<Platos> nuevosPlatos = dto.getPlatos();
+        Iterable<Plato> nuevosPlatos = dto.getPlatos();
 
         // Verificar que la dieta existe
         Optional<Dieta> dietaExistenteOpt = repository.findById(dieta.getIdDieta());
@@ -85,7 +81,7 @@ public class DietasService {
             Dieta dietaExistente = dietaExistenteOpt.get();
 
             // Guardar nuevos platos
-            for (Platos p : nuevosPlatos) {
+            for (Plato p : nuevosPlatos) {
                 p.setDieta(dietaExistente);
                 platosRepository.save(p);
             }

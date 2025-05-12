@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.tfg.vitalfit.api.AlergiasApi;
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Alergias;
+import com.tfg.vitalfit.entity.service.Alergia;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,16 +27,16 @@ public class AlergiasRepository {
         return repository;
     }
 
-    public LiveData<GenericResponse<Alergias>> save(Alergias a){
-        final MutableLiveData<GenericResponse<Alergias>> mld = new MutableLiveData<>();
-        this.api.guardarAlergia(a).enqueue(new Callback<GenericResponse<Alergias>>() {
+    public LiveData<GenericResponse<Alergia>> save(Alergia a){
+        final MutableLiveData<GenericResponse<Alergia>> mld = new MutableLiveData<>();
+        this.api.guardarAlergia(a).enqueue(new Callback<GenericResponse<Alergia>>() {
             @Override
-            public void onResponse(Call<GenericResponse<Alergias>> call, Response<GenericResponse<Alergias>> response) {
+            public void onResponse(Call<GenericResponse<Alergia>> call, Response<GenericResponse<Alergia>> response) {
                 mld.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<Alergias>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<Alergia>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
                 System.out.println("Se ha producido un error al guardar la alergia" + t.getMessage());
                 t.printStackTrace();

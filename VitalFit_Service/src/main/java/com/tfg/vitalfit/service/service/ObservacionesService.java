@@ -1,8 +1,6 @@
 package com.tfg.vitalfit.service.service;
 
-import com.tfg.vitalfit.service.entity.Alergias;
-import com.tfg.vitalfit.service.entity.Observaciones;
-import com.tfg.vitalfit.service.repository.AlergiasRepository;
+import com.tfg.vitalfit.service.entity.Observacion;
 import com.tfg.vitalfit.service.repository.ObservacionesRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.stereotype.Service;
@@ -23,7 +21,7 @@ public class ObservacionesService {
     }
 
     //método para guardar observación
-    public GenericResponse guardarObservacion(Observaciones o){
+    public GenericResponse guardarObservacion(Observacion o){
         if(o.getPaciente() == null){
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: no se ha asignado un paciente.", null);
         }else{
@@ -32,7 +30,7 @@ public class ObservacionesService {
     }
 
     public GenericResponse eliminarObservacion(Long idObservacion) {
-        Optional<Observaciones> optO = this.repository.findById(idObservacion);
+        Optional<Observacion> optO = this.repository.findById(idObservacion);
         if(optO.isPresent()){
             this.repository.deleteById(idObservacion);
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Observación eliminada correctamente", null);

@@ -7,7 +7,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-public class Platos {
+public class Plato {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPlato;

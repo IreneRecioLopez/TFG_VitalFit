@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Alergias;
+import com.tfg.vitalfit.entity.service.Alergia;
 import com.tfg.vitalfit.repository.AlergiasRepository;
 
 public class AlergiasViewModel extends AndroidViewModel {
@@ -18,7 +18,7 @@ public class AlergiasViewModel extends AndroidViewModel {
         this.repository = AlergiasRepository.getInstance();
     }
 
-    public LiveData<GenericResponse<Alergias>> save(Alergias a){
+    public LiveData<GenericResponse<Alergia>> save(Alergia a){
         return this.repository.save(a);
     }
 

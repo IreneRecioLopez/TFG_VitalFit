@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Operaciones;
+import com.tfg.vitalfit.entity.service.Operacion;
 import com.tfg.vitalfit.repository.OperacionesRepository;
 
 public class OperacionesViewModel extends AndroidViewModel {
@@ -18,7 +18,7 @@ public class OperacionesViewModel extends AndroidViewModel {
         this.repository = OperacionesRepository.getInstance();
     }
 
-    public LiveData<GenericResponse<Operaciones>> save(Operaciones op){
+    public LiveData<GenericResponse<Operacion>> save(Operacion op){
         return this.repository.save(op);
     }
 

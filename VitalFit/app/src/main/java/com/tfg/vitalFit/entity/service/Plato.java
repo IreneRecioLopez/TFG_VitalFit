@@ -3,7 +3,7 @@ package com.tfg.vitalfit.entity.service;
 
 import java.io.Serializable;
 
-public class Platos implements Serializable {
+public class Plato implements Serializable {
     private Long idPlato;
     private String tramoDia;
     private String primerPlato;

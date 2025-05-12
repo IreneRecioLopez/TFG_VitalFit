@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Observaciones;
+import com.tfg.vitalfit.entity.service.Observacion;
 import com.tfg.vitalfit.repository.ObservacionesRepository;
 
 public class ObservacionesViewModel extends AndroidViewModel {
@@ -18,7 +18,7 @@ public class ObservacionesViewModel extends AndroidViewModel {
         this.repository = ObservacionesRepository.getInstance();
     }
 
-    public LiveData<GenericResponse<Observaciones>> save(Observaciones o){ return this.repository.save(o); }
+    public LiveData<GenericResponse<Observacion>> save(Observacion o){ return this.repository.save(o); }
 
     public LiveData<GenericResponse<Void>> delete(Long idObservacion){
         return this.repository.eliminarOperacion(idObservacion);

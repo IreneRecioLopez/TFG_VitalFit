@@ -1,7 +1,7 @@
 package com.tfg.vitalfit.api;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Alergias;
+import com.tfg.vitalfit.entity.service.Alergia;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -15,7 +15,7 @@ public interface AlergiasApi {
 
     //@FormUrlEncoded
     @POST(base + "/save")
-    Call<GenericResponse<Alergias>> guardarAlergia(@Body Alergias a);
+    Call<GenericResponse<Alergia>> guardarAlergia(@Body Alergia a);
 
     @DELETE(base + "/delete/{idAlergia}")
     Call<GenericResponse<Void>> eliminarAlergia(@Path("idAlergia") Long idAlergia);

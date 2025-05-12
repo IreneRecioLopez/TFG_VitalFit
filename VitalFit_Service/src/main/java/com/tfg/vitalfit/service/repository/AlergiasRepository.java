@@ -1,9 +1,9 @@
 package com.tfg.vitalfit.service.repository;
 
-import com.tfg.vitalfit.service.entity.Alergias;
+import com.tfg.vitalfit.service.entity.Alergia;
 import org.springframework.data.repository.CrudRepository;
 
 
-public interface AlergiasRepository extends CrudRepository<Alergias, Long> {
+public interface AlergiasRepository extends CrudRepository<Alergia, Long> {
 
 }

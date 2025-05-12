@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Pesos;
+import com.tfg.vitalfit.entity.service.Peso;
 import com.tfg.vitalfit.repository.PesosRepository;
 
 public class PesosViewModel extends AndroidViewModel {
@@ -18,7 +18,7 @@ public class PesosViewModel extends AndroidViewModel {
         this.repository = PesosRepository.getInstance();
     }
 
-    public LiveData<GenericResponse<Pesos>> save(Pesos p){
+    public LiveData<GenericResponse<Peso>> save(Peso p){
         return this.repository.save(p);
     }
 }

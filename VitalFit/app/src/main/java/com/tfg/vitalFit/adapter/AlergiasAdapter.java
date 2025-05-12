@@ -13,7 +13,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.entity.service.Alergias;
+import com.tfg.vitalfit.entity.service.Alergia;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 
@@ -27,10 +27,10 @@ public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private Context context;
     private AlergiasViewModel alergiasViewModel;
 
-    private List<Alergias> listaAlergias;
+    private List<Alergia> listaAlergias;
     private Boolean esPaciente;
 
-    public AlergiasAdapter(Context context, List<Alergias> listaAlergias, Boolean esPaciente, AlergiasViewModel alergiasViewModel){
+    public AlergiasAdapter(Context context, List<Alergia> listaAlergias, Boolean esPaciente, AlergiasViewModel alergiasViewModel){
         this.context = context;
         this.listaAlergias = listaAlergias;
         this.esPaciente = esPaciente;
@@ -51,7 +51,7 @@ public class AlergiasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Alergias alergia = listaAlergias.get(position);
+        Alergia alergia = listaAlergias.get(position);
         if (holder instanceof PacienteAlergiasViewHolder) {
             PacienteAlergiasViewHolder viewHolder = (PacienteAlergiasViewHolder) holder;
             viewHolder.txtAlergia.setText(alergia.getAlergia());

@@ -7,7 +7,7 @@ public class Dieta implements Serializable {
     private Long idDieta;
     private String diaSemana;
     private Paciente paciente;
-    private List<Platos> platos;
+    private List<Plato> platos;
 
     public Long getIdDieta() {
         return idDieta;
@@ -21,7 +21,7 @@ public class Dieta implements Serializable {
         return paciente;
     }
 
-    public List<Platos> getPlatos() {
+    public List<Plato> getPlatos() {
         return platos;
     }
 
@@ -37,7 +37,7 @@ public class Dieta implements Serializable {
         this.paciente = paciente;
     }
 
-    public void setPlatos(List<Platos> platos) {
+    public void setPlatos(List<Plato> platos) {
         this.platos = platos;
     }
 }

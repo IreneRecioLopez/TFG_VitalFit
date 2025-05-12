@@ -6,7 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.tfg.vitalfit.api.ConfigApi;
 import com.tfg.vitalfit.api.OperacionesApi;
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Operaciones;
+import com.tfg.vitalfit.entity.service.Operacion;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -27,16 +27,16 @@ public class OperacionesRepository {
         return repository;
     }
 
-    public LiveData<GenericResponse<Operaciones>> save(Operaciones op){
-        final MutableLiveData<GenericResponse<Operaciones>> mld = new MutableLiveData<>();
-        this.api.guardarOperacion(op).enqueue(new Callback<GenericResponse<Operaciones>>() {
+    public LiveData<GenericResponse<Operacion>> save(Operacion op){
+        final MutableLiveData<GenericResponse<Operacion>> mld = new MutableLiveData<>();
+        this.api.guardarOperacion(op).enqueue(new Callback<GenericResponse<Operacion>>() {
             @Override
-            public void onResponse(Call<GenericResponse<Operaciones>> call, Response<GenericResponse<Operaciones>> response) {
+            public void onResponse(Call<GenericResponse<Operacion>> call, Response<GenericResponse<Operacion>> response) {
                 mld.setValue(response.body());
             }
 
             @Override
-            public void onFailure(Call<GenericResponse<Operaciones>> call, Throwable t) {
+            public void onFailure(Call<GenericResponse<Operacion>> call, Throwable t) {
                 mld.setValue(new GenericResponse<>());
                 System.out.println("Se ha producido un error al guardar la operación" + t.getMessage());
                 t.printStackTrace();
