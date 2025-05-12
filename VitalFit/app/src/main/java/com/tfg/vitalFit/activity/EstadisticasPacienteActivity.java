@@ -89,7 +89,7 @@ public class EstadisticasPacienteActivity extends AppCompatActivity {
         int index = 0;
         for (Peso peso : listaPesos) {
             entries.add(new Entry(index, peso.getPeso().floatValue()));
-            fechas.add(Fecha.obtenerFecha(peso.getFecha())); 
+            fechas.add(Fecha.obtenerFecha(peso.getFecha()));
             index++;
         }
 

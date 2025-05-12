@@ -18,8 +18,8 @@
         tools:layout="@layout/fragment_datos_personales" />
 
     <fragment
-        android:id="@+id/nav_consejos"
-        android:name="com.tfg.vitalfit.activity.uiPaciente.consejos.ConsejosFragment"
-        android:label="@string/menu_consejos"
-        tools:layout="@layout/fragment_consejos" />
+        android:id="@+id/nav_configuracion"
+        android:name="com.tfg.vitalfit.activity.uiPaciente.configuracion.ConfiguracionFragment"
+        android:label="@string/menu_configuracion"
+        tools:layout="@layout/fragment_configuracion" />
 </navigation>
