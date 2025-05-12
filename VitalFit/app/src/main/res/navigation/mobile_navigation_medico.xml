@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation2"
+    app:startDestination="@id/nav_home_medico">
+
+    <fragment
+        android:id="@+id/nav_home_medico"
+        android:name="com.tfg.vitalfit.activity.uiMedico.home.HomeFragment"
+        android:label="@string/menu_home"
+        tools:layout="@layout/fragment_home_medico_nutricionista" />
+
+    <fragment
+        android:id="@+id/nav_datos_personales_medico"
+        android:name="com.tfg.vitalfit.activity.uiMedico.datosPersonales.DatosPersonalesMedicoFragment"
+        android:label="@string/menu_datos_personales"
+        tools:layout="@layout/fragment_datos_personales_medico_nutricionista" />
+
+    <fragment
+        android:id="@+id/nav_configuracion_medico_nutricionista"
+        android:name="com.tfg.vitalfit.activity.uiMedico.slideshow.SlideshowFragment"
+        android:label="@string/menu_configuracion"
+        tools:layout="@layout/fragment_configuracion_medico_nutricionista" />
+</navigation>

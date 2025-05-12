@@ -6,7 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.tfg.vitalfit.entity.GenericResponse;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.repository.HospitalRepository;
 
@@ -26,5 +25,9 @@ public class HospitalViewModel extends AndroidViewModel {
 
     public LiveData<Hospital> hospitalPorNombreYProvincia(String nombre, String provincia){
         return this.repository.hospitalByNameAndProvince(nombre, provincia);
+    }
+
+    public LiveData<Hospital> hospitalPorNombre(String nombre) {
+        return this.repository.hospitalByName(nombre);
     }
 }

@@ -1,0 +1,22 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="medico_paciente" directorySegmentName="seg_0" id="BAE676D5-828E-2FE5-8576-4B99936AF2CA">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-05-12 10:35:51 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<sourcePk>2EF9AF32-85BD-75C8-9AB0-F57BCB27619E</sourcePk>
+<targetPk>2EF9AF32-85BD-75C8-9AB0-F57BCB27619E</targetPk>
+<identifying>false</identifying>
+<nameOnSource>MEDICO DE</nameOnSource>
+<nameOnTarget>ASIGNADO A</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>7B2C19E2-8F2F-775F-8B8D-AB4A1C7BE983</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>7B2C19E2-8F2F-775F-8B8D-AB4A1C7BE983</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

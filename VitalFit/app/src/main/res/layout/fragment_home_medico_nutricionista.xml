@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.uiMedico.home.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/white">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Pacientes Asignados"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/light_green"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_eleccionPaciente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtIngresarDatos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="30dp"
+            android:text="@string/label_elegirPaciente"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtInputPaciente"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:hint="Paciente">
+
+            <AutoCompleteTextView
+                android:id="@+id/dropdownPaciente"
+                android:layout_gravity="center|center_horizontal"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:inputType="none"
+                android:paddingStart="48dp"
+                android:textSize="15sp" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearParte5"
+        android:layout_below="@+id/linearParte4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp">
+
+        <Button
+            android:id="@+id/btnContinuarMedico"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="Continuar"
+            android:drawableTint="#fff"
+            android:drawableEnd="@drawable/ic_arrow_forward"/>
+    </LinearLayout>
+
+</LinearLayout>

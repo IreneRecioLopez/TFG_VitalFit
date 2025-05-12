@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="5C4D3552-3EC4-9B81-D910-FCAD0052F715" name="Dietas">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="5C4D3552-3EC4-9B81-D910-FCAD0052F715" name="DIETA">
 <createdBy>USUARIO</createdBy>
 <createdTime>2025-02-26 09:20:25 UTC</createdTime>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
@@ -40,19 +40,6 @@
 <dataTypeSize>20 CHAR</dataTypeSize>
 <ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="tramo" id="429053EA-F8BA-78DB-BD72-6AF7792DF94F">
-<createdBy>USUARIO</createdBy>
-<createdTime>2025-02-26 09:23:03 UTC</createdTime>
-<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
-<engineerTo>
-<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
-</engineerTo>
-<useDomainConstraints>false</useDomainConstraints>
-<use>1</use>
-<logicalDatatype>LOGDT024</logicalDatatype>
-<dataTypeSize>20 CHAR</dataTypeSize>
-<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="dni" id="9AF08C4F-CFA0-7868-C88E-B4F6C25534EC">
 <createdBy>USUARIO</createdBy>
 <createdTime>2025-02-26 14:53:48 UTC</createdTime>
@@ -66,7 +53,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20 CHAR</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">

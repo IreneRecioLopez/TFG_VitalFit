@@ -5,7 +5,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activity.ui.home.HomeFragment">
+    tools:context=".activity.uiPaciente.home.HomeFragment">
 
+    <LinearLayout
+        android:id="@+id/datosPaciente"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingStart="40dp"
+        android:layout_marginBottom="15dp">
+
+        <TextView
+            android:id="@+id/txtNombreCompletoPaciente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Nombre Completo del Paciente"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Nacimiento:"/>
+
+        <TextView
+            android:id="@+id/txtFechaNacimientoPaciente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Nacimiento Paciente"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número de la Seguridad Social:"/>
+
+        <TextView
+            android:id="@+id/txtNumeroSeguridadSocial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Numero Seguridad Social"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="40dp"
+            android:text="Ingrese su peso diario: ">
+        </TextView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="55dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputPesoP"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Peso"
+                app:startIconDrawable="@drawable/ic_peso">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPesoP"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number|numberDecimal"
+                    android:paddingStart="48dp"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnGuardarPeso"
+                android:layout_width="wrap_content"
+                android:layout_height="55dp"
+                android:layout_marginEnd="55dp"
+                android:drawableEnd="@drawable/ic_save"
+                android:paddingTop="15dp"
+                android:text="Guardar" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btnLeerConsejos"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Leer consejos"
+            android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:id="@+id/btnOtrosDatos"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Otros Datos" />
+
+        <Button
+            android:id="@+id/btnDieta"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Dieta" />
+
+        <Button
+            android:id="@+id/btnEstadisticas"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Estadísticas" />
+
+    </LinearLayout>
 
 </LinearLayout>

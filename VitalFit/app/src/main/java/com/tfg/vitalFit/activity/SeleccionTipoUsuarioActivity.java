@@ -2,25 +2,16 @@ package com.tfg.vitalfit.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.viewModel.MedicoViewModel;
-import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
-import com.tfg.vitalfit.viewModel.PacienteViewModel;
+import com.tfg.vitalfit.utils.ToastMessage;
 
 public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
 
@@ -58,26 +49,22 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
                 startActivity(new Intent(this, RegistroPacienteActivity.class));
             }else if(isMedico) {
                 chkMedico.setChecked(false);
-                startActivity(new Intent(this, RegistroMedicoActivity.class));
+                String valor = "Médico";
+                Intent intent = new Intent(this, RegistroMedicoNutricionistaActivity.class);
+                intent.putExtra("ROL", valor);
+                startActivity(intent);
+                //startActivity(new Intent(this, RegistroMedicoActivity.class));
             }else if(isNutricionista){
                 chkNutricionista.setChecked(false);
-                startActivity(new Intent(this, RegistroNutricionistaActivity.class));
+                String valor = "Nutricionista";
+                Intent intent = new Intent(this, RegistroMedicoNutricionistaActivity.class);
+                intent.putExtra("ROL", valor);
+                startActivity(intent);
+                //startActivity(new Intent(this, RegistroNutricionistaActivity.class));
             }else{
-                toastInvalido("Por favor, seleccione un tipo de usuario.");
+                ToastMessage.Invalido(this, "Por favor, seleccione un tipo de usuario.");
             }
         });
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
     }
 
     private void listeners(){

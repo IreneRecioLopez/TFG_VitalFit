@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_home_medico"
+            android:icon="@drawable/ic_house"
+            android:title="@string/menu_pagina_principal" />
+        <item
+            android:id="@+id/nav_datos_personales_medico"
+            android:icon="@drawable/ic_person"
+            android:title="@string/menu_datos_personales" />
+
+        <item
+            android:id="@+id/nav_configuracion_medico_nutricionista"
+            android:icon="@drawable/ic_setting"
+            android:title="@string/menu_configuracion" />
+
+
+    </group>
+
+</menu>

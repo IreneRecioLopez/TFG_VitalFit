@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6B6357E5-42DF-FED2-CF4A-64E36868771E" name="Operaciones">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="6B6357E5-42DF-FED2-CF4A-64E36868771E" name="OPERACION">
 <createdBy>USUARIO</createdBy>
 <createdTime>2025-02-26 08:39:13 UTC</createdTime>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
@@ -65,7 +65,7 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20 CHAR</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
 </Attribute>
 </attributes>
 <identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">

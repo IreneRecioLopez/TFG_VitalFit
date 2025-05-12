@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BFBDA052-AE60-AB73-D326-011C1128C7FF" name="Hospital">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BFBDA052-AE60-AB73-D326-011C1128C7FF" name="HOSPITAL">
 <createdBy>USUARIO</createdBy>
 <createdTime>2025-02-25 12:44:30 UTC</createdTime>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
@@ -15,6 +15,18 @@
 <minVolumes>0</minVolumes>
 <normalForm>Third</normalForm>
 <attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="idHospital" id="49915CC5-8547-AF01-FAA2-51B297088630">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-05-12 09:58:53 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
 <Attribute name="nombre" id="CDCA1D29-9E89-711D-03E3-2514ACC65798">
 <createdBy>USUARIO</createdBy>
 <createdTime>2025-02-26 08:17:27 UTC</createdTime>
@@ -103,8 +115,7 @@
 </engineerTo>
 <pk>true</pk>
 <usedAttributes>
-<attributeRef>CDCA1D29-9E89-711D-03E3-2514ACC65798</attributeRef>
-<attributeRef>8BF85581-157C-6AFF-86B5-9C6CF0231DF7</attributeRef>
+<attributeRef>49915CC5-8547-AF01-FAA2-51B297088630</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

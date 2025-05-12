@@ -1,7 +1,7 @@
 package com.tfg.vitalfit.api;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Pesos;
+import com.tfg.vitalfit.entity.service.Peso;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -13,5 +13,5 @@ public interface PesosApi {
 
     //@FormUrlEncoded
     @POST(base + "/save")
-    Call<GenericResponse<Pesos>> guardarPeso(@Body Pesos p);
+    Call<GenericResponse<Peso>> guardarPeso(@Body Peso p);
 }

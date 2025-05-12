@@ -35,25 +35,27 @@
         android:orientation="vertical"
         android:layout_below="@+id/linearParte1"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:gravity="end">
+        android:layout_marginEnd="10dp">
 
         <CheckBox
             android:id="@+id/chkPacienteUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="Paciente" />
 
         <CheckBox
             android:id="@+id/chkMedicoUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="156dp"
             android:text="Médico" />
 
         <CheckBox
             android:id="@+id/chkNutricionistaUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="156dp"
             android:text="Nutricionista" />
 
     </LinearLayout>

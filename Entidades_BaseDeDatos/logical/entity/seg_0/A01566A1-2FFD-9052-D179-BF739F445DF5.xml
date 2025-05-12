@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A01566A1-2FFD-9052-D179-BF739F445DF5" name="Consejos">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A01566A1-2FFD-9052-D179-BF739F445DF5" name="CONSEJO">
 <createdBy>USUARIO</createdBy>
 <createdTime>2025-02-25 12:19:15 UTC</createdTime>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
@@ -53,17 +53,17 @@
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20 CHAR</dataTypeSize>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
+<ownDataTypeParameters>20 CHAR,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="dni1" id="EA4CAB76-7A62-61A9-9C14-0AF3DBFD77D6">
+<Attribute name="dni1" id="D0C82D20-0941-3C30-74B7-CA4BAE54E9DB">
 <createdBy>USUARIO</createdBy>
-<createdTime>2025-02-26 11:28:42 UTC</createdTime>
-<generatorID>64F91D7F-5DAF-19AB-968B-243702C3F799</generatorID>
+<createdTime>2025-05-12 10:47:24 UTC</createdTime>
+<generatorID>3DAF8BB5-F863-8D52-FAF3-C31823683D61</generatorID>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
 <engineerTo>
 <item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
 </engineerTo>
-<referedAttribute>18A7CC57-8034-B065-47E4-FBE7690B6CF4</referedAttribute>
+<referedAttribute>79AB32FB-90CF-3844-A1AB-046164FCF72B</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
@@ -83,7 +83,7 @@
 <usedAttributes>
 <attributeRef>0F826EC7-046B-A64E-95EF-E2892A8D4FAF</attributeRef>
 <attributeRef>7166D696-6790-F171-4E2E-4DFF592E308F</attributeRef>
-<attributeRef>EA4CAB76-7A62-61A9-9C14-0AF3DBFD77D6</attributeRef>
+<attributeRef>D0C82D20-0941-3C30-74B7-CA4BAE54E9DB</attributeRef>
 </usedAttributes>
 </identifier>
 </identifiers>

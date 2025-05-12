@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.repository.PacienteRepository;
 
@@ -20,20 +19,16 @@ public class PacienteViewModel extends AndroidViewModel {
         this.repository = PacienteRepository.getInstance();
     }
 
-    public LiveData<GenericResponse<Paciente>> login(String dni, String password){
-        return this.repository.login(dni, password);
-    }
+
 
     public LiveData<GenericResponse<Paciente>> save(Paciente p){
         return this.repository.save(p);
     }
 
-    public LiveData<GenericResponse<Void>> asociarPacienteHospital(String dni, Hospital hospitalAsignado) {
-        return this.repository.asociarPacienteHospital(dni, hospitalAsignado);
+    public LiveData<GenericResponse<Void>> actualizarPaciente(Paciente p){
+        return this.repository.actualizarPaciente(p);
     }
 
-    public LiveData<GenericResponse<Void>> actualizarPassword(String dni, String password) {
-        return this.repository.actualizarPassword(dni, password);
-    }
+    public LiveData<Paciente> pacienteByDNI(String dni){ return this.repository.pacienteByDNI(dni); }
 
 }

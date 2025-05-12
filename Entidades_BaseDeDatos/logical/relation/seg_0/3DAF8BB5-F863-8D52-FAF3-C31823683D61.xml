@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="nutricionista_consejo" directorySegmentName="seg_0" id="3DAF8BB5-F863-8D52-FAF3-C31823683D61">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-05-12 10:47:24 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<sourcePk>2EF9AF32-85BD-75C8-9AB0-F57BCB27619E</sourcePk>
+<identifying>true</identifying>
+<nameOnSource>ENVIA</nameOnSource>
+<nameOnTarget>ENVIADO POR</nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>7B2C19E2-8F2F-775F-8B8D-AB4A1C7BE983</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>A01566A1-2FFD-9052-D179-BF739F445DF5</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

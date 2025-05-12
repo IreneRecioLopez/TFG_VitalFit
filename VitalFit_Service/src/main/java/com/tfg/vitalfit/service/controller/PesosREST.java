@@ -1,7 +1,6 @@
 package com.tfg.vitalfit.service.controller;
 
-import com.tfg.vitalfit.service.entity.Paciente;
-import com.tfg.vitalfit.service.entity.Pesos;
+import com.tfg.vitalfit.service.entity.Peso;
 import com.tfg.vitalfit.service.service.PesosService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,7 +17,7 @@ public class PesosREST {
     }
 
     @PostMapping("/save")
-    public GenericResponse save(@RequestBody Pesos p){
+    public GenericResponse save(@RequestBody Peso p){
         return this.service.guardarPeso(p);
     }
 }

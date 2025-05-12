@@ -1,6 +1,7 @@
 package com.tfg.vitalfit.service.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,14 +15,15 @@ public class Dieta {
     private Long idDieta;
     @Column(nullable = false)
     private String diaSemana;
-    @Column(nullable = false)
-    private String tramoDia;
+
 
     @ManyToOne
     @JoinColumn(name = "dni_paciente")
+    @JsonBackReference("paciente-dietas")
     private Paciente paciente;
 
     @OneToMany(mappedBy = "dieta")
-    private List<Platos> platos;
+    @JsonManagedReference(value = "dieta-platos")
+    private List<Plato> platos;
 
 }

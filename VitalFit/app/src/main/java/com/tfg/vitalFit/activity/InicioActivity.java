@@ -6,11 +6,13 @@ import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -18,8 +20,17 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.tfg.vitalfit.R;
+import com.tfg.vitalfit.activity.uiPaciente.datosPersonales.DatosPersonalesPacienteFragment;
 import com.tfg.vitalfit.databinding.ActivityInicioBinding;
+import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.DateSerializer;
+import com.tfg.vitalfit.utils.TimeSerializer;
+
+import java.sql.Date;
+import java.sql.Time;
 
 public class InicioActivity extends AppCompatActivity {
 
@@ -34,25 +45,52 @@ public class InicioActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarInicio.toolbar);
-        binding.appBarInicio.fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null)
-                        .setAnchorView(R.id.fab).show();
-            }
-        });
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_pagina_principal, R.id.nav_datos_personales, R.id.nav_consejos)
+                R.id.nav_pagina_principal, R.id.nav_datos_personales, R.id.nav_configuracion)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_inicio);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        NavigationUI.setupWithNavController(navigationView, navController);
+        //NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(item -> {
+            Fragment currentFragment = getSupportFragmentManager()
+                    .findFragmentById(R.id.nav_host_fragment_content_inicio)
+                    .getChildFragmentManager()
+                    .getFragments()
+                    .get(0);
+
+            if (currentFragment instanceof DatosPersonalesPacienteFragment) {
+                DatosPersonalesPacienteFragment fragment = (DatosPersonalesPacienteFragment) currentFragment;
+
+                if (fragment.estaEnModoEdicion()) {
+                    new AlertDialog.Builder(this)
+                            .setTitle("¿Descartar cambios?")
+                            .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
+                            .setPositiveButton("Sí", (dialog, which) -> {
+                                fragment.cancelarEdicion();
+
+                                // ✅ Forzar navegación y actualizar ítem seleccionado
+                                navController.navigate(item.getItemId());
+                                item.setChecked(true); // <- ACTUALIZA el estado visual del menú
+                                drawer.closeDrawers();
+                            })
+                            .setNegativeButton("Cancelar", null)
+                            .show();
+                    return false;
+                }
+            }
+
+            // Sin edición activa, navegar normalmente
+            boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+            if (handled) {
+                drawer.closeDrawers();
+            }
+            return handled;
+        });
     }
 
     @Override
@@ -75,11 +113,34 @@ public class InicioActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        loadData();
+    }
+    private void loadData(){
+        SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
+        final Gson g = new GsonBuilder()
+                .registerTypeAdapter(Date.class, new DateSerializer())
+                .registerTypeAdapter(Time.class, new TimeSerializer())
+                .create();
+        String usuarioJson = preference.getString("UsuarioJson", "");
+        if(usuarioJson != null){
+            final Usuario u = g.fromJson(usuarioJson, Usuario.class);
+            final View vistaHeader = binding.navView.getHeaderView(0);
+            final TextView nombreUsuario = vistaHeader.findViewById(R.id.nombreUsuario);
+            final TextView tlfUsuario = vistaHeader.findViewById(R.id.tlfUsuario);
+
+            nombreUsuario.setText(u.getNombreCompleto());
+            tlfUsuario.setText(u.getTelefono());
+        }
+    }
+
     //Método para cerrar sesión
     private void logout() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = preferences.edit();
-        editor.remove("PacienteJson");
+        editor.remove("UsuarioJson");
         editor.apply();
         this.finish();
         this.overridePendingTransition(R.anim.left_in, R.anim.left_out);

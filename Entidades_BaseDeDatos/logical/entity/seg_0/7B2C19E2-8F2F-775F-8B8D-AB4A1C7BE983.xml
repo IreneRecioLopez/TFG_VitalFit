@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="7B2C19E2-8F2F-775F-8B8D-AB4A1C7BE983" name="Medico">
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="7B2C19E2-8F2F-775F-8B8D-AB4A1C7BE983" name="USUARIO">
 <createdBy>USUARIO</createdBy>
 <createdTime>2025-02-25 12:17:59 UTC</createdTime>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
@@ -92,30 +92,72 @@
 <logicalDatatype>LOGDT026</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="nombre1" id="6C96725C-5F6E-CCB1-20C9-F4E7B79E08F2">
+<Attribute name="rol" id="8DC08F9F-6120-9D30-428C-9A8C79D7279D">
 <createdBy>USUARIO</createdBy>
-<createdTime>2025-02-26 11:32:16 UTC</createdTime>
+<createdTime>2025-05-12 09:53:22 UTC</createdTime>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="idHospital" id="EAAFFD77-6E58-F8F4-FB39-1A3F07D2A3B1">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-05-12 09:59:26 UTC</createdTime>
 <generatorID>A861079A-9CAB-21CC-5CA9-5005A0836849</generatorID>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
 <engineerTo>
 <item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
 </engineerTo>
-<referedAttribute>CDCA1D29-9E89-711D-03E3-2514ACC65798</referedAttribute>
+<referedAttribute>49915CC5-8547-AF01-FAA2-51B297088630</referedAttribute>
+<use>1</use>
+<logicalDatatype>LOGDT026</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dni1" id="30D09093-C6D0-A5FF-3F87-476C0286E48B">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-05-12 10:12:15 UTC</createdTime>
+<generatorID>6BA6A884-01B4-AEA0-D3CD-34DA262109CA</generatorID>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<referedAttribute>79AB32FB-90CF-3844-A1AB-046164FCF72B</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>
 <dataTypeSize>20 CHAR</dataTypeSize>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="provincia" id="2076D525-401E-376B-90ED-182C0505DBF9">
+<Attribute name="dni2" id="77EBDFB5-96EB-BC63-10F4-BB0A9AD737C2">
 <createdBy>USUARIO</createdBy>
-<createdTime>2025-02-26 11:32:16 UTC</createdTime>
-<generatorID>A861079A-9CAB-21CC-5CA9-5005A0836849</generatorID>
+<createdTime>2025-05-12 10:35:51 UTC</createdTime>
+<generatorID>BAE676D5-828E-2FE5-8576-4B99936AF2CA</generatorID>
 <ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
 <engineerTo>
 <item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
 </engineerTo>
-<referedAttribute>8BF85581-157C-6AFF-86B5-9C6CF0231DF7</referedAttribute>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>79AB32FB-90CF-3844-A1AB-046164FCF72B</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20 CHAR</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dni3" id="9B61F9AF-E136-BB1E-5F27-0EFC5DAC04C7">
+<createdBy>USUARIO</createdBy>
+<createdTime>2025-05-12 10:38:49 UTC</createdTime>
+<generatorID>2CC776CC-B655-E8F9-D8B1-EF53DB0A3CDA</generatorID>
+<ownerDesignName>Entidades_BaseDeDatos</ownerDesignName>
+<engineerTo>
+<item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>79AB32FB-90CF-3844-A1AB-046164FCF72B</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT024</logicalDatatype>

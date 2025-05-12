@@ -1,0 +1,30 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24"
+    android:tint="#000000">
+
+    <!-- Manzana -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M12,6
+            C11,4.5 12.5,2.5 14,3
+            C13.5,4 13,5 13,6
+            C15,6 17,8 17,11
+            C17,14 15,17 12,17
+            C9,17 7,14 7,11
+            C7,8 9,6 12,6Z" />
+
+    <!-- Hoja -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M14,3.5
+            C14.5,2.5 16,2.5 16.5,3.5
+            C16,4 15,4.5 14,3.5Z" />
+
+    <!-- Tachado -->
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M5,19 L19,5" />
+</vector>

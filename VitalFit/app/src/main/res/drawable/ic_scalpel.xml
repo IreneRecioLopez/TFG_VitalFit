@@ -1,0 +1,33 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="90"
+    android:viewportHeight="80">
+
+    <!-- Hoja del bisturí -->
+    <path
+        android:fillColor="#C0C0C0"
+        android:strokeColor="#444444"
+        android:strokeWidth="2"
+        android:pathData="M20,70 L85,20 Q90,25 80,35 L30,80 Z" />
+
+    <!-- Mango del bisturí -->
+    <path
+        android:fillColor="#888888"
+        android:strokeColor="#444444"
+        android:strokeWidth="2"
+        android:pathData="M15,70 h20 a2,2 0 0 1 0,10 h-20 a2,2 0 0 1 0,-10 z" />
+
+    <!-- Detalles del mango -->
+    <path
+        android:strokeColor="#555555"
+        android:strokeWidth="1"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M18,72 L33,72" />
+
+    <path
+        android:strokeColor="#555555"
+        android:strokeWidth="1"
+        android:fillColor="@android:color/transparent"
+        android:pathData="M18,75 L33,75" />
+</vector>

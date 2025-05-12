@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.MedicoDatosPacienteActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/barDatosPacienteMedico"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarDatosPacienteMedico"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/light_green"
+                app:navigationIcon="@drawable/ic_arrow_back"
+                app:title="Datos Paciente"
+                app:titleTextColor="@color/white" />
+        </com.google.android.material.appbar.AppBarLayout>
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/datosPaciente"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="20dp"
+                android:paddingStart="40dp">
+
+                <TextView
+                    android:id="@+id/txtNombreCompletoPaciente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre Completo del Paciente"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de Nacimiento:"/>
+
+                <TextView
+                    android:id="@+id/txtFechaNacimientoPaciente"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Fecha de Nacimiento Paciente"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Número de la Tarjeta Sanitaria:"/>
+
+                <TextView
+                    android:id="@+id/txtNumeroTarjetaSanitaria"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Numero Tarjeta Sanitaria"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@+id/datosPaciente">
+
+                <Button
+                    android:id="@+id/btnAsignarNutricionista"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Asignar Nutricionista"
+                    android:layout_gravity="center_horizontal" />
+                <Button
+                    android:id="@+id/btnOtrosDatos"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Otros datos"
+                    android:layout_gravity="center_horizontal" />
+                <Button
+                    android:id="@+id/btnEstadisticas"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Estadísticas"
+                    android:layout_gravity="center_horizontal" />
+
+                <Button
+                    android:id="@+id/btnDieta"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:text="Dieta"
+                    android:layout_gravity="center_horizontal" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

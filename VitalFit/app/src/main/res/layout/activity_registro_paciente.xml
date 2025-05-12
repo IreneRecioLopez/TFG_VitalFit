@@ -353,63 +353,115 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/txtInputPesoP"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginEnd="10dp"
-                                    android:layout_weight="1"
-                                    android:hint="Peso"
-                                    app:startIconDrawable="@drawable/ic_peso">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/edtPesoP"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="number|numberDecimal"
-                                        android:paddingStart="48dp"
-                                        android:textSize="15sp" />
-                                </com.google.android.material.textfield.TextInputLayout>
-
-                                <com.google.android.material.textfield.TextInputLayout
-                                    android:id="@+id/txtInputAlturaP"
-                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:hint="Altura"
-                                    app:startIconDrawable="@drawable/ic_altura">
-
-                                    <com.google.android.material.textfield.TextInputEditText
-                                        android:id="@+id/edtAlturaP"
-                                        android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="number|numberDecimal"
-                                        android:paddingStart="48dp"
-                                        android:textSize="15sp" />
-                                </com.google.android.material.textfield.TextInputLayout>
-                            </LinearLayout>
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
                                 android:orientation="vertical">
-
-                                <CheckBox
-                                    android:id="@+id/chkVegetariana"
-                                    android:layout_width="wrap_content"
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Vegetariana"
-                                    app:startIconDrawable="@drawable/ic_comida"/>
+                                    android:orientation="horizontal">
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:id="@+id/txtInputPesoP"
+                                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginEnd="10dp"
+                                        android:layout_weight="1"
+                                        android:hint="Peso"
+                                        app:startIconDrawable="@drawable/ic_peso">
 
-                                <CheckBox
-                                    android:id="@+id/chkVegana"
-                                    android:layout_width="wrap_content"
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edtPesoP"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:inputType="number|numberDecimal"
+                                            android:paddingStart="48dp"
+                                            android:textSize="15sp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+
+                                    <com.google.android.material.textfield.TextInputLayout
+                                        android:id="@+id/txtInputAlturaP"
+                                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:hint="Altura"
+                                        app:startIconDrawable="@drawable/ic_altura">
+
+                                        <com.google.android.material.textfield.TextInputEditText
+                                            android:id="@+id/edtAlturaP"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:inputType="number|numberDecimal"
+                                            android:paddingStart="48dp"
+                                            android:textSize="15sp" />
+                                    </com.google.android.material.textfield.TextInputLayout>
+                                </LinearLayout>
+                                <LinearLayout
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:text="Vegana"
-                                    app:startIconDrawable="@drawable/ic_comida"/>
+                                    android:orientation="horizontal">
+                                    <CheckBox
+                                        android:id="@+id/chkVegetariana"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Vegetariana"
+                                        app:startIconDrawable="@drawable/ic_comida"/>
+
+                                    <CheckBox
+                                        android:id="@+id/chkVegana"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Vegana"
+                                        app:startIconDrawable="@drawable/ic_comida"/>
+                                </LinearLayout>
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/txtInputAlergiasAlimentariasP"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Alergias Alimentarias"
+                                    app:startIconDrawable="@drawable/ic_allergy_food">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edtAlergiasAlimentariasP"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="48dp"
+                                        android:textSize="15sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/txtInputAlergiasMedicinalesP"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:hint="Alergias Medicinales"
+                                    app:startIconDrawable="@drawable/ic_allergy_medicine">
+
+                                    <com.google.android.material.textfield.TextInputEditText
+                                        android:id="@+id/edtAlergiasMedicinalesP"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="48dp"
+                                        android:textSize="15sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+                                <LinearLayout
+                                    android:id="@+id/layout_operaciones"
+                                    android:orientation="vertical"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+
+                                    <!-- Aquí se irán agregando los campos de operaciones -->
+                                    <include
+                                        android:visibility="gone"
+                                        layout="@layout/item_add_operacion"/>
+
+                                    <Button
+                                        android:id="@+id/btnAgregarOperacion"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="+ Añadir operación" />
+
+                                </LinearLayout>
                             </LinearLayout>
                         </LinearLayout>
                     </RelativeLayout>
@@ -464,12 +516,12 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal">
+                                android:orientation="vertical">
 
                                 <com.google.android.material.textfield.TextInputLayout
                                     android:id="@+id/txtInputHospitalP"
                                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                                    android:layout_width="0dp"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:hint="Hospital"
@@ -477,6 +529,25 @@
 
                                     <AutoCompleteTextView
                                         android:id="@+id/dropdownHospitalP"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:paddingStart="48dp"
+                                        android:clickable="true"
+                                        android:inputType="none"
+                                        android:textSize="15sp" />
+                                </com.google.android.material.textfield.TextInputLayout>
+
+                                <com.google.android.material.textfield.TextInputLayout
+                                    android:id="@+id/txtInputMedicoP"
+                                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:hint="Médico"
+                                    app:startIconDrawable="@drawable/ic_hospital">
+
+                                    <AutoCompleteTextView
+                                        android:id="@+id/dropdownMedicoP"
                                         android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:paddingStart="48dp"

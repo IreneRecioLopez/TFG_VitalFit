@@ -23,10 +23,14 @@ public class ConfigApi {
     private static String token = "";
 
     private static PacienteApi pacienteApi;
-    private static MedicoApi medicoApi;
-    private static NutricionistaApi nutricionistaApi;
+    private static UsuarioApi usuarioApi;
     private static HospitalApi hospitalApi;
     private static PesosApi pesosApi;
+    private static AlergiasApi alergiasApi;
+    private static OperacionesApi operacionesApi;
+    private static ConsejosApi consejosApi;
+    private static ObservacionesApi observacionesApi;
+    private static DietasApi dietasApi;
 
     static {
         initClient();
@@ -74,18 +78,11 @@ public class ConfigApi {
         return pacienteApi;
     }
 
-    public static MedicoApi getMedicoApi(){
-        if(medicoApi == null){
-            medicoApi = retrofit.create(MedicoApi.class);
+    public static UsuarioApi getUsuarioApi(){
+        if(usuarioApi == null){
+            usuarioApi = retrofit.create(UsuarioApi.class);
         }
-        return medicoApi;
-    }
-
-    public static NutricionistaApi getNutricionistaApi(){
-        if(nutricionistaApi == null){
-            nutricionistaApi = retrofit.create(NutricionistaApi.class);
-        }
-        return nutricionistaApi;
+        return usuarioApi;
     }
 
     public static HospitalApi getHospitalApi(){
@@ -100,6 +97,41 @@ public class ConfigApi {
             pesosApi = retrofit.create(PesosApi.class);
         }
         return pesosApi;
+    }
+
+    public static AlergiasApi getAlergiasApi(){
+        if(alergiasApi == null){
+            alergiasApi = retrofit.create(AlergiasApi.class);
+        }
+        return alergiasApi;
+    }
+
+    public static OperacionesApi getOperacionesApi(){
+        if(operacionesApi == null){
+            operacionesApi = retrofit.create(OperacionesApi.class);
+        }
+        return operacionesApi;
+    }
+
+    public static ConsejosApi getConsejosApi(){
+        if(consejosApi == null){
+            consejosApi = retrofit.create(ConsejosApi.class);
+        }
+        return consejosApi;
+    }
+
+    public static ObservacionesApi getObservacionesApi(){
+        if(observacionesApi == null){
+            observacionesApi = retrofit.create(ObservacionesApi.class);
+        }
+        return observacionesApi;
+    }
+
+    public static  DietasApi getDietasApi(){
+        if(dietasApi == null){
+            dietasApi = retrofit.create(DietasApi.class);
+        }
+        return dietasApi;
     }
 
 }

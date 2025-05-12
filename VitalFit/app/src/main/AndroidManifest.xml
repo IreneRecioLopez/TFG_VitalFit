@@ -9,18 +9,36 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_logo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VitalFit"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activity.RegistroNutricionistaActivity"
+            android:name=".activity.EstadisticasPacienteActivity"
             android:exported="false" />
         <activity
-            android:name=".activity.RegistroMedicoActivity"
+            android:name=".activity.DietaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OtrosDatosPacienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.NutricionistaDatosPacienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MedicoDatosPacienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.VerEnviarConsejosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.LeerConsejosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.RegistroMedicoNutricionistaActivity"
             android:exported="false" />
         <activity
             android:name=".activity.RegistroPacienteActivity"
@@ -28,12 +46,23 @@
         <activity
             android:name=".activity.SeleccionTipoUsuarioActivity"
             android:exported="false" />
-        <activity android:name=".activity.OlvidarPasswordActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".activity.OlvidarPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".activity.InicioActivity"
             android:exported="false"
             android:label="@string/title_activity_inicio"
+            android:theme="@style/Theme.VitalFit.NoActionBar" />
+        <activity
+            android:name=".activity.InicioMedicoActivity"
+            android:exported="false"
+            android:label="@string/title_activity_inicio_medico"
+            android:theme="@style/Theme.VitalFit.NoActionBar" />
+        <activity
+            android:name=".activity.InicioNutricionistaActivity"
+            android:exported="false"
+            android:label="@string/title_activity_inicio_nutricionista"
             android:theme="@style/Theme.VitalFit.NoActionBar" />
         <activity
             android:name=".activity.MainActivity"

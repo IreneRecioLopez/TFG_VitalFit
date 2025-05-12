@@ -7,10 +7,9 @@
 <item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
 </engineerTo>
 <sourcePk>36AD52D0-B336-CB4A-C9F2-9F125F3CA2E5</sourcePk>
-<targetPk>2EF9AF32-85BD-75C8-9AB0-F57BCB27619E</targetPk>
 <identifying>false</identifying>
-<nameOnSource>TRABAJA</nameOnSource>
-<nameOnTarget>TRABAJA EN</nameOnTarget>
+<nameOnSource>HAY</nameOnSource>
+<nameOnTarget>ASOCIADO A</nameOnTarget>
 <optionalSource>false</optionalSource>
 <optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>

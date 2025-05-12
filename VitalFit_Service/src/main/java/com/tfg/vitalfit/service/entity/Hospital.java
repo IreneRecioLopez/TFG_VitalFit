@@ -1,6 +1,5 @@
 package com.tfg.vitalfit.service.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,7 +17,7 @@ public class Hospital {
     @Column(nullable = false)
     private String provincia;
     @Column(nullable = false)
-    private String localidad;
+    private String distrito;
     @Column(nullable = false)
     private Long cp;
     @Column(nullable = false)
@@ -26,12 +25,7 @@ public class Hospital {
     private Long numero;
 
     @OneToMany(mappedBy = "hospital")
-    @JsonManagedReference
-    private List<Paciente> pacientes;
+    //@JsonManagedReference(value = "hospital-usuario")
+    private List<Usuario> usuarios;
 
-    @OneToMany(mappedBy = "hospital")
-    private List<Medico> medicos;
-
-    @OneToMany(mappedBy = "hospital")
-    private List<Nutricionista> nutricionistas;
 }

@@ -6,18 +6,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -26,40 +23,55 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
+import com.tfg.vitalfit.entity.service.Alergia;
 import com.tfg.vitalfit.entity.service.Hospital;
+import com.tfg.vitalfit.entity.service.Observacion;
+import com.tfg.vitalfit.entity.service.Operacion;
 import com.tfg.vitalfit.entity.service.Paciente;
-import com.tfg.vitalfit.entity.service.Pesos;
+import com.tfg.vitalfit.entity.service.Peso;
+import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.Fecha;
+import com.tfg.vitalfit.utils.Security;
+import com.tfg.vitalfit.utils.ToastMessage;
+import com.tfg.vitalfit.viewModel.AlergiasViewModel;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
+import com.tfg.vitalfit.viewModel.ObservacionesViewModel;
+import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
+import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
 public class RegistroPacienteActivity extends AppCompatActivity {
 
     private PacienteViewModel pViewModel;
+    private UsuarioViewModel uViewModel;
     private HospitalViewModel hViewModel;
     private PesosViewModel pesosViewModel;
+    private AlergiasViewModel alergiasViewModel;
+    private OperacionesViewModel operacionesViewModel;
+    private ObservacionesViewModel observacionesViewModel;
+
+    private LinearLayout layoutOperaciones;
     private Toolbar toolbar;
     private EditText edtName, edtApellido1, edtApellido2, edtDNI, edtNSS, edtTlf, edtDireccion,
-                        edtPeso, edtAltura, edtPassword, edtPasswordVal, edtFechaNacimiento, edtCP;
-    private Button btnGuardarDatos;
-    private TextInputLayout txtInputName, txtInputApellido1, txtInputApellido2, txtInputDNI, txtInputNSS,
+                        edtPeso, edtAltura, edtPassword, edtPasswordVal, edtFechaNacimiento, edtCP,
+                        edtAlergiaAlimentaria, edtAlergiaMedicinal;
+    private Button btnGuardarDatos, btnAgregarOperacion;
+    private TextInputLayout txtInputName, txtInputApellido1, txtInputDNI, txtInputNSS,
                             txtInputTlf, txtInputFechaNacimiento,txtInputProvincia, txtInputCP, txtInputDireccion, txtInputPeso,
-                            txtInputAltura, txtInputHospital, txtInputPassword, txtInputPasswordVal;
+                            txtInputAltura, txtInputHospital, txtInputMedico, txtInputPassword, txtInputPasswordVal;
     private CheckBox chkVegetariana, chkVegana;
-    private AutoCompleteTextView dropdownProvincia, dropdownHospital;
+    private AutoCompleteTextView dropdownProvincia, dropdownHospital, dropdownMedico;
 
-    private String hospital, provincia, fechaNacimiento;
-    private Hospital hospitalAsignado = new Hospital();
+    private String hospital, provincia, fechaNacimiento, medico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +85,11 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         final ViewModelProvider vmp = new ViewModelProvider(this);
         pViewModel = vmp.get(PacienteViewModel.class);
         hViewModel = vmp.get(HospitalViewModel.class);
+        uViewModel = vmp.get(UsuarioViewModel.class);
         pesosViewModel = vmp.get(PesosViewModel.class);
+        alergiasViewModel = vmp.get(AlergiasViewModel.class);
+        operacionesViewModel = vmp.get(OperacionesViewModel.class);
+        observacionesViewModel = vmp.get(ObservacionesViewModel.class);
     }
 
     private void init(){
@@ -85,6 +101,9 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
+        dropdownHospital.setEnabled(false);
+        dropdownMedico.setEnabled(false);
 
         //seleccion fecha de nacimiento
         edtFechaNacimiento.setOnClickListener(v -> mostrarCalendario());
@@ -98,85 +117,256 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             Log.e("Boton guardar", "Voy a guardar los datos");
             this.guardarDatos();
         });
+
+        btnAgregarOperacion.setOnClickListener(v -> {
+            agregarOperacion();
+        });
         ///ONCHANGE LISTENER A LOS EDITEXT
         editTextListeners();
     }
 
+    private void initVariablesView(){
+        layoutOperaciones = findViewById(R.id.layout_operaciones);
+        toolbar = findViewById(R.id.toolbarRegPaciente);
+        btnGuardarDatos = findViewById(R.id.btnGuardarDatosP);
+        btnAgregarOperacion = findViewById(R.id.btnAgregarOperacion);
+        edtName = findViewById(R.id.edtNameP);
+        edtApellido1 = findViewById(R.id.edtPrimerApellidoP);
+        edtApellido2 = findViewById(R.id.edtSegundoApellidoP);
+        edtDNI = findViewById(R.id.edtDNIP);
+        edtNSS = findViewById(R.id.edtNSSP);
+        edtTlf = findViewById(R.id.edtTelefonoP);
+        edtFechaNacimiento = findViewById(R.id.edtFechaNacimientoP);
+        edtCP = findViewById(R.id.edtCPP);
+        edtDireccion = findViewById(R.id.edtDireccionP);
+        edtPeso = findViewById(R.id.edtPesoP);
+        edtAltura = findViewById(R.id.edtAlturaP);
+        edtPassword = findViewById(R.id.edtPasswordP);
+        edtPasswordVal = findViewById(R.id.edtPasswordValP);
+        edtAlergiaAlimentaria = findViewById(R.id.edtAlergiasAlimentariasP);
+        edtAlergiaMedicinal = findViewById(R.id.edtAlergiasMedicinalesP);
+
+        //TextInputLayout
+        txtInputName = findViewById(R.id.txtInputNameP);
+        txtInputApellido1 = findViewById(R.id.txtInputPrimerApellidoP);
+        txtInputDNI = findViewById(R.id.txtInputDNIP);
+        txtInputNSS = findViewById(R.id.txtInputNSSP);
+        txtInputTlf = findViewById(R.id.txtInputTelefonoP);
+        txtInputFechaNacimiento = findViewById(R.id.txtInputFechaNacimientoP);
+        txtInputProvincia = findViewById(R.id.txtInputProvinciaP);
+        txtInputHospital = findViewById(R.id.txtInputHospitalP);
+        txtInputMedico = findViewById(R.id.txtInputMedicoP);
+        txtInputCP = findViewById(R.id.txtInputCPP);
+        txtInputDireccion = findViewById(R.id.txtInputDireccionP);
+        txtInputPeso = findViewById(R.id.txtInputPesoP);
+        txtInputAltura = findViewById(R.id.txtInputAlturaP);
+        txtInputPassword = findViewById(R.id.txtInputPasswordP);
+        txtInputPasswordVal = findViewById(R.id.txtInputPasswordValP);
+
+        //CheckBox
+        chkVegetariana = findViewById(R.id.chkVegetariana);
+        chkVegana = findViewById(R.id.chkVegana);
+
+        //AutoCompleteTextView
+        dropdownProvincia = findViewById(R.id.dropdownProvinciaP);
+        dropdownHospital = findViewById(R.id.dropdownHospitalP);
+        dropdownMedico = findViewById(R.id.dropdownMedicoP);
+    }
+
     private void guardarDatos() {
-        Paciente p;
         if(validar()){
-            p = new Paciente();
-            try{
-                p.setNombre(edtName.getText().toString());
-                p.setApellido1(edtApellido1.getText().toString());
-                p.setApellido2(edtApellido2.getText().toString());
-                p.setDNI(edtDNI.getText().toString());
-                p.setNumSeguridadSocial(edtNSS.getText().toString());
-                p.setTelefono(edtTlf.getText().toString());
-                p.setFechaNacimiento(convertirFecha(edtFechaNacimiento.getText().toString()));
-                p.setProvincia(dropdownProvincia.getText().toString());
-                p.setCP(edtCP.getText().toString());
-                p.setDireccion(edtDireccion.getText().toString());
-                Double altura = Double.parseDouble(edtAltura.getText().toString());
-                p.setAltura(altura);
-                Double peso = Double.parseDouble(edtPeso.getText().toString());
-                p.setPesoActual(peso);
-                Double imc = peso / (altura * altura);
-                Log.e("IMC", imc.toString());
-                p.setImc(imc);
-                p.setContrasena(edtPassword.getText().toString());
-                if(chkVegana.isChecked()){
-                    p.setVegana(1);
+            try {
+                if (hospital.equals("Otro")) {
+                    hViewModel.hospitalPorNombre(hospital).observe(this, hospital -> {
+                        if(hospital != null){
+                            uViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(this, medico -> {
+                                if(medico != null){
+                                    guardarPacienteConHospitalYMedico(hospital, medico);
+                                }
+                            });
+                        }else{
+                            ToastMessage.Invalido(this, "No se ha encontrado el hospital");
+                        }
+                    });
                 }else{
-                    p.setVegana(0);
+                    hViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(this, hospital -> {
+                        if (hospital != null) {
+                            uViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(this, medico -> {
+                                if(medico != null){
+                                    guardarPacienteConHospitalYMedico(hospital, medico);
+                                }
+                            });
+
+                        } else {
+                            ToastMessage.Invalido(this, "No se ha encontrado el hospital.");
+                        }
+                    });
                 }
-                if(chkVegetariana.isChecked()){
-                    p.setVegetariana(1);
-                }else{
-                    p.setVegetariana(0);
-                }
-
-                obtenerHospitalPorNombreYProvincia(hospital, provincia);
-                Long idHospital = hospitalAsignado.getIdHospital();
-
-                guardarPaciente(p);
-
-            }catch(Exception e){
-                toastInvalido("Se ha producido un error " + e.getMessage());
-                Log.e("ERROR EXCEPTION", e.getMessage() + " " + e.getStackTrace(), e);
+            } catch (Exception e){
+                ToastMessage.Invalido(this, "Error: " + e.getMessage());
+                Log.e("ERROR", e.getMessage(), e);
             }
         }
     }
 
-    private void guardarPaciente(Paciente p){
-        this.pViewModel.save(p).observe(this, pResponse -> {
-            Log.e("GuardarPaciente", "Respuesta pResponse: " + pResponse.getRpta());
-            if(pResponse.getRpta() == 1){
-                this.pViewModel.asociarPacienteHospital(p.getDNI(), hospitalAsignado).observe(this, response -> {
-                    Log.e("Respuesta", "Rpta: " + response.getRpta());
-                    if (response.getRpta() == 1) {
-                        String dni = pResponse.getBody().getDNI();
-                        Pesos peso = new Pesos();
-                        peso.setPeso(p.getPesoActual());
-                        peso.setPaciente(new Paciente(dni));
-                        peso.setFecha(obtenerFechaActual());
-                        this.pesosViewModel.save(peso).observe(this, pesoResponse -> {
-                            if(pesoResponse.getRpta() == 1){
-                                toastCorrecto("Su información ha sido guardada con éxito.");
-                                startActivity(new Intent(this, MainActivity.class));
-                            }else{
-                                toastInvalido("No se ha podido guardar bien el peso");
-                            }
-                        });
-                    } else {
-                        toastInvalido("No se ha podido asociar bien al hospital");
-                    }
-                });
-            } else {
-                toastInvalido("No se han podido guardar los datos. Intentelo de nuevo.");
-            }
+    private void guardarPacienteConHospitalYMedico(Hospital hospital, Usuario medico){
+        Paciente p = new Paciente();
+        try {
+            p.setDni(edtDNI.getText().toString());
+            p.setNumSeguridadSocial(edtNSS.getText().toString());
+            p.setFechaNacimiento(Fecha.registrarFecha(edtFechaNacimiento.getText().toString()));
+            p.setCP(edtCP.getText().toString());
+            p.setDireccion(edtDireccion.getText().toString());
+            Double altura = Double.parseDouble(edtAltura.getText().toString());
+            p.setAltura(altura);
+            Double peso = Double.parseDouble(edtPeso.getText().toString());
+            p.setPesoActual(peso);
+            Double imc = peso / (altura * altura);
+            imc = Math.round(imc * 1000.0) / 1000.0;
+            p.setImc(imc);
 
-        });
+            this.pViewModel.save(p).observe(this, pResponse -> {
+                if(pResponse.getRpta() == 1){
+                    Usuario u = new Usuario();
+                    u.setNombre(edtName.getText().toString());
+                    u.setApellido1(edtApellido1.getText().toString());
+                    u.setApellido2(edtApellido2.getText().toString());
+                    u.setDni(edtDNI.getText().toString());
+                    u.setTelefono(edtTlf.getText().toString());
+                    u.setProvincia(dropdownProvincia.getText().toString());
+                    try {
+                        u.setContrasena(Security.encriptar(edtPassword.getText().toString()));
+                    } catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    u.setRol("Paciente");
+                    u.setPaciente(p);
+
+                    this.uViewModel.save(u).observe(this, uResponse -> {
+                        if(uResponse.getRpta() == 1){
+                            this.uViewModel.asociarUsuarioHospital(u.getDni(), hospital).observe(this, response -> {
+                                if (response.getRpta() == 1) {
+                                    this.uViewModel.asociarPacienteMedico(u.getDni(), medico).observe(this, pmResponse -> {
+                                        if(pmResponse.getRpta() == 1){
+                                            Peso pesoObj = new Peso();
+                                            pesoObj.setPeso(p.getPesoActual());
+                                            pesoObj.setPaciente(new Paciente(p.getDni()));
+                                            pesoObj.setFecha(Fecha.obtenerFechaActual());
+
+                                            this.pesosViewModel.save(pesoObj).observe(this, pesoResponse -> {
+                                                if(pesoResponse.getRpta() == 1){
+                                                    //Codigo nuevo para alergias y operaciones
+                                                    if(!edtAlergiaAlimentaria.getText().toString().isEmpty()){
+                                                        String[] alergiasAlimentarias;
+                                                        alergiasAlimentarias = edtAlergiaAlimentaria.getText().toString().split(",");
+                                                        for (String alergia: alergiasAlimentarias) {
+                                                            Alergia a = new Alergia();
+                                                            String nombre = alergia.trim();
+                                                            Log.d("ALERGIA NOMBRE", nombre);
+                                                            a.setAlergia(nombre);
+                                                            a.setTipo("Alimentaria");
+                                                            a.setPaciente(new Paciente(p.getDni()));
+                                                            alergiasViewModel.save(a).observe(this, alergiaResponse -> {
+                                                                if(alergiaResponse.getRpta() != 1){
+                                                                    ToastMessage.Invalido(this, "Error al guardar la alergia");
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                    if(!edtAlergiaMedicinal.getText().toString().isEmpty()){
+                                                        String[] alergiasMedicinales;
+                                                        alergiasMedicinales = edtAlergiaMedicinal.getText().toString().split(",");
+                                                        for (String alergia: alergiasMedicinales) {
+                                                            Alergia a = new Alergia();
+                                                            String nombre = alergia.trim();
+                                                            Log.d("ALERGIA NOMBRE", nombre);
+                                                            a.setAlergia(nombre);
+                                                            a.setTipo("Medicinal");
+                                                            a.setPaciente(new Paciente(p.getDni()));
+                                                            alergiasViewModel.save(a).observe(this, alergiaResponse -> {
+                                                                if(alergiaResponse.getRpta() != 1){
+                                                                    ToastMessage.Invalido(this, "Error al guardar la alergia");
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+
+                                                    List<Operacion> listaOperaciones = new ArrayList<>();
+
+                                                    for (int i = 0; i < layoutOperaciones.getChildCount(); i++) {
+                                                        View itemOperacion = layoutOperaciones.getChildAt(i);
+
+                                                        TextInputEditText edtOperacionNombre = itemOperacion.findViewById(R.id.edtNombreOperacion);
+                                                        TextInputEditText edtOperacionFecha = itemOperacion.findViewById(R.id.edtFechaOperacion);
+
+                                                        if (edtOperacionNombre == null || edtOperacionFecha == null) continue;
+
+                                                        String nombre = edtOperacionNombre.getText().toString().trim();
+                                                        String fecha = Fecha.registrarFecha(edtOperacionFecha.getText().toString());
+
+                                                        if (!nombre.isEmpty()) {
+                                                            if(fecha.isEmpty()){
+                                                                fecha = " ";
+                                                            }
+                                                            Operacion op = new Operacion();
+                                                            op.setPaciente(new Paciente(p.getDni()));
+                                                            op.setNombre(nombre);
+                                                            op.setFecha(fecha);
+
+                                                            //Crear el Viewmodel
+                                                            operacionesViewModel.save(op).observe(this, operacionesResponse -> {
+                                                                if(operacionesResponse.getRpta() != 1){
+                                                                    ToastMessage.Invalido(this, "Error al guardar la operacion");
+                                                                }
+                                                            });
+                                                        }
+                                                    }
+                                                    if(chkVegana.isChecked()){
+                                                        Observacion ob = new Observacion();
+                                                        ob.setPaciente(new Paciente(p.getDni()));
+                                                        ob.setObservacion("Vegana");
+                                                        observacionesViewModel.save(ob).observe(this, observacionesResponse -> {
+                                                            if(observacionesResponse.getRpta() != 1){
+                                                                ToastMessage.Invalido(this, "Error al guardar la observación");
+                                                            }
+                                                        });
+                                                    }
+                                                    if(chkVegetariana.isChecked()){
+                                                        Observacion ob = new Observacion();
+                                                        ob.setObservacion("Vegetariana");
+                                                        ob.setPaciente(new Paciente(p.getDni()));
+                                                        observacionesViewModel.save(ob).observe(this, observacionesResponse -> {
+                                                            if(observacionesResponse.getRpta() != 1){
+                                                                ToastMessage.Invalido(this, "Error al guardar la observación");
+                                                            }
+                                                        });
+                                                    }
+                                                    ToastMessage.Correcto(this, "Su información ha sido guardada con éxito.");
+                                                    startActivity(new Intent(this, MainActivity.class));
+                                                } else {
+                                                    ToastMessage.Invalido(this, "No se ha podido guardar bien el peso");
+                                                }
+                                            });
+                                        } else{
+                                            ToastMessage.Invalido(this, "No se ha podido asociar bien al medico");
+                                        }
+                                    });
+                                } else {
+                                    ToastMessage.Invalido(this, "No se ha podido asociar bien al hospital");
+                                }
+                            });
+                        } else {
+                            ToastMessage.Invalido(this, "No se ha podido guardar bien el usuario");
+                        }
+                    });
+                } else {
+                    ToastMessage.Invalido(this, "No se ha podido guardar el paciente");
+                }
+            });
+        } catch (Exception e){
+            ToastMessage.Invalido(this, "Se ha producido un error " + e.getMessage());
+            Log.e("ERROR EXCEPTION", e.getMessage(), e);
+        }
     }
 
     private boolean validar(){
@@ -301,54 +491,38 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         for(Hospital hospital: hospitales){
             nombresHospitales.add(hospital.getNombre());
         }
+        nombresHospitales.add(0, "Otro");
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }
 
-    private void obtenerHospitalPorNombreYProvincia(String nombre, String provincia){
-
-        hViewModel.hospitalPorNombreYProvincia(nombre, provincia).observe(this, new Observer<Hospital>() {
+    private void obtenerMedicosPorHospital(String hospitalNombre){
+        hViewModel.hospitalPorNombre(hospitalNombre).observe(this, new Observer<Hospital>() {
             @Override
             public void onChanged(Hospital hospital) {
-                if(hospital != null) {
-                    hospitalAsignado = getHospitalAsignado(hospital);
-                    Log.e("Hospital obtenido", hospital.getNombre());
-                    Log.e("Hospital asignado", hospitalAsignado.getNombre());
-
-                    continuarConHospital();
+                if(hospital != null){
+                    listaMedicosHospital(hospital.getIdHospital());
                 }
             }
         });
     }
 
-    // Método para continuar el flujo cuando el hospital ya se asignó
-    private void continuarConHospital() {
-        if (hospitalAsignado != null) {
-            Log.e("Proceso", "Hospital confirmado: " + hospitalAsignado.getNombre());
-        } else {
-            toastInvalido("Error inesperado: hospitalAsignado es null.");
-        }
-    }
-
-    private Hospital getHospitalAsignado(Hospital hospital){
-        return hospital;
-    }
-
-    private String convertirFecha(String fecha) {
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            Date date = formatoEntrada.parse(fecha);
-            return formatoSalida.format(date);
-        } catch (ParseException e) {
-            Log.e("ErrorFecha", "Formato incorrecto: " + fecha);
-            return null;
-        }
-    }
-
-    private String obtenerFechaActual() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        return sdf.format(new Date());
+    private void listaMedicosHospital(Long idHospital){
+        List<String> nombresCompletosMedicos = new ArrayList<>();
+        uViewModel.getMedicosByHospital(idHospital).observe(this, new Observer<List<Usuario>>() {
+            @Override
+            public void onChanged(List<Usuario> usuarios) {
+                if(usuarios != null){
+                    for(Usuario medico : usuarios){
+                        String nombreCompleto = medico.getNombre() + " " + medico.getApellido1() + " " + medico.getApellido2();
+                        nombresCompletosMedicos.add(nombreCompleto);
+                    }
+                }
+            }
+        });
+        nombresCompletosMedicos.add(0, "Otro");
+        ArrayAdapter<String> arrayMedicos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresCompletosMedicos);
+        dropdownMedico.setAdapter(arrayMedicos);
     }
 
     private void mostrarCalendario(){
@@ -369,38 +543,10 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
-    // Capturar el clic en el botón de regreso
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
-            onBackPressed(); // Regresa a la pantalla anterior
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void toastCorrecto(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_ok, (ViewGroup) findViewById(R.id.ll_custom_toast_ok));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastOk);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
+    private void agregarOperacion() {
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View itemOperacion = inflater.inflate(R.layout.item_add_operacion, layoutOperaciones, false);
+        layoutOperaciones.addView(itemOperacion);
     }
 
     private void editTextListeners(){
@@ -619,6 +765,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+                dropdownHospital.setEnabled(true);
             }
         });
         dropdownHospital.addTextChangedListener(new TextWatcher() {
@@ -629,55 +776,42 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 hospital = s.toString();
+                obtenerMedicosPorHospital(hospital);
                 txtInputHospital.setErrorEnabled(false);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
+                dropdownMedico.setEnabled(true);
+
+            }
+        });
+        dropdownMedico.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                medico = s.toString();
+                txtInputMedico.setErrorEnabled(false);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
     }
 
-    private void initVariablesView(){
-        toolbar = findViewById(R.id.toolbarRegPaciente);
-        btnGuardarDatos = findViewById(R.id.btnGuardarDatosP);
-        edtName = findViewById(R.id.edtNameP);
-        edtApellido1 = findViewById(R.id.edtPrimerApellidoP);
-        edtApellido2 = findViewById(R.id.edtSegundoApellidoP);
-        edtDNI = findViewById(R.id.edtDNIP);
-        edtNSS = findViewById(R.id.edtNSSP);
-        edtTlf = findViewById(R.id.edtTelefonoP);
-        edtFechaNacimiento = findViewById(R.id.edtFechaNacimientoP);
-        edtCP = findViewById(R.id.edtCPP);
-        edtDireccion = findViewById(R.id.edtDireccionP);
-        edtPeso = findViewById(R.id.edtPesoP);
-        edtAltura = findViewById(R.id.edtAlturaP);
-        edtPassword = findViewById(R.id.edtPasswordP);
-        edtPasswordVal = findViewById(R.id.edtPasswordValP);
-
-        //TextInputLayout
-        txtInputName = findViewById(R.id.txtInputNameP);
-        txtInputApellido1 = findViewById(R.id.txtInputPrimerApellidoP);
-        txtInputApellido2 = findViewById(R.id.txtInputSegundoApellidoP);
-        txtInputDNI = findViewById(R.id.txtInputDNIP);
-        txtInputNSS = findViewById(R.id.txtInputNSSP);
-        txtInputTlf = findViewById(R.id.txtInputTelefonoP);
-        txtInputFechaNacimiento = findViewById(R.id.txtInputFechaNacimientoP);
-        txtInputProvincia = findViewById(R.id.txtInputProvinciaP);
-        txtInputHospital = findViewById(R.id.txtInputHospitalP);
-        txtInputCP = findViewById(R.id.txtInputCPP);
-        txtInputDireccion = findViewById(R.id.txtInputDireccionP);
-        txtInputPeso = findViewById(R.id.txtInputPesoP);
-        txtInputAltura = findViewById(R.id.txtInputAlturaP);
-        txtInputPassword = findViewById(R.id.txtInputPasswordP);
-        txtInputPasswordVal = findViewById(R.id.txtInputPasswordValP);
-
-        //CheckBox
-        chkVegetariana = findViewById(R.id.chkVegetariana);
-        chkVegana = findViewById(R.id.chkVegana);
-
-        //AutoCompleteTextView
-        dropdownProvincia = findViewById(R.id.dropdownProvinciaP);
-        dropdownHospital = findViewById(R.id.dropdownHospitalP);
+    // Capturar el clic en el botón de regreso
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
+            onBackPressed(); // Regresa a la pantalla anterior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

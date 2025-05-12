@@ -15,6 +15,7 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
     }
 
     buildTypes {
@@ -36,6 +37,7 @@ android {
 
 }
 
+
 dependencies {
 
     implementation(libs.appcompat)
@@ -46,6 +48,8 @@ dependencies {
     implementation(libs.navigation.ui)
     implementation(libs.lifecycle.livedata.ktx)
     implementation(libs.lifecycle.viewmodel.ktx)
+    implementation(libs.recyclerview)
+    implementation(libs.filament.android)
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
@@ -65,6 +69,11 @@ dependencies {
     //Libreria Spinner
     //implementation("com.github.ganfra:material-spinner:2.0.0")
 
+    //RecyclerView
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
+
+    //MPAndroidChart
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
 
     
 }

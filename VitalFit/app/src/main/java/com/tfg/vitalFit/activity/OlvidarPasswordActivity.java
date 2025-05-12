@@ -4,38 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
+import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.EditText;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.entity.GenericResponse;
-import com.tfg.vitalfit.viewModel.MedicoViewModel;
-import com.tfg.vitalfit.viewModel.NutricionistaViewModel;
-import com.tfg.vitalfit.viewModel.PacienteViewModel;
+import com.tfg.vitalfit.utils.Security;
+import com.tfg.vitalfit.utils.ToastMessage;
+import com.tfg.vitalfit.viewModel.UsuarioViewModel;
+
 
 public class OlvidarPasswordActivity extends AppCompatActivity {
     private Button btnOlvidarPassword;
-    private CheckBox chkPaciente, chkMedico, chkNutricionista;
-    private PacienteViewModel pViewModel;
-    private NutricionistaViewModel nViewModel;
-    private MedicoViewModel mViewModel;
+    private UsuarioViewModel uViewModel;
     private Toolbar toolbar;
     private EditText edtDNI, edtPassword, edtPasswordVal;
     private TextInputLayout txtInputDNI, txtInputPassword, txtInputPasswordVal;
-
-    private Boolean isPaciente, isNutricionista, isMedico;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +38,12 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
 
     private void initViewModel() {
         final ViewModelProvider vmp = new ViewModelProvider(this);
-        pViewModel = vmp.get(PacienteViewModel.class);
-        mViewModel = vmp.get(MedicoViewModel.class);
-        nViewModel = vmp.get(NutricionistaViewModel.class);
+        uViewModel = vmp.get(UsuarioViewModel.class);
+
     }
 
     private void init(){
+        toolbar = findViewById(R.id.toolbarOlvidoPassword);
         btnOlvidarPassword = findViewById(R.id.btnOlvidoPassword);
         edtDNI = findViewById(R.id.edtDNI);
         edtPassword = findViewById(R.id.edtPassword);
@@ -60,9 +51,12 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
         txtInputDNI = findViewById(R.id.txtInputUsuarioDNI);
         txtInputPassword = findViewById(R.id.txtInputPassword);
         txtInputPasswordVal = findViewById(R.id.txtInputPasswordValidacion);
-        chkPaciente = findViewById(R.id.chkPaciente);
-        chkMedico = findViewById(R.id.chkMedico);
-        chkNutricionista = findViewById(R.id.chkNutricionista);
+
+        // Habilitar el botón de regreso en el Toolbar
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         listeners();
 
@@ -70,34 +64,23 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
             try{
                 if(validar()){
                    String dni = edtDNI.getText().toString();
-                   String password = edtPassword.getText().toString();
-                   String passwordVal = edtPasswordVal.getText().toString();
-
-                   if(isPaciente){
-                       pViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuesta(response));
-                   }else if(isMedico){
-                       mViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuesta(response));
-                   }else if(isNutricionista){
-                       nViewModel.actualizarPassword(dni, password).observe(this, response -> manejarRespuesta(response));
-                   }
-
+                   String password = Security.encriptar(edtPassword.getText().toString());
+                    uViewModel.actualizarPassword(dni, password).observe(this, response -> {
+                        if(response.getRpta() == 1){
+                            ToastMessage.Correcto(this, response.getMessage());
+                            startActivity(new Intent(this, MainActivity.class));
+                        }else{
+                            ToastMessage.Invalido(this, "No se ha podido actualizar la contraseña");
+                        }
+                    });
                 }else{
-                    toastInvalido("Por favor, complete todos los campos");
+                    ToastMessage.Invalido(this, "Por favor, complete todos los campos");
                 }
 
             }catch (Exception e){
-                toastInvalido("Se ha producido un error al intentar cambiar la contraseña " + e.getMessage());
+                ToastMessage.Invalido(this, "Se ha producido un error al intentar cambiar la contraseña " + e.getMessage());
             }
         });
-    }
-
-    private void manejarRespuesta(GenericResponse<Void> response) {
-        if(response.getRpta() == 1){
-            toastCorrecto(response.getMessage());
-            startActivity(new Intent(this, MainActivity.class));
-        }else{
-            toastInvalido("No se ha podido actualizar la contraseña");
-        }
     }
 
     private boolean validar(){
@@ -126,34 +109,10 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
         }
 
         if(!password.equals(passwordVal)){
-            toastInvalido("La contraseña y la contraseña de validación no son iguales");
+            ToastMessage.Invalido( this, "La contraseña y la contraseña de validación no son iguales");
             val = false;
         }
         return val;
-    }
-
-    public void toastCorrecto(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_ok, (ViewGroup) findViewById(R.id.ll_custom_toast_ok));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastOk);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
-    }
-
-    public void toastInvalido(String msg){
-        LayoutInflater layoutInflater = getLayoutInflater();
-        View view = layoutInflater.inflate(R.layout.custom_toast_bad, (ViewGroup) findViewById(R.id.ll_custom_toast_bad));
-        TextView txtMensaje = view.findViewById(R.id.txtMensajeToastBad);
-        txtMensaje.setText(msg);
-        Toast toast = new Toast(getApplicationContext());
-        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 200);
-        toast.setDuration(Toast.LENGTH_LONG);
-        toast.setView(view);
-        toast.show();
     }
 
     public void listeners(){
@@ -201,32 +160,16 @@ public class OlvidarPasswordActivity extends AppCompatActivity {
 
             }
         });
-        chkPaciente.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                isPaciente = true;
-                isNutricionista = true;
-                isMedico = false;
-                chkNutricionista.setChecked(false);
-                chkMedico.setChecked(false);
-            }
-        });
-        chkMedico.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                isMedico = true;
-                isNutricionista = false;
-                isPaciente = false;
-                chkNutricionista.setChecked(false);
-                chkPaciente.setChecked(false);
-            }
-        });
-        chkNutricionista.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                isNutricionista = true;
-                isPaciente = false;
-                isMedico = false;
-                chkPaciente.setChecked(false);
-                chkMedico.setChecked(false);
-            }
-        });
+    }
+
+
+    // Capturar el clic en el botón de regreso
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == android.R.id.home) { // Este es el ID del botón de navegación
+            onBackPressed(); // Regresa a la pantalla anterior
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
