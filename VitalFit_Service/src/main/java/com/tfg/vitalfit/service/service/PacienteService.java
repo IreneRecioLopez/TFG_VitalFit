@@ -56,4 +56,12 @@ public class PacienteService {
         }
     }
 
+    public Paciente pacienteByDNI(String dni) {
+        Optional<Paciente> optP = this.repository.findById(dni);
+        if(optP.isPresent()){
+            return optP.get();
+        }else{
+            return null;
+        }
+    }
 }

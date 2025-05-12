@@ -37,7 +37,7 @@ public class LeerConsejosActivity extends AppCompatActivity {
 
         this.initViewModel();
         obtenerDatosUsuario();
-        initToolbar();
+        this.initToolbar();
         this.init();
 
     }

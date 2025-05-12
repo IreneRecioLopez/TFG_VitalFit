@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
@@ -19,9 +20,6 @@ public interface PacienteApi {
     String base = "api/paciente";
 
     //RUTA DEL CONTROLADOR PACIENTE + RUTA MÉTODO
-    @FormUrlEncoded
-    @POST(base + "/login")
-    Call<GenericResponse<Paciente>> login(@Field("dni") String dni, @Field("password") String password);
 
     //@FormUrlEncoded
     @POST(base + "/save")
@@ -36,4 +34,7 @@ public interface PacienteApi {
 
     @PUT(base + "/update")
     Call<GenericResponse<Void>> actualizarPaciente(@Body Paciente p);
+
+    @GET(base + "/{dni}")
+    Call<Paciente> pacienteByDNI(@Path("dni") String dni);
 }

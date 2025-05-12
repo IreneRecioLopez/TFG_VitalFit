@@ -16,12 +16,6 @@ public class PacienteREST {
         this.service = service;
     }
 
-    /*@PostMapping("/login")
-    public GenericResponse<Paciente> login(HttpServletRequest request){
-        String dni = request.getParameter("dni");
-        String password = request.getParameter("password");
-        return this.service.login(dni, password);
-    }*/
 
     @PostMapping("/save")
     public GenericResponse save(@RequestBody Paciente p){
@@ -32,5 +26,8 @@ public class PacienteREST {
     public GenericResponse actualizarPaciente(@RequestBody Paciente p){
         return this.service.actualizarPaciente(p);
     }
+
+    @GetMapping("/{dni}")
+    public Paciente pacienteByDNI(@PathVariable("dni") String dni){ return this.service.pacienteByDNI(dni); }
 
 }

@@ -19,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
 import com.tfg.vitalfit.activity.DietaActivity;
+import com.tfg.vitalfit.activity.EstadisticasPacienteActivity;
 import com.tfg.vitalfit.activity.LeerConsejosActivity;
 import com.tfg.vitalfit.activity.OtrosDatosPacienteActivity;
 import com.tfg.vitalfit.databinding.FragmentHomeBinding;
@@ -86,6 +87,12 @@ public class HomeFragment extends Fragment {
 
         binding.btnDieta.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), DietaActivity.class);
+            intent.putExtra("paciente", usuario);
+            startActivity(intent);
+        });
+
+        binding.btnEstadisticas.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), EstadisticasPacienteActivity.class);
             intent.putExtra("paciente", usuario);
             startActivity(intent);
         });

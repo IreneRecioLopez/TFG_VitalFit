@@ -19,9 +19,7 @@ public class PacienteViewModel extends AndroidViewModel {
         this.repository = PacienteRepository.getInstance();
     }
 
-    public LiveData<GenericResponse<Paciente>> login(String dni, String password){
-        return this.repository.login(dni, password);
-    }
+
 
     public LiveData<GenericResponse<Paciente>> save(Paciente p){
         return this.repository.save(p);
@@ -30,5 +28,7 @@ public class PacienteViewModel extends AndroidViewModel {
     public LiveData<GenericResponse<Void>> actualizarPaciente(Paciente p){
         return this.repository.actualizarPaciente(p);
     }
+
+    public LiveData<Paciente> pacienteByDNI(String dni){ return this.repository.pacienteByDNI(dni); }
 
 }
