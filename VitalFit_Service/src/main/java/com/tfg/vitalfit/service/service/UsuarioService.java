@@ -70,7 +70,7 @@ public class UsuarioService {
         Optional<Usuario> opt = this.repository.findByDNI(dni);
         String idf = opt.isPresent() ? opt.get().getDni() : "";
         if (!idf.equals("")) {
-            this.repository.asociarPacienteMedico(dni, nutricionista);
+            this.repository.asociarPacienteNutricionista(dni, nutricionista);
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Paciente asociado correctamente al nutricionista", null);
         } else {
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el paciente con ese dni", null);
@@ -104,9 +104,14 @@ public class UsuarioService {
         return repository.findByDNI(dni).get();
     }
 
-    public List<Usuario> obtenerMedicoHospital(Long id) {
-        return repository.obtenerMedicoHospital(id);
+    public List<Usuario> obtenerMedicosHospital(Long id) {
+        return repository.obtenerMedicosHospital(id);
     }
+
+    public List<Usuario> obtenerNutricionistasHospital(Long id) {
+        return repository.obtenerNutricionistasHospital(id);
+    }
+
 
     public Usuario obtenerMedicoPorNombreCompleto(String nombreCompleto, Long idHospital) {
         return repository.obtenerMedicoPorNombreCompleto(nombreCompleto, idHospital);

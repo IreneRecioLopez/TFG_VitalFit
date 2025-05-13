@@ -38,7 +38,12 @@ public class UsuarioREST {
 
     @GetMapping("/medico/hospital/{idHospital}")
     public List<Usuario> medicosHospital(@PathVariable("idHospital") Long id){
-        return this.service.obtenerMedicoHospital(id);
+        return this.service.obtenerMedicosHospital(id);
+    }
+
+    @GetMapping("/nutricionista/hospital/{idHospital}")
+    public List<Usuario> nutricionistasHospital(@PathVariable("idHospital") Long id){
+        return this.service.obtenerNutricionistasHospital(id);
     }
 
     @GetMapping("/medico/hospital")

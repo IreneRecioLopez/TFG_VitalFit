@@ -207,6 +207,25 @@ public class UsuarioRepository {
         return mld;
     }
 
+    public LiveData<List<Usuario>> nutricionistasByHospital(Long idHospital) {
+        final MutableLiveData<List<Usuario>> mld = new MutableLiveData<>();
+        this.api.getNutricionistasByHospital(idHospital).enqueue(new Callback<List<Usuario>>() {
+            @Override
+            public void onResponse(Call<List<Usuario>> call, Response<List<Usuario>> response) {
+                mld.setValue(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+                mld.setValue(new ArrayList<>());
+                System.out.println("Se ha producido un error al obtener los nutricionistas de un hospital: " + t.getMessage());
+                t.printStackTrace();
+            }
+
+        });
+        return mld;
+    }
+
     public LiveData<Usuario> medicoByNombreCompletoByHospital(String nombreCompleto, Long idHospital){
         final MutableLiveData<Usuario> mld = new MutableLiveData<>();
         this.api.getMedicoByNombreCompletoByHospital(nombreCompleto, idHospital).enqueue(new Callback<Usuario>() {

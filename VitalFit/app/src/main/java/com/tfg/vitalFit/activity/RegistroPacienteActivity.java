@@ -514,7 +514,7 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             public void onChanged(List<Usuario> usuarios) {
                 if(usuarios != null){
                     for(Usuario medico : usuarios){
-                        String nombreCompleto = medico.getNombre() + " " + medico.getApellido1() + " " + medico.getApellido2();
+                        String nombreCompleto = medico.getNombreCompleto();
                         nombresCompletosMedicos.add(nombreCompleto);
                     }
                 }

@@ -59,6 +59,10 @@ public class UsuarioViewModel extends AndroidViewModel {
         return this.repository.medicosByHospital(idHospital);
     }
 
+    public LiveData<List<Usuario>> getNutricionistasByHospital(Long idHospital){
+        return this.repository.nutricionistasByHospital(idHospital);
+    }
+
     public LiveData<Usuario> getMedicoByNombreCompletoByHospital(String nombreCompleto, Long idHospital){
         return this.repository.medicoByNombreCompletoByHospital(nombreCompleto, idHospital);
     }

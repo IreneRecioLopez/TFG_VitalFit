@@ -35,7 +35,10 @@ public interface UsuarioRepository extends CrudRepository<Usuario, String> {
     void asociarPacienteNutricionista(@Param("dni") String dni, @Param("nutricionista") Usuario nutricionista);
 
     @Query("SELECT m from Usuario m WHERE m.rol='Médico' AND m.hospital.idHospital=:id")
-    List<Usuario> obtenerMedicoHospital(Long id);
+    List<Usuario> obtenerMedicosHospital(Long id);
+
+    @Query("SELECT m from Usuario m WHERE m.rol='Nutricionista' AND m.hospital.idHospital=:id")
+    List<Usuario> obtenerNutricionistasHospital(Long id);
 
     @Query("SELECT m FROM Usuario m WHERE m.rol = 'Médico' AND CONCAT(m.nombre, ' ', m.apellido1, ' ', m.apellido2) = :nombreCompleto AND m.hospital.idHospital = :idHospital")
     Usuario obtenerMedicoPorNombreCompleto(@Param("nombreCompleto") String nombreCompleto, @Param("idHospital") Long idHospital);
