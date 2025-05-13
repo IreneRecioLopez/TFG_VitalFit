@@ -38,13 +38,106 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
+                android:id="@+id/layoutPesoAltura"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
+                    <TextView
+                        android:id="@+id/txtPeso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Peso actual:"
+                        android:textSize="18dp"/>
+
+                    <TextView
+                        android:id="@+id/txtValorPeso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="89.6"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp">
+                    <TextView
+                        android:id="@+id/txtAltura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Altura:"
+                        android:textSize="18dp"/>
+
+                    <TextView
+                        android:id="@+id/txtValorAltura"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:text="1.75"
+                        android:textSize="18dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutGraficaPeso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_below="@id/layoutPesoAltura"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="GRÁFICA DE LOS PESOS"
+                    android:textSize="18dp"
+                    android:textColor="@color/light_green"
+                    android:gravity="center"/>
 
                 <com.github.mikephil.charting.charts.LineChart
-                    android:id="@+id/lineChart"
+                    android:id="@+id/pesosChart"
                     android:layout_width="match_parent"
+                    android:layout_marginHorizontal="20dp"
                     android:layout_height="200dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutGraficaIMC"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layoutGraficaPeso"
+                android:orientation="vertical"
+                android:layout_marginTop="20dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="GRÁFICA DEL IMC"
+                    android:textSize="18dp"
+                    android:textColor="@color/light_green"
+                    android:gravity="center"/>
+
+                <com.tfg.vitalfit.view.ImcCharView
+                    android:id="@+id/imcBar"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="10dp" />
+
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

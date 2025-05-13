@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
@@ -17,8 +18,14 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -29,6 +36,7 @@ import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Peso;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.Fecha;
+import com.tfg.vitalfit.view.ImcCharView;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.PesosViewModel;
 
@@ -38,8 +46,9 @@ import java.util.List;
 public class EstadisticasPacienteActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
-    private LineChart chart;
-    private LineDataSet lineDateSet;
+    private LineChart chartPesos;
+    private ImcCharView imcBar;
+    private TextView txtValorPeso, txtValorAltura;
     private PacienteViewModel pacienteViewModel;
     private Usuario paciente;
 
@@ -70,11 +79,18 @@ public class EstadisticasPacienteActivity extends AppCompatActivity {
     }
 
     private void init(){
-        chart = findViewById(R.id.lineChart);
+        chartPesos = findViewById(R.id.pesosChart);
+        //chartImc = findViewById(R.id.imcChart);
+        imcBar = findViewById(R.id.imcBar);
+        txtValorPeso = findViewById(R.id.txtValorPeso);
+        txtValorAltura = findViewById(R.id.txtValorAltura);
 
         pacienteViewModel.pacienteByDNI(paciente.getDni()).observe(this, response -> {
             if(response != null){
+                txtValorPeso.setText(response.getPesoActual().toString());
+                txtValorAltura.setText(response.getAltura().toString());
                 mostrarGraficaPesos(response);
+                imcBar.setIMC(Float.parseFloat(response.getImc().toString()));
             }
         });
 
@@ -98,9 +114,9 @@ public class EstadisticasPacienteActivity extends AppCompatActivity {
         dataSet.setValueTextColor(Color.BLACK);
 
         LineData lineData = new LineData(dataSet);
-        chart.setData(lineData);
+        chartPesos.setData(lineData);
 
-        chart.getXAxis().setValueFormatter(new ValueFormatter() {
+        chartPesos.getXAxis().setValueFormatter(new ValueFormatter() {
             @Override
             public String getFormattedValue(float value) {
                 int i = (int) value;
@@ -108,12 +124,13 @@ public class EstadisticasPacienteActivity extends AppCompatActivity {
             }
         });
 
-        chart.getXAxis().setGranularity(1f); // evita valores intermedios
-        chart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        chart.getDescription().setText("Progreso de peso");
-        chart.animateX(1000);
-        chart.invalidate(); // refresca
+        chartPesos.getXAxis().setGranularity(1f); // evita valores intermedios
+        chartPesos.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        chartPesos.getDescription().setText("Progreso de peso");
+        chartPesos.animateX(1000);
+        chartPesos.invalidate(); // refresca
     }
+
 
     private void obtenerDatosPaciente(){
         paciente = (Usuario) getIntent().getSerializableExtra("paciente");
