@@ -114,7 +114,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 tipoDato = s.toString();
-                if(tipoDato.equals("Alergia")){
+                if(tipoDato.equals("Alergias")){
                     alergiasLayout.setVisibility(View.VISIBLE);
                     operacionesLayout.setVisibility(View.GONE);
                     otrasObservacionesLayout.setVisibility(View.GONE);
@@ -122,7 +122,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
                     observaciones = false;
                     operacion = false;
                     initAlergias();
-                }else if(tipoDato.equals("Operacion")){
+                }else if(tipoDato.equals("Operaciones")){
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.VISIBLE);
                     otrasObservacionesLayout.setVisibility(View.GONE);
@@ -130,7 +130,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
                     alergia = false;
                     observaciones = false;
                     initOperaciones();
-                }else if(tipoDato.equals("Otras Observacion")){
+                }else if(tipoDato.equals("Otras Observaciones")){
                     alergiasLayout.setVisibility(View.GONE);
                     operacionesLayout.setVisibility(View.GONE);
                     otrasObservacionesLayout.setVisibility(View.VISIBLE);
