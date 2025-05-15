@@ -48,9 +48,9 @@ public class HospitalRepository {
         return mld;
     }
 
-    public LiveData<Hospital> hospitalByNameAndProvince(String nombre, String provincia) {
+    public LiveData<Hospital> hospitalById(Long idHospital){
         final MutableLiveData<Hospital> mld = new MutableLiveData<>();
-        this.api.obtenerHospitalPorNombreYProvincia(nombre, provincia).enqueue(new Callback<Hospital>() {
+        this.api.obtenerHospitalPorId(idHospital).enqueue(new Callback<Hospital>() {
             @Override
             public void onResponse(Call<Hospital> call, Response<Hospital> response) {
                 mld.setValue(response.body());
@@ -59,28 +59,12 @@ public class HospitalRepository {
             @Override
             public void onFailure(Call<Hospital> call, Throwable t) {
                 mld.setValue(new Hospital());
-                System.out.println("Se ha producido un error al obtener el hospital de una provincia y nombre dado: " + t.getMessage());
+                System.out.println("Se ha producido un error al obtener el hospital dado el id: " + t.getMessage());
                 t.printStackTrace();
             }
+
         });
         return mld;
     }
 
-    public LiveData<Hospital> hospitalByName(String nombre) {
-        final MutableLiveData<Hospital> mld = new MutableLiveData<>();
-        this.api.obtenerHospitalPorNombre(nombre).enqueue(new Callback<Hospital>() {
-            @Override
-            public void onResponse(Call<Hospital> call, Response<Hospital> response) {
-                mld.setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(Call<Hospital> call, Throwable t) {
-                mld.setValue(new Hospital());
-                System.out.println("Se ha producido un error al obtener el hospital de nombre dado: " + t.getMessage());
-                t.printStackTrace();
-            }
-        });
-        return mld;
-    }
 }

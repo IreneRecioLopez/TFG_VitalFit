@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home_medico"
-        android:name="com.tfg.vitalfit.activity.uiMedico.home.HomeFragment"
+        android:name="com.tfg.vitalfit.activity.uiMedicoNutricionista.home.HomeMedicoNutricionistaFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home_medico_nutricionista" />
 
     <fragment
         android:id="@+id/nav_datos_personales_medico"
-        android:name="com.tfg.vitalfit.activity.uiMedico.datosPersonales.DatosPersonalesMedicoFragment"
+        android:name="com.tfg.vitalfit.activity.uiMedicoNutricionista.datosPersonales.DatosPersonalesMedicoNutricionistaFragment"
         android:label="@string/menu_datos_personales"
         tools:layout="@layout/fragment_datos_personales_medico_nutricionista" />
 
     <fragment
         android:id="@+id/nav_configuracion_medico_nutricionista"
-        android:name="com.tfg.vitalfit.activity.uiMedico.slideshow.SlideshowFragment"
+        android:name="com.tfg.vitalfit.activity.uiMedicoNutricionista.configuracion.ConfiguracionMedicoNutricionistaFragment"
         android:label="@string/menu_configuracion"
         tools:layout="@layout/fragment_configuracion_medico_nutricionista" />
 </navigation>

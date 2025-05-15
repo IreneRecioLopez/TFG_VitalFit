@@ -1,4 +1,4 @@
-package com.tfg.vitalfit.activity.uiMedico.home;
+package com.tfg.vitalfit.activity.uiMedicoNutricionista.home;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -30,7 +30,7 @@ import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeMedicoNutricionistaFragment extends Fragment {
 
     private AutoCompleteTextView dropdownPaciente;
     private Button btnContinuar;

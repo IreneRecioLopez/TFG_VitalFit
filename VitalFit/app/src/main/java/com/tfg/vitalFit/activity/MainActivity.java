@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText edtDNI, edtPassword;
     private Button btnIniciarSesion;
-    private PacienteViewModel pViewModel;
     private UsuarioViewModel uViewModel;
     private TextInputLayout txtInputUsuario, txtInputPassword;
     private CheckBox chkPaciente, chkMedico, chkNutricionista;
@@ -65,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initViewModel() {
-        pViewModel = new ViewModelProvider(this).get(PacienteViewModel.class);
         uViewModel = new ViewModelProvider(this).get(UsuarioViewModel.class);
     }
 
@@ -122,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
                     .create();
             editor.putString("UsuarioJson", g.toJson(u, new TypeToken<Usuario>() {}.getType()));
             editor.apply();
-            Log.d("UsuarioGuardado", g.toJson(u));
             edtDNI.setText("");
             edtPassword.setText("");
             edtDNI.clearFocus();
@@ -130,15 +127,12 @@ public class MainActivity extends AppCompatActivity {
             String rol = u.getRol();
             if (rol.equals("Paciente")) {
                 chkPaciente.setChecked(true);
-                Log.e("Inicio Sesion", "paciente");
                 startActivity(new Intent(this, InicioActivity.class));
             } else if (rol.equals("Médico")) {
                 chkMedico.setChecked(true);
-                Log.e("Inicio Sesion", "medico");
                 startActivity(new Intent(this, InicioMedicoActivity.class));
             } else if (rol.equals("Nutricionista")) {
                 chkNutricionista.setChecked(true);
-                Log.e("Inicio Sesion", "nutricionista");
                 startActivity(new Intent(this, InicioMedicoActivity.class));
             }
         } else {

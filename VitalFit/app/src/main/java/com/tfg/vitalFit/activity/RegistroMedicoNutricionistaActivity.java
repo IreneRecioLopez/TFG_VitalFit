@@ -40,7 +40,8 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
     private TextInputLayout txtInputName, txtInputApellido1, txtInputDNI, txtInputTlf,
                             txtInputPassword, txtInputPasswordVal, txtInputProvincia, txtInputHospital;
 
-
+    List<String> nombresHospitales;
+    List<Long> idHospitales;
     private String hospital, provincia;
 
     String rol = "";
@@ -106,32 +107,25 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
     }
 
     private void guardarDatos(){
-        if(validar()){
-            try{
-                if (hospital.equals("Otro")) {
-                    hViewModel.hospitalPorNombre(hospital).observe(this, hospital -> {
-                        if(hospital != null){
-                            guardarUsuarioConHospital(hospital);
-                        }else{
-                            ToastMessage.Invalido(this, "No se ha encontrado el hospital");
-                        }
-                    });
-                }else{
-                    hViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(this, hospital -> {
-                        if (hospital != null) {
-                            guardarUsuarioConHospital(hospital);
-                        } else {
-                            ToastMessage.Invalido(this,"No se ha encontrado el hospital.");
-                        }
-                    });
-                }
-            }catch (Exception e){
-                ToastMessage.Invalido(this, "Se ha producido un error " + e.getMessage());
-                Log.e("ERROR EXCEPTION", e.getMessage() + " " + e.getStackTrace(), e);
-            }
-        }else{
-            ToastMessage.Invalido(this, "Por favor, complete todos los campos del formulario.");
-        }
+       if(validar()) {
+           Long idHospital;
+           int indexHospital = nombresHospitales.indexOf(hospital);
+           if (indexHospital != -1) {
+               idHospital = idHospitales.get(indexHospital);
+
+               hViewModel.hospitalPorId(idHospital).observe(this, hospital -> {
+                   if (hospital != null) {
+                       guardarUsuarioConHospital(hospital);
+                   } else {
+                       ToastMessage.Invalido(this, "No se ha encontrado el hospital");
+                   }
+               });
+           } else {
+               ToastMessage.Invalido(this, "No se ha encontrado el hospital.");
+           }
+       }else{
+           ToastMessage.Invalido(this, "Rellena todos los datos necesarios");
+       }
     }
 
     private void guardarUsuarioConHospital(Hospital hospital){
@@ -240,7 +234,6 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Hospital> hospitales){
                 if(hospitales != null){
-                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
                     listaNombresHospitales(hospitales);
                 }
             }
@@ -248,11 +241,14 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
     }
 
     private void listaNombresHospitales(List<Hospital> hospitales){
-        List<String> nombresHospitales = new ArrayList<>();
+        nombresHospitales = new ArrayList<>();
+        idHospitales = new ArrayList<>();
         for(Hospital hospital: hospitales){
             nombresHospitales.add(hospital.getNombre());
+            idHospitales.add(hospital.getIdHospital());
         }
         nombresHospitales.add(0, "Otro");
+        idHospitales.add(0, Long.parseLong("1"));
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }

@@ -72,6 +72,9 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     private AutoCompleteTextView dropdownProvincia, dropdownHospital, dropdownMedico;
 
     private String hospital, provincia, fechaNacimiento, medico;
+    List<String> nombresHospitales, nombreMedicos, dniMedicos;
+    List<Long> idHospitales;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -175,37 +178,32 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
     private void guardarDatos() {
         if(validar()){
-            try {
-                if (hospital.equals("Otro")) {
-                    hViewModel.hospitalPorNombre(hospital).observe(this, hospital -> {
-                        if(hospital != null){
-                            uViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(this, medico -> {
-                                if(medico != null){
-                                    guardarPacienteConHospitalYMedico(hospital, medico);
-                                }
-                            });
-                        }else{
-                            ToastMessage.Invalido(this, "No se ha encontrado el hospital");
-                        }
-                    });
-                }else{
-                    hViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(this, hospital -> {
-                        if (hospital != null) {
-                            uViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(this, medico -> {
-                                if(medico != null){
-                                    guardarPacienteConHospitalYMedico(hospital, medico);
-                                }
-                            });
-
-                        } else {
-                            ToastMessage.Invalido(this, "No se ha encontrado el hospital.");
-                        }
-                    });
+            Long idHospital;
+            String dniMedico;
+            int indexHospital = nombresHospitales.indexOf(hospital);
+            if(indexHospital != -1){
+                idHospital = idHospitales.get(indexHospital);
+                int indexMedico = nombreMedicos.indexOf(medico);
+                if(indexMedico != -1){
+                    dniMedico = dniMedicos.get(indexMedico);
+                } else {
+                    dniMedico = "";
                 }
-            } catch (Exception e){
-                ToastMessage.Invalido(this, "Error: " + e.getMessage());
-                Log.e("ERROR", e.getMessage(), e);
+
+                hViewModel.hospitalPorId(idHospital).observe(this, hospital -> {
+                    if(hospital != null){
+                        uViewModel.getUsuarioByDni(dniMedico).observe(this, medico -> {
+                            if(medico != null){
+                                guardarPacienteConHospitalYMedico(hospital, medico);
+                            }
+                        });
+                    }else{
+                        ToastMessage.Invalido(this, "No se ha encontrado el hospital");
+                    }
+                });
             }
+        }else{
+            ToastMessage.Invalido(this, "Rellena todos los datos necesarios");
         }
     }
 
@@ -479,7 +477,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             @Override
             public void onChanged(List<Hospital> hospitales){
                 if(hospitales != null){
-                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
                     listaNombresHospitales(hospitales);
                 }
             }
@@ -487,41 +484,43 @@ public class RegistroPacienteActivity extends AppCompatActivity {
     }
 
     private void listaNombresHospitales(List<Hospital> hospitales){
-        List<String> nombresHospitales = new ArrayList<>();
+        nombresHospitales = new ArrayList<>();
+        idHospitales = new ArrayList<>();
         for(Hospital hospital: hospitales){
             nombresHospitales.add(hospital.getNombre());
+            idHospitales.add(hospital.getIdHospital());
         }
         nombresHospitales.add(0, "Otro");
+        idHospitales.add(0, Long.parseLong("1"));
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }
 
     private void obtenerMedicosPorHospital(String hospitalNombre){
-        hViewModel.hospitalPorNombre(hospitalNombre).observe(this, new Observer<Hospital>() {
-            @Override
-            public void onChanged(Hospital hospital) {
-                if(hospital != null){
-                    listaMedicosHospital(hospital.getIdHospital());
-                }
-            }
-        });
+        int index = nombresHospitales.indexOf(hospitalNombre);
+        if(index != -1){
+            Long idHospital = idHospitales.get(index);
+            listaMedicosHospital(idHospital);
+        }
     }
 
+
     private void listaMedicosHospital(Long idHospital){
-        List<String> nombresCompletosMedicos = new ArrayList<>();
+        nombreMedicos = new ArrayList<>();
+        dniMedicos = new ArrayList<>();
         uViewModel.getMedicosByHospital(idHospital).observe(this, new Observer<List<Usuario>>() {
             @Override
             public void onChanged(List<Usuario> usuarios) {
                 if(usuarios != null){
                     for(Usuario medico : usuarios){
                         String nombreCompleto = medico.getNombreCompleto();
-                        nombresCompletosMedicos.add(nombreCompleto);
+                        nombreMedicos.add(nombreCompleto);
+                        dniMedicos.add(medico.getDni());
                     }
                 }
             }
         });
-        nombresCompletosMedicos.add(0, "Otro");
-        ArrayAdapter<String> arrayMedicos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresCompletosMedicos);
+        ArrayAdapter<String> arrayMedicos = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombreMedicos);
         dropdownMedico.setAdapter(arrayMedicos);
     }
 

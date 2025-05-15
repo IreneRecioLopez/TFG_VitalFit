@@ -20,7 +20,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_inicio_medico" />
+    <include layout="@layout/content_inicio_medico_nutricionista" />
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

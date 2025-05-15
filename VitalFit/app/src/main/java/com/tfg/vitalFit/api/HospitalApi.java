@@ -12,12 +12,10 @@ public interface HospitalApi {
     //RUTA DEL CONTROLADOR HOSPITAL
     String base = "api/hospital";
 
+    @GET(base + "/{idHospital}")
+    Call<Hospital> obtenerHospitalPorId(@Path("idHospital") Long idHospital);
+
     @GET(base + "/provincia/{provincia}")
     Call<List<Hospital>> obtenerHospitalesPorProvincia(@Path("provincia") String provincia);
-
-    @GET(base + "/{nombre}/{provincia}")
-    Call<Hospital> obtenerHospitalPorNombreYProvincia(@Path("nombre") String nombre, @Path("provincia") String provincia);
-
-    @GET(base + "/{nombre}")
-    Call<Hospital> obtenerHospitalPorNombre(@Path("nombre") String nombre);
+    
 }

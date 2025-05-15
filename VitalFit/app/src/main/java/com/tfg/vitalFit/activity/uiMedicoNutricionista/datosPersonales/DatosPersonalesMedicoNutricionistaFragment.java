@@ -1,4 +1,4 @@
-package com.tfg.vitalfit.activity.uiMedico.datosPersonales;
+package com.tfg.vitalfit.activity.uiMedicoNutricionista.datosPersonales;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class DatosPersonalesMedicoFragment extends Fragment {
+public class DatosPersonalesMedicoNutricionistaFragment extends Fragment {
 
     private List<View> camposEditables;
     private List<View> camposNoEditables;
@@ -45,7 +45,9 @@ public class DatosPersonalesMedicoFragment extends Fragment {
 
     AutoCompleteTextView dropdownHospital, dropdownProvincia;
 
-    String provincia, hospital, medico;
+    String provincia, hospital;
+    List<String> nombresHospitales;
+    List<Long> idHospitales;
 
     private FragmentDatosPersonalesMedicoNutricionistaBinding binding;
 
@@ -83,6 +85,9 @@ public class DatosPersonalesMedicoFragment extends Fragment {
         btnEditarDatos = root.findViewById(R.id.btnEditarDatos);
         btnEditarDatos.setOnClickListener(v -> {
             if(!modoEdicion){
+                nombresHospitales = new ArrayList<>();
+                idHospitales = new ArrayList<>();
+
                 for(View campo : camposEditables){
                     campo.setEnabled(true);
                 }
@@ -110,6 +115,10 @@ public class DatosPersonalesMedicoFragment extends Fragment {
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         provincia = s.toString();
                         dropdownHospital.setText("");
+
+                        idHospitales.clear();
+                        nombresHospitales.clear();
+
                         obtenerHospitalesPorProvincia(provincia);
                     }
                     @Override
@@ -173,23 +182,25 @@ public class DatosPersonalesMedicoFragment extends Fragment {
     private void guardarDatosUsuario(){
         if(usuario == null) return;
 
-        if (hospital.equals("Otro")) {
-            hospitalViewModel.hospitalPorNombre(hospital).observe(getViewLifecycleOwner(), hospital -> {
-                if(hospital != null){
-                    guardarUsuarioConHospital(hospital);
-                }else{
-                    ToastMessage.Invalido(getContext(), "No se ha encontrado el hospital");
-                }
-            });
+        Long idHospital = Long.parseLong("0");
+
+        if(nombresHospitales.isEmpty()){
+            usuario.getHospital().getIdHospital();
         }else{
-            hospitalViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(getViewLifecycleOwner(), hospital -> {
-                if (hospital != null) {
-                    guardarUsuarioConHospital(hospital);
-                } else {
-                    ToastMessage.Invalido(getContext(), "No se ha encontrado el hospital.");
-                }
-            });
+            int indexHospital = nombresHospitales.indexOf(hospital);
+            if(indexHospital != -1) {
+                idHospital = idHospitales.get(indexHospital);
+            }
         }
+
+        hospitalViewModel.hospitalPorId(idHospital).observe(getViewLifecycleOwner(), hospital -> {
+            if(hospital != null){
+                guardarUsuarioConHospital(hospital);
+            }else{
+                ToastMessage.Invalido(getContext(), "No se ha encontrado el hospital");
+            }
+        });
+
     }
 
     private void guardarUsuarioConHospital(Hospital hospital){
@@ -222,7 +233,6 @@ public class DatosPersonalesMedicoFragment extends Fragment {
             @Override
             public void onChanged(List<Hospital> hospitales){
                 if(hospitales != null){
-                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
                     listaNombresHospitales(hospitales);
                 }
             }
@@ -230,11 +240,12 @@ public class DatosPersonalesMedicoFragment extends Fragment {
     }
 
     private void listaNombresHospitales(List<Hospital> hospitales){
-        List<String> nombresHospitales = new ArrayList<>();
         for(Hospital hospital: hospitales){
             nombresHospitales.add(hospital.getNombre());
+            idHospitales.add(hospital.getIdHospital());
         }
         nombresHospitales.add(0, "Otro");
+        idHospitales.add(0, Long.parseLong("1"));
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }

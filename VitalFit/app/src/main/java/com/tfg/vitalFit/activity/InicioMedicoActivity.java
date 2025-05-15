@@ -23,8 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.tfg.vitalfit.R;
-import com.tfg.vitalfit.activity.uiMedico.datosPersonales.DatosPersonalesMedicoFragment;
-import com.tfg.vitalfit.databinding.ActivityInicioMedicoBinding;
+import com.tfg.vitalfit.activity.uiMedicoNutricionista.datosPersonales.DatosPersonalesMedicoNutricionistaFragment;
+import com.tfg.vitalfit.databinding.ActivityInicioMedicoNutricionistaBinding;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.DateSerializer;
 import com.tfg.vitalfit.utils.TimeSerializer;
@@ -35,13 +35,13 @@ import java.sql.Time;
 public class InicioMedicoActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    private ActivityInicioMedicoBinding binding;
+    private ActivityInicioMedicoNutricionistaBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityInicioMedicoBinding.inflate(getLayoutInflater());
+        binding = ActivityInicioMedicoNutricionistaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         setSupportActionBar(binding.appBarInicioMedico.toolbar);
@@ -50,7 +50,7 @@ public class InicioMedicoActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home_medico, R.id.nav_datos_personales_medico, R.id.nav_slideshow)
+                R.id.nav_home_medico, R.id.nav_datos_personales_medico, R.id.nav_configuracion_medico_nutricionista)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_inicio_medico);
@@ -63,8 +63,8 @@ public class InicioMedicoActivity extends AppCompatActivity {
                     .getFragments()
                     .get(0);
 
-            if (currentFragment instanceof DatosPersonalesMedicoFragment) {
-                DatosPersonalesMedicoFragment fragment = (DatosPersonalesMedicoFragment) currentFragment;
+            if (currentFragment instanceof DatosPersonalesMedicoNutricionistaFragment) {
+                DatosPersonalesMedicoNutricionistaFragment fragment = (DatosPersonalesMedicoNutricionistaFragment) currentFragment;
 
                 if (fragment.estaEnModoEdicion()) {
                     new AlertDialog.Builder(this)
@@ -96,17 +96,12 @@ public class InicioMedicoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.inicio_medico, menu);
+        getMenuInflater().inflate(R.menu.inicio_medico_nutricionista, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        /*switch (item.getItemId()){
-            case R.id.cerrarSesion:
-                this.logout();
-                break;
-        }*/
         if(item.getItemId() == R.id.cerrarSesion){
             this.logout();
         }

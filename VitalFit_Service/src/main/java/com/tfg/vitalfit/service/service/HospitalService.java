@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 @Transactional
 public class HospitalService {
@@ -16,16 +18,13 @@ public class HospitalService {
         this.repository = repository;
     }
 
+    public Hospital getHospitalById(Long idHospital) {
+        return this.repository.findById(idHospital).get();
+    }
+
     // Obtener hospitales por provincia
     public List<Hospital> getHospitalsByProvincia(String provincia) {
         return repository.findByProvincia(provincia);
     }
 
-    public Hospital getHospitalsByNameAndProvincia(String name, String provincia) {
-        return repository.findByNameAndProvincia(name, provincia);
-    }
-
-    public Hospital getHospitalByName(String name){
-        return repository.findByName(name);
-    }
 }

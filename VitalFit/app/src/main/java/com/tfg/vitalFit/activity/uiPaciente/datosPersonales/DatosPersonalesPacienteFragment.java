@@ -53,6 +53,8 @@ public class DatosPersonalesPacienteFragment extends Fragment {
     AutoCompleteTextView dropdownHospital, dropdownProvincia, dropdownMedico;
 
     String provincia, hospital, medico;
+    List<String> nombresHospitales, nombreMedicos, dniMedicos;
+    List<Long> idHospitales;
 
     private FragmentDatosPersonalesBinding binding;
 
@@ -96,6 +98,11 @@ public class DatosPersonalesPacienteFragment extends Fragment {
         btnEditarDatos = root.findViewById(R.id.btnEditarDatos);
         btnEditarDatos.setOnClickListener(v -> {
             if(!modoEdicion){
+                nombreMedicos = new ArrayList<>();
+                dniMedicos = new ArrayList<>();
+                idHospitales = new ArrayList<>();
+                nombresHospitales = new ArrayList<>();
+
                 for(View campo : camposEditables){
                     campo.setEnabled(true);
                 }
@@ -114,6 +121,7 @@ public class DatosPersonalesPacienteFragment extends Fragment {
 
                 provincia = dropdownProvincia.getText().toString();
                 hospital = dropdownHospital.getText().toString();
+                medico = dropdownMedico.getText().toString();
                 obtenerHospitalesPorProvincia(provincia);
                 obtenerMedicosPorHospital(hospital);
 
@@ -125,6 +133,13 @@ public class DatosPersonalesPacienteFragment extends Fragment {
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         provincia = s.toString();
                         dropdownHospital.setText("");
+                        dropdownMedico.setText("");
+
+                        nombreMedicos.clear();
+                        dniMedicos.clear();
+                        idHospitales.clear();
+                        nombresHospitales.clear();
+
                         obtenerHospitalesPorProvincia(provincia);
                     }
                     @Override
@@ -139,8 +154,12 @@ public class DatosPersonalesPacienteFragment extends Fragment {
                     public void onTextChanged(CharSequence s, int start, int before, int count) {
                         hospital = s.toString();
                         dropdownMedico.setText("");
-                        obtenerMedicosPorHospital(hospital);
+                        nombreMedicos.clear();
+                        dniMedicos.clear();
 
+                        if (!hospital.isEmpty()) {
+                            obtenerMedicosPorHospital(hospital);
+                        }
                     }
                     @Override
                     public void afterTextChanged(Editable s) {
@@ -149,7 +168,6 @@ public class DatosPersonalesPacienteFragment extends Fragment {
                 dropdownMedico.addTextChangedListener(new TextWatcher() {
                     @Override
                     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
                     }
 
                     @Override
@@ -162,6 +180,7 @@ public class DatosPersonalesPacienteFragment extends Fragment {
 
                     }
                 });
+
             }else{
                 for(View campo : camposEditables){
                     campo.setEnabled(false);
@@ -210,32 +229,41 @@ public class DatosPersonalesPacienteFragment extends Fragment {
     private void guardarDatosPaciente(){
         if(usuario == null) return;
 
-        if (hospital.equals("Otro")) {
-            hospitalViewModel.hospitalPorNombre(hospital).observe(getViewLifecycleOwner(), hospital -> {
-                if(hospital != null){
-                    usuarioViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(getViewLifecycleOwner(), medico -> {
-                        if(medico != null){
-                            guardarUsuarioConHospitalYMedico(hospital, medico);
-                        }
-                    });
-                }else{
-                    ToastMessage.Invalido(getContext(), "No se ha encontrado el hospital");
-                }
-            });
-        }else{
-            hospitalViewModel.hospitalPorNombreYProvincia(hospital, provincia).observe(getViewLifecycleOwner(), hospital -> {
-                if (hospital != null) {
-                    usuarioViewModel.getMedicoByNombreCompletoByHospital(medico, hospital.getIdHospital()).observe(getViewLifecycleOwner(), medico -> {
-                        if(medico != null){
-                            guardarUsuarioConHospitalYMedico(hospital, medico);
-                        }
-                    });
+        Long idHospital = Long.parseLong("0");
+        String dniMedico;
 
-                } else {
-                    ToastMessage.Invalido(getContext(), "No se ha encontrado el hospital.");
-                }
-            });
+        if(nombresHospitales.isEmpty()){
+            usuario.getHospital().getIdHospital();
+        }else{
+            int indexHospital = nombresHospitales.indexOf(hospital);
+            if(indexHospital != -1) {
+                idHospital = idHospitales.get(indexHospital);
+            }
         }
+
+        if(nombreMedicos.isEmpty()){
+            dniMedico = usuario.getMedico().getDni();
+        }else{
+            int indexMedico = nombreMedicos.indexOf(medico);
+            if(indexMedico != -1){
+                dniMedico = dniMedicos.get(indexMedico);
+            } else {
+                dniMedico = "";
+            }
+        }
+
+        hospitalViewModel.hospitalPorId(idHospital).observe(getViewLifecycleOwner(), hospital -> {
+            if(hospital != null){
+                usuarioViewModel.getUsuarioByDni(dniMedico).observe(getViewLifecycleOwner(), medico -> {
+                    if(medico != null){
+                        guardarUsuarioConHospitalYMedico(hospital, medico);
+                    }
+                });
+            }else{
+                ToastMessage.Invalido(getContext(), "No se ha encontrado el hospital");
+            }
+        });
+
     }
 
     private void guardarUsuarioConHospitalYMedico(Hospital hospital, Usuario medico){
@@ -298,7 +326,6 @@ public class DatosPersonalesPacienteFragment extends Fragment {
             @Override
             public void onChanged(List<Hospital> hospitales){
                 if(hospitales != null){
-                    Log.d("Hospitales", "Numero de hospitales: " + hospitales.size());
                     listaNombresHospitales(hospitales);
                 }
             }
@@ -306,40 +333,49 @@ public class DatosPersonalesPacienteFragment extends Fragment {
     }
 
     private void listaNombresHospitales(List<Hospital> hospitales){
-        List<String> nombresHospitales = new ArrayList<>();
         for(Hospital hospital: hospitales){
             nombresHospitales.add(hospital.getNombre());
+            idHospitales.add(hospital.getIdHospital());
         }
         nombresHospitales.add(0, "Otro");
+        idHospitales.add(0, Long.parseLong("1"));
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }
 
     private void obtenerMedicosPorHospital(String hospitalNombre){
-        hospitalViewModel.hospitalPorNombre(hospitalNombre).observe(getViewLifecycleOwner(), new Observer<Hospital>() {
-            @Override
-            public void onChanged(Hospital hospital) {
-                if(hospital != null){
-                    listaMedicosHospital(hospital.getIdHospital());
-                }
+        Long idHospital = Long.parseLong("0");
+        if(nombresHospitales.isEmpty()){
+            idHospital = usuario.getHospital().getIdHospital();
+        }else{
+            int index = nombresHospitales.indexOf(hospitalNombre);
+            if(index != -1) {
+                idHospital = idHospitales.get(index);
             }
-        });
-    }
+        }
 
-    private void listaMedicosHospital(Long idHospital){
-        List<String> nombresCompletosMedicos = new ArrayList<>();
-        usuarioViewModel.getMedicosByHospital(idHospital).observe(this, new Observer<List<Usuario>>() {
+        usuarioViewModel.getMedicosByHospital(idHospital).observe(getViewLifecycleOwner(), new Observer<List<Usuario>>() {
             @Override
             public void onChanged(List<Usuario> usuarios) {
                 if(usuarios != null){
-                    for(Usuario medico : usuarios){
-                        String nombreCompleto = medico.getNombreCompleto();
-                        nombresCompletosMedicos.add(nombreCompleto);
-                    }
+                    listaNombresMedicos(usuarios);
                 }
             }
         });
-        ArrayAdapter<String> arrayMedicos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, nombresCompletosMedicos);
+
+    }
+
+
+    private void listaNombresMedicos(List<Usuario>  medicos){
+        nombreMedicos.clear();
+        dniMedicos.clear();
+        for(Usuario medico : medicos){
+            String nombreCompleto = medico.getNombreCompleto();
+            nombreMedicos.add(nombreCompleto);
+            dniMedicos.add(medico.getDni());
+        }
+
+        ArrayAdapter<String> arrayMedicos = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, nombreMedicos);
         dropdownMedico.setAdapter(arrayMedicos);
     }
 

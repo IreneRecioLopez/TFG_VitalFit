@@ -28,7 +28,7 @@
             android:layout_gravity="start"
             android:fitsSystemWindows="true"
             app:headerLayout="@layout/nav_header_inicio"
-            app:menu="@menu/activity_main_medico_drawer">
+            app:menu="@menu/activity_main_medico_nutricionista_drawer">
         </com.google.android.material.navigation.NavigationView>
 
         <include layout="@layout/nav_footer_inicio"/>

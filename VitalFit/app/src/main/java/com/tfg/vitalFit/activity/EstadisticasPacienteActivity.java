@@ -88,7 +88,7 @@ public class EstadisticasPacienteActivity extends AppCompatActivity {
         pacienteViewModel.pacienteByDNI(paciente.getDni()).observe(this, response -> {
             if(response != null){
                 txtValorPeso.setText(response.getPesoActual().toString() + " kg");
-                txtValorAltura.setText(response.getAltura().toString() + "m");
+                txtValorAltura.setText(response.getAltura().toString() + " m");
                 mostrarGraficaPesos(response);
                 imcBar.setIMC(Float.parseFloat(response.getImc().toString()));
             }
