@@ -27,6 +27,11 @@ public class ConsejoREST {
         return service.getConsejosByNutricionistaAndPaciente(dni, dniPaciente);
     }
 
+    @GetMapping("/noLeidos")
+    public List<Consejo> getConsejosNoLeidos(@RequestParam String dniPaciente){
+        return service.getConsejosNoLeidos(dniPaciente);
+    }
+
     @PutMapping("/leido/{idConsejo}")
     public GenericResponse marcarLeido(@PathVariable("idConsejo") Long id){
         return this.service.marcarComoLeido(id);

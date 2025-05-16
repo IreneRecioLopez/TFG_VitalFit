@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static com.tfg.vitalfit.service.utils.Global.*;
 @Service
 @Transactional
@@ -26,4 +28,12 @@ public class PesosService {
         }
     }
 
+    public Peso getUltimoPeso(String dni) {
+        List<Peso> resultados = this.repository.getUltimoPeso(dni);
+        if(resultados.isEmpty()){
+            return null;
+        }else{
+            return resultados.get(0);
+        }
+    }
 }

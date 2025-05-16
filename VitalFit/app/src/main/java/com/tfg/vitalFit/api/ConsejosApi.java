@@ -28,4 +28,7 @@ public interface ConsejosApi {
 
     @PUT(base + "/leido/{idConsejo}")
     Call<GenericResponse<Void>> marcarComoLeido(@Path("idConsejo")Long idConsejo);
+
+    @GET(base + "/noLeidos")
+    Call<List<Consejo>> getConsejosNoLeidos(@Query("dniPaciente") String dni);
 }

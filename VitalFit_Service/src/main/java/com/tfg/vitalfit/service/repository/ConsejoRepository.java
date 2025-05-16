@@ -21,4 +21,6 @@ public interface ConsejoRepository extends CrudRepository<Consejo, Long> {
     @Query("UPDATE Consejo c SET c.leido = :leido WHERE c.idConsejo = :idConsejo")
     void marcarComoLeido(@Param("idConsejo") Long idConsejo, @Param("leido") Integer leido);
 
+    @Query("SELECT c from Consejo c WHERE c.paciente.dni=:dniPaciente AND c.leido=0")
+    List<Consejo> findNoLeidos(String dniPaciente);
 }

@@ -1,6 +1,7 @@
 package com.tfg.vitalfit.service.service;
 
 import com.tfg.vitalfit.service.entity.Consejo;
+import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.repository.ConsejoRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
 import org.springframework.stereotype.Service;
@@ -46,4 +47,7 @@ public class ConsejoService {
     }
 
 
+    public List<Consejo> getConsejosNoLeidos(String dniPaciente) {
+        return this.repository.findNoLeidos(dniPaciente);
+    }
 }

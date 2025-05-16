@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -112,6 +113,10 @@ public class MainActivity extends AppCompatActivity {
             //ToastMessage.makeText(this, response.getMessage(), ToastMessage.LENGTH_SHORT).show();
             ToastMessage.Correcto(this, response.getMessage());
             Usuario u = response.getBody();
+
+            SharedPreferences prefs = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+            prefs.edit().putString("dni", u.getDni()).apply();
+
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = preferences.edit();
             final Gson g = new GsonBuilder()
