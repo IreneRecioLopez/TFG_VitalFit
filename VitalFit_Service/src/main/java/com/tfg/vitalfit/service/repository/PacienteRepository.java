@@ -8,8 +8,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 
 public interface PacienteRepository extends CrudRepository<Paciente, String> {
-    @Query("SELECT p from Paciente p WHERE p.dni=:dni")
-    Optional<Paciente> findByDNI(String dni);
-
 
 }

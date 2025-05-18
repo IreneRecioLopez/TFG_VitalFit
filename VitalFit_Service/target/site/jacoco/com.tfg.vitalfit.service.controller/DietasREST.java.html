@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DietasREST.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VitalFit_Service</a> &gt; <a href="index.source.html" class="el_package">com.tfg.vitalfit.service.controller</a> &gt; <span class="el_source">DietasREST.java</span></div><h1>DietasREST.java</h1><pre class="source lang-java linenums">package com.tfg.vitalfit.service.controller;
+
+import com.tfg.vitalfit.service.entity.dto.DietaConPlatosDTO;
+import com.tfg.vitalfit.service.entity.dto.GenerarDietaDTO;
+import com.tfg.vitalfit.service.service.DietasService;
+import com.tfg.vitalfit.service.utils.GenericResponse;
+import org.springframework.web.bind.annotation.*;
+
+@RestController
+@RequestMapping(&quot;api/dietas&quot;)
+public class DietasREST {
+    private final DietasService service;
+<span class="nc" id="L13">    public DietasREST(DietasService service) {</span>
+<span class="nc" id="L14">        this.service = service;</span>
+<span class="nc" id="L15">    }</span>
+
+    @PostMapping(&quot;/save&quot;)
+    public GenericResponse save(@RequestBody GenerarDietaDTO dto){
+<span class="nc" id="L19">        return this.service.guardarDieta(dto);</span>
+    }
+
+
+    /*@GetMapping(&quot;/misDietas/{dni}&quot;)
+    public GenericResponse&lt;List&lt;DietaConPlatosDTO&gt;&gt; obtenerMisDietasConPlatos(@PathVariable String dni){
+        return this.service.devolverMisDietas(dni);
+    }*/
+
+    @GetMapping(&quot;/{dni}/{diaSemana}&quot;)
+    public DietaConPlatosDTO obtenerDietaPorPacienteYDiaSemana(@PathVariable String dni, @PathVariable String diaSemana){
+<span class="nc" id="L30">        return service.obtenerDietaPorPacienteYDia(dni, diaSemana);</span>
+    }
+
+    @PutMapping(&quot;/update&quot;)
+<span class="nc" id="L34">    public GenericResponse updateDieta(@RequestBody GenerarDietaDTO dto){ return this.service.updateDieta(dto); }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

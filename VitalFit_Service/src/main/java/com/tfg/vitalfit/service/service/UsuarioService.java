@@ -1,6 +1,7 @@
 package com.tfg.vitalfit.service.service;
 
 import com.tfg.vitalfit.service.entity.Hospital;
+import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.entity.Usuario;
 import com.tfg.vitalfit.service.repository.UsuarioRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -32,7 +33,7 @@ public class UsuarioService {
 
     //método para guardar los datos del usuario
     public GenericResponse guardarUsuario(Usuario m) {
-        Optional<Usuario> optM = this.repository.findByDNI(m.getDni());
+        Optional<Usuario> optM = this.repository.findById(m.getDni());
         String idf = optM.isPresent() ? optM.get().getDni() : "";
         if (!idf.equals("")) {
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: Ya exite un usuario con el mismo número de DNI.", null);
@@ -43,7 +44,7 @@ public class UsuarioService {
 
     //método para asocial al médico un hospital
     public GenericResponse asociarUsuarioHospital(String dni, Hospital hospital) {
-        Optional<Usuario> opt = this.repository.findByDNI(dni);
+        Optional<Usuario> opt = this.repository.findById(dni);
         String idf = opt.isPresent() ? opt.get().getDni() : "";
         if (!idf.equals("")) {
             this.repository.asociarUsuarioHospital(dni, hospital);
@@ -55,7 +56,7 @@ public class UsuarioService {
     }
 
     public GenericResponse asociarPacienteMedico(String dni, Usuario medico) {
-        Optional<Usuario> opt = this.repository.findByDNI(dni);
+        Optional<Usuario> opt = this.repository.findById(dni);
         String idf = opt.isPresent() ? opt.get().getDni() : "";
         if (!idf.equals("")) {
             this.repository.asociarPacienteMedico(dni, medico);
@@ -67,7 +68,7 @@ public class UsuarioService {
     }
 
     public GenericResponse asociarPacienteNutricionista(String dni, Usuario nutricionista) {
-        Optional<Usuario> opt = this.repository.findByDNI(dni);
+        Optional<Usuario> opt = this.repository.findById(dni);
         String idf = opt.isPresent() ? opt.get().getDni() : "";
         if (!idf.equals("")) {
             this.repository.asociarPacienteNutricionista(dni, nutricionista);
@@ -79,7 +80,7 @@ public class UsuarioService {
     }
 
     public GenericResponse actualizarPassword(String dni, String password) {
-        Optional<Usuario> optU = this.repository.findByDNI(dni);
+        Optional<Usuario> optU = this.repository.findById(dni);
         if (optU.isPresent()) {
             Usuario uBD = optU.get();
             uBD.setContrasena(password);
@@ -91,7 +92,7 @@ public class UsuarioService {
     }
 
     public GenericResponse actualizarUsuario(Usuario u) {
-        Optional<Usuario> optU = this.repository.findByDNI(u.getDni());
+        Optional<Usuario> optU = this.repository.findById(u.getDni());
         if (optU.isPresent()) {
             this.repository.save(u);
             return new GenericResponse(TIPO_DATA, RPTA_OK, "Usuario actualizado correctamente", null);
@@ -101,7 +102,12 @@ public class UsuarioService {
     }
 
     public Usuario getUsuarioByDNI(String dni) {
-        return repository.findByDNI(dni).get();
+        Optional<Usuario> optU = this.repository.findById(dni);
+        if(optU.isPresent()){
+            return optU.get();
+        }else{
+            return null;
+        }
     }
 
     public List<Usuario> obtenerMedicosHospital(Long id) {
@@ -112,21 +118,5 @@ public class UsuarioService {
         return repository.obtenerNutricionistasHospital(id);
     }
 
-
-    public Usuario obtenerMedicoPorNombreCompleto(String nombreCompleto, Long idHospital) {
-        return repository.obtenerMedicoPorNombreCompleto(nombreCompleto, idHospital);
-    }
-
-    public List<Usuario> obtenerPacienteNutricionista(String dni) {
-        return repository.obtenerPacienteNutricionista(dni);
-    }
-
-    public List<Usuario> obtenerPacienteMedico(String dni) {
-        return repository.obtenerPacienteMedico(dni);
-    }
-
-    public Usuario obtenerPacientePorNombreCompleto(String nombreCompleto, String dni) {
-        return repository.obtenerPacientePorNombreCompleto(nombreCompleto, dni);
-    }
 
 }

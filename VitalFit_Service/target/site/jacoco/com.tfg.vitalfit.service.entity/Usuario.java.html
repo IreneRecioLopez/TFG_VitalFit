@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuario.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VitalFit_Service</a> &gt; <a href="index.source.html" class="el_package">com.tfg.vitalfit.service.entity</a> &gt; <span class="el_source">Usuario.java</span></div><h1>Usuario.java</h1><pre class="source lang-java linenums">package com.tfg.vitalfit.service.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.Data;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+<span class="pc bpc" id="L11" title="125 of 126 branches missed.">@Data</span>
+public class Usuario {
+    @Id
+<span class="fc" id="L14">    private String dni;</span>
+    @Column(nullable = false)
+<span class="nc" id="L16">    private String nombre;</span>
+    @Column(nullable = false)
+<span class="nc" id="L18">    private String apellido1;</span>
+<span class="nc" id="L19">    private String apellido2;</span>
+    @Column(nullable = false)
+<span class="fc" id="L21">    private String contrasena;</span>
+    @Column(nullable = false)
+<span class="nc" id="L23">    private String telefono;</span>
+    @Column(nullable = false)
+<span class="nc" id="L25">    private String rol;</span>
+    @Column(nullable = false)
+<span class="nc" id="L27">    private String provincia;</span>
+
+    @ManyToOne
+    @JoinColumn(name = &quot;medico_dni&quot;)
+    @JsonIgnoreProperties(&quot;pacientesMedico&quot;)
+<span class="nc" id="L32">    private Usuario medico;</span>
+
+    @ManyToOne
+    @JoinColumn(name = &quot;nutricionista_dni&quot;)
+    @JsonIgnoreProperties(&quot;pacientesNutricionista&quot;)
+<span class="nc" id="L37">    private Usuario nutricionista;</span>
+
+    @OneToMany(mappedBy = &quot;medico&quot;)
+<span class="nc" id="L40">    private List&lt;Usuario&gt; pacientesMedico;</span>
+
+    @OneToMany(mappedBy = &quot;nutricionista&quot;)
+<span class="nc" id="L43">    private List&lt;Usuario&gt; pacientesNutricionista;</span>
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = &quot;idHospital&quot;)
+    //@JsonIgnore
+    //@JsonBackReference(value = &quot;hospital-usuario&quot;)
+    @JsonIgnoreProperties(&quot;usuarios&quot;)
+<span class="nc" id="L50">    private Hospital hospital;</span>
+
+    @OneToMany(mappedBy = &quot;nutricionista&quot;)
+    @JsonManagedReference(value = &quot;nutricionista-consejos&quot;)
+<span class="nc" id="L54">    private List&lt;Consejo&gt; consejos;</span>
+
+    @OneToOne(fetch = FetchType.EAGER)
+<span class="nc" id="L57">    private Paciente paciente;</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

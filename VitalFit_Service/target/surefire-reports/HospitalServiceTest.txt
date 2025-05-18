@@ -1,0 +1,7 @@
+-------------------------------------------------------------------------------
+Test set: HospitalServiceTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.057 s - in HospitalServiceTest
+HospitalServiceTest.getHospital_byProvincia_devuelveLista  Time elapsed: 0.043 s
+HospitalServiceTest.getHospital_noExistente_devuelveNull  Time elapsed: 0.005 s
+HospitalServiceTest.getHospital_Existente_devuelveOk  Time elapsed: 0.003 s

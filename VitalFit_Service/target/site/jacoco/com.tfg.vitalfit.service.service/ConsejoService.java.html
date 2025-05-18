@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ConsejoService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VitalFit_Service</a> &gt; <a href="index.source.html" class="el_package">com.tfg.vitalfit.service.service</a> &gt; <span class="el_source">ConsejoService.java</span></div><h1>ConsejoService.java</h1><pre class="source lang-java linenums">package com.tfg.vitalfit.service.service;
+
+import com.tfg.vitalfit.service.entity.Consejo;
+import com.tfg.vitalfit.service.entity.Paciente;
+import com.tfg.vitalfit.service.repository.ConsejoRepository;
+import com.tfg.vitalfit.service.utils.GenericResponse;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+
+import static com.tfg.vitalfit.service.utils.Global.*;
+
+@Service
+@Transactional
+public class ConsejoService {
+
+    private final ConsejoRepository repository;
+
+<span class="fc" id="L21">    public ConsejoService(ConsejoRepository repository) { this.repository = repository; }</span>
+
+    public GenericResponse guardarConsejo(Consejo c) {
+<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if(c.getPaciente() == null || c.getNutricionista() == null){</span>
+<span class="fc" id="L25">            return new GenericResponse(TIPO_DATA, RPTA_WARNING, &quot;Lo sentimos: no se ha asignado un paciente o nutricionista.&quot;, null);</span>
+        }else{
+<span class="fc" id="L27">            return new GenericResponse(TIPO_DATA, RPTA_OK, &quot;Consejo registrado correctamente&quot;, this.repository.save(c));</span>
+        }
+    }
+
+    public List&lt;Consejo&gt; getConsejosByPaciente(String dni) {
+<span class="fc" id="L32">        return repository.findByPaciente(dni);</span>
+    }
+
+    public List&lt;Consejo&gt; getConsejosByNutricionistaAndPaciente(String dni, String dniPaciente){
+<span class="fc" id="L36">        return repository.findByNutricionistaAndPaciente(dni, dniPaciente);</span>
+    }
+
+    public GenericResponse marcarComoLeido(Long id) {
+<span class="fc" id="L40">        Optional&lt;Consejo&gt; optC = this.repository.findById(id);</span>
+<span class="fc bfc" id="L41" title="All 2 branches covered.">        if(optC.isPresent()){</span>
+<span class="fc" id="L42">            this.repository.marcarComoLeido(optC.get().getIdConsejo(), 1);</span>
+<span class="fc" id="L43">            return new GenericResponse(TIPO_DATA, RPTA_OK, &quot;Consejo actualizado correctamente&quot;, null);</span>
+        }else{
+<span class="fc" id="L45">            return new GenericResponse(TIPO_DATA, RPTA_WARNING, &quot;Lo sentimos: No se ha encontrado el consejo con ese id&quot;, null);</span>
+        }
+    }
+
+
+    public List&lt;Consejo&gt; getConsejosNoLeidos(String dniPaciente) {
+<span class="fc" id="L51">        return this.repository.findNoLeidos(dniPaciente);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

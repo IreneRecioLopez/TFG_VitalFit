@@ -15,9 +15,6 @@ public interface UsuarioRepository extends CrudRepository<Usuario, String> {
     @Query("SELECT u FROM Usuario u JOIN FETCH u.hospital WHERE u.dni=:dni AND u.contrasena=:password")
     Optional<Usuario> login(String dni, String password);
 
-    @Query("SELECT u from Usuario u WHERE u.dni=:dni")
-    Optional<Usuario> findByDNI(String dni);
-
     // Método para asociar un usuario a un hospital
     @Modifying
     @Transactional
@@ -39,18 +36,5 @@ public interface UsuarioRepository extends CrudRepository<Usuario, String> {
 
     @Query("SELECT m from Usuario m WHERE m.rol='Nutricionista' AND m.hospital.idHospital=:id")
     List<Usuario> obtenerNutricionistasHospital(Long id);
-
-    @Query("SELECT m FROM Usuario m WHERE m.rol = 'Médico' AND CONCAT(m.nombre, ' ', m.apellido1, ' ', m.apellido2) = :nombreCompleto AND m.hospital.idHospital = :idHospital")
-    Usuario obtenerMedicoPorNombreCompleto(@Param("nombreCompleto") String nombreCompleto, @Param("idHospital") Long idHospital);
-
-    @Query("SELECT p from Usuario p WHERE p.rol='Paciente' AND p.nutricionista.dni=:dni")
-    List<Usuario> obtenerPacienteNutricionista(String dni);
-
-    @Query("SELECT p FROM Usuario p WHERE p.rol = 'Paciente' AND CONCAT(p.nombre, ' ', p.apellido1, ' ', p.apellido2) = :nombreCompleto AND p.nutricionista.dni = :dni")
-    Usuario obtenerPacientePorNombreCompleto(@Param("nombreCompleto") String nombreCompleto, @Param("dni") String dni);
-
-    @Query("SELECT p from Usuario p WHERE p.rol='Paciente' AND p.medico.dni=:dni")
-    List<Usuario> obtenerPacienteMedico(String dni);
-
 
 }

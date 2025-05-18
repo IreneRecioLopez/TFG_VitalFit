@@ -29,7 +29,7 @@ public class Paciente {
     @Column(nullable = false)
     private String cp;
 
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "dni_medico")
     //@JsonIgnore
     @JsonBackReference("medico-paciente")
@@ -39,7 +39,7 @@ public class Paciente {
     @JoinColumn(name = "dni_nutricionista")
     //@JsonIgnore
     @JsonBackReference(value = "nutricionista-paciente")
-    private Usuario nutricionista;
+    private Usuario nutricionista;*/
 
     @OneToMany(mappedBy = "paciente")
     @JsonManagedReference(value = "paciente-pesos")

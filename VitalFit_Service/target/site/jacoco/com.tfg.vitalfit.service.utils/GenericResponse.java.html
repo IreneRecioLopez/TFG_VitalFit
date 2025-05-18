@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>GenericResponse.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VitalFit_Service</a> &gt; <a href="index.source.html" class="el_package">com.tfg.vitalfit.service.utils</a> &gt; <span class="el_source">GenericResponse.java</span></div><h1>GenericResponse.java</h1><pre class="source lang-java linenums">package com.tfg.vitalfit.service.utils;
+
+public class GenericResponse&lt;T&gt; {
+    private String type;
+    private int rpta;
+    private String message;
+    private T body;
+<span class="nc" id="L8">    public GenericResponse() {</span>
+<span class="nc" id="L9">        type = &quot;&quot;;</span>
+<span class="nc" id="L10">        rpta = 0;</span>
+<span class="nc" id="L11">        message = &quot;&quot;;</span>
+<span class="nc" id="L12">        body = null;</span>
+<span class="nc" id="L13">    }</span>
+
+<span class="nc" id="L15">    public GenericResponse(String bodyType, Object body) {</span>
+<span class="nc" id="L16">        type = &quot;&quot;;</span>
+<span class="nc" id="L17">        rpta = 0;</span>
+<span class="nc" id="L18">        message = &quot;&quot;;</span>
+<span class="nc" id="L19">        this.body = null;</span>
+<span class="nc" id="L20">    }</span>
+
+<span class="fc" id="L22">    public GenericResponse(String type, int rpta, String message, T body) {</span>
+<span class="fc" id="L23">        this.type = type;</span>
+<span class="fc" id="L24">        this.rpta = rpta;</span>
+<span class="fc" id="L25">        this.message = message;</span>
+<span class="fc" id="L26">        this.body = body;</span>
+<span class="fc" id="L27">    }</span>
+
+    public String getType() {
+<span class="nc" id="L30">        return type;</span>
+    }
+
+    public void setType(String type) {
+<span class="nc" id="L34">        this.type = type;</span>
+<span class="nc" id="L35">    }</span>
+
+    public int getRpta() {
+<span class="fc" id="L38">        return rpta;</span>
+    }
+
+    public void setRpta(int rpta) {
+<span class="nc" id="L42">        this.rpta = rpta;</span>
+<span class="nc" id="L43">    }</span>
+
+    public String getMessage() {
+<span class="fc" id="L46">        return message;</span>
+    }
+
+    public void setMessage(String message) {
+<span class="nc" id="L50">        this.message = message;</span>
+<span class="nc" id="L51">    }</span>
+
+    public T getBody() {
+<span class="fc" id="L54">        return body;</span>
+    }
+
+    public void setBody(T body) {
+<span class="nc" id="L58">        this.body = body;</span>
+<span class="nc" id="L59">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

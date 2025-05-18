@@ -25,7 +25,7 @@ public class OperacionesService {
         if(op.getPaciente() == null){
             return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: no se ha asignado un paciente.", null);
         }else{
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Operacion registrado correctamente", this.repository.save(op));
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Operación registrada correctamente", this.repository.save(op));
         }
     }
 

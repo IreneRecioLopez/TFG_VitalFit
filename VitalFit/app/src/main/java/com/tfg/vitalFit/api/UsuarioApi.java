@@ -42,18 +42,6 @@ public interface UsuarioApi {
     @GET(base + "/nutricionista/hospital/{idHospital}")
     Call<List<Usuario>> getNutricionistasByHospital(@Path("idHospital") Long idHospital);
 
-    @GET(base + "/medico/hospital")
-    Call<Usuario> getMedicoByNombreCompletoByHospital(@Query("nombreCompleto") String nombreCompleto, @Query("idHospital") Long idHospital);
-
-    @GET(base + "/paciente/nutricionista/{dni}")
-    Call<List<Usuario>> getPacientesByNutricionista(@Path("dni") String dni);
-
-    @GET(base + "/paciente/medico/{dni}")
-    Call<List<Usuario>> getPacientesByMedico(@Path("dni") String dni);
-
-    @GET(base + "/paciente/nutricionista")
-    Call<Usuario> getPacienteByNombreCompletoByNutricionista(@Query("nombreCompleto") String nombreCompleto, @Query("dni") String dni);
-
     @PUT(base + "/{dni}/hospital")
     Call<GenericResponse<Void>> asociarUsuarioHospital(@Path("dni") String dniUsuario, @Body Hospital hospital);
 

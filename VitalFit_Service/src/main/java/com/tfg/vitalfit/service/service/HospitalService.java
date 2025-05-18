@@ -19,7 +19,7 @@ public class HospitalService {
     }
 
     public Hospital getHospitalById(Long idHospital) {
-        return this.repository.findById(idHospital).get();
+        return this.repository.findById(idHospital).orElse(null);
     }
 
     // Obtener hospitales por provincia

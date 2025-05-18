@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PacienteService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">VitalFit_Service</a> &gt; <a href="index.source.html" class="el_package">com.tfg.vitalfit.service.service</a> &gt; <span class="el_source">PacienteService.java</span></div><h1>PacienteService.java</h1><pre class="source lang-java linenums">package com.tfg.vitalfit.service.service;
+
+import com.tfg.vitalfit.service.entity.Hospital;
+import com.tfg.vitalfit.service.entity.Paciente;
+import com.tfg.vitalfit.service.entity.Usuario;
+import com.tfg.vitalfit.service.repository.PacienteRepository;
+import com.tfg.vitalfit.service.repository.UsuarioRepository;
+import com.tfg.vitalfit.service.utils.GenericResponse;
+import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import java.util.Optional;
+
+import static com.tfg.vitalfit.service.utils.Global.*;
+
+@Service
+@Transactional
+public class PacienteService {
+    private final PacienteRepository repository;
+    private final UsuarioRepository usuarioRepository;
+
+<span class="fc" id="L22">    public PacienteService(PacienteRepository repository, UsuarioRepository usuarioRepository) {</span>
+<span class="fc" id="L23">        this.repository = repository;</span>
+<span class="fc" id="L24">        this.usuarioRepository = usuarioRepository;</span>
+<span class="fc" id="L25">    }</span>
+
+    //método para guardar los datos del paciente
+    public GenericResponse guardarPaciente(Paciente p){
+<span class="fc" id="L29">        Optional&lt;Paciente&gt; opt = this.repository.findById(p.getDni());</span>
+<span class="fc bfc" id="L30" title="All 2 branches covered.">        String dni = opt.isPresent() ? opt.get().getDni() : &quot;&quot;;</span>
+<span class="fc bfc" id="L31" title="All 2 branches covered.">        if(!dni.equals(&quot;&quot;)){</span>
+<span class="fc" id="L32">            return new GenericResponse(TIPO_DATA, RPTA_WARNING, &quot;Lo sentimos: El paciente con este DNI ya existe.&quot;, null);</span>
+        }else{
+<span class="fc" id="L34">            return new GenericResponse(TIPO_DATA, RPTA_OK, &quot;Paciente registrado correctamente&quot;, this.repository.save(p));</span>
+        }
+    }
+
+    public GenericResponse actualizarPaciente(Paciente p){
+<span class="fc" id="L39">        Optional&lt;Paciente&gt; optP = this.repository.findById(p.getDni());</span>
+<span class="fc bfc" id="L40" title="All 2 branches covered.">        if(optP.isPresent()){</span>
+<span class="fc" id="L41">            this.repository.save(p);</span>
+<span class="fc" id="L42">            return new GenericResponse(TIPO_DATA, RPTA_OK, &quot;Paciente actualizado correctamente&quot;, null);</span>
+        }else{
+<span class="fc" id="L44">            return new GenericResponse(TIPO_DATA, RPTA_WARNING, &quot;Lo sentimos: No se ha encontrado el paciente con ese dni&quot;, null);</span>
+        }
+    }
+
+    public Paciente pacienteByDNI(String dni) {
+<span class="fc" id="L49">        Optional&lt;Paciente&gt; optP = this.repository.findById(dni);</span>
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if(optP.isPresent()){</span>
+<span class="fc" id="L51">            return optP.get();</span>
+        }else{
+<span class="fc" id="L53">            return null;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

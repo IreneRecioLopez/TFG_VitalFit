@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: OperacionesServiceTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.05 s - in OperacionesServiceTest
+OperacionesServiceTest.guardarOperación_conPacienteNulo_devuelveWarning  Time elapsed: 0.037 s
+OperacionesServiceTest.guardarOperacion_conPacienteValido_devuelveOk  Time elapsed: 0.003 s
+OperacionesServiceTest.eliminarOperación_noExistente_devuelveWarning  Time elapsed: 0.003 s
+OperacionesServiceTest.eliminarOperacion_existente_devuelveOk  Time elapsed: 0.002 s

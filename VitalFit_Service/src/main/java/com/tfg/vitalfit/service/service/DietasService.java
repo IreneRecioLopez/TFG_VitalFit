@@ -28,15 +28,6 @@ public class DietasService {
         this.platosService = platosService;
     }
 
-    //método para guardar dieta
-    /*public GenericResponse guardarDieta(Dieta d){
-        if(d.getPaciente() == null){
-            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: no se ha asignado un paciente.", null);
-        }else{
-            return new GenericResponse(TIPO_DATA, RPTA_OK, "Dieta registrada correctamente", this.repository.save(d));
-        }
-    }*/
-
     public GenericResponse guardarDieta(GenerarDietaDTO dto){
         dto.getDieta().setDiaSemana(dto.getDieta().getDiaSemana());
         dto.getDieta().setPaciente(dto.getPaciente());
@@ -45,18 +36,8 @@ public class DietasService {
             p.setDieta(dto.getDieta());
         }
         this.platosService.guardarPlatos(dto.getPlatos());
-        return new GenericResponse(TIPO_DATA, RPTA_OK, OPERACION_CORRECTA, dto);
+        return new GenericResponse(TIPO_DATA, RPTA_OK, "Dieta guardada correctamente", dto);
     }
-
-    //método para obtener las dietas
-   /* public GenericResponse<List<DietaConPlatosDTO>> devolverMisDietas(String dniPaciente){
-        final List<DietaConPlatosDTO> dtos = new ArrayList<>();
-        final Iterable<Dieta> dietas = repository.obtenerMiDieta(dniPaciente);
-        dietas.forEach(d -> {
-            dtos.add(new DietaConPlatosDTO(d, platosRepository.findByDieta(d.getIdDieta())));
-        });
-        return new GenericResponse(OPERACION_CORRECTA, RPTA_OK, "Petición encontrada", dtos);
-    }*/
 
     //método para obtener la dieta de un dia dado
     public DietaConPlatosDTO obtenerDietaPorPacienteYDia(String dni, String diaSemana){
