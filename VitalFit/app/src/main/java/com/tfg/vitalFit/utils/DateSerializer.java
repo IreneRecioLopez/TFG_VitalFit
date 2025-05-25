@@ -19,7 +19,7 @@ public class DateSerializer implements JsonDeserializer<Date>, JsonSerializer<Da
     public Date deserialize(JsonElement je, Type type, JsonDeserializationContext jdc) throws JsonParseException {
         String date = je.getAsString();
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        formatter.setTimeZone(TimeZone.getDefault());
+        formatter.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
         try {
             return new Date(formatter.parse(date).getTime());
         } catch (ParseException e) {
@@ -31,7 +31,7 @@ public class DateSerializer implements JsonDeserializer<Date>, JsonSerializer<Da
     @Override
     public JsonElement serialize(Date date, Type typeOfSrc, JsonSerializationContext context) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-        formatter.setTimeZone(TimeZone.getDefault());
+        formatter.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
         try {
             return new JsonPrimitive(formatter.format(date));
         } catch (Exception e) {

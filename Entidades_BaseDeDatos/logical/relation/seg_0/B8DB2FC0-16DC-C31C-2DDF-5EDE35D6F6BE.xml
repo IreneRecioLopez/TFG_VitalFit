@@ -7,11 +7,10 @@
 <item key="C9CE0B0C-FAE5-2358-0B53-782074CAE5BD" value="true"/>
 </engineerTo>
 <sourcePk>6852CE7E-CB83-685C-211E-4839634B5DF8</sourcePk>
-<targetPk>B77FF659-0716-18A5-B657-AC183E77CCDF</targetPk>
 <identifying>true</identifying>
 <nameOnSource>SIGUE</nameOnSource>
 <nameOnTarget>PERTENECE A</nameOnTarget>
-<optionalSource>false</optionalSource>
+<optionalSource>true</optionalSource>
 <optionalTarget>false</optionalTarget>
 <sourceCardinality>1</sourceCardinality>
 <sourceEntity>73021762-B589-FA3C-1EB5-8548BCC72DA8</sourceEntity>

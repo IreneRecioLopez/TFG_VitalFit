@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.service.service;
 
+import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.entity.Peso;
 import com.tfg.vitalfit.service.repository.PesosRepository;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static com.tfg.vitalfit.service.utils.Global.*;
 @Service
@@ -34,6 +36,16 @@ public class PesosService {
             return null;
         }else{
             return resultados.get(0);
+        }
+    }
+
+    public GenericResponse actualizarPeso(Peso p){
+        Optional<Peso> optP = this.repository.findById(p.getIdPeso());
+        if(optP.isPresent()){
+            this.repository.save(p);
+            return new GenericResponse(TIPO_DATA, RPTA_OK, "Peso actualizado correctamente", null);
+        }else{
+            return new GenericResponse(TIPO_DATA, RPTA_WARNING, "Lo sentimos: No se ha encontrado el peso con ese id", null);
         }
     }
 }

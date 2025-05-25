@@ -6,12 +6,17 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class Fecha {
 
     public static String registrarFecha(String fecha) {
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
         SimpleDateFormat formatoSalida = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+
+        formatoEntrada.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
+        formatoSalida.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
+
         try {
             Log.e("FormatoFecha", fecha);
             Date date = formatoEntrada.parse(fecha);
@@ -25,6 +30,10 @@ public class Fecha {
     public static String obtenerFecha(String fecha) {
         SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
         SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+        formatoEntrada.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
+        formatoSalida.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
+
         try {
             Log.e("FormatoFecha", fecha);
             Date date = formatoEntrada.parse(fecha);
@@ -37,6 +46,7 @@ public class Fecha {
 
     public static String obtenerFechaActual() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        sdf.setTimeZone(TimeZone.getTimeZone("Europe/Madrid"));
         return sdf.format(new Date());
     }
 }

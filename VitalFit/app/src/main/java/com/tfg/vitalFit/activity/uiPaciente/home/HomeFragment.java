@@ -3,6 +3,7 @@ package com.tfg.vitalfit.activity.uiPaciente.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -12,12 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.gson.Gson;
+import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.activity.DietaActivity;
 import com.tfg.vitalfit.activity.EstadisticasPacienteActivity;
 import com.tfg.vitalfit.activity.LeerConsejosActivity;
@@ -42,10 +45,11 @@ public class HomeFragment extends Fragment {
     private SharedPreferences prefs;
     private static final String PREF_NAME = "MisPreferencias";
     private static final String KEY_LAST_USED_DATE = "ultima_fecha_uso";
-    private UsuarioViewModel usuarioViewModel;
     private PacienteViewModel pacienteViewModel;
     private PesosViewModel pesosViewModel;
     private Usuario usuario;
+    private Boolean hayPeso = false;
+    private Boolean modoEdicion = false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -69,10 +73,18 @@ public class HomeFragment extends Fragment {
         String fechaActual = Fecha.obtenerFechaActual();
 
         if (!fechaActual.equals(ultimaFechaUso)) {
-            binding.edtPesoP.setEnabled(true);  // habilita si es un nuevo día
+            binding.edtPesoP.setEnabled(true);// habilita si es un nuevo día
+            hayPeso = false;
         } else {
             binding.edtPesoP.setText(usuario.getPaciente().getPesoActual().toString());
             binding.edtPesoP.setEnabled(false); // deshabilita si ya fue usado hoy
+            hayPeso = true;
+        }
+
+        if(hayPeso){
+            Drawable edit = ContextCompat.getDrawable(getContext(), R.drawable.ic_edit);
+            binding.btnGuardarPeso.setCompoundDrawablesWithIntrinsicBounds(null, null, edit, null);
+            binding.btnGuardarPeso.setText("Editar");
         }
 
         binding.btnLeerConsejos.setOnClickListener(v -> {
@@ -98,7 +110,20 @@ public class HomeFragment extends Fragment {
         });
 
         binding.btnGuardarPeso.setOnClickListener(v -> {
-            registrarPeso();
+            if(!modoEdicion){
+                binding.edtPesoP.setEnabled(true);
+                Drawable edit = ContextCompat.getDrawable(getContext(), R.drawable.ic_save);
+                binding.btnGuardarPeso.setCompoundDrawablesWithIntrinsicBounds(null, null, edit, null);
+                binding.btnGuardarPeso.setText("Guardar");
+                modoEdicion = true;
+            }else{
+                if(hayPeso){
+                    actualizarPeso();
+                }else{
+                    registrarPeso();
+                }
+            }
+
         });
 
         return root;
@@ -106,7 +131,6 @@ public class HomeFragment extends Fragment {
 
     private void initViewModel(){
         final ViewModelProvider vmp = new ViewModelProvider(this);
-        usuarioViewModel = vmp.get(UsuarioViewModel.class);
         pacienteViewModel = vmp.get(PacienteViewModel.class);
         pesosViewModel = vmp.get(PesosViewModel.class);
     }
@@ -130,6 +154,11 @@ public class HomeFragment extends Fragment {
                         if(updateResponse.getRpta() == 1){
                             ToastMessage.Correcto(getContext(), "Paciente actualizado correctamente");
                             binding.edtPesoP.setEnabled(false);
+                            Drawable edit = ContextCompat.getDrawable(getContext(), R.drawable.ic_edit);
+                            binding.btnGuardarPeso.setCompoundDrawablesWithIntrinsicBounds(null, null, edit, null);
+                            binding.btnGuardarPeso.setText("Editar");
+                            hayPeso = true;
+                            modoEdicion = false;
                             prefs.edit().putString(KEY_LAST_USED_DATE, new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date())).apply();
                         }
                     });
@@ -137,6 +166,38 @@ public class HomeFragment extends Fragment {
                 }else{
                     ToastMessage.Invalido(getContext(), "Error al registrar el peso");
                 }
+            });
+        }
+    }
+
+    private void actualizarPeso(){
+        if(validar()){
+            Double p = Double.parseDouble(binding.edtPesoP.getText().toString());
+
+            pesosViewModel.getPesoHoy(usuario.getDni()).observe(getViewLifecycleOwner(), peso -> {
+                peso.setPeso(p);
+                peso.setPaciente(new Paciente(usuario.getPaciente().getDni()));
+                peso.setFecha(Fecha.obtenerFechaActual());
+                pesosViewModel.actualizarPeso(peso).observe(getViewLifecycleOwner(), response -> {
+                    if(response.getRpta() == 1){
+                        Paciente paciente = usuario.getPaciente();
+                        paciente.setPesoActual(p);
+
+                        pacienteViewModel.actualizarPaciente(paciente).observe(getViewLifecycleOwner(), pResponse -> {
+                            if(pResponse.getRpta() == 1){
+                                binding.edtPesoP.setText(p.toString());
+                                binding.edtPesoP.setEnabled(false);
+                                modoEdicion = false;
+                                Drawable edit = ContextCompat.getDrawable(getContext(), R.drawable.ic_edit);
+                                binding.btnGuardarPeso.setCompoundDrawablesWithIntrinsicBounds(null, null, edit, null);
+                                binding.btnGuardarPeso.setText("Editar");
+                                ToastMessage.Correcto(getContext(), "Peso actualizado correctamente");
+                            }else{
+                                ToastMessage.Invalido(getContext(), "Error al actualizar el peso");
+                            }
+                        });
+                    }
+                });
             });
         }
     }

@@ -1,5 +1,6 @@
 package com.tfg.vitalfit.service.controller;
 
+import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.entity.Peso;
 import com.tfg.vitalfit.service.service.PesosService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -16,6 +17,11 @@ public class PesosREST {
     @PostMapping("/save")
     public GenericResponse save(@RequestBody Peso p){
         return this.service.guardarPeso(p);
+    }
+
+    @PutMapping("/update")
+    public GenericResponse actualizarPeso(@RequestBody Peso p){
+        return this.service.actualizarPeso(p);
     }
 
     @GetMapping("/hoy")

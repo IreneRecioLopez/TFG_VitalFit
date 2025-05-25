@@ -46,6 +46,12 @@
 
     </LinearLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginBottom="8dp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,6 +76,7 @@
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center"
                 android:hint="Peso"
                 app:startIconDrawable="@drawable/ic_peso">
 
@@ -85,10 +92,10 @@
             <Button
                 android:id="@+id/btnGuardarPeso"
                 android:layout_width="wrap_content"
-                android:layout_height="55dp"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="55dp"
+                android:layout_gravity="center_vertical"
                 android:drawableEnd="@drawable/ic_save"
-                android:paddingTop="15dp"
                 android:text="Guardar" />
 
         </LinearLayout>
