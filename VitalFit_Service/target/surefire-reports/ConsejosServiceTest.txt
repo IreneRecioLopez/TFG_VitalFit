@@ -1,11 +1,11 @@
 -------------------------------------------------------------------------------
 Test set: ConsejosServiceTest
 -------------------------------------------------------------------------------
-Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.149 s - in ConsejosServiceTest
-ConsejosServiceTest.marcarComoLeido_noExistente_devuelveWarning  Time elapsed: 0.12 s
-ConsejosServiceTest.guardarPeso_conPacienteYNutricionistaValido_devuelveOk  Time elapsed: 0.006 s
-ConsejosServiceTest.getConsejos_byPaciente_devuelveLista  Time elapsed: 0.004 s
-ConsejosServiceTest.marcarComoLeido_existente_devuelveOk  Time elapsed: 0.005 s
-ConsejosServiceTest.guardarConsejo_conPacienteYNutricionistaNulo_devuelveWarning  Time elapsed: 0.002 s
-ConsejosServiceTest.getConsejos_byPacienteNoLeidos_devuelveLista  Time elapsed: 0.003 s
-ConsejosServiceTest.getConsejos_byPacienteYNutricionista_devuelveLista  Time elapsed: 0.003 s
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.085 s - in ConsejosServiceTest
+ConsejosServiceTest.marcarComoLeido_noExistente_devuelveWarning  Time elapsed: 0.064 s
+ConsejosServiceTest.guardarPeso_conPacienteYNutricionistaValido_devuelveOk  Time elapsed: 0.004 s
+ConsejosServiceTest.getConsejos_byPaciente_devuelveLista  Time elapsed: 0.002 s
+ConsejosServiceTest.marcarComoLeido_existente_devuelveOk  Time elapsed: 0.002 s
+ConsejosServiceTest.guardarConsejo_conPacienteYNutricionistaNulo_devuelveWarning  Time elapsed: 0.003 s
+ConsejosServiceTest.getConsejos_byPacienteNoLeidos_devuelveLista  Time elapsed: 0.002 s
+ConsejosServiceTest.getConsejos_byPacienteYNutricionista_devuelveLista  Time elapsed: 0.002 s

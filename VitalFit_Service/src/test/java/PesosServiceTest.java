@@ -1,5 +1,6 @@
 import com.tfg.vitalfit.service.entity.Paciente;
 import com.tfg.vitalfit.service.entity.Peso;
+import com.tfg.vitalfit.service.entity.Usuario;
 import com.tfg.vitalfit.service.repository.PesosRepository;
 import com.tfg.vitalfit.service.service.PesosService;
 import com.tfg.vitalfit.service.utils.GenericResponse;
@@ -13,8 +14,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class PesosServiceTest {
@@ -51,6 +54,36 @@ class PesosServiceTest {
         assertEquals(1, response.getRpta());
         assertEquals("Peso registrado correctamente", response.getMessage());
         assertNotNull(response.getBody());
+    }
+
+    @Test
+    @DisplayName("Actualiza peso existente correctamente")
+    void actualizarPeso_existente_devuelveOk() {
+        Peso peso = new Peso();
+        peso.setIdPeso(1L);
+
+        when(repository.findById(1L))
+                .thenReturn(Optional.of(peso));
+
+        GenericResponse response = service.actualizarPeso(peso);
+
+        assertEquals(1, response.getRpta());
+        assertEquals("Peso actualizado correctamente", response.getMessage());
+    }
+
+    @Test
+    @DisplayName("Devuelve warning al actualizar peso no existente")
+    void actualizarPeso_noExistente_devuelveWarning() {
+        Peso peso = new Peso();
+        peso.setIdPeso(1L);
+
+        when(repository.findById(1L))
+                .thenReturn(Optional.empty());
+
+        GenericResponse response = service.actualizarPeso(peso);
+
+        assertEquals(0, response.getRpta());
+        assertEquals("Lo sentimos: No se ha encontrado el peso con ese id", response.getMessage());
     }
 
     @Test

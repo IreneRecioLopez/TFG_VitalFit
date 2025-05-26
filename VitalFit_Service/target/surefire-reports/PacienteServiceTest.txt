@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: PacienteServiceTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 s - in PacienteServiceTest
-PacienteServiceTest.actualizarPaciente_existente_devuelveOk  Time elapsed: 0.031 s
-PacienteServiceTest.getPaciente_Existente_devuelveOk  Time elapsed: 0.001 s
-PacienteServiceTest.guardarPaciente_conDniNoExistente_devuelveOk  Time elapsed: 0.002 s
-PacienteServiceTest.guardarPaciente_conDniExistente_devuelveWarning  Time elapsed: 0.001 s
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.033 s - in PacienteServiceTest
+PacienteServiceTest.actualizarPaciente_existente_devuelveOk  Time elapsed: 0.021 s
+PacienteServiceTest.getPaciente_Existente_devuelveOk  Time elapsed: 0.003 s
+PacienteServiceTest.guardarPaciente_conDniNoExistente_devuelveOk  Time elapsed: 0.003 s
+PacienteServiceTest.guardarPaciente_conDniExistente_devuelveWarning  Time elapsed: 0.002 s
 PacienteServiceTest.actualizarPaciente_noExistente_devuelveWarning  Time elapsed: 0.001 s
 PacienteServiceTest.getPaciente_noExistente_devuelveNull  Time elapsed: 0.001 s

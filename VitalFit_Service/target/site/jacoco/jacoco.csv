@@ -8,7 +8,7 @@ VitalFit_Service,com.tfg.vitalfit.service.controller,HospitalREST,16,0,0,0,5,0,3
 VitalFit_Service,com.tfg.vitalfit.service.controller,ConsejoREST,32,0,0,0,6,0,6,0,6,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,PacienteREST,21,0,0,0,6,0,4,0,4,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,AlergiasREST,16,0,0,0,5,0,3,0,3,0
-VitalFit_Service,com.tfg.vitalfit.service.controller,PesosREST,16,0,0,0,5,0,3,0,3,0
+VitalFit_Service,com.tfg.vitalfit.service.controller,PesosREST,21,0,0,0,6,0,4,0,4,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,DietasREST,22,0,0,0,6,0,4,0,4,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,OperacionesREST,16,0,0,0,5,0,3,0,3,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,PlatosREST,3,0,0,0,1,0,1,0,1,0
@@ -21,7 +21,7 @@ VitalFit_Service,com.tfg.vitalfit.service.service,UsuarioService,0,284,0,24,0,48
 VitalFit_Service,com.tfg.vitalfit.service.service,PacienteService,0,92,0,8,0,18,0,8,0,4
 VitalFit_Service,com.tfg.vitalfit.service.service,HospitalService,0,19,0,0,0,5,0,3,0,3
 VitalFit_Service,com.tfg.vitalfit.service.service,AlergiasService,0,56,0,4,0,11,0,5,0,3
-VitalFit_Service,com.tfg.vitalfit.service.service,PesosService,0,43,0,4,0,10,0,5,0,3
+VitalFit_Service,com.tfg.vitalfit.service.service,PesosService,0,73,0,6,0,15,0,7,0,4
 VitalFit_Service,com.tfg.vitalfit.service.service,ObservacionesService,0,56,0,4,0,11,0,5,0,3
 VitalFit_Service,com.tfg.vitalfit.service.service,PlatosService,0,49,0,4,0,11,0,4,0,2
 VitalFit_Service,com.tfg.vitalfit.service.service,ConsejoService,0,80,1,5,0,12,1,8,0,6
@@ -30,7 +30,7 @@ VitalFit_Service,com.tfg.vitalfit.service.entity,Paciente,627,15,117,1,13,2,88,4
 VitalFit_Service,com.tfg.vitalfit.service.entity,Hospital,365,19,69,1,7,2,51,5,16,5
 VitalFit_Service,com.tfg.vitalfit.service.entity,Consejo,267,31,54,0,2,5,35,9,8,9
 VitalFit_Service,com.tfg.vitalfit.service.entity,Dieta,179,33,37,1,1,4,23,9,4,9
-VitalFit_Service,com.tfg.vitalfit.service.entity,Peso,197,15,37,1,3,2,28,4,9,4
+VitalFit_Service,com.tfg.vitalfit.service.entity,Peso,190,22,37,1,2,3,26,6,7,6
 VitalFit_Service,com.tfg.vitalfit.service.entity,Observacion,155,14,30,0,2,2,22,4,7,4
 VitalFit_Service,com.tfg.vitalfit.service.entity,Plato,288,10,54,0,5,2,41,3,14,3
 VitalFit_Service,com.tfg.vitalfit.service.entity,Usuario,663,22,125,1,13,3,92,6,29,6
