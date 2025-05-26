@@ -57,10 +57,18 @@ public class ConfiguracionFragment extends Fragment {
         switchNotificacion = root.findViewById(R.id.switchNotificacion);
         switchNotificacion.setChecked(estaNotificacionActivada());
 
+        if (switchNotificacion.isChecked()) {
+            activarNotificacionDiaria();
+        }
+
         switchNotificacion.setOnCheckedChangeListener((buttonView, isChecked) -> {
             guardarEstadoNotificacion(isChecked);
-            if (isChecked) activarNotificacionDiaria();
-            else desactivarNotificacionDiaria();
+            if (isChecked) {
+                activarNotificacionDiaria();
+            }
+            else {
+                desactivarNotificacionDiaria();
+            }
         });
 
         return root;
@@ -87,10 +95,10 @@ public class ConfiguracionFragment extends Fragment {
 
         AlarmManager alarmManager = (AlarmManager) requireContext().getSystemService(Context.ALARM_SERVICE);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, 60);
-        long horaInicio = calendar.getTimeInMillis();
-        //long horaInicio = obtenerHoraProximaNotificacion();
+        //Calendar calendar = Calendar.getInstance();
+        //calendar.add(Calendar.SECOND, 60);
+        //long horaInicio = calendar.getTimeInMillis();
+        long horaInicio = obtenerHoraProximaNotificacion();
 
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, horaInicio, pendingIntent);
         Log.d("Alarma", "Alarma programada para: " + new Date(horaInicio));
@@ -107,8 +115,8 @@ public class ConfiguracionFragment extends Fragment {
 
     private long obtenerHoraProximaNotificacion() {
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 9);
-        calendar.set(Calendar.MINUTE, 15);
+        calendar.set(Calendar.HOUR_OF_DAY, 10);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
         if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_YEAR, 1);

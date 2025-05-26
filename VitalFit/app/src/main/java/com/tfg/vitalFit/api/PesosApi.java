@@ -22,6 +22,6 @@ public interface PesosApi {
     @PUT(base + "/update")
     Call<GenericResponse<Void>> actualizarPeso(@Body Peso p);
 
-    @GET(base + "/hoy")
-    Call<Peso> getPesoHoy(@Query("dni") String dni);
+    @GET(base + "/ultimo")
+    Call<Peso> getPesoUltimo(@Query("dni") String dni);
 }

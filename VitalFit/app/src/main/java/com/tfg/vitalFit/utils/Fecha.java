@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
@@ -37,7 +38,14 @@ public class Fecha {
         try {
             Log.e("FormatoFecha", fecha);
             Date date = formatoEntrada.parse(fecha);
-            return formatoSalida.format(date);
+
+            // Sumar un día
+            Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("Europe/Madrid"));
+            calendar.setTime(date);
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            Date nuevaFecha = calendar.getTime();
+
+            return formatoSalida.format(nuevaFecha);
         } catch (ParseException e) {
             Log.e("ErrorFecha", "Formato incorrecto: " + fecha);
             return null;

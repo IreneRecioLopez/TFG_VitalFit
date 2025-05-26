@@ -66,9 +66,9 @@ public class PesosRepository {
         return mld;
     }
 
-    public LiveData<Peso> getPesoHoy(String dniPaciente){
+    public LiveData<Peso> getPesoUltimo(String dniPaciente){
         final MutableLiveData<Peso> mld = new MutableLiveData<>();
-        this.api.getPesoHoy(dniPaciente).enqueue(new Callback<Peso>() {
+        this.api.getPesoUltimo(dniPaciente).enqueue(new Callback<Peso>() {
             @Override
             public void onResponse(Call<Peso> call, Response<Peso> response) {
                 mld.setValue(response.body());

@@ -40,10 +40,10 @@ public class NotificacionDiariaReceiver extends BroadcastReceiver {
         PesosApi pesosApi = ConfigApi.getPesosApi();
         ConsejosApi consejosApi = ConfigApi.getConsejosApi();
 
-        pesosApi.getPesoHoy(dni).enqueue(new Callback<Peso>() {
+        pesosApi.getPesoUltimo(dni).enqueue(new Callback<Peso>() {
             @Override
             public void onResponse(Call<Peso> call, Response<Peso> response) {
-                if (response.body() == null || !response.body().getFecha().equals(Fecha.obtenerFechaActual())) {
+                if (response.body() == null || !Fecha.registrarFecha(Fecha.obtenerFecha(response.body().getFecha().toString())).equals(Fecha.obtenerFechaActual())) {
                     mostrarNotificacion(context, "Peso", "No olvides registrar tu peso hoy.");
                 }
             }

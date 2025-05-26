@@ -24,6 +24,6 @@ public class PesosREST {
         return this.service.actualizarPeso(p);
     }
 
-    @GetMapping("/hoy")
+    @GetMapping("/ultimo")
     Peso getUltimoPeso(@RequestParam String dni){ return this.service.getUltimoPeso(dni); }
 }

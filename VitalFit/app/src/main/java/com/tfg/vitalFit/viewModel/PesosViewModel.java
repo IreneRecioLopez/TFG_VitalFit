@@ -27,5 +27,5 @@ public class PesosViewModel extends AndroidViewModel {
         return this.repository.actualizarPeso(p);
     }
 
-    public LiveData<Peso> getPesoHoy(String dniPaciente) { return this.repository.getPesoHoy(dniPaciente); }
+    public LiveData<Peso> getPesoUltimo(String dniPaciente) { return this.repository.getPesoUltimo(dniPaciente); }
 }
