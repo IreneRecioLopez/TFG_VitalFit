@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: AlergiasServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.697 s - in AlergiasServiceTest
-AlergiasServiceTest.guardarAlergia_conPacienteValido_devuelveOk  Time elapsed: 0.639 s
-AlergiasServiceTest.eliminarAlergia_existente_devuelveOk  Time elapsed: 0.011 s
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.832 s - in AlergiasServiceTest
+AlergiasServiceTest.guardarAlergia_conPacienteValido_devuelveOk  Time elapsed: 0.764 s
+AlergiasServiceTest.eliminarAlergia_existente_devuelveOk  Time elapsed: 0.012 s
 AlergiasServiceTest.eliminarAlergia_noExistente_devuelveWarning  Time elapsed: 0.002 s
-AlergiasServiceTest.guardarAlergia_conPacienteNulo_devuelveWarning  Time elapsed: 0.001 s
+AlergiasServiceTest.guardarAlergia_conPacienteNulo_devuelveWarning  Time elapsed: 0 s

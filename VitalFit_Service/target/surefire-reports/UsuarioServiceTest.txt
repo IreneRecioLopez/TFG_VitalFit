@@ -1,22 +1,22 @@
 -------------------------------------------------------------------------------
 Test set: UsuarioServiceTest
 -------------------------------------------------------------------------------
-Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.054 s - in UsuarioServiceTest
-UsuarioServiceTest.asociarPacienteMedico_noExistente_devuelveWarning  Time elapsed: 0.023 s
-UsuarioServiceTest.asociarPacienteNutricionista_existente_devuelveOk  Time elapsed: 0.001 s
-UsuarioServiceTest.actualizarUsuario_existente_devuelveOk  Time elapsed: 0.002 s
+Tests run: 18, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.072 s - in UsuarioServiceTest
+UsuarioServiceTest.asociarPacienteMedico_noExistente_devuelveWarning  Time elapsed: 0.027 s
+UsuarioServiceTest.asociarPacienteNutricionista_existente_devuelveOk  Time elapsed: 0.002 s
+UsuarioServiceTest.actualizarUsuario_existente_devuelveOk  Time elapsed: 0.001 s
 UsuarioServiceTest.guardarUsuario_conDniNoExistente_devuelveOk  Time elapsed: 0.003 s
-UsuarioServiceTest.asociarUsuarioHospital_noExistente_devuelveWarning  Time elapsed: 0.001 s
-UsuarioServiceTest.asociarPacienteMedico_existente_devuelveOk  Time elapsed: 0.003 s
+UsuarioServiceTest.asociarUsuarioHospital_noExistente_devuelveWarning  Time elapsed: 0.004 s
+UsuarioServiceTest.asociarPacienteMedico_existente_devuelveOk  Time elapsed: 0.002 s
 UsuarioServiceTest.asociarPacienteNutricionista_noExistente_devuelveWarning  Time elapsed: 0.002 s
 UsuarioServiceTest.asociarUsuarioHospital_existente_devuelveOk  Time elapsed: 0.002 s
 UsuarioServiceTest.actualizarPassword_usuarioNoExistente_devuelveWarning  Time elapsed: 0.002 s
-UsuarioServiceTest.getMedicos_byHospital_devuelveLista  Time elapsed: 0.001 s
+UsuarioServiceTest.getMedicos_byHospital_devuelveLista  Time elapsed: 0.002 s
 UsuarioServiceTest.actualizarPassword_usuarioExistente_devuelveOk  Time elapsed: 0.002 s
-UsuarioServiceTest.getUsuario_noExistente_devuelveNull  Time elapsed: 0.001 s
+UsuarioServiceTest.getUsuario_noExistente_devuelveNull  Time elapsed: 0.002 s
 UsuarioServiceTest.getUsuario_Existente_devuelveOk  Time elapsed: 0.001 s
-UsuarioServiceTest.login_credencialesValidas_devuelveOk  Time elapsed: 0.001 s
-UsuarioServiceTest.guardarUsuario_conDniExistente_devuelveWarning  Time elapsed: 0.001 s
-UsuarioServiceTest.login_credencialesInvalidas_devuelveWarning  Time elapsed: 0.001 s
-UsuarioServiceTest.actualizarUsuario_noExistente_devuelveWarning  Time elapsed: 0.001 s
+UsuarioServiceTest.login_credencialesValidas_devuelveOk  Time elapsed: 0.002 s
+UsuarioServiceTest.guardarUsuario_conDniExistente_devuelveWarning  Time elapsed: 0.003 s
+UsuarioServiceTest.login_credencialesInvalidas_devuelveWarning  Time elapsed: 0.003 s
+UsuarioServiceTest.actualizarUsuario_noExistente_devuelveWarning  Time elapsed: 0.002 s
 UsuarioServiceTest.getNutricionistas_byHospital_devuelveLista  Time elapsed: 0.001 s

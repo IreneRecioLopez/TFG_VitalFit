@@ -1,9 +1,9 @@
 -------------------------------------------------------------------------------
 Test set: DietaServiceTest
 -------------------------------------------------------------------------------
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.095 s - in DietaServiceTest
-DietaServiceTest.updateDieta_existente_guardaPlatosYDevuelveOk  Time elapsed: 0.08 s
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.089 s - in DietaServiceTest
+DietaServiceTest.updateDieta_existente_guardaPlatosYDevuelveOk  Time elapsed: 0.075 s
 DietaServiceTest.guardarDieta_devuelveOk  Time elapsed: 0.004 s
-DietaServiceTest.obtenerDieta_noExistente_devuelveNull  Time elapsed: 0.002 s
-DietaServiceTest.updateDieta_noExistente_devuelveWarning  Time elapsed: 0.002 s
-DietaServiceTest.obtenerDieta_existente_devuelveDTO  Time elapsed: 0.004 s
+DietaServiceTest.obtenerDieta_noExistente_devuelveNull  Time elapsed: 0.003 s
+DietaServiceTest.updateDieta_noExistente_devuelveWarning  Time elapsed: 0.001 s
+DietaServiceTest.obtenerDieta_existente_devuelveDTO  Time elapsed: 0.003 s

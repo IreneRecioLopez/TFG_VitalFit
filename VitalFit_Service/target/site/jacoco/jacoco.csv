@@ -24,7 +24,7 @@ VitalFit_Service,com.tfg.vitalfit.service.service,AlergiasService,0,56,0,4,0,11,
 VitalFit_Service,com.tfg.vitalfit.service.service,PesosService,0,73,0,6,0,15,0,7,0,4
 VitalFit_Service,com.tfg.vitalfit.service.service,ObservacionesService,0,56,0,4,0,11,0,5,0,3
 VitalFit_Service,com.tfg.vitalfit.service.service,PlatosService,0,49,0,4,0,11,0,4,0,2
-VitalFit_Service,com.tfg.vitalfit.service.service,ConsejoService,0,80,1,5,0,12,1,8,0,6
+VitalFit_Service,com.tfg.vitalfit.service.service,ConsejoService,0,80,0,6,0,12,0,9,0,6
 VitalFit_Service,com.tfg.vitalfit.service,App,8,0,0,0,3,0,2,0,2,0
 VitalFit_Service,com.tfg.vitalfit.service.entity,Paciente,627,15,117,1,13,2,88,4,29,4
 VitalFit_Service,com.tfg.vitalfit.service.entity,Hospital,365,19,69,1,7,2,51,5,16,5

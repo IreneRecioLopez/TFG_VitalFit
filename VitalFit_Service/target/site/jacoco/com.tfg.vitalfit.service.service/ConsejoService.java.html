@@ -21,7 +21,7 @@ public class ConsejoService {
 <span class="fc" id="L21">    public ConsejoService(ConsejoRepository repository) { this.repository = repository; }</span>
 
     public GenericResponse guardarConsejo(Consejo c) {
-<span class="pc bpc" id="L24" title="1 of 4 branches missed.">        if(c.getPaciente() == null || c.getNutricionista() == null){</span>
+<span class="fc bfc" id="L24" title="All 4 branches covered.">        if(c.getPaciente() == null || c.getNutricionista() == null){</span>
 <span class="fc" id="L25">            return new GenericResponse(TIPO_DATA, RPTA_WARNING, &quot;Lo sentimos: no se ha asignado un paciente o nutricionista.&quot;, null);</span>
         }else{
 <span class="fc" id="L27">            return new GenericResponse(TIPO_DATA, RPTA_OK, &quot;Consejo registrado correctamente&quot;, this.repository.save(c));</span>

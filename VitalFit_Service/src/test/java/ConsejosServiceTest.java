@@ -40,6 +40,34 @@ public class ConsejosServiceTest {
     }
 
     @Test
+    @DisplayName(("Devuelve error al guardar un consejo con un paciente nulo y nutricionista asignado"))
+    void guardarPeso_conPacienteNuloYNutricionistaValido_devuelveWarning() {
+        Consejo consejo = new Consejo();
+        consejo.setPaciente(null);
+        consejo.setNutricionista(new Usuario());
+
+        GenericResponse response = service.guardarConsejo(consejo);
+
+        assertEquals(0, response.getRpta());
+        assertEquals("Lo sentimos: no se ha asignado un paciente o nutricionista.", response.getMessage());
+        assertNull(response.getBody());
+    }
+
+    @Test
+    @DisplayName(("Devuelve error al guardar un consejo con un paciente asignado y nutricionista nulo"))
+    void guardarPeso_conPacienteValidoYNutricionistaNulo_devuelveWarning() {
+        Consejo consejo = new Consejo();
+        consejo.setPaciente(new Paciente());
+        consejo.setNutricionista(null);
+
+        GenericResponse response = service.guardarConsejo(consejo);
+
+        assertEquals(0, response.getRpta());
+        assertEquals("Lo sentimos: no se ha asignado un paciente o nutricionista.", response.getMessage());
+        assertNull(response.getBody());
+    }
+
+    @Test
     @DisplayName(("Devuelve ok al guardar un consejo con un paciente y nutricionista asignado"))
     void guardarPeso_conPacienteYNutricionistaValido_devuelveOk() {
         Consejo consejo = new Consejo();

@@ -1,10 +1,10 @@
 -------------------------------------------------------------------------------
 Test set: PesosServiceTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.036 s - in PesosServiceTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s - in PesosServiceTest
 PesosServiceTest.actualizarPeso_noExistente_devuelveWarning  Time elapsed: 0.023 s
 PesosServiceTest.getUltimoPeso_sinResultados_devuelveNull  Time elapsed: 0.002 s
 PesosServiceTest.actualizarPeso_existente_devuelveOk  Time elapsed: 0.001 s
-PesosServiceTest.getUltimoPeso_conResultados_devuelvePrimero  Time elapsed: 0.002 s
+PesosServiceTest.getUltimoPeso_conResultados_devuelvePrimero  Time elapsed: 0.001 s
 PesosServiceTest.guardarPeso_conPacienteNulo_devuelveWarning  Time elapsed: 0.001 s
 PesosServiceTest.guardarPeso_conPacienteValido_devuelveOk  Time elapsed: 0.001 s
