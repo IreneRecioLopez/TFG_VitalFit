@@ -1,0 +1,868 @@
+{
+	"info": {
+		"_postman_id": "2d0accdb-2eaa-4186-8a9e-f1614d819ef8",
+		"name": "TFG-Vitalfit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42818640"
+	},
+	"item": [
+		{
+			"name": "Paciente",
+			"item": [
+				{
+					"name": "guardarPaciente",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/paciente/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"paciente",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarPaciente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/paciente/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"paciente",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pacienteByDNI",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/paciente/{dni}?dni=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"paciente",
+								"{dni}"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"login"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": "",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "guardarUsuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "asociarUsuarioHospital",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"dniMedico\": \"12345678M\",\r\n   \"hospital\": {\r\n      \"idHospital\": 2\r\n   }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/{dni}/hospital?dni",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"{dni}",
+								"hospital"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "asociarPacienteMedico",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/paciente/{dni}/medico?dni=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"paciente",
+								"{dni}",
+								"medico"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "asociarPacienteNutricionista",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/paciente/{dni}/nutricionista?dni=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"paciente",
+								"{dni}",
+								"nutricionista"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarPassword",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/{dni}/password?dni=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"{dni}",
+								"password"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateUsuario",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usuarioByDni",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/{dni}?dni=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"{dni}"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "nutricionistaByHospital",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/nutricionista/hospital/{idHospital}?idHospital=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"nutricionista",
+								"hospital",
+								"{idHospital}"
+							],
+							"query": [
+								{
+									"key": "idHospital",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "medicoByHospital",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/usuario/medico/hospital/{idHospital}?idHospital=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"usuario",
+								"medico",
+								"hospital",
+								"{idHospital}"
+							],
+							"query": [
+								{
+									"key": "idHospital",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hospital",
+			"item": [
+				{
+					"name": "hospitalByProvincia",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/hospital/provincia/{provincia}?provincia=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"hospital",
+								"provincia",
+								"{provincia}"
+							],
+							"query": [
+								{
+									"key": "provincia",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "hospitalById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/hospital/{idHospital}?idHospital=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"hospital",
+								"{idHospital}"
+							],
+							"query": [
+								{
+									"key": "idHospital",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pesos",
+			"item": [
+				{
+					"name": "guardarPeso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/pesos/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pesos",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getUltimoPeso",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/pesos/ultimo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pesos",
+								"ultimo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarPeso",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/pesos/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"pesos",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alergias",
+			"item": [
+				{
+					"name": "guardarAlergia",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/alergias/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"alergias",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarAlergia",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/alergias/delete/{idAlergia}?idAlergia=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"alergias",
+								"delete",
+								"{idAlergia}"
+							],
+							"query": [
+								{
+									"key": "idAlergia",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Operaciones",
+			"item": [
+				{
+					"name": "guardarOperacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/operaciones/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"operaciones",
+								"save"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consejos",
+			"item": [
+				{
+					"name": "guardarConsejo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/consejo/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consejo",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consejosPorPaciente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/consejo/paciente/{dni}?dni=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consejo",
+								"paciente",
+								"{dni}"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consejosPorNutricionistaYPaciente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/consejo/nutricionista/{dni}/paciente?dni=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consejo",
+								"nutricionista",
+								"{dni}",
+								"paciente"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "consejosNoLeidos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/consejos/noLeidos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consejos",
+								"noLeidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "marcarComoLeido",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/consejo//leido/{idConsejo}?idConsejo=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"consejo",
+								"",
+								"leido",
+								"{idConsejo}"
+							],
+							"query": [
+								{
+									"key": "idConsejo",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Observaciones",
+			"item": [
+				{
+					"name": "guardarObservacion",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/observaciones/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"observaciones",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminarObservacion",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/observaciones/delete/{idObservacion}?idObservacion=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"observaciones",
+								"delete",
+								"{idObservacion}"
+							],
+							"query": [
+								{
+									"key": "idObservacion",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dietas",
+			"item": [
+				{
+					"name": "guardarDieta",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/dietas/save",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"dietas",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "obtenerDietaPorPacienteYDiaSemana",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/dietas/{dni}/{diaSemana}?dni=&diaSemana=",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"dietas",
+								"{dni}",
+								"{diaSemana}"
+							],
+							"query": [
+								{
+									"key": "dni",
+									"value": ""
+								},
+								{
+									"key": "diaSemana",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizarDieta",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:9090/api/dietas/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "9090",
+							"path": [
+								"api",
+								"dietas",
+								"update"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
