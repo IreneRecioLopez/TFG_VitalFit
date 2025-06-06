@@ -16,7 +16,6 @@ public class Dieta {
     @Column(nullable = false)
     private String diaSemana;
 
-
     @ManyToOne
     @JoinColumn(name = "dni_paciente")
     @JsonBackReference("paciente-dietas")

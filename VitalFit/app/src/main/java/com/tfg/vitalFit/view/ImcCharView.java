@@ -24,7 +24,7 @@ public class ImcCharView extends View {
         greenPaint.setColor(Color.GREEN);
 
         orangePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        orangePaint.setColor(Color.rgb(255, 165, 0)); // Naranja
+        orangePaint.setColor(Color.rgb(255, 165, 0));
 
         redPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         redPaint.setColor(Color.RED);
@@ -51,7 +51,7 @@ public class ImcCharView extends View {
         float width = getWidth();
         float height = getHeight();
 
-        float paddingHorizontal = 40f; // espacio a izquierda y derecha
+        float paddingHorizontal = 40f;
 
         float barHeight = height * 0.3f;
         float barTop = height * 0.3f;

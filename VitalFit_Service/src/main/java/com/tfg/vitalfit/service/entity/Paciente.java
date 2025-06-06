@@ -29,18 +29,6 @@ public class Paciente {
     @Column(nullable = false)
     private String cp;
 
-    /*@ManyToOne
-    @JoinColumn(name = "dni_medico")
-    //@JsonIgnore
-    @JsonBackReference("medico-paciente")
-    private Usuario medico;
-
-    @ManyToOne
-    @JoinColumn(name = "dni_nutricionista")
-    //@JsonIgnore
-    @JsonBackReference(value = "nutricionista-paciente")
-    private Usuario nutricionista;*/
-
     @OneToMany(mappedBy = "paciente")
     @JsonManagedReference(value = "paciente-pesos")
     private List<Peso> pesos;

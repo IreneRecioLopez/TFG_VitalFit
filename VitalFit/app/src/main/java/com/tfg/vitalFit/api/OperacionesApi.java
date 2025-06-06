@@ -13,7 +13,6 @@ public interface OperacionesApi {
     //RUTA DEL CONTROLADOR PESOS
     String base = "api/operaciones";
 
-    //@FormUrlEncoded
     @POST(base + "/save")
     Call<GenericResponse<Operacion>> guardarOperacion(@Body Operacion op);
 

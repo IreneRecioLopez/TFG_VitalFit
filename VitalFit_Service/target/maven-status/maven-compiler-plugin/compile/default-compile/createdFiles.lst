@@ -38,7 +38,6 @@ com\tfg\vitalfit\service\controller\PesosREST.class
 com\tfg\vitalfit\service\service\PlatosService.class
 com\tfg\vitalfit\service\repository\HospitalRepository.class
 com\tfg\vitalfit\service\service\UsuarioService.class
-com\tfg\vitalfit\service\controller\PlatosREST.class
 com\tfg\vitalfit\service\entity\Alergia.class
 com\tfg\vitalfit\service\repository\ConsejoRepository.class
 com\tfg\vitalfit\service\entity\Paciente.class

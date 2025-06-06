@@ -1,36 +1,23 @@
 package com.tfg.vitalfit.activity;
 
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
+
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.ValueFormatter;
-import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Peso;
@@ -38,7 +25,6 @@ import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.view.ImcCharView;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
-import com.tfg.vitalfit.viewModel.PesosViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +66,6 @@ public class EstadisticasPacienteActivity extends AppCompatActivity {
 
     private void init(){
         chartPesos = findViewById(R.id.pesosChart);
-        //chartImc = findViewById(R.id.imcChart);
         imcBar = findViewById(R.id.imcBar);
         txtValorPeso = findViewById(R.id.txtValorPeso);
         txtValorAltura = findViewById(R.id.txtValorAltura);
@@ -134,7 +119,6 @@ public class EstadisticasPacienteActivity extends AppCompatActivity {
 
     private void obtenerDatosPaciente(){
         paciente = (Usuario) getIntent().getSerializableExtra("paciente");
-        Log.d("Paciente recibido", paciente.toString());
     }
 
     // Capturar el clic en el botón de regreso

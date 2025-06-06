@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -101,7 +100,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Adapter para otros tipoos de datos
+        // Adapter para otros tipos de datos
         String[] tipoDatos = getResources().getStringArray(R.array.otrosDatos);
         ArrayAdapter<String> adapterOtrosDatos = new ArrayAdapter<>(
                 this, android.R.layout.simple_dropdown_item_1line, tipoDatos
@@ -204,7 +203,7 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
     }
 
     private void addAlergia(){
-        // Adapter para otros tipoos de datos
+        // Adapter para los tipos de alergias
         String[] alergiaTipo = getResources().getStringArray(R.array.tipoAlergia);
         ArrayAdapter<String> adapterAlergiaTipos = new ArrayAdapter<>(
                 this, android.R.layout.simple_dropdown_item_1line, alergiaTipo
@@ -431,8 +430,6 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String jsonUsuario = prefs.getString("UsuarioJson", null);
 
-        Log.d("UsuarioRecibidoHomeFragment", new Gson().toJson(usuario));
-
         if(jsonUsuario != null) {
             usuario = new Gson().fromJson(jsonUsuario, Usuario.class);
         }
@@ -440,7 +437,6 @@ public class OtrosDatosPacienteActivity extends AppCompatActivity {
 
     private void obtenerDatosPaciente(){
         paciente = (Usuario) getIntent().getSerializableExtra("paciente");
-        //Log.d("Paciente recibido otros datos", paciente.toString());
     }
 
     private void mostrarCalendario(){

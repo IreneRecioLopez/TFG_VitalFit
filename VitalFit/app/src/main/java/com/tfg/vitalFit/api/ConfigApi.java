@@ -66,17 +66,20 @@ public class ConfigApi {
         return builder.build();
     }
 
-    public static void setToken(String value) {
-        token = value;
-        initClient();
-    }
-
     public static PacienteApi getPacienteApi(){
         if(pacienteApi == null){
             pacienteApi = retrofit.create(PacienteApi.class);
         }
         return pacienteApi;
     }
+
+
+    public static void setToken(String value) {
+        token = value;
+        initClient();
+    }
+
+
 
     public static UsuarioApi getUsuarioApi(){
         if(usuarioApi == null){

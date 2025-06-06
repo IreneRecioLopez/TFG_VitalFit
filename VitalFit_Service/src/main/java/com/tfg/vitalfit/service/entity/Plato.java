@@ -19,7 +19,6 @@ public class Plato {
 
     @ManyToOne
     @JoinColumn(name = "idDieta")
-    //@JsonIgnore
     @JsonBackReference(value = "dieta-platos")
     private Dieta dieta;
 }

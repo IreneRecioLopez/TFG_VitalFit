@@ -55,9 +55,9 @@ public class HomeMedicoNutricionistaFragment extends Fragment {
         dropdownPaciente = binding.dropdownPaciente;
 
         if(usuario.getRol().equals("Médico")){
-            obtenerPacientesPorMedico(usuario.getDni());
+            obtenerPacientesPorMedico();
         }else if(usuario.getRol().equals("Nutricionista")){
-            obtenerPacientesPorNutricionista(usuario.getDni());
+            obtenerPacientesPorNutricionista();
         }
 
         dropdownPaciente.addTextChangedListener(new TextWatcher() {
@@ -135,21 +135,10 @@ public class HomeMedicoNutricionistaFragment extends Fragment {
         }
     }
 
-    private void obtenerPacientesPorMedico(String dniMedico){
+    private void obtenerPacientesPorMedico(){
         nombreCompletosPacientes = new ArrayList<>();
         dniPacientes = new ArrayList<>();
-        /*usuarioViewModel.getPacientesByMedico(dniMedico).observe(getViewLifecycleOwner(), new Observer<List<Usuario>>() {
-            @Override
-            public void onChanged(List<Usuario> usuarios) {
-                if(usuarios != null){
-                    for(Usuario paciente: usuarios){
-                        String nombreCompleto = paciente.getNombreCompleto();
-                        nombreCompletosPacientes.add(nombreCompleto);
-                        dniPacientes.add(paciente.getDni());
-                    }
-                }
-            }
-        });*/
+
         for(Usuario paciente: usuario.getPacientesMedico()){
             String nombreCompleto = paciente.getNombreCompleto();
             nombreCompletosPacientes.add(nombreCompleto);
@@ -159,7 +148,7 @@ public class HomeMedicoNutricionistaFragment extends Fragment {
         dropdownPaciente.setAdapter(arrayPacientes);
     }
 
-    private void obtenerPacientesPorNutricionista(String dniMedico){
+    private void obtenerPacientesPorNutricionista(){
         nombreCompletosPacientes = new ArrayList<>();
         dniPacientes = new ArrayList<>();
 

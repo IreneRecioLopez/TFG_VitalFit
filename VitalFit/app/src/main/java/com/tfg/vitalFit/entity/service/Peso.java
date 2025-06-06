@@ -12,26 +12,24 @@ public class Peso implements Serializable {
     public Long getIdPeso() {
         return idPeso;
     }
-    public void setIdPeso(Long idPeso) {
-        this.idPeso = idPeso;
-    }
-
     public String getFecha() {
         return fecha;
+    }
+    public Double getPeso() {
+        return peso;
+    }
+    public Paciente getPaciente() {
+        return paciente;
+    }
+
+    public void setIdPeso(Long idPeso) {
+        this.idPeso = idPeso;
     }
     public void setFecha(String fecha) {
         this.fecha = fecha;
     }
-
-    public Double getPeso() {
-        return peso;
-    }
     public void setPeso(Double peso) {
         this.peso = peso;
-    }
-
-    public Paciente getPaciente() {
-        return paciente;
     }
     public void setPaciente(Paciente paciente) {
         this.paciente = paciente;

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.entity.service.Operacion;
+import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.OperacionesViewModel;
 
@@ -61,7 +62,7 @@ public class OperacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if(holder instanceof PacienteOperacionesViewHolder){
             PacienteOperacionesViewHolder viewHolder = (PacienteOperacionesViewHolder) holder;
             viewHolder.txtOperacion.setText(operacion.getNombre());
-            viewHolder.txtFecha.setText(convertirFecha(operacion.getFecha()));
+            viewHolder.txtFecha.setText(Fecha.obtenerFecha(operacion.getFecha()));
 
             viewHolder.btnEliminar.setOnClickListener(v -> {
                 new AlertDialog.Builder(context)
@@ -86,7 +87,7 @@ public class OperacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         }else if(holder instanceof OperacionesViewHolder){
             OperacionesViewHolder viewHolder = (OperacionesViewHolder) holder;
             viewHolder.txtOperacion.setText(operacion.getNombre());
-            viewHolder.txtFecha.setText(convertirFecha(operacion.getFecha()));
+            viewHolder.txtFecha.setText(Fecha.obtenerFecha(operacion.getFecha()));
         }
     }
 
@@ -100,18 +101,6 @@ public class OperacionesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         return listaOperaciones.size();
     }
 
-    private String convertirFecha(String fecha) {
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        try {
-            Log.e("FormatoFecha", fecha);
-            Date date = formatoEntrada.parse(fecha);
-            return formatoSalida.format(date);
-        } catch (ParseException e) {
-            Log.e("ErrorFecha", "Formato incorrecto: " + fecha);
-            return null;
-        }
-    }
 
     public static class OperacionesViewHolder extends RecyclerView.ViewHolder {
         TextView txtOperacion, txtFecha;

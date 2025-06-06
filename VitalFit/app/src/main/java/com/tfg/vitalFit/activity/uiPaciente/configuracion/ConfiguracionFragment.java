@@ -11,39 +11,27 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Switch;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 
-
-import com.google.gson.Gson;
 import com.tfg.vitalfit.R;
 import com.tfg.vitalfit.databinding.FragmentConfiguracionBinding;
-import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.NotificacionDiariaReceiver;
-import com.tfg.vitalfit.viewModel.ConsejosViewModel;
+import com.tfg.vitalfit.utils.ToastMessage;
 
 import java.util.Calendar;
-import java.util.Date;
 
 public class ConfiguracionFragment extends Fragment {
 
     private FragmentConfiguracionBinding binding;
-
     private Switch switchNotificacion;
-
-    private Usuario usuario;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -101,8 +89,6 @@ public class ConfiguracionFragment extends Fragment {
         long horaInicio = obtenerHoraProximaNotificacion();
 
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, horaInicio, pendingIntent);
-        Log.d("Alarma", "Alarma programada para: " + new Date(horaInicio));
-
     }
 
     private void desactivarNotificacionDiaria() {
@@ -156,22 +142,10 @@ public class ConfiguracionFragment extends Fragment {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1001) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Log.d("Permisos", "Permiso de notificaciones concedido");
+                ToastMessage.Correcto(getContext(), "Permiso de notificaciones concedido");
             } else {
-                Toast.makeText(getContext(), "Permiso de notificaciones denegado", Toast.LENGTH_SHORT).show();
+                ToastMessage.Invalido(getContext(), "Permiso de notificaciones denegado");
             }
-        }
-    }
-
-    private void obtenerDatosUsuario(View view){
-        //Obtener los datos del usuario
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-        String jsonUsuario = prefs.getString("UsuarioJson", null);
-
-        Log.d("UsuarioRecibido", new Gson().toJson(usuario));
-
-        if(jsonUsuario != null){
-            usuario = new Gson().fromJson(jsonUsuario, Usuario.class);
         }
     }
 

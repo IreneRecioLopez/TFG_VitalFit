@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation2"
-    app:startDestination="@id/nav_home_medico">
+    app:startDestination="@id/nav_home_medico_nutricionista">
 
     <fragment
-        android:id="@+id/nav_home_medico"
+        android:id="@+id/nav_home_medico_nutricionista"
         android:name="com.tfg.vitalfit.activity.uiMedicoNutricionista.home.HomeMedicoNutricionistaFragment"
-        android:label="@string/menu_home"
+        android:label="@string/menu_pagina_principal"
         tools:layout="@layout/fragment_home_medico_nutricionista" />
 
     <fragment
@@ -17,9 +17,4 @@
         android:label="@string/menu_datos_personales"
         tools:layout="@layout/fragment_datos_personales_medico_nutricionista" />
 
-    <fragment
-        android:id="@+id/nav_configuracion_medico_nutricionista"
-        android:name="com.tfg.vitalfit.activity.uiMedicoNutricionista.configuracion.ConfiguracionMedicoNutricionistaFragment"
-        android:label="@string/menu_configuracion"
-        tools:layout="@layout/fragment_configuracion_medico_nutricionista" />
 </navigation>

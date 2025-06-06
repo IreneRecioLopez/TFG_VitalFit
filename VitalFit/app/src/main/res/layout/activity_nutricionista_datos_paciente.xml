@@ -29,88 +29,84 @@
         </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/datosPaciente"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingStart="40dp"
+        android:layout_marginBottom="15dp">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/txtNombreCompletoPaciente"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Nombre Completo del Paciente"/>
 
-            <LinearLayout
-                android:id="@+id/datosPaciente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="20dp"
-                android:paddingStart="40dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Nacimiento:"/>
 
-                <TextView
-                    android:id="@+id/txtNombreCompletoPaciente"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre Completo del Paciente"/>
+        <TextView
+            android:id="@+id/txtFechaNacimientoPaciente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Nacimiento Paciente"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha de Nacimiento:"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número de la Seguridad Social:"/>
 
-                <TextView
-                    android:id="@+id/txtFechaNacimientoPaciente"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha de Nacimiento Paciente"/>
+        <TextView
+            android:id="@+id/txtNumeroSeguridadSocial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Numero Seguridad Social"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Número de la Seguridad Social:"/>
+    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtNumeroSeguridadSocial"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Numero Seguridad Social"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginBottom="8dp" />
 
-            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/datosPaciente">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@+id/datosPaciente">
+        <Button
+            android:id="@+id/btnConsejos"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Consejos"
+            android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/btnOtrosDatos"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Otros datos"
+            android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/btnEstadisticas"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Estadísticas"
+            android:layout_gravity="center_horizontal" />
 
-                <Button
-                    android:id="@+id/btnConsejos"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Consejos"
-                    android:layout_gravity="center_horizontal" />
-                <Button
-                    android:id="@+id/btnOtrosDatos"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Otros datos"
-                    android:layout_gravity="center_horizontal" />
-                <Button
-                    android:id="@+id/btnEstadisticas"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Estadísticas"
-                    android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/btnDieta"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Dieta"
+            android:layout_gravity="center_horizontal" />
 
-                <Button
-                    android:id="@+id/btnDieta"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Dieta"
-                    android:layout_gravity="center_horizontal" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-    </ScrollView>
+    </LinearLayout>
 
 
 

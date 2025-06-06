@@ -160,7 +160,6 @@ public class DatosPersonalesMedicoNutricionistaFragment extends Fragment {
     }
 
     private void obtenerDatosUsuario(View view){
-        //Obtener los datos del usuario
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String jsonUsuario = prefs.getString("UsuarioJson", null);
 

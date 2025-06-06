@@ -23,7 +23,6 @@ public class HospitalREST {
         return service.getHospitalById(idHospital);
     }
 
-    // 🔹 Obtener hospitales por provincia
     @GetMapping("/provincia/{provincia}")
     public List<Hospital> getHospitalsByProvincia(@PathVariable("provincia") String provincia) {
         return service.getHospitalsByProvincia(provincia);

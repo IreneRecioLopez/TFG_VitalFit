@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -28,7 +27,6 @@ import com.tfg.vitalfit.utils.Security;
 import com.tfg.vitalfit.utils.TimeSerializer;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
-import com.tfg.vitalfit.viewModel.PacienteViewModel;
 
 import java.sql.Date;
 import java.sql.Time;
@@ -57,11 +55,6 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
         SharedPreferences preference = PreferenceManager.getDefaultSharedPreferences(this);
         String pref = preference.getString("UsuarioJson", "");
-        /*if(!pref.equals("")){
-            ToastMessage.Correcto(this, "Se detectó una sesión activa, el login sera omitido");
-            this.startActivity(new Intent(this, InicioActivity.class));
-            this.overridePendingTransition(R.anim.left_in, R.anim.left_out);
-        }*/
     }
 
     private void initViewModel() {
@@ -110,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void manejarRespuestaUsuario(GenericResponse<Usuario> response) {
         if (response.getRpta() == 1) {
-            //ToastMessage.makeText(this, response.getMessage(), ToastMessage.LENGTH_SHORT).show();
             ToastMessage.Correcto(this, response.getMessage());
             Usuario u = response.getBody();
 
@@ -135,13 +127,12 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(this, InicioActivity.class));
             } else if (rol.equals("Médico")) {
                 chkMedico.setChecked(true);
-                startActivity(new Intent(this, InicioMedicoActivity.class));
+                startActivity(new Intent(this, InicioMedicoNutricionistaActivity.class));
             } else if (rol.equals("Nutricionista")) {
                 chkNutricionista.setChecked(true);
-                startActivity(new Intent(this, InicioMedicoActivity.class));
+                startActivity(new Intent(this, InicioMedicoNutricionistaActivity.class));
             }
         } else {
-            //ToastMessage.makeText(this, "Ocurrio un error " + response.getMessage(), ToastMessage.LENGTH_SHORT).show();
             ToastMessage.Invalido(this, response.getMessage());
         }
         chkPaciente.setChecked(false);
@@ -181,7 +172,6 @@ public class MainActivity extends AppCompatActivity {
         });
         chkPaciente.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-
                 chkNutricionista.setChecked(false);
                 chkMedico.setChecked(false);
             }
@@ -199,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private boolean validar(){
         boolean val = true;

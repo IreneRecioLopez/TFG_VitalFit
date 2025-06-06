@@ -16,7 +16,6 @@ public class PacienteREST {
         this.service = service;
     }
 
-
     @PostMapping("/save")
     public GenericResponse save(@RequestBody Paciente p){
         return this.service.guardarPaciente(p);

@@ -24,12 +24,10 @@ public interface UsuarioApi {
     //RUTA DEL CONTROLADOR USUARIO
     String base = "api/usuario";
 
-    //RUTA DEL CONTROLADOR MEDICO + RUTA MÉTODO
     @FormUrlEncoded
     @POST(base + "/login")
     Call<GenericResponse<Usuario>> login(@Field("dni") String dni, @Field("password") String password);
 
-    //@FormUrlEncoded
     @POST(base + "/save")
     Call<GenericResponse<Usuario>> guardarUsuario(@Body Usuario u);
 

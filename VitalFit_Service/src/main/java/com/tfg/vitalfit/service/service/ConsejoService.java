@@ -46,7 +46,6 @@ public class ConsejoService {
         }
     }
 
-
     public List<Consejo> getConsejosNoLeidos(String dniPaciente) {
         return this.repository.findNoLeidos(dniPaciente);
     }

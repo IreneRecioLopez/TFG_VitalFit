@@ -2,7 +2,6 @@ package com.tfg.vitalfit.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.TextView;
@@ -90,7 +89,6 @@ public class NutricionistaDatosPacienteActivity extends AppCompatActivity {
 
     private void obtenerDatosPaciente(){
         paciente = (Usuario) getIntent().getSerializableExtra("paciente");
-        Log.d("Paciente recibido", paciente.toString());
     }
 
     // Capturar el clic en el botón de regreso

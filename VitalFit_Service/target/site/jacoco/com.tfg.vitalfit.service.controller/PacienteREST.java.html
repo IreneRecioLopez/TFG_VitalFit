@@ -16,19 +16,18 @@ public class PacienteREST {
 <span class="nc" id="L16">        this.service = service;</span>
 <span class="nc" id="L17">    }</span>
 
-
     @PostMapping(&quot;/save&quot;)
     public GenericResponse save(@RequestBody Paciente p){
-<span class="nc" id="L22">        return this.service.guardarPaciente(p);</span>
+<span class="nc" id="L21">        return this.service.guardarPaciente(p);</span>
     }
 
     @PutMapping(&quot;/update&quot;)
     public GenericResponse actualizarPaciente(@RequestBody Paciente p){
-<span class="nc" id="L27">        return this.service.actualizarPaciente(p);</span>
+<span class="nc" id="L26">        return this.service.actualizarPaciente(p);</span>
     }
 
     @GetMapping(&quot;/{dni}&quot;)
-<span class="nc" id="L31">    public Paciente pacienteByDNI(@PathVariable(&quot;dni&quot;) String dni){ return this.service.pacienteByDNI(dni); }</span>
+<span class="nc" id="L30">    public Paciente pacienteByDNI(@PathVariable(&quot;dni&quot;) String dni){ return this.service.pacienteByDNI(dni); }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

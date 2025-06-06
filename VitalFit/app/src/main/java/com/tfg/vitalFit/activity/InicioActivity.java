@@ -55,7 +55,6 @@ public class InicioActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_inicio);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
-        //NavigationUI.setupWithNavController(navigationView, navController);
         navigationView.setNavigationItemSelectedListener(item -> {
             Fragment currentFragment = getSupportFragmentManager()
                     .findFragmentById(R.id.nav_host_fragment_content_inicio)
@@ -72,10 +71,9 @@ public class InicioActivity extends AppCompatActivity {
                             .setMessage("Tienes cambios sin guardar. ¿Deseas descartarlos?")
                             .setPositiveButton("Sí", (dialog, which) -> {
                                 fragment.cancelarEdicion();
-
-                                // ✅ Forzar navegación y actualizar ítem seleccionado
+                                
                                 navController.navigate(item.getItemId());
-                                item.setChecked(true); // <- ACTUALIZA el estado visual del menú
+                                item.setChecked(true);
                                 drawer.closeDrawers();
                             })
                             .setNegativeButton("Cancelar", null)
@@ -102,11 +100,6 @@ public class InicioActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        /*switch (item.getItemId()){
-            case R.id.cerrarSesion:
-                this.logout();
-                break;
-        }*/
         if(item.getItemId() == R.id.cerrarSesion){
             this.logout();
         }

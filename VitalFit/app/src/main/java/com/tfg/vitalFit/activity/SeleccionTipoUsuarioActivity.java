@@ -53,14 +53,12 @@ public class SeleccionTipoUsuarioActivity extends AppCompatActivity {
                 Intent intent = new Intent(this, RegistroMedicoNutricionistaActivity.class);
                 intent.putExtra("ROL", valor);
                 startActivity(intent);
-                //startActivity(new Intent(this, RegistroMedicoActivity.class));
             }else if(isNutricionista){
                 chkNutricionista.setChecked(false);
                 String valor = "Nutricionista";
                 Intent intent = new Intent(this, RegistroMedicoNutricionistaActivity.class);
                 intent.putExtra("ROL", valor);
                 startActivity(intent);
-                //startActivity(new Intent(this, RegistroNutricionistaActivity.class));
             }else{
                 ToastMessage.Invalido(this, "Por favor, seleccione un tipo de usuario.");
             }

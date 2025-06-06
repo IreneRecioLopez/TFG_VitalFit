@@ -13,7 +13,6 @@ public interface ObservacionesApi {
     //RUTA DEL CONTROLADOR PESOS
     String base = "api/observaciones";
 
-    //@FormUrlEncoded
     @POST(base + "/save")
     Call<GenericResponse<Observacion>> guardarObservacion(@Body Observacion o);
 

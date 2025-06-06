@@ -13,7 +13,6 @@ public interface AlergiasApi {
     //RUTA DEL CONTROLADOR ALERGIAS
     String base = "api/alergias";
 
-    //@FormUrlEncoded
     @POST(base + "/save")
     Call<GenericResponse<Alergia>> guardarAlergia(@Body Alergia a);
 

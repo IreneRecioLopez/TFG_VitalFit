@@ -74,7 +74,7 @@ public class ConsejoAdapter extends RecyclerView.Adapter<ConsejoAdapter.ConsejoV
                     .setMessage(consejo.getMensaje())
                     .setPositiveButton("Cerrar", (dialog, which) -> {
                         if (usuario.getRol().equals("Paciente") && consejo.getLeido() == 0) {
-                            consejo.setLeido(1); // Marca local
+                            consejo.setLeido(1);
                             notifyItemChanged(holder.getAdapterPosition());
                             notifyDataSetChanged();
                             listener.onConsejoLeido(consejo); // Notifica al activity

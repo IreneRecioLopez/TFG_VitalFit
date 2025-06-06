@@ -15,7 +15,6 @@ public class Paciente implements Serializable {
     private String direccion;
     private Usuario medico;
     private Usuario nutricionista;
-    //private Usuario paciente;
     private List<Peso> pesos;
     private List<Alergia> alergias;
     private List<Consejo> consejos;
@@ -68,8 +67,6 @@ public class Paciente implements Serializable {
     public List<Observacion> getObservaciones(){ return this.observaciones; }
     public List<Operacion> getOperaciones(){ return this.operaciones; }
 
-
-
     public void setDni(String dni) {
         this.dni = dni;
     }
@@ -108,6 +105,4 @@ public class Paciente implements Serializable {
     }
     public void setObservaciones(List<Observacion> observaciones){ this.observaciones = observaciones; }
     public void setOperaciones(List<Operacion> operaciones){ this.operaciones = operaciones; }
-
-    //public void setUsuario(Usuario usuario) { this.paciente = usuario; }
 }

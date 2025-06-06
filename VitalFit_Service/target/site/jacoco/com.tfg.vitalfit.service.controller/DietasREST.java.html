@@ -19,18 +19,12 @@ public class DietasREST {
 <span class="nc" id="L19">        return this.service.guardarDieta(dto);</span>
     }
 
-
-    /*@GetMapping(&quot;/misDietas/{dni}&quot;)
-    public GenericResponse&lt;List&lt;DietaConPlatosDTO&gt;&gt; obtenerMisDietasConPlatos(@PathVariable String dni){
-        return this.service.devolverMisDietas(dni);
-    }*/
-
     @GetMapping(&quot;/{dni}/{diaSemana}&quot;)
     public DietaConPlatosDTO obtenerDietaPorPacienteYDiaSemana(@PathVariable String dni, @PathVariable String diaSemana){
-<span class="nc" id="L30">        return service.obtenerDietaPorPacienteYDia(dni, diaSemana);</span>
+<span class="nc" id="L24">        return service.obtenerDietaPorPacienteYDia(dni, diaSemana);</span>
     }
 
     @PutMapping(&quot;/update&quot;)
-<span class="nc" id="L34">    public GenericResponse updateDieta(@RequestBody GenerarDietaDTO dto){ return this.service.updateDieta(dto); }</span>
+<span class="nc" id="L28">    public GenericResponse updateDieta(@RequestBody GenerarDietaDTO dto){ return this.service.updateDieta(dto); }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

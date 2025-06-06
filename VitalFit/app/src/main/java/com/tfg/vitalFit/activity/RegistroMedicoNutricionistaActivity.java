@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -55,7 +54,6 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
         Bundle extra = intent.getExtras();
         rol = extra.getString("ROL");
         this.init();
-        //this.spinners();
     }
 
     private void initViewModel(){
@@ -156,16 +154,14 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
             });
         }catch (Exception e){
             ToastMessage.Invalido(this, "Se ha producido un error " + e.getMessage());
-            Log.e("ERROR EXCEPTION", e.getMessage(), e);
         }
     }
 
     private boolean validar(){
         boolean val = true;
-        String nombre, primerApellido, segundoApellido, dni, telefono, dropProvincia, dropHospital, password, passwordVal;
+        String nombre, primerApellido, dni, telefono, dropProvincia, dropHospital, password, passwordVal;
         nombre = edtName.getText().toString();
         primerApellido = edtApellido1.getText().toString();
-        segundoApellido = edtApellido2.getText().toString();
         dni = edtDNI.getText().toString();
         telefono = edtTlf.getText().toString();
         dropProvincia = provincia;
@@ -248,7 +244,7 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
             idHospitales.add(hospital.getIdHospital());
         }
         nombresHospitales.add(0, "Otro");
-        idHospitales.add(0, Long.parseLong("1"));
+        idHospitales.add(0, 1L);
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }
@@ -283,21 +279,6 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
 
             }
         });
-        /*edtApellido2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                txtInputApellido2.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
         edtDNI.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -400,6 +381,5 @@ public class RegistroMedicoNutricionistaActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

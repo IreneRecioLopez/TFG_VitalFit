@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,18 +24,15 @@ import com.tfg.vitalfit.databinding.FragmentDatosPersonalesBinding;
 import com.tfg.vitalfit.entity.service.Hospital;
 import com.tfg.vitalfit.entity.service.Paciente;
 import com.tfg.vitalfit.entity.service.Usuario;
+import com.tfg.vitalfit.utils.Fecha;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.HospitalViewModel;
 import com.tfg.vitalfit.viewModel.PacienteViewModel;
 import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class DatosPersonalesPacienteFragment extends Fragment {
 
@@ -202,11 +198,8 @@ public class DatosPersonalesPacienteFragment extends Fragment {
     }
 
     private void obtenerDatosUsuario(View view){
-        //Obtener los datos del usuario
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String jsonUsuario = prefs.getString("UsuarioJson", null);
-
-        Log.d("UsuarioRecibido", new Gson().toJson(usuario));
 
         if(jsonUsuario != null){
             usuario = new Gson().fromJson(jsonUsuario, Usuario.class);
@@ -217,7 +210,7 @@ public class DatosPersonalesPacienteFragment extends Fragment {
             ((EditText) view.findViewById(R.id.edtDNIP)).setText(usuario.getDni());
             ((EditText) view.findViewById(R.id.edtNSSP)).setText(usuario.getPaciente().getNumSeguridadSocial());
             ((EditText) view.findViewById(R.id.edtTelefonoP)).setText(usuario.getTelefono());
-            ((EditText) view.findViewById(R.id.edtFechaNacimientoP)).setText(LeerFecha(usuario.getPaciente().getFechaNacimiento()));
+            ((EditText) view.findViewById(R.id.edtFechaNacimientoP)).setText(Fecha.obtenerFecha(usuario.getPaciente().getFechaNacimiento()));
             ((EditText) view.findViewById(R.id.edtCPP)).setText(usuario.getPaciente().getCP());
             ((EditText) view.findViewById(R.id.edtDireccionP)).setText(usuario.getPaciente().getDireccion());
             ((EditText) view.findViewById(R.id.dropdownProvinciaP)).setText(usuario.getProvincia());
@@ -229,7 +222,7 @@ public class DatosPersonalesPacienteFragment extends Fragment {
     private void guardarDatosPaciente(){
         if(usuario == null) return;
 
-        Long idHospital = Long.parseLong("0");
+        Long idHospital = 0L;
         String dniMedico;
 
         if(nombresHospitales.isEmpty()){
@@ -308,18 +301,6 @@ public class DatosPersonalesPacienteFragment extends Fragment {
         });
     }
 
-    private String LeerFecha(String fecha) {
-        SimpleDateFormat formatoSalida = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        SimpleDateFormat formatoEntrada = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        try {
-            Log.e("FormatoFecha", fecha);
-            Date date = formatoEntrada.parse(fecha);
-            return formatoSalida.format(date);
-        } catch (ParseException e) {
-            Log.e("ErrorFecha", "Formato incorrecto: " + fecha);
-            return null;
-        }
-    }
 
     private void obtenerHospitalesPorProvincia(String provincia) {
         hospitalViewModel.hospitalPorProvincia(provincia).observe(getViewLifecycleOwner(), new Observer<List<Hospital>>(){
@@ -338,13 +319,13 @@ public class DatosPersonalesPacienteFragment extends Fragment {
             idHospitales.add(hospital.getIdHospital());
         }
         nombresHospitales.add(0, "Otro");
-        idHospitales.add(0, Long.parseLong("1"));
+        idHospitales.add(0, 1L);
         ArrayAdapter<String> arrayHospitales = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_dropdown_item, nombresHospitales);
         dropdownHospital.setAdapter(arrayHospitales);
     }
 
     private void obtenerMedicosPorHospital(String hospitalNombre){
-        Long idHospital = Long.parseLong("0");
+        Long idHospital = 0L;
         if(nombresHospitales.isEmpty()){
             idHospital = usuario.getHospital().getIdHospital();
         }else{

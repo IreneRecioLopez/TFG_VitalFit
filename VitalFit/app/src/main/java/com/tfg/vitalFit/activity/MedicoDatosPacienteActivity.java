@@ -99,6 +99,7 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 nutricionista = s.toString();
+                txtInputNutricionista.setErrorEnabled(false);
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -150,7 +151,8 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
             });
 
         }else{
-            ToastMessage.Invalido(this, "Selecciona un paciente");
+            txtInputNutricionista.setError("Seleccione un nutricionista");
+            ToastMessage.Invalido(this, "Selecciona un nutricionista");
         }
     }
 

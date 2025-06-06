@@ -11,16 +11,6 @@ public class Security {
 
     private static String password = "vitalfit";
 
-    public static String desencriptar(String datos) throws Exception{
-        SecretKeySpec secretKey = generateKey();
-        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
-        byte[] datosDescoficados = Base64.decode(datos, Base64.DEFAULT);
-        byte[] datosDesencriptadosByte = cipher.doFinal(datosDescoficados);
-        String datosDesencriptadosString = new String(datosDesencriptadosByte);
-        return datosDesencriptadosString;
-    }
-
     public static String encriptar(String datos) throws Exception{
         SecretKeySpec secretKey = generateKey();
         Cipher cipher = Cipher.getInstance("AES");
@@ -36,5 +26,15 @@ public class Security {
         key = sha.digest(key);
         SecretKeySpec secretKey = new SecretKeySpec(key, "AES");
         return secretKey;
+    }
+
+    public static String desencriptar(String datos) throws Exception{
+        SecretKeySpec secretKey = generateKey();
+        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+        byte[] datosDescoficados = Base64.decode(datos, Base64.DEFAULT);
+        byte[] datosDesencriptadosByte = cipher.doFinal(datosDescoficados);
+        String datosDesencriptadosString = new String(datosDesencriptadosByte);
+        return datosDesencriptadosString;
     }
 }

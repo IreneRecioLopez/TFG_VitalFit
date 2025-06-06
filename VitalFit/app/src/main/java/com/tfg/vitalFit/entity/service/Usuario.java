@@ -47,6 +47,4 @@ public class Usuario implements Serializable {
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
     public void setHospital(Hospital hospital){ this.hospital = hospital; }
     public void setMedico(Usuario medico) { this.medico = medico; }
-
-
 }

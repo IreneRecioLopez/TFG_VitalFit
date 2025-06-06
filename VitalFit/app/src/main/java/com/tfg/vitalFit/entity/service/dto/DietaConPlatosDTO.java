@@ -15,11 +15,6 @@ public class DietaConPlatosDTO {
         this.platos = new ArrayList<>();
     }
 
-    public DietaConPlatosDTO(Dieta dieta, List<Plato> platos) {
-        this.dieta = dieta;
-        this.platos = platos;
-    }
-
     public Dieta getDieta() { return dieta; }
     public List<Plato> getPlatos() { return platos; }
 

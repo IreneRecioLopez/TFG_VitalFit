@@ -3,8 +3,9 @@ package com.tfg.vitalfit.activity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,7 +23,7 @@ import com.tfg.vitalfit.viewModel.ConsejosViewModel;
 public class LeerConsejosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
-    private ConsejoAdapter adapter;
+    private TextView textoNoHayConsejos;
     private ConsejosViewModel consejosViewModel;
     private Usuario paciente;
     private Toolbar toolbar;
@@ -58,14 +59,23 @@ public class LeerConsejosActivity extends AppCompatActivity {
     }
 
     private void init(){
+        textoNoHayConsejos = findViewById(R.id.noHayConsejos);
+
         if (paciente != null) {
             consejosViewModel.consejosPorPaciente(paciente.getDni()).observe(this, consejos -> {
-                ConsejoAdapter adapter = new ConsejoAdapter(this, consejos, paciente, consejo -> {
-                    consejo.setLeido(1);
-                    consejosViewModel.marcarComoLeido(consejo).observe(this, response -> {
+                if(consejos.isEmpty()){
+                    textoNoHayConsejos.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }else{
+                    textoNoHayConsejos.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                    ConsejoAdapter adapter = new ConsejoAdapter(this, consejos, paciente, consejo -> {
+                        consejo.setLeido(1);
+                        consejosViewModel.marcarComoLeido(consejo).observe(this, response -> {
+                        });
                     });
-                });
-                recyclerView.setAdapter(adapter);
+                    recyclerView.setAdapter(adapter);
+                }
             });
         }
     }
@@ -76,7 +86,6 @@ public class LeerConsejosActivity extends AppCompatActivity {
 
         if (jsonUsuario != null) {
             paciente = new Gson().fromJson(jsonUsuario, Usuario.class);
-            Log.d("UsuarioRecibido", new Gson().toJson(paciente));
         }
     }
 

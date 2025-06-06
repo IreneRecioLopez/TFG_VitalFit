@@ -1,16 +1,12 @@
 package com.tfg.vitalfit.activity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -20,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,17 +28,13 @@ import com.tfg.vitalfit.entity.service.Consejo;
 import com.tfg.vitalfit.entity.service.Usuario;
 import com.tfg.vitalfit.utils.ToastMessage;
 import com.tfg.vitalfit.viewModel.ConsejosViewModel;
-import com.tfg.vitalfit.viewModel.UsuarioViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class VerEnviarConsejosActivity extends AppCompatActivity {
 
     private Button btnEnviarConsejo, btnVerConsejos, btnGuardarConsejo;
     private LinearLayout verConsejosLayout, enviarConsejosLayout;
     private TextView noHayConsejos;
-    private AutoCompleteTextView dropdownPaciente;
     private EditText edtTitulo, edtDescripcion;
     private TextInputLayout txtInputTitulo, txtInputDescripcion;
     private RecyclerView recyclerView;
@@ -76,7 +67,6 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
         noHayConsejos = findViewById(R.id.noHayConsejos);
         edtTitulo = findViewById(R.id.edtTitulo);
         edtDescripcion = findViewById(R.id.edtDescripcion);
-        //txtInputPaciente = findViewById(R.id.txtInputPaciente);
         txtInputTitulo = findViewById(R.id.txtInputTitulo);
         txtInputDescripcion = findViewById(R.id.txtInputDescripcion);
 
@@ -124,11 +114,9 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
     }
 
     private void rellenarConsejo(){
-
         btnGuardarConsejo.setOnClickListener(v -> {
             guardarConsejo();
         });
-
     }
 
     private void guardarConsejo(){
@@ -187,7 +175,7 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
 
     private boolean validar(){
         boolean val = true;
-        String dropPaciente, titulo, descripcion;
+        String titulo, descripcion;
         titulo = edtTitulo.getText().toString();
         descripcion = edtDescripcion.getText().toString();
 
@@ -222,13 +210,11 @@ public class VerEnviarConsejosActivity extends AppCompatActivity {
 
         if (jsonUsuario != null) {
             nutricionista = new Gson().fromJson(jsonUsuario, Usuario.class);
-            Log.d("UsuarioRecibido", new Gson().toJson(nutricionista));
         }
     }
 
     private void obtenerDatosPaciente(){
         paciente = (Usuario) getIntent().getSerializableExtra("paciente");
-        Log.d("Paciente recibido", paciente.toString());
     }
 
     // Capturar el clic en el botón de regreso

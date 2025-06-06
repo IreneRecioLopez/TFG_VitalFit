@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
-import android.util.Log;
-import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -50,7 +48,6 @@ public class NotificacionDiariaReceiver extends BroadcastReceiver {
 
             @Override
             public void onFailure(Call<Peso> call, Throwable t) {
-                Log.e("NotifPeso", "Error Retrofit", t);
             }
         });
 
@@ -64,7 +61,6 @@ public class NotificacionDiariaReceiver extends BroadcastReceiver {
 
             @Override
             public void onFailure(Call<List<Consejo>> call, Throwable t) {
-                Log.e("NotifConsejos", "Error Retrofit", t);
             }
         });
     }
@@ -82,8 +78,6 @@ public class NotificacionDiariaReceiver extends BroadcastReceiver {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
                 manager.notify((int) System.currentTimeMillis(), builder.build());
-            }else{
-                Log.e("Notificacion", "Permiso POST_NOTIFICATIONS no concedido");
             }
         } else {
             manager.notify((int) System.currentTimeMillis(), builder.build());

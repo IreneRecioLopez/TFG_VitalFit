@@ -29,123 +29,119 @@
         </com.google.android.material.appbar.AppBarLayout>
     </LinearLayout>
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/datosPaciente"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingTop="20dp"
+        android:paddingStart="40dp"
+        android:layout_marginBottom="15dp">
 
-        <RelativeLayout
+        <TextView
+            android:id="@+id/txtNombreCompletoPaciente"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="Nombre Completo del Paciente"/>
 
-            <LinearLayout
-                android:id="@+id/datosPaciente"
-                android:layout_width="match_parent"
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Nacimiento:"/>
+
+        <TextView
+            android:id="@+id/txtFechaNacimientoPaciente"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Fecha de Nacimiento Paciente"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Número de la Tarjeta Sanitaria:"/>
+
+        <TextView
+            android:id="@+id/txtNumeroTarjetaSanitaria"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Numero Tarjeta Sanitaria"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#CCCCCC"
+        android:layout_marginBottom="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/datosPaciente">
+
+        <Button
+            android:id="@+id/btnAsignarNutricionista"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Asignar Nutricionista"
+            android:layout_gravity="center_horizontal" />
+
+        <LinearLayout
+            android:id="@+id/layoutAsignarNutricionista"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/txtInputNutricionista"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                android:layout_width="300dp"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingTop="20dp"
-                android:paddingStart="40dp">
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp">
 
-                <TextView
-                    android:id="@+id/txtNombreCompletoPaciente"
+                <AutoCompleteTextView
+                    android:id="@+id/dropdownNutricionista"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre Completo del Paciente"/>
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:hint="Nutricionista"
+                    android:inputType="none"
+                    android:paddingStart="48dp"
+                    android:textSize="15sp" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha de Nacimiento:"/>
-
-                <TextView
-                    android:id="@+id/txtFechaNacimientoPaciente"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Fecha de Nacimiento Paciente"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Número de la Tarjeta Sanitaria:"/>
-
-                <TextView
-                    android:id="@+id/txtNumeroTarjetaSanitaria"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Numero Tarjeta Sanitaria"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/btnAsignar"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_below="@+id/datosPaciente">
+                android:text="Asignar">
+            </Button>
+        </LinearLayout>
+        <Button
+            android:id="@+id/btnOtrosDatos"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Otros datos"
+            android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/btnEstadisticas"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Estadísticas"
+            android:layout_gravity="center_horizontal" />
 
-                <Button
-                    android:id="@+id/btnAsignarNutricionista"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Asignar Nutricionista"
-                    android:layout_gravity="center_horizontal" />
+        <Button
+            android:id="@+id/btnDieta"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="Dieta"
+            android:layout_gravity="center_horizontal" />
 
-                <LinearLayout
-                    android:id="@+id/layoutAsignarNutricionista"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="30dp"
-                    android:layout_marginBottom="10dp"
-                    android:visibility="gone">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/txtInputNutricionista"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="10dp">
-
-                        <AutoCompleteTextView
-                            android:id="@+id/dropdownNutricionista"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:clickable="true"
-                            android:hint="Nutricionista"
-                            android:inputType="none"
-                            android:paddingStart="48dp"
-                            android:textSize="15sp" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <Button
-                        android:id="@+id/btnAsignar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Asignar">
-                    </Button>
-                </LinearLayout>
-                <Button
-                    android:id="@+id/btnOtrosDatos"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Otros datos"
-                    android:layout_gravity="center_horizontal" />
-                <Button
-                    android:id="@+id/btnEstadisticas"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Estadísticas"
-                    android:layout_gravity="center_horizontal" />
-
-                <Button
-                    android:id="@+id/btnDieta"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:text="Dieta"
-                    android:layout_gravity="center_horizontal" />
-
-            </LinearLayout>
-
-        </RelativeLayout>
-    </ScrollView>
+    </LinearLayout>
 
 </LinearLayout>

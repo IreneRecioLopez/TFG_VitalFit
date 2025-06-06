@@ -19,12 +19,6 @@ public class DietasREST {
         return this.service.guardarDieta(dto);
     }
 
-
-    /*@GetMapping("/misDietas/{dni}")
-    public GenericResponse<List<DietaConPlatosDTO>> obtenerMisDietasConPlatos(@PathVariable String dni){
-        return this.service.devolverMisDietas(dni);
-    }*/
-
     @GetMapping("/{dni}/{diaSemana}")
     public DietaConPlatosDTO obtenerDietaPorPacienteYDiaSemana(@PathVariable String dni, @PathVariable String diaSemana){
         return service.obtenerDietaPorPacienteYDia(dni, diaSemana);

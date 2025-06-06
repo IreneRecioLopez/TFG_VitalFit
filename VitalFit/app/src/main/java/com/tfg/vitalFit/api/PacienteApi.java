@@ -19,22 +19,12 @@ public interface PacienteApi {
     //RUTA DEL CONTROLADOR PACIENTE
     String base = "api/paciente";
 
-    //RUTA DEL CONTROLADOR PACIENTE + RUTA MÉTODO
-
-    //@FormUrlEncoded
     @POST(base + "/save")
     Call<GenericResponse<Paciente>> guardarPaciente(@Body Paciente p);
 
-    @PUT(base + "/{dni}/hospital")
-    Call<GenericResponse<Void>> asociarPacienteHospital(@Path("dni") String dniPaciente, @Body Hospital hospital);
-
-    @Headers("Content-Type: text/plain")
-    @PUT(base + "/{dni}/password")
-    Call<GenericResponse<Void>> actualizarPassword(@Path("dni")String dni, @Body RequestBody password);
+    @GET(base + "/{dni}")
+    Call<Paciente> pacienteByDNI(@Path("dni") String dni);
 
     @PUT(base + "/update")
     Call<GenericResponse<Void>> actualizarPaciente(@Body Paciente p);
-
-    @GET(base + "/{dni}")
-    Call<Paciente> pacienteByDNI(@Path("dni") String dni);
 }

@@ -13,12 +13,6 @@ public class GenerarDietaDTO {
 
     public GenerarDietaDTO(){ }
 
-    public GenerarDietaDTO(Dieta dieta, ArrayList<Plato> platos, Paciente paciente) {
-        this.dieta = dieta;
-        this.platos = platos;
-        this.paciente = paciente;
-    }
-
     public Dieta getDieta() { return dieta; }
     public ArrayList<Plato> getPlatos() { return platos; }
     public Paciente getPaciente() { return paciente; }

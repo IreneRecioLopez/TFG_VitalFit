@@ -19,8 +19,6 @@ public class PacienteViewModel extends AndroidViewModel {
         this.repository = PacienteRepository.getInstance();
     }
 
-
-
     public LiveData<GenericResponse<Paciente>> save(Paciente p){
         return this.repository.save(p);
     }

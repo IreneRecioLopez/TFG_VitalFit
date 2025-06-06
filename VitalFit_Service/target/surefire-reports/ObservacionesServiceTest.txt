@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: ObservacionesServiceTest
 -------------------------------------------------------------------------------
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.034 s - in ObservacionesServiceTest
-ObservacionesServiceTest.eliminarObservacion_existente_devuelveOk  Time elapsed: 0.026 s
-ObservacionesServiceTest.guardarObservacion_conPacienteNulo_devuelveWarning  Time elapsed: 0.001 s
-ObservacionesServiceTest.eliminarAlergia_noExistente_devuelveWarning  Time elapsed: 0.002 s
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.039 s - in ObservacionesServiceTest
+ObservacionesServiceTest.eliminarObservacion_existente_devuelveOk  Time elapsed: 0.03 s
+ObservacionesServiceTest.guardarObservacion_conPacienteNulo_devuelveWarning  Time elapsed: 0.002 s
+ObservacionesServiceTest.eliminarAlergia_noExistente_devuelveWarning  Time elapsed: 0.001 s
 ObservacionesServiceTest.guardarObservacion_conPacienteValido_devuelveOk  Time elapsed: 0.002 s

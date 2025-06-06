@@ -16,15 +16,14 @@ public class Dieta {
     @Column(nullable = false)
 <span class="fc" id="L17">    private String diaSemana;</span>
 
-
     @ManyToOne
     @JoinColumn(name = &quot;dni_paciente&quot;)
     @JsonBackReference(&quot;paciente-dietas&quot;)
-<span class="nc" id="L23">    private Paciente paciente;</span>
+<span class="nc" id="L22">    private Paciente paciente;</span>
 
     @OneToMany(mappedBy = &quot;dieta&quot;)
     @JsonManagedReference(value = &quot;dieta-platos&quot;)
-<span class="fc" id="L27">    private List&lt;Plato&gt; platos;</span>
+<span class="fc" id="L26">    private List&lt;Plato&gt; platos;</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.12.202403310830</span></div></body></html>

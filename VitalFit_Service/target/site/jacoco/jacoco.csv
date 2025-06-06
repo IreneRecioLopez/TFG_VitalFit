@@ -11,7 +11,6 @@ VitalFit_Service,com.tfg.vitalfit.service.controller,AlergiasREST,16,0,0,0,5,0,3
 VitalFit_Service,com.tfg.vitalfit.service.controller,PesosREST,21,0,0,0,6,0,4,0,4,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,DietasREST,22,0,0,0,6,0,4,0,4,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,OperacionesREST,16,0,0,0,5,0,3,0,3,0
-VitalFit_Service,com.tfg.vitalfit.service.controller,PlatosREST,3,0,0,0,1,0,1,0,1,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,UsuarioREST,69,0,0,0,15,0,11,0,11,0
 VitalFit_Service,com.tfg.vitalfit.service.controller,ObservacionesREST,16,0,0,0,5,0,3,0,3,0
 VitalFit_Service,com.tfg.vitalfit.service.config,WebConfig,40,0,0,0,6,0,2,0,2,0

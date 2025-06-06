@@ -18,12 +18,8 @@ public interface DietasApi {
     //RUTA DEL CONTROLADOR DIETAS
     String base = "api/dietas";
 
-    //@FormUrlEncoded
     @POST(base + "/save")
     Call<GenericResponse<GenerarDietaDTO>> guardarDieta(@Body GenerarDietaDTO dto);
-
-   /* @GET(base + "/misDietas/{dni}")
-    Call<GenericResponse<List<DietaConPlatosDTO>>> obtenerDietasPorPaciente(@Path("dni") String dni);*/
 
     @GET(base + "/{dni}/{diaSemana}")
     Call<DietaConPlatosDTO> getDietaPorPacienteYDia(@Path("dni") String dniPaciente, @Path("diaSemana") String diaSemana);

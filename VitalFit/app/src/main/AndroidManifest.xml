@@ -67,7 +67,7 @@
             android:label="@string/title_activity_inicio"
             android:theme="@style/Theme.VitalFit.NoActionBar" />
         <activity
-            android:name=".activity.InicioMedicoActivity"
+            android:name=".activity.InicioMedicoNutricionistaActivity"
             android:exported="false"
             android:label="@string/title_activity_inicio_medico"
             android:theme="@style/Theme.VitalFit.NoActionBar" />

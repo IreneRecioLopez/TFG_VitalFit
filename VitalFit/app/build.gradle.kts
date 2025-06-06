@@ -21,10 +21,14 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            isDebuggable = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+        debug {
+            isDebuggable = true
         }
     }
     compileOptions {
@@ -65,9 +69,6 @@ dependencies {
     // Stetho
     implementation("com.facebook.stetho:stetho:1.5.1")
     implementation("com.facebook.stetho:stetho-okhttp3:1.5.1")
-
-    //Libreria Spinner
-    //implementation("com.github.ganfra:material-spinner:2.0.0")
 
     //RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")

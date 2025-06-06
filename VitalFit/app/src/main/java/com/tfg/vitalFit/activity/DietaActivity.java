@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -23,7 +21,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -46,14 +43,12 @@ import java.util.Map;
 
 public class DietaActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerPlatos;
     private Toolbar toolbar;
     private Button btnEditarDieta, btnGuardarDieta;
     private AutoCompleteTextView dropdownDiasSemana;
     private TextView txtNoHayDieta;
     private TableLayout tableLayoutDieta, tableLayoutEdicion;
     private LinearLayout layoutVerDieta, layoutEditarDieta;
-    //private PlatosAdapter platosAdapter;
     private DietasViewModel dietasViewModel;
     private DietaConPlatosDTO dietaConPlatos;
     private final List<String> ordenTramos = Arrays.asList("Desayuno", "Media mañana", "Comida", "Merienda", "Cena");
@@ -66,17 +61,11 @@ public class DietaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dieta);
-        //this.initRecycler();
         this.obtenerDatosUsuario();
         this.obtenerDatosPaciente();
         this.initViewModel();
         this.init();
     }
-
-    /*private void initRecycler(){
-        recyclerPlatos = findViewById(R.id.recyclerPlatos);
-        recyclerPlatos.setLayoutManager(new LinearLayoutManager(this));
-    }*/
 
     private void initViewModel(){
         final ViewModelProvider vmp = new ViewModelProvider(this);
@@ -102,7 +91,7 @@ public class DietaActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        // Adapter para otros tipoos de datos
+        // Adapter para los días de la semana
         String[] diasDeLaSemana = getResources().getStringArray(R.array.diasDeLaSemana);
         ArrayAdapter<String> adapterDiasSemana = new ArrayAdapter<>(
                 this, android.R.layout.simple_dropdown_item_1line, diasDeLaSemana
@@ -226,7 +215,7 @@ public class DietaActivity extends AppCompatActivity {
                     TableRow.LayoutParams.WRAP_CONTENT,
                     TableRow.LayoutParams.WRAP_CONTENT
             ));
-            platosText.setMaxWidth(800); // Ajusta este valor según tus necesidades
+            platosText.setMaxWidth(800);
             platosText.setEllipsize(null);
             platosText.setSingleLine(false);
             platosText.setHorizontallyScrolling(false);
@@ -236,17 +225,6 @@ public class DietaActivity extends AppCompatActivity {
 
             tableLayoutDieta.addView(row);
         }
-    }
-
-    // Método para crear celdas con estilo básico
-    private TextView crearCelda(String texto, boolean esCabecera) {
-        TextView tv = new TextView(this);
-        tv.setText(texto != null ? texto : "");
-        tv.setPadding(16, 8, 16, 8);
-        tv.setGravity(Gravity.CENTER);
-        tv.setTextSize(14);
-        tv.setTypeface(null, esCabecera ? Typeface.BOLD : Typeface.NORMAL);
-        return tv;
     }
 
     private void mostrarTablaEdicion(List<Plato> platos) {
@@ -268,7 +246,7 @@ public class DietaActivity extends AppCompatActivity {
 
             // Obtener o crear plato vacío
             Plato plato = platosPorTramo.getOrDefault(tramo, new Plato());
-            plato.setTramoDia(tramo); // asegurar tramo asignado
+            plato.setTramoDia(tramo);
             platosEditables.put(tramo, plato);
 
             LinearLayout inputsLayout = new LinearLayout(this);
@@ -282,22 +260,21 @@ public class DietaActivity extends AppCompatActivity {
             row.addView(inputsLayout);
             tableLayoutEdicion.addView(row);
 
-            // Agregar separador (barra)
+
             View separator = new View(this);
             TableRow.LayoutParams params = new TableRow.LayoutParams(
                     TableRow.LayoutParams.MATCH_PARENT,
-                    2 // altura en píxeles (puedes ajustar)
+                    2
             );
-            params.setMargins(0, 8, 0, 8); // márgenes si deseas espacio
+            params.setMargins(0, 8, 0, 8);
             separator.setLayoutParams(params);
-            separator.setBackgroundColor(Color.LTGRAY); // o usa tu color deseado
+            separator.setBackgroundColor(Color.LTGRAY);
 
             tableLayoutEdicion.addView(separator);
         }
     }
 
     private View crearInput(Plato plato, String hint, String campo) {
-        //TextInputLayout inputLayout = new TextInputLayout(this);
         TextInputEditText editText = new TextInputEditText(this);
         editText.setHint(hint);
         editText.setBackground(null);
@@ -311,8 +288,6 @@ public class DietaActivity extends AppCompatActivity {
             @Override public void afterTextChanged(Editable s) {}
         });
 
-        //inputLayout.addView(editText);
-        //return inputLayout;
         return editText;
     }
 
@@ -357,7 +332,7 @@ public class DietaActivity extends AppCompatActivity {
                     ToastMessage.Correcto(this, "Dieta Guardada");
                     layoutVerDieta.setVisibility(View.VISIBLE);
                     layoutEditarDieta.setVisibility(View.GONE);
-                    obtenerDieta(); // ✅ Ahora aquí, una vez se ha guardado
+                    obtenerDieta();
                 } else {
                     ToastMessage.Invalido(this, "Error al guardar la dieta");
                 }
@@ -368,7 +343,7 @@ public class DietaActivity extends AppCompatActivity {
                     ToastMessage.Correcto(this, "Dieta Actualizada");
                     layoutVerDieta.setVisibility(View.VISIBLE);
                     layoutEditarDieta.setVisibility(View.GONE);
-                    obtenerDieta(); // ✅ Aquí también
+                    obtenerDieta();
                 } else {
                     ToastMessage.Invalido(this, "Error al actualizar la dieta");
                 }
@@ -376,13 +351,9 @@ public class DietaActivity extends AppCompatActivity {
         }
     }
 
-
-
     private void obtenerDatosUsuario(){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String jsonUsuario = prefs.getString("UsuarioJson", null);
-
-        Log.d("UsuarioRecibidoHomeFragment", new Gson().toJson(usuario));
 
         if(jsonUsuario != null) {
             usuario = new Gson().fromJson(jsonUsuario, Usuario.class);
@@ -391,7 +362,6 @@ public class DietaActivity extends AppCompatActivity {
 
     private void obtenerDatosPaciente(){
         paciente = (Usuario) getIntent().getSerializableExtra("paciente");
-        //Log.d("Paciente recibido otros datos", paciente.toString());
     }
 
     // Capturar el clic en el botón de regreso

@@ -36,7 +36,19 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerConsejos"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:paddingStart="15dp"/>
     </ScrollView>
+
+    <TextView
+        android:id = "@+id/noHayConsejos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No hay consejos"
+        android:textSize="18dp"
+        android:paddingStart="15dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"/>
+
 
 </LinearLayout>

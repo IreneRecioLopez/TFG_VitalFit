@@ -69,9 +69,6 @@ public class HomeFragment extends Fragment {
             binding.txtNumeroSeguridadSocial.setText(usuario.getPaciente().getNumSeguridadSocial());
         }
 
-        //String ultimaFechaUso = prefs.getString(KEY_LAST_USED_DATE, "");
-        //String fechaActual = Fecha.obtenerFechaActual();
-
         pesosViewModel.getPesoUltimo(usuario.getDni()).observe(getViewLifecycleOwner(), peso -> {
             if(!Fecha.registrarFecha(Fecha.obtenerFecha(peso.getFecha())).equals(Fecha.obtenerFechaActual())){
                 binding.edtPesoP.setEnabled(true);// habilita si es un nuevo día
@@ -82,18 +79,6 @@ public class HomeFragment extends Fragment {
                 hayPeso = true;
             }
         });
-
-        /*Log.d("Ultima fecha peso", ultimaFechaUso);
-        Log.d("Fecha actual", fechaActual);
-
-        if (!fechaActual.equals(ultimaFechaUso)) {
-            binding.edtPesoP.setEnabled(true);// habilita si es un nuevo día
-            hayPeso = false;
-        } else {
-            binding.edtPesoP.setText(usuario.getPaciente().getPesoActual().toString());
-            binding.edtPesoP.setEnabled(false); // deshabilita si ya fue usado hoy
-            hayPeso = true;
-        }*/
 
         if(hayPeso){
             Drawable edit = ContextCompat.getDrawable(getContext(), R.drawable.ic_edit);
@@ -229,8 +214,6 @@ public class HomeFragment extends Fragment {
     private void obtenerDatosUsuario(View view){
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
         String jsonUsuario = prefs.getString("UsuarioJson", null);
-
-        Log.d("UsuarioRecibidoHomeFragment", new Gson().toJson(usuario));
 
         if(jsonUsuario != null) {
             usuario = new Gson().fromJson(jsonUsuario, Usuario.class);

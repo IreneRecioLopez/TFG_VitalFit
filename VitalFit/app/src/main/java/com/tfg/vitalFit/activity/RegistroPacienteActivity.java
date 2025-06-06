@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -117,7 +116,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
         dropdownProvincia.setAdapter(arrayProvincias);
 
         btnGuardarDatos.setOnClickListener(v -> {
-            Log.e("Boton guardar", "Voy a guardar los datos");
             this.guardarDatos();
         });
 
@@ -260,7 +258,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         for (String alergia: alergiasAlimentarias) {
                                                             Alergia a = new Alergia();
                                                             String nombre = alergia.trim();
-                                                            Log.d("ALERGIA NOMBRE", nombre);
                                                             a.setAlergia(nombre);
                                                             a.setTipo("Alimentaria");
                                                             a.setPaciente(new Paciente(p.getDni()));
@@ -277,7 +274,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                         for (String alergia: alergiasMedicinales) {
                                                             Alergia a = new Alergia();
                                                             String nombre = alergia.trim();
-                                                            Log.d("ALERGIA NOMBRE", nombre);
                                                             a.setAlergia(nombre);
                                                             a.setTipo("Medicinal");
                                                             a.setPaciente(new Paciente(p.getDni()));
@@ -288,8 +284,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                             });
                                                         }
                                                     }
-
-                                                    List<Operacion> listaOperaciones = new ArrayList<>();
 
                                                     for (int i = 0; i < layoutOperaciones.getChildCount(); i++) {
                                                         View itemOperacion = layoutOperaciones.getChildAt(i);
@@ -311,7 +305,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
                                                             op.setNombre(nombre);
                                                             op.setFecha(fecha);
 
-                                                            //Crear el Viewmodel
                                                             operacionesViewModel.save(op).observe(this, operacionesResponse -> {
                                                                 if(operacionesResponse.getRpta() != 1){
                                                                     ToastMessage.Invalido(this, "Error al guardar la operacion");
@@ -363,17 +356,15 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             });
         } catch (Exception e){
             ToastMessage.Invalido(this, "Se ha producido un error " + e.getMessage());
-            Log.e("ERROR EXCEPTION", e.getMessage(), e);
         }
     }
 
     private boolean validar(){
         boolean val = true;
-        String nombre, primerApellido, segundoApellido, dni, nss, telefono, fechaNaciemiento, cp, dropProvincia, dropHospital,
+        String nombre, primerApellido, dni, nss, telefono, fechaNaciemiento, cp, dropProvincia, dropHospital,
                 peso, altura, direccion, password, passwordVal;
         nombre = edtName.getText().toString();
         primerApellido = edtApellido1.getText().toString();
-        segundoApellido = edtApellido2.getText().toString();
         dni = edtDNI.getText().toString();
         nss = edtNSS.getText().toString();
         telefono = edtTlf.getText().toString();
@@ -428,6 +419,12 @@ public class RegistroPacienteActivity extends AppCompatActivity {
             return false;
         }else{
             txtInputProvincia.setErrorEnabled(false);
+        }
+        if(direccion.isEmpty()){
+            txtInputDireccion.setError("Ingrese su dirección");
+            return false;
+        }else{
+            txtInputDireccion.setErrorEnabled(false);
         }
         if(cp.isEmpty()){
             txtInputDNI.setError("Ingrese su codigo postal");
@@ -578,21 +575,6 @@ public class RegistroPacienteActivity extends AppCompatActivity {
 
             }
         });
-        /*edtApellido2.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                txtInputApellido2.setErrorEnabled(false);
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
-            }
-        });*/
         edtDNI.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

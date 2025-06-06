@@ -23,10 +23,9 @@ public class HospitalREST {
 <span class="nc" id="L23">        return service.getHospitalById(idHospital);</span>
     }
 
-    // 🔹 Obtener hospitales por provincia
     @GetMapping(&quot;/provincia/{provincia}&quot;)
     public List&lt;Hospital&gt; getHospitalsByProvincia(@PathVariable(&quot;provincia&quot;) String provincia) {
-<span class="nc" id="L29">        return service.getHospitalsByProvincia(provincia);</span>
+<span class="nc" id="L28">        return service.getHospitalsByProvincia(provincia);</span>
     }
 
 
