@@ -41,11 +41,11 @@ public class NotificacionDiariaReceiver extends BroadcastReceiver {
         pesosApi.getPesoUltimo(dni).enqueue(new Callback<Peso>() {
             @Override
             public void onResponse(Call<Peso> call, Response<Peso> response) {
-                if (response.body() == null || !Fecha.registrarFecha(Fecha.obtenerFecha(response.body().getFecha().toString())).equals(Fecha.obtenerFechaActual())) {
+                if (response.body() == null ||
+                        !Fecha.registrarFecha(Fecha.obtenerFecha(response.body().getFecha().toString())).equals(Fecha.obtenerFechaActual())) {
                     mostrarNotificacion(context, "Peso", "No olvides registrar tu peso hoy.");
                 }
             }
-
             @Override
             public void onFailure(Call<Peso> call, Throwable t) {
             }
@@ -58,7 +58,6 @@ public class NotificacionDiariaReceiver extends BroadcastReceiver {
                     mostrarNotificacion(context, "Consejo nuevo", "Tienes consejos sin leer.");
                 }
             }
-
             @Override
             public void onFailure(Call<List<Consejo>> call, Throwable t) {
             }

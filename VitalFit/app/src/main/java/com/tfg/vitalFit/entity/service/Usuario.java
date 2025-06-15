@@ -17,6 +17,7 @@ public class Usuario implements Serializable {
     private List<Usuario> pacientesNutricionista;
     private Paciente paciente;
     private Usuario medico;
+    private Usuario nutricionista;
     private Hospital hospital;
 
     public String getDni(){ return dni; }
@@ -32,6 +33,7 @@ public class Usuario implements Serializable {
     public Paciente getPaciente(){ return paciente; }
     public Hospital getHospital(){ return hospital; }
     public Usuario getMedico(){ return medico; }
+    public Usuario getNutricionista() {return nutricionista; }
     public String getNombreCompleto() {return nombre + " " + apellido1 + " " + apellido2; }
 
     public void setDni(String DNI){ this.dni = DNI;}
@@ -47,4 +49,5 @@ public class Usuario implements Serializable {
     public void setPaciente(Paciente paciente) { this.paciente = paciente; }
     public void setHospital(Hospital hospital){ this.hospital = hospital; }
     public void setMedico(Usuario medico) { this.medico = medico; }
+    public void setNutricionista(Usuario nutricionista) { this.nutricionista = nutricionista; }
 }

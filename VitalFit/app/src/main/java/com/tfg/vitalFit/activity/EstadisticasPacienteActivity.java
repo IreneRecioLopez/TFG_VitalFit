@@ -111,6 +111,7 @@ public class EstadisticasPacienteActivity extends AppCompatActivity {
 
         chartPesos.getXAxis().setGranularity(1f); // evita valores intermedios
         chartPesos.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        chartPesos.getXAxis().setAvoidFirstLastClipping(true);
         chartPesos.getDescription().setText("Progreso de peso");
         chartPesos.animateX(1000);
         chartPesos.invalidate(); // refresca

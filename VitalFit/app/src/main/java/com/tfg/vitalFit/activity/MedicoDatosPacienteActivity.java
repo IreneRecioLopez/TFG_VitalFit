@@ -89,6 +89,7 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
 
         btnAsignarNutricionista.setOnClickListener(v -> {
             layoutAsignarNutricionista.setVisibility(View.VISIBLE);
+            dropdownNutricionista.setText(paciente.getNutricionista().getNombreCompleto());
             listaNutricionistasHospital(paciente.getHospital().getIdHospital());
         });
 
@@ -107,18 +108,21 @@ public class MedicoDatosPacienteActivity extends AppCompatActivity {
         });
 
         btnOtrosDatos.setOnClickListener(v -> {
+            layoutAsignarNutricionista.setVisibility(View.GONE);
             Intent intent = new Intent(this, OtrosDatosPacienteActivity.class);
             intent.putExtra("paciente", paciente);
             startActivity(intent);
         });
 
         btnDieta.setOnClickListener(v -> {
+            layoutAsignarNutricionista.setVisibility(View.GONE);
             Intent intent = new Intent(this, DietaActivity.class);
             intent.putExtra("paciente", paciente);
             startActivity(intent);
         });
 
         btnEstadisticas.setOnClickListener(v -> {
+            layoutAsignarNutricionista.setVisibility(View.GONE);
             Intent intent = new Intent(this, EstadisticasPacienteActivity.class);
             intent.putExtra("paciente", paciente);
             startActivity(intent);

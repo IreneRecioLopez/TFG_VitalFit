@@ -77,14 +77,13 @@ public class HomeFragment extends Fragment {
                 binding.edtPesoP.setText(usuario.getPaciente().getPesoActual().toString());
                 binding.edtPesoP.setEnabled(false); // deshabilita si ya fue usado hoy
                 hayPeso = true;
+
+                Drawable edit = ContextCompat.getDrawable(getContext(), R.drawable.ic_edit);
+                binding.btnGuardarPeso.setCompoundDrawablesWithIntrinsicBounds(null, null, edit, null);
+                binding.btnGuardarPeso.setText("Editar");
             }
         });
 
-        if(hayPeso){
-            Drawable edit = ContextCompat.getDrawable(getContext(), R.drawable.ic_edit);
-            binding.btnGuardarPeso.setCompoundDrawablesWithIntrinsicBounds(null, null, edit, null);
-            binding.btnGuardarPeso.setText("Editar");
-        }
 
         binding.btnLeerConsejos.setOnClickListener(v -> {
             startActivity(new Intent(getContext(), LeerConsejosActivity.class));
@@ -122,7 +121,6 @@ public class HomeFragment extends Fragment {
                     registrarPeso();
                 }
             }
-
         });
 
         return root;
