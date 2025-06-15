@@ -29,7 +29,7 @@ Como base de datos se ha obtado por usar una base de datos **MySQL**.
 TFG_VitalFit/
 ├── VitalFit/                                      # Frontend de la aplicación
 ├── VitalFit_Service/                              # Backend de la aplicación
-├── TFG-Vitalfit.postman_collection.json           # Dependencias del sistema
+├── TFG-Vitalfit.postman_collection.json           # API usada
 └── README.md                                      # Documentación del repositorio
 ```
 
