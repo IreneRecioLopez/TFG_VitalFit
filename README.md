@@ -30,6 +30,7 @@ TFG_VitalFit/
 ├── VitalFit/                                      # Frontend de la aplicación
 ├── VitalFit_Service/                              # Backend de la aplicación
 ├── TFG-Vitalfit.postman_collection.json           # API usada
+├── TFG_VitalFit.apk                               # Ejecutable de la aplicación
 └── README.md                                      # Documentación del repositorio
 ```
 
